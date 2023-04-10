@@ -17,20 +17,57 @@ p {
 }
 
 .page-wrapper {
-    padding: 0 40px 40px;
-    margin: 0 20%;
     height: 100%;
     min-height: 300px;
     background-color: white;
 }
 
+@media (min-width: 1081px) {
+    main.page-wrapper {
+        padding: 0 150px;
+    }
+}
+
+@media (max-width: 1080px) {
+    main.page-wrapper {
+        padding: 0 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    main.page-wrapper {
+        padding: 0 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    main.page-wrapper {
+        padding: 0 25px;
+    }
+}
+
+
 header {
-    max-height: 150px;
+    height: 100px;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 3vw;
+
+    -webkit-box-pack: justify;
+    -webkit-box-align: center;
+    position: fixed;
+    top: 0;
+    z-index: 11;
+    padding: 0 50px;
+    width: 100%;
+    background-color: rgba(10, 25, 47, 0.85);
+    backdrop-filter: blur(10px);
+    transition: all 0.25s;
+    filter: none !important;
+    pointer-events: auto !important;
+    user-select: auto !important;
 }
 
 .header-buttons {
