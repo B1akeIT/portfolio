@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="Davide Giuntoli è uno sviluppatore frontend focalizzato nei framework JavaScript, in special modo Angular, per creare esperienze digitali ottimali.">
+    <meta name="description"
+          content="Davide Giuntoli è uno sviluppatore frontend focalizzato nei framework JavaScript, in special modo Angular, per creare esperienze digitali ottimali.">
     <meta name="keywords"
           content="palestra, disegno, cultura, associazione sportiva, associazione culturale, uisp, fesik, neidan, judo, karate, aikido, taiji quan, xing yi quan, freebudo, budo, libertas, step, fitness, ginnastica artistica, pilates">
 
@@ -28,10 +29,10 @@
                 />
             </a>
         </div>
-        <div class="header-buttons">
+        <nav class="header-buttons">
             <ul class="button-list">
                 <li class="button sport-button">
-                    <a href="Sport_e_benessere.html">Chi sono</a>
+                    <a href="#introduzione">Chi sono</a>
                 </li>
                 <li class="button arte-button">
                     <a href="Arte_e_cultura.html">Esperienze</a>
@@ -43,7 +44,7 @@
                     <a href="Contatti.html">Contatti</a>
                 </li>
             </ul>
-        </div>
+        </nav>
     </header>
 
     <!-- Contenuto principale -->
@@ -67,41 +68,46 @@
             </section>
         </article>
 
-        <!-- Lista notizie -->
-        <h2 class="titolo">Notizie in rilievo</h2>
-        <article class="lista-eventi">
+        <!-- Sezione Chi sono -->
+        <article id="chi-sono">
+            <h2 class="titolo">Chi sono</h2>
 
-            <section class="evento">
+            <section class="dettagli">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu turpis quis diam bibendum dictum
+                    ac in quam. Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare,
+                    dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed
+                    sapien aliquet pulvinar. Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis lorem,
+                    id luctus augue mi eget felis. Vivamus vulputate et sapien eu semper. Fusce hendrerit quam eget dui
+                    rhoncus, cursus accumsan purus gravida. Donec scelerisque elementum magna, non aliquet turpis
+                    laoreet ut. Suspendisse potenti. Integer eleifend arcu nec leo mollis rutrum. Donec ut volutpat
+                    risus, et vulputate erat. Nunc dictum massa sed diam ultricies commodo. Cras lacinia augue ut mollis
+                    sollicitudin.
+                </p>
+                <p>
+                    Fino ad ora, ho avuto il piacere di lavorare con...
+                </p>
+                <p>
+                    Infine, sto frequentando un corso di formazione tenuto dall' <a>Accademia CODE</a> di Torino per una
+                    solida preparazione come full stack developer. Questo stesso sito sarà oggetto della loro
+                    valutazione!
+                </p>
+                <p>
+                    Questi sono i linguaggi e le tecnologie con cui sto lavorando attualmente:
+                </p>
+                <ul class="lista-skills">
+                    <li>Angular 12+</li>
+                    <li>JavaScript Es6</li>
+                    <li>HTML + Scss</li>
+                    <li>PHP</li>
+                    <li>MySQL</li>
+                    <li>Wordpress</li>
+                </ul>
                 <div class="immagine-evento">
                     <img
                             src="img/immagine_home_2.jpg" alt="Immagine home 2"
                             title="Immagine home 2"
                     />
-                </div>
-                <div class="dettagli-evento">
-                    <div class="header-evento">
-                            <span class="titolo-evento">
-                                Judo, 50% di sconto per il mese di ottobre!
-                            </span>
-                        <span class="data-evento">03 / 10 / 2022</span>
-                    </div>
-                    <div class="descrizione-evento">
-                        <p>
-                            Vieni a scoprire il nostro corso di judo! Solo per il mese di ottobre, se ti iscrivi avrai
-                            il 50% di sconto sulla prima quota.*
-                        </p>
-                        <p>
-                            Ricorda di prenotare la tua prova al 3476332630 e riceverai le informazioni circa gli orari
-                            e le misure di sicurezza anticovid-19.
-                        </p>
-                        <p>
-                            Non vedi che è un vero affare? Non perdere l'occasione! Ti aspettiamo in Via Luciano Luigi
-                            9, Pinerolo (TO).
-                        </p>
-                    </div>
-                    <div class="footer-evento">
-                        <a href="Home_page.html"><span>Leggi tutto</span></a>
-                    </div>
                 </div>
             </section>
 

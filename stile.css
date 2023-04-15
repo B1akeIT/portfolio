@@ -2,12 +2,16 @@
 
 body {
     margin: 0;
-    font-family: "Calibre","Inter","San Francisco","SF Pro Text",-apple-system,system-ui,sans-serif;
+    font-family: "Calibre", "Inter", "San Francisco", "SF Pro Text", -apple-system, system-ui, sans-serif;
+}
+
+p, ul {
+    color: #8892B8;
 }
 
 p {
     font-weight: 500;
-    color: #8892B8;
+    margin: 0 0 5px;
 }
 
 .background {
@@ -167,7 +171,7 @@ h1 .titolo-piccolo {
     color: #64FFDA;
     font-size: 14px;
     font-weight: 400;
-    font-family: "SF Mono","Fira Code","Fira Mono","Roboto Mono",monospace;
+    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
 }
 
 h1 .titolo-grande {
@@ -175,7 +179,7 @@ h1 .titolo-grande {
     font-weight: 600;
     color: #CCD6F6;
     line-height: 1.1;
-    font-family: "Calibre","Inter","San Francisco","SF Pro Text",-apple-system,system-ui,sans-serif;
+    font-family: "Calibre", "Inter", "San Francisco", "SF Pro Text", -apple-system, system-ui, sans-serif;
 }
 
 h2.titolo-secondario {
@@ -237,6 +241,39 @@ section.evento {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.dettagli {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.lista-skills {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(140px, 200px));
+    gap: 0 10px;
+    padding: 0;
+    margin: 20px 0 0;
+    overflow: hidden;
+    list-style: none;
+}
+
+.lista-skills li {
+    position: relative;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    font-size: 13px;
+}
+
+.lista-skills li:before {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: #64FFDA;
+    font-size: 14px;
+    line-height: 16px;
 }
 
 .header-evento {
