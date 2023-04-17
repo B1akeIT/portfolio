@@ -1,0 +1,333 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+}
+
+p {
+    font-weight: 500;
+}
+
+.background {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    background-color: rgba(78, 115, 141, 0.5);
+}
+
+.page-wrapper {
+    padding: 0 40px 40px;
+    margin: 0 20%;
+    height: 100%;
+    min-height: 300px;
+    background-color: white;
+}
+
+header {
+    max-height: 150px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3vw;
+}
+
+.header-buttons {
+    display: flex;
+    width: -webkit-fill-available;
+    justify-content: flex-end;
+}
+
+.button-list {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    /* white-space: nowrap; */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.button-list li {
+    display: inline-block;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 120%;
+}
+
+.button-list li a {
+    text-decoration: none;
+    color: #495670;
+    transition: all 0.2s ease;
+}
+
+.button-list li.sport-button:hover a,
+.button-list li.sport-button.attivo a {
+    color: #F46F51;
+}
+
+.button-list li.arte-button:hover a,
+.button-list li.arte-button.attivo a {
+    color: #40F85D;
+}
+
+.button-list li.docenti-button:hover a,
+.button-list li.docenti-button.attivo a {
+    color: #BE5AFB;
+}
+
+.button-list li.maestri-button:hover a,
+.button-list li.maestri-button.attivo a {
+    color: #FABB1B;
+}
+
+.button-list li.contatti-button:hover a,
+.button-list li.contatti-button.attivo a {
+    color: #5A9CFF;
+}
+
+
+/***** Stile home page + evento singolo *****/
+/* Molti elementi di queste pagine sono condivisi, quindi sono nella stessa sezione */
+
+.home-page h2.titolo,
+.elemento-singolo h2.titolo {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 40px;
+    border-bottom: 2px solid #CCCCCC;
+
+    color: #495670;
+}
+
+article.lista-eventi {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+section.evento {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.immagine-evento {
+    width: fit-content;
+}
+
+.immagine-evento img {
+    border: 5px solid #4E738D;
+    max-width: 250px;
+    max-height: 250px;
+}
+
+.dettagli-evento {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.header-evento {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.titolo-evento {
+    font-size: 22px;
+    line-height: 120%;
+    font-weight: bold;
+    color: #495670;
+}
+
+.data-evento {
+    font-size: 16px;
+    line-height: 120%;
+    font-weight: 500;
+    color: #CCCCCC;
+}
+
+.descrizione-evento {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Le proprietà webkit servono per dare un massimo di righe di contenuto che da mostrare. */
+.home-page .descrizione-evento {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
+
+.descrizione-evento a {
+    font-weight: 500;
+    color: #495670;
+}
+
+.descrizione-evento p {
+    margin: 0;
+}
+
+.descrizione-evento p:not(:last-child) {
+    margin-bottom: 5px;
+}
+
+.footer-evento {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+}
+
+.footer-evento a {
+    color: black;
+    line-height: 200%;
+}
+
+
+/***** Stile pagina "Sport e Benessere" *****/
+/* Molti elementi di queste pagine sono condivisi, quindi sono nella stessa sezione */
+
+
+.pagina-sport h2.titolo,
+.pagina-arte h2.titolo,
+.pagina-contatti h2.titolo {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 40px;
+    margin: 20px 0 10px 0;
+}
+
+.pagina-sport h2.titolo {
+    color: #F46F51;
+    -webkit-text-stroke: 0.5px #721500;
+}
+
+.pagina-arte h2.titolo {
+    color: #40F85D;
+    -webkit-text-stroke: 0.5px #0FAE29;
+}
+
+.pagina-contatti h2.titolo {
+    color: #5A9CFF;
+    -webkit-text-stroke: 0.5px #1953AA;
+}
+
+.pagina-sport .banner-immagini {
+    display: flex;
+    margin: 0 -40px;
+}
+
+.pagina-sport .banner-immagini img {
+    width: 50%;
+}
+
+.pagina-arte .banner-immagini {
+    display: flex;
+    justify-content: center;
+}
+
+.pagina-contatti .banner-principale {
+    display: flex;
+    flex-direction: column;
+}
+
+.pagina-arte .banner-immagini img {
+    width: 30%;
+    max-width: 300px;
+}
+
+.pagina-sport .descrizione-pagina a {
+    font-weight: 500;
+    color: #F46F51;
+}
+
+.pagina-arte .descrizione-pagina a,
+.pagina-arte .descrizione-accademia a {
+    font-weight: 500;
+    color: #05E429;
+}
+
+.descrizione-pagina p {
+    margin: 0;
+    font-weight: 500;
+}
+
+.descrizione-pagina p:not(:last-child) {
+    margin-bottom: 5px;
+}
+
+.contenuto-banner {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+.sale-palestra h3.sottotitolo,
+.discorso-accademia h3.sottotitolo,
+.contenuto-banner h3.sottotitolo {
+    font-size: 26px;
+    line-height: 36px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.sale-palestra h3.sottotitolo {
+    color: #F34923;
+}
+
+.discorso-accademia h3.sottotitolo {
+    color: #40F85D;
+}
+
+.contenuto-banner h3.sottotitolo {
+    color: #5A9CFF;
+}
+
+.contenuto-banner {
+    line-height: 180%;
+}
+
+.contenuto-banner a {
+    color: black;
+}
+
+.container-immagini {
+    display: flex;
+    gap: 40px;
+}
+
+.immagine-sala {
+    max-width: 340px;
+}
+
+.immagine-mappa {
+    width: 50%;
+    max-width: 500px;
+}
+
+.immagine-sala img,
+.immagine-arte img,
+.immagine-mappa img {
+    width: 100%;
+    border: 5px solid #4E738D;
+}
+
+.immagine-sala img:hover {
+    border: 5px solid #F34923;
+}
+
+.immagine-arte img:hover {
+    border: 5px solid #05E429;
+}
+
+
+.immagine-mappa img:hover {
+    border: 5px solid #5A9CFF;
+}
