@@ -580,9 +580,14 @@ p.periodo-lavorativo {
     }
 }
 
-@media (max-width: 480px) {
+#progetti-in-evidenza li.progetto-in-evidenza .contenuto-progetto {
+    position: relative;
+    grid-area: 1 / 1 / -1 / 7;
+}
+
+@media (max-width: 1080px) {
     #progetti-in-evidenza li.progetto-in-evidenza .contenuto-progetto {
-        padding: 30px 25px 20px;
+        grid-column: 1 / 9;
     }
 }
 
@@ -599,15 +604,10 @@ p.periodo-lavorativo {
     }
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 480px) {
     #progetti-in-evidenza li.progetto-in-evidenza .contenuto-progetto {
-        grid-column: 1 / 9;
+        padding: 30px 25px 20px;
     }
-}
-
-#progetti-in-evidenza li.progetto-in-evidenza .contenuto-progetto {
-    position: relative;
-    grid-area: 1 / 1 / -1 / 7;
 }
 
 .progetto-in-evidenza .sottotitolo-progetto {
@@ -700,20 +700,20 @@ p.periodo-lavorativo {
     }
 }
 
-@media (max-width: 768px) {
-    .progetto-in-evidenza .immagine-progetto {
-        grid-column: 1 / -1;
-        height: 100%;
-        opacity: 0.25;
-    }
-}
-
 .progetto-in-evidenza .immagine-progetto {
     box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
     transition: 0.25s;
     grid-area: 1 / 6 / -1 / -1;
     position: relative;
     z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .progetto-in-evidenza .immagine-progetto {
+        grid-column: 1 / -1;
+        height: 100%;
+        opacity: 0.25;
+    }
 }
 
 .progetto-in-evidenza .immagine-progetto a {
