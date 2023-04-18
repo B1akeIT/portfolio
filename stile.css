@@ -233,7 +233,7 @@ h2 {
 
 h3 {
     margin: 0 0 10px;
-    font-weight: 600;
+    font-weight: 700;
     color: #CCD6F6;
     line-height: 1.1;
 }
@@ -297,6 +297,7 @@ p.dettagli-introduzione a::after {
     font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
     font-size: clamp(16px, 3vw, 20px);
     font-weight: 400;
+    align-self: end;
 }
 
 @media (max-width: 768px) {
@@ -424,6 +425,9 @@ p.dettagli-introduzione a::after {
 .dettagli {
     display: flex;
     flex-direction: column;
+}
+
+#chi-sono .dettagli {
     gap: 10px;
 }
 
@@ -461,11 +465,15 @@ p.dettagli-introduzione a::after {
     counter-increment: section 2;
 }
 
+#esperienze-lavorative .dettagli {
+    padding: 20px 0;
+}
+
 h3.esperienza-lavorativa {
-    margin-bottom: 2px;
-    font-size: 22px;
+    margin-bottom: 5px;
+    font-size: 21px;
     font-weight: 500;
-    line-height: 1.3;
+    line-height: 1.4;
 }
 
 h3 .nome-azienda {
@@ -478,6 +486,297 @@ p.periodo-lavorativo {
     color: #8AB2D1;
     font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
     font-size: 13px;
+}
+
+#esperienze-lavorative ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-size: 18px;
+    font-family: "Calibre", "Inter", "San Francisco", "SF Pro Text", -apple-system, system-ui, sans-serif;;
+}
+
+#esperienze-lavorative ul li {
+    display: list-item;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 10px;
+}
+
+#esperienze-lavorative ul li::before {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: #64FFDA;
+}
+
+
+/* Sezione: Introduzione */
+
+#progetti .titolo-numerato {
+    counter-increment: section 3;
+}
+
+#progetti-in-evidenza ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+@media (max-width: 480px) {
+    #progetti-in-evidenza li.progetto-in-evidenza:not(:last-of-type) {
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    #progetti-in-evidenza li.progetto-in-evidenza:not(:last-of-type) {
+        margin-bottom: 70px;
+    }
+}
+
+#progetti-in-evidenza li.progetto-in-evidenza:not(:last-of-type) {
+    margin-bottom: 100px;
+}
+
+#progetti-in-evidenza li.progetto-in-evidenza {
+    position: relative;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(12, 1fr);
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    #progetti-in-evidenza li.progetto-in-evidenza {
+        box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+        transition: 0.25s;
+    }
+}
+
+#progetti-in-evidenza li.progetto-in-evidenza:nth-of-type(2n+1) .contenuto-progetto {
+    grid-column: 7 / -1;
+    text-align: right;
+}
+
+@media (max-width: 1080px) {
+    #progetti-in-evidenza li.progetto-in-evidenza:nth-of-type(2n+1) .contenuto-progetto {
+        grid-column: 5 / -1;
+    }
+}
+
+@media (max-width: 768px) {
+    #progetti-in-evidenza li.progetto-in-evidenza:nth-of-type(2n+1) .contenuto-progetto {
+        grid-column: 1 / -1;
+        padding: 40px 40px 30px;
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    #progetti-in-evidenza li.progetto-in-evidenza:nth-of-type(2n+1) .contenuto-progetto {
+        padding: 25px 25px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    #progetti-in-evidenza li.progetto-in-evidenza .contenuto-progetto {
+        padding: 30px 25px 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    #progetti-in-evidenza li.progetto-in-evidenza .contenuto-progetto {
+        display: flex;
+        flex-direction: column;
+        -webkit-box-pack: center;
+        justify-content: center;
+        height: 100%;
+        grid-column: 1 / -1;
+        padding: 40px 40px 30px;
+        z-index: 5;
+    }
+}
+
+@media (max-width: 1080px) {
+    #progetti-in-evidenza li.progetto-in-evidenza .contenuto-progetto {
+        grid-column: 1 / 9;
+    }
+}
+
+#progetti-in-evidenza li.progetto-in-evidenza .contenuto-progetto {
+    position: relative;
+    grid-area: 1 / 1 / -1 / 7;
+}
+
+.progetto-in-evidenza .sottotitolo-progetto {
+    margin: 10px 0;
+    color: #64FFDA;
+    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+@media (max-width: 768px) {
+    .progetto-in-evidenza .titolo-progetto {
+        color: #E6F1FF;
+    }
+}
+
+.progetto-in-evidenza .titolo-progetto {
+    color: #CCD6F6;
+    font-size: clamp(24px, 5vw, 28px);
+}
+
+@media (max-width: 768px) {
+    .progetto-in-evidenza .titolo-progetto a::before {
+        content: "";
+        display: block;
+        position: absolute;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    .progetto-in-evidenza .titolo-progetto a {
+        position: static;
+    }
+}
+
+.progetto-in-evidenza .titolo-progetto a {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    text-decoration: none;
+    text-decoration-skip-ink: auto;
+    color: inherit;
+    transition: 0.25s;
+}
+
+.progetto-in-evidenza .titolo-progetto a:hover,
+.progetto-in-evidenza .titolo-progetto a:focus {
+    color: #64FFDA;
+}
+
+.progetto-in-evidenza .descrizione-progetto {
+    box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+    transition: 0.25s;
+    position: relative;
+    z-index: 2;
+    padding: 25px;
+    border-radius: 4px;
+    background-color: #112240;
+    color: #A8B2D1;
+    font-size: 18px;
+}
+
+@media (max-width: 768px) {
+    .progetto-in-evidenza .descrizione-progetto {
+        padding: 20px 0;
+        background-color: transparent;
+        box-shadow: none;
+    }
+}
+
+.progetto-in-evidenza .descrizione-progetto p:last-child,
+.progetto-in-evidenza .descrizione-progetto p:last-of-type {
+    margin: 0;
+}
+
+.progetto-in-evidenza .descrizione-progetto p {
+    margin: 0 0 15px;
+}
+
+.progetto-in-evidenza:nth-of-type(2n+1) .immagine-progetto {
+    grid-column: 1 / 8;
+}
+
+@media (max-width: 768px) {
+    .progetto-in-evidenza:nth-of-type(2n+1) .immagine-progetto {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .progetto-in-evidenza .immagine-progetto {
+        grid-column: 1 / -1;
+        height: 100%;
+        opacity: 0.25;
+    }
+}
+
+.progetto-in-evidenza .immagine-progetto {
+    box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+    transition: 0.25s;
+    grid-area: 1 / 6 / -1 / -1;
+    position: relative;
+    z-index: 1;
+}
+
+.progetto-in-evidenza .immagine-progetto a {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: #64FFDA;;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+.progetto-in-evidenza .immagine-progetto a::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    z-index: 3;
+    transition: 0.25s;
+    background-color: #0A192F;
+    mix-blend-mode: screen;
+}
+
+@media (max-width: 768px) {
+    .progetto-in-evidenza .immagine-progetto div {
+        object-fit: cover;
+        width: auto;
+        height: 100%;
+        filter: grayscale(100%) contrast(1) brightness(50%);
+    }
+}
+
+.progetto-in-evidenza .immagine-progetto div {
+    border-radius: 4px;
+    mix-blend-mode: multiply;
+    filter: grayscale(100%) contrast(1) brightness(90%);
+    width: 100%;
+    max-width: 100%;
+    vertical-align: middle;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.progetto-in-evidenza .immagine-progetto img {
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    margin: 0;
+    max-width: none;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    object-fit: cover;
+
+    transform: translateZ(0);
+    transition: opacity .25s linear;
+    will-change: opacity;
+    opacity: 1;
 }
 
 
