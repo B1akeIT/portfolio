@@ -529,10 +529,8 @@ p.periodo-lavorativo {
     margin: 0;
 }
 
-@media (max-width: 480px) {
-    #progetti-in-evidenza li.progetto-in-evidenza:not(:last-of-type) {
-        margin-bottom: 30px;
-    }
+#progetti-in-evidenza li.progetto-in-evidenza:not(:last-of-type) {
+    margin-bottom: 100px;
 }
 
 @media (max-width: 768px) {
@@ -541,8 +539,10 @@ p.periodo-lavorativo {
     }
 }
 
-#progetti-in-evidenza li.progetto-in-evidenza:not(:last-of-type) {
-    margin-bottom: 100px;
+@media (max-width: 480px) {
+    #progetti-in-evidenza li.progetto-in-evidenza:not(:last-of-type) {
+        margin-bottom: 30px;
+    }
 }
 
 #progetti-in-evidenza li.progetto-in-evidenza {
@@ -788,7 +788,7 @@ p.periodo-lavorativo {
     right: 0;
     top: 0;
     width: 100%;
-    object-fit: contain;
+    object-fit: cover;
 
     transform: translateZ(0);
     transition: opacity .25s linear;
@@ -798,20 +798,21 @@ p.periodo-lavorativo {
 
 /* Progetti secondari */
 
-@media (max-width: 1080px) {
-    .tabella-progetti-secondari {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    }
-}
-
 .tabella-progetti-secondari {
     list-style: none;
     padding: 0;
     margin: 50px 0 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 15px;
+    column-gap: 15px;
+    row-gap: 80px;
     position: relative;
+}
+
+@media (max-width: 1080px) {
+    .tabella-progetti-secondari {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
 }
 
 .progetto-secondario {
@@ -832,6 +833,9 @@ p.periodo-lavorativo {
     background-color: #112240;
     transition: 0.25s;
     overflow: auto;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    height: 100%;
 }
 
 .progetto-secondario .header {
