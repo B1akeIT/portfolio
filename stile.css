@@ -1,8 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+/*
+@font-face {
+    font-family: "Calibre";
+    src: url("calibre/Calibre-ThinItalic.woff2") format("woff2"),
+    url("calibre/Calibre-Thin.woff2") format("woff2"),
+    url("calibre/Calibre-SemiboldItalic.woff2") format("woff2"),
+    url("calibre/Calibre-Semibold.woff2") format("woff2"),
+    url("calibre/Calibre-RegularItalic.woff2") format("woff2"),
+    url("calibre/Calibre-Regular.woff2") format("woff2"),
+    url("calibre/Calibre-MediumItalic.woff2") format("woff2"),
+    url("calibre/Calibre-Medium.woff2") format("woff2"),
+    url("calibre/Calibre-LightItalic.woff2") format("woff2"),
+    url("calibre/Calibre-Light.woff2") format("woff2"),
+    url("calibre/Calibre-BoldItalic.woff2") format("woff2"),
+    url("calibre/Calibre-Bold.woff2") format("woff2"),
+    url("calibre/Calibre-BlackItalic.woff2") format("woff2"),
+    url("calibre/Calibre-Black.woff2") format("woff2");
+}
+*/
+
+@font-face {
+    font-family: "Calibre";
+url("fonts/Calibre-Regular.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "SF Mono";
+url("fonts/SFMono-Regular.woff2") format("woff2");
+}
+
+
 body {
     margin: 0;
-    font-family: "Calibre", "Inter", "San Francisco", "SF Pro Text", -apple-system, system-ui, sans-serif;
+    font-family: "Calibre", system-ui, sans-serif;
     background-color: #0A192F;
 }
 
@@ -512,6 +543,17 @@ p.periodo-lavorativo {
 
 
 /* Sezione Progetti */
+#progetti section {
+    margin: 0px auto;
+    padding: 100px 0px;
+    max-width: 1000px;
+}
+
+@media (max-width: 768px) {
+    #progetti section {
+        padding: 80px 0;
+    }
+}
 
 /* Progetti in evidenza */
 
@@ -798,6 +840,28 @@ p.periodo-lavorativo {
 
 /* Progetti secondari */
 
+h2.titolo-progetti-secondari {
+    font-size: clamp(24px, 5vw, 36px);
+    font-family: "Calibre", "Inter", "San Francisco", "SF Pro Text", -apple-system, system-ui, sans-serif;
+    text-align: center;
+    margin: 0 0 10px;
+    font-weight: 600;
+    color: #CCD6F6;
+    line-height: 1.1;
+}
+
+a.link-progetti-secondari {
+    font-size: 14px;
+    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    display: inline-block;
+    position: relative;
+    color: #64FFDA;
+    transition: 0.25s;
+    text-decoration: none;
+    text-decoration-skip-ink: auto;
+}
+
+
 .tabella-progetti-secondari {
     list-style: none;
     padding: 0;
@@ -822,7 +886,7 @@ p.periodo-lavorativo {
 }
 
 .progetto-secondario .contenuto-progetto {
-    box-shadow: 0 10px 30px -15px  rgba(2, 12, 27, 0.7);
+    box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
     display: flex;
     -webkit-box-align: center;
     flex-direction: column;
@@ -907,9 +971,9 @@ p.periodo-lavorativo {
 }
 
 .progetto-secondario ul.lista-tecnologie li {
-     font-family: "SF Mono","Fira Code","Fira Mono","Roboto Mono",monospace;
-     font-size: 12px;
-     line-height: 1.75;
+    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    font-size: 12px;
+    line-height: 1.75;
 }
 
 .progetto-secondario ul.lista-tecnologie li:not(:last-of-type) {
@@ -919,209 +983,3 @@ p.periodo-lavorativo {
 
 
 
-
-
-
-
-
-
-
-.header-evento {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.titolo-evento {
-    font-size: 22px;
-    line-height: 120%;
-    font-weight: bold;
-    color: #495670;
-}
-
-.data-evento {
-    font-size: 16px;
-    line-height: 120%;
-    font-weight: 500;
-    color: #CCCCCC;
-}
-
-.descrizione-evento {
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* Le proprietà webkit servono per dare un massimo di righe di contenuto che da mostrare. */
-.home-page .descrizione-evento {
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
-}
-
-.descrizione-evento a {
-    font-weight: 500;
-    color: #495670;
-}
-
-.descrizione-evento p {
-    margin: 0;
-}
-
-.descrizione-evento p:not(:last-child) {
-    margin-bottom: 5px;
-}
-
-.footer-evento {
-    display: flex;
-    width: 100%;
-    justify-content: end;
-}
-
-.footer-evento a {
-    color: black;
-    line-height: 200%;
-}
-
-
-/***** Stile pagina "Sport e Benessere" *****/
-/* Molti elementi di queste pagine sono condivisi, quindi sono nella stessa sezione */
-
-
-.pagina-sport h2.titolo,
-.pagina-arte h2.titolo,
-.pagina-contatti h2.titolo {
-    font-style: normal;
-    font-weight: 600;
-    font-size: 34px;
-    line-height: 40px;
-    margin: 20px 0 10px 0;
-}
-
-.pagina-sport h2.titolo {
-    color: #F46F51;
-    -webkit-text-stroke: 0.5px #721500;
-}
-
-.pagina-arte h2.titolo {
-    color: #40F85D;
-    -webkit-text-stroke: 0.5px #0FAE29;
-}
-
-.pagina-contatti h2.titolo {
-    color: #5A9CFF;
-    -webkit-text-stroke: 0.5px #1953AA;
-}
-
-.pagina-sport .banner-immagini {
-    display: flex;
-    margin: 0 -40px;
-}
-
-.pagina-sport .banner-immagini img {
-    width: 50%;
-}
-
-.pagina-arte .banner-immagini {
-    display: flex;
-    justify-content: center;
-}
-
-.pagina-contatti .banner-principale {
-    display: flex;
-    flex-direction: column;
-}
-
-.pagina-arte .banner-immagini img {
-    width: 30%;
-    max-width: 300px;
-}
-
-.pagina-sport .descrizione-pagina a {
-    font-weight: 500;
-    color: #F46F51;
-}
-
-.pagina-arte .descrizione-pagina a,
-.pagina-arte .descrizione-accademia a {
-    font-weight: 500;
-    color: #05E429;
-}
-
-.descrizione-pagina p {
-    margin: 0;
-    font-weight: 500;
-}
-
-.descrizione-pagina p:not(:last-child) {
-    margin-bottom: 5px;
-}
-
-.contenuto-banner {
-    display: flex;
-    flex-direction: row;
-    gap: 50px;
-}
-
-.sale-palestra h3.sottotitolo,
-.discorso-accademia h3.sottotitolo,
-.contenuto-banner h3.sottotitolo {
-    font-size: 26px;
-    line-height: 36px;
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-
-.sale-palestra h3.sottotitolo {
-    color: #F34923;
-}
-
-.discorso-accademia h3.sottotitolo {
-    color: #40F85D;
-}
-
-.contenuto-banner h3.sottotitolo {
-    color: #5A9CFF;
-}
-
-.contenuto-banner {
-    line-height: 180%;
-}
-
-.contenuto-banner a {
-    color: black;
-}
-
-.container-immagini {
-    display: flex;
-    gap: 40px;
-}
-
-.immagine-sala {
-    max-width: 340px;
-}
-
-.immagine-mappa {
-    width: 50%;
-    max-width: 500px;
-}
-
-.immagine-sala img,
-.immagine-arte img,
-.immagine-mappa img {
-    width: 100%;
-    border: 5px solid #4E738D;
-}
-
-.immagine-sala img:hover {
-    border: 5px solid #F34923;
-}
-
-.immagine-arte img:hover {
-    border: 5px solid #05E429;
-}
-
-
-.immagine-mappa img:hover {
-    border: 5px solid #5A9CFF;
-}
