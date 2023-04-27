@@ -184,9 +184,9 @@ header {
 }
 
 
-/***** Stile home page *****/
+/********** Stile home page **********/
 
-/* Sezione: Introduzione */
+/***** Sezione Introduzione  *****/
 
 .home-page h2.titolo,
 .elemento-singolo h2.titolo {
@@ -199,10 +199,10 @@ header {
     color: #495670;
 }
 
-@media (max-width: 480px) {
-    article {
-        padding: 60px 0;
-    }
+article {
+    margin: 0 auto;
+    padding: 100px 0;
+    max-width: 1000px;
 }
 
 @media (max-width: 768px) {
@@ -211,10 +211,10 @@ header {
     }
 }
 
-article {
-    margin: 0 auto;
-    padding: 100px 0;
-    max-width: 1000px;
+@media (max-width: 480px) {
+    article {
+        padding: 60px 0;
+    }
 }
 
 article#introduzione {
@@ -307,7 +307,7 @@ p.dettagli-introduzione a::after {
     opacity: 0.5;
 }
 
-/* Sezione: Chi sono */
+/***** Sezione Chi sono  *****/
 
 .titolo-numerato {
     display: flex;
@@ -459,7 +459,15 @@ p.dettagli-introduzione a::after {
 }
 
 #chi-sono .dettagli {
-    gap: 10px;
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 50px;
+}
+
+@media (max-width: 768px) {
+    #chi-sono .dettagli {
+        display: block;
+    }
 }
 
 .lista-skills {
@@ -490,7 +498,7 @@ p.dettagli-introduzione a::after {
 }
 
 
-/* Sezione: Introduzione */
+/***** Sezione Introduzione  *****/
 
 #esperienze-lavorative .titolo-numerato::before {
     counter-increment: section 2;
@@ -542,10 +550,11 @@ p.periodo-lavorativo {
 }
 
 
-/* Sezione Progetti */
+/***** Sezione Progetti *****/
+
 #progetti section {
-    margin: 0px auto;
-    padding: 100px 0px;
+    margin: 0 auto;
+    padding: 100px 0;
     max-width: 1000px;
 }
 
@@ -979,6 +988,66 @@ a.link-progetti-secondari {
 .progetto-secondario ul.lista-tecnologie li:not(:last-of-type) {
     margin-right: 15px;
 }
+
+/***** Sezione Contatti *****/
+
+section#sezione-contatti {
+    max-width: 600px;
+    margin: 0 auto 100px;
+    text-align: center;
+}
+
+article#contatti p.contatti-sottotitolo {
+    display: block;
+    margin-bottom: 20px;
+    color: #64FFDA;
+    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+article#contatti p.contatti-sottotitolo::before {
+    bottom: 0;
+    font-size: 16px;
+    position: relative;
+    counter-increment: section 1;
+    content: "04.";
+    margin-right: 10px;
+    color: #64FFDA;
+    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    font-weight: 400;
+
+}
+
+article#contatti h2.contatti-titolo {
+    font-size: clamp(30px, 4vw, 45px);
+    margin: 0 0 10px;
+    font-weight: 600;
+    color: #CCD6F6;
+    line-height: 1.1;
+}
+
+article#contatti .contatti-descrizione {
+    padding-top: 10px;
+    font-weight: 400;
+}
+
+article#contatti a.contatti-email {
+    color: #64FFDA;
+    background-color: transparent;
+    border: 1px solid #64FFDA;
+    border-radius: 4px;
+    padding: 1.25rem 1.75rem;
+    font-size: 18px;
+    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    line-height: 1;
+    text-decoration: none;
+    transition: 0.25s;
+    margin-top: 50px;
+}
+
+
+
 
 
 
