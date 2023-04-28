@@ -128,6 +128,41 @@ header {
     user-select: auto !important;
 }
 
+aside#social {
+    width: 40px;
+    position: fixed;
+    bottom: 0;
+    left: 40px;
+    right: auto;
+    z-index: 10;
+    color: #A8B2D1;
+}
+
+aside#social .lista-social {
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+aside#social .lista-social a {
+    padding: 10px;
+    display: inline-block;
+    text-decoration: none;
+    text-decoration-skip-ink: auto;
+    color: inherit;
+    position: relative;
+    transition: 0.25s;
+}
+
+aside#social .lista-social svg {
+    width: 20px;
+    height: 20px;
+}
+
 aside#email {
     width: 40px;
     position: fixed;
@@ -144,6 +179,16 @@ aside#email div {
     -webkit-box-align: center;
     align-items: center;
     position: relative;
+}
+
+aside#email div::after,
+aside#social .lista-social::after {
+    content: "";
+    display: block;
+    width: 1px;
+    height: 90px;
+    margin: 0 auto;
+    background-color: #A8B2D1;
 }
 
 aside#email a {
@@ -164,13 +209,10 @@ aside#email a {
     transition: 0.25s;
 }
 
-aside#email div::after {
-    content: "";
-    display: block;
-    width: 1px;
-    height: 90px;
-    margin: 0 auto;
-    background-color: #A8B2D1;
+@media (max-width: 768px) {
+    aside {
+        display: none;
+    }
 }
 
 .header-buttons {
@@ -203,30 +245,6 @@ aside#email div::after {
     transition: all 0.2s ease;
 }
 
-.button-list li.sport-button:hover a,
-.button-list li.sport-button.attivo a {
-    color: #F46F51;
-}
-
-.button-list li.arte-button:hover a,
-.button-list li.arte-button.attivo a {
-    color: #40F85D;
-}
-
-.button-list li.docenti-button:hover a,
-.button-list li.docenti-button.attivo a {
-    color: #BE5AFB;
-}
-
-.button-list li.maestri-button:hover a,
-.button-list li.maestri-button.attivo a {
-    color: #FABB1B;
-}
-
-.button-list li.contatti-button:hover a,
-.button-list li.contatti-button.attivo a {
-    color: #5A9CFF;
-}
 
 
 /********** Stile home page **********/
