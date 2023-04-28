@@ -128,6 +128,51 @@ header {
     user-select: auto !important;
 }
 
+aside#email {
+    width: 40px;
+    position: fixed;
+    bottom: 0;
+    left: auto;
+    right: 40px;
+    z-index: 10;
+    color: #A8B2D1;
+}
+
+aside#email div {
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+}
+
+aside#email a {
+    margin: 20px auto;
+    padding: 10px;
+    font-family: "SF Mono", sans-serif;
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: 0.1em;
+    -webkit-writing-mode: vertical-rl;
+    writing-mode: vertical-rl;
+
+    display: inline-block;
+    text-decoration: none;
+    text-decoration-skip-ink: auto;
+    color: inherit;
+    position: relative;
+    transition: 0.25s;
+}
+
+aside#email div::after {
+    content: "";
+    display: block;
+    width: 1px;
+    height: 90px;
+    margin: 0 auto;
+    background-color: #A8B2D1;
+}
+
 .header-buttons {
     display: flex;
     width: -webkit-fill-available;
