@@ -158,6 +158,13 @@ aside#social .lista-social a {
     transition: 0.25s;
 }
 
+
+aside#social .lista-social a:hover,
+aside#social .lista-social a:focus {
+    transform: translateY(-3px);
+    color: #64FFDA;
+}
+
 aside#social .lista-social svg {
     width: 20px;
     height: 20px;
@@ -194,7 +201,7 @@ aside#social .lista-social::after {
 aside#email a {
     margin: 20px auto;
     padding: 10px;
-    font-family: "SF Mono", sans-serif;
+    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
     font-size: 12px;
     line-height: 1.2;
     letter-spacing: 0.1em;
@@ -207,6 +214,13 @@ aside#email a {
     color: inherit;
     position: relative;
     transition: 0.25s;
+}
+
+aside#email a:hover,
+aside#email a:focus {
+    transform: translateY(-3px);
+    color: #64FFDA;
+    letter-spacing: 0.15em;
 }
 
 @media (max-width: 768px) {
@@ -244,7 +258,6 @@ aside#email a {
     color: #495670;
     transition: all 0.2s ease;
 }
-
 
 
 /********** Stile home page **********/
@@ -857,6 +870,13 @@ p.periodo-lavorativo {
     background-color: #64FFDA;
     border-radius: 4px;
     vertical-align: middle;
+    transition: 0.25s;
+}
+
+.progetto-in-evidenza .immagine-progetto:hover a,
+.progetto-in-evidenza .immagine-progetto:focus a {
+    background: transparent;
+    outline: 0;
 }
 
 .progetto-in-evidenza .immagine-progetto a::before {
@@ -869,6 +889,12 @@ p.periodo-lavorativo {
     transition: 0.25s;
     background-color: #0A192F;
     mix-blend-mode: screen;
+}
+
+.progetto-in-evidenza .immagine-progetto:hover a:before,
+.progetto-in-evidenza .immagine-progetto:focus a:before {
+    background: transparent;
+    filter: none;
 }
 
 .progetto-in-evidenza .immagine-progetto div {
@@ -890,6 +916,11 @@ p.periodo-lavorativo {
         height: 100%;
         filter: grayscale(100%) contrast(1) brightness(50%);
     }
+}
+
+.progetto-in-evidenza .immagine-progetto:hover div,
+.progetto-in-evidenza .immagine-progetto:focus div {
+    filter: none;
 }
 
 .progetto-in-evidenza .immagine-progetto img {
@@ -1107,6 +1138,14 @@ article#contatti a.contatti-email {
     text-decoration: none;
     transition: 0.25s;
     margin-top: 50px;
+}
+
+
+article#contatti a.contatti-email:hover,
+article#contatti a.contatti-email:focus {
+    outline: none;
+    box-shadow: 4px 4px 0 0 #64FFDA;
+    transform: translate(-5px, -5px);
 }
 
 
