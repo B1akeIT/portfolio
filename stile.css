@@ -138,9 +138,10 @@ aside#social {
     color: #A8B2D1;
 }
 
-aside#social .lista-social {
+/* .lista-social e le icone al suo interno esisto sia in aside che in footer */
+/* Molte caratteristiche sono simili e rimarranno condivise */
+.lista-social {
     display: flex;
-    flex-direction: column;
     -webkit-box-align: center;
     align-items: center;
     margin: 0;
@@ -148,7 +149,17 @@ aside#social .lista-social {
     list-style: none;
 }
 
-aside#social .lista-social a {
+aside#social .lista-social {
+    flex-direction: column;
+}
+
+footer .lista-social {
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.lista-social a {
     padding: 10px;
     display: inline-block;
     text-decoration: none;
@@ -159,13 +170,13 @@ aside#social .lista-social a {
 }
 
 
-aside#social .lista-social a:hover,
-aside#social .lista-social a:focus {
+.lista-social a:hover,
+.lista-social a:focus {
     transform: translateY(-3px);
     color: #64FFDA;
 }
 
-aside#social .lista-social svg {
+.lista-social svg {
     width: 20px;
     height: 20px;
 }
@@ -1149,8 +1160,34 @@ article#contatti a.contatti-email:focus {
 }
 
 
+/*** FOOTER **/
 
+footer .footer-social {
+    display: none;
+}
 
+@media (max-width: 768px) {
+    footer .footer-social {
+        display: block;
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto 10px;
+        color: #A8B2D1;
+    }
+}
+
+footer .footer-contenuto {
+    padding: 10px;
+    display: block;
+    width: 100%;
+    max-width: 250px;
+    margin: 0 auto 10px;
+    color: #A8B2D1;
+    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
+}
 
 
 
