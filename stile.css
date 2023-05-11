@@ -940,7 +940,7 @@ p.periodo-lavorativo {
 }
 
 .progetto-in-evidenza .immagine-progetto:hover img,
-.progetto-in-evidenza .immagine-progetto:focus img{
+.progetto-in-evidenza .immagine-progetto:focus img {
     background: transparent;
     filter: none;
 }
@@ -1184,8 +1184,6 @@ footer .footer-contenuto {
 }
 
 
-
-
 /********** Stile pagina progetti **********/
 
 .pagina-progetti h1 {
@@ -1196,7 +1194,7 @@ footer .footer-contenuto {
     font-family: "Calibre", "Inter", "San Francisco", "SF Pro Text", -apple-system, system-ui, sans-serif;
 }
 
-.pagina-progetti h2 {
+.pagina-progetti h2.sottotitolo {
     color: #64FFDA;
     margin: 0;
     font-size: 16px;
