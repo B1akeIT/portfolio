@@ -750,7 +750,7 @@ p.periodo-lavorativo {
 .progetto-in-evidenza .sottotitolo-progetto {
     margin: 10px 0;
     color: #64FFDA;
-    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    font-family: monospace;
     font-size: 13px;
     font-weight: 400;
 }
@@ -883,7 +883,7 @@ p.periodo-lavorativo {
     outline: 0;
 }
 
-.progetto-in-evidenza .immagine-progetto a::before {
+.progetto-in-evidenza .immagine-progetto div::before {
     content: "";
     position: absolute;
     width: 100%;
@@ -895,16 +895,8 @@ p.periodo-lavorativo {
     mix-blend-mode: screen;
 }
 
-.progetto-in-evidenza .immagine-progetto:hover a:before,
-.progetto-in-evidenza .immagine-progetto:focus a:before {
-    background: transparent;
-    filter: none;
-}
-
 .progetto-in-evidenza .immagine-progetto div {
-    border-radius: 4px;
     mix-blend-mode: multiply;
-    filter: grayscale(100%) contrast(1) brightness(90%);
     width: 100%;
     max-width: 100%;
     vertical-align: middle;
@@ -940,9 +932,17 @@ p.periodo-lavorativo {
     object-fit: cover;
 
     transform: translateZ(0);
-    transition: opacity .25s linear;
+    transition: 0.25s;
     will-change: opacity;
     opacity: 1;
+    filter: grayscale(100%) contrast(1) brightness(90%);
+    border-radius: 10px;
+}
+
+.progetto-in-evidenza .immagine-progetto:hover img,
+.progetto-in-evidenza .immagine-progetto:focus img{
+    background: transparent;
+    filter: none;
 }
 
 /* Progetti secondari */
@@ -1186,6 +1186,23 @@ footer .footer-contenuto {
 
 
 
-/********** Stile sezione progetti **********/
+/********** Stile pagina progetti **********/
+
+.pagina-progetti h1 {
+    font-size: clamp(40px, 8vw, 80px);
+    font-weight: 600;
+    color: #CCD6F6;
+    line-height: 1.1;
+    font-family: "Calibre", "Inter", "San Francisco", "SF Pro Text", -apple-system, system-ui, sans-serif;
+}
+
+.pagina-progetti h2 {
+    color: #64FFDA;
+    margin: 0;
+    font-size: 16px;
+    font-family: monospace;
+    font-weight: 400;
+    line-height: 1.5;
+}
 
 
