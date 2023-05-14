@@ -73,25 +73,25 @@ p a:after {
 }
 
 @media (min-width: 1081px) {
-    main.page-wrapper {
+    main.page-wrapper, nav {
         padding: 0 150px;
     }
 }
 
 @media (max-width: 1080px) {
-    main.page-wrapper {
+    main.page-wrapper, nav {
         padding: 0 100px;
     }
 }
 
 @media (max-width: 768px) {
-    main.page-wrapper {
+    main.page-wrapper, nav {
         padding: 0 50px;
     }
 }
 
 @media (max-width: 480px) {
-    main.page-wrapper {
+    main.page-wrapper, nav {
         padding: 0 25px;
     }
 }
@@ -235,7 +235,17 @@ aside#email a:focus {
 nav {
     display: flex;
     width: 100%;
+    height: 100%;
     justify-content: space-between;
+}
+
+.header-logo {
+    height: 60%;
+    align-self: center;
+}
+
+.header-logo img {
+    height: 100%
 }
 
 .button-list {
