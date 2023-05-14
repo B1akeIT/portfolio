@@ -1245,3 +1245,9 @@ footer .footer-contenuto {
 }
 
 
+/********** Stile pagina contatti **********/
+
+#contatti section {
+    display: flex;
+    flex-direction: row;
+}
