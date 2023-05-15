@@ -103,16 +103,22 @@
 
             <section>
 
-                <div class="container-testo" style="width: 45%">
+                <div class="container-testo">
                     <h2><samp>Hai un problema da risolvere?</samp></h2>
                     <h1>Mettiamoci in contatto e lavoriamo ad una soluzione!</h1>
-                    <p></p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ante justo,
+                        faucibus sed sodales eget, pellentesque vitae nulla. Donec accumsan, felis id
+                        sodales posuere, ex massa maximus lectus, congue venenatis libero tellus vitae
+                        turpis.
+                    </p>
                 </div>
 
-                <div class="container-form" style="width: 45%">
+                <div class="container-form">
                     <form>
-                        <div class="form-nome">
-                            <label for="nome">Nome</label>
+                        <div class="form-nome" style="margin-bottom: 10px">
+                            <label for="nome">
+                                <span>Nome</span>
+                            </label>
                             <div class="input-container">
                                 <div class="icona-nome">
                                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -124,8 +130,10 @@
                                 <input id="nome" style="padding: 0.625rem 2.5rem;" type="text"/>
                             </div>
                         </div>
-                        <div class="form-mail">
-                            <label for="mail">Email</label>
+                        <div class="form-mail" style="margin-bottom: 10px; margin-top: 10px">
+                            <label for="mail">
+                                <span>Email</span>
+                            </label>
                             <div class="input-container">
                                 <div class="icona-mail">
                                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -135,15 +143,20 @@
                                         <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
                                     </svg>
                                 </div>
-                                <input id="mail" style="padding: 0.625rem 2.5rem;" type="text"/>
+                                <input id="mail" style="padding: 0.625rem 2.5rem;" type="email"/>
                             </div>
                         </div>
-                        <div class="form-messaggio">
-                            <label for="messaggio">Messaggio</label>
+                        <div class="form-messaggio" style="margin-top: 10px">
+                            <label for="messaggio">
+                                <span>Messaggio</span>
+                            </label>
                             <div class="input-container">
-                                <textarea id="messaggio" style="padding: 0.625rem 2.5rem;"></textarea>
+                                <textarea id="messaggio" rows="6" style="padding: 0.625rem 12px;"></textarea>
                             </div>
                         </div>
+                        <button type="submit" class="button-invia-email">
+                            Invia!
+                        </button>
                     </form>
                 </div>
 

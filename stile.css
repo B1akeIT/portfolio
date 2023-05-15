@@ -163,7 +163,8 @@ footer .lista-social {
 
 
 .lista-social a:hover,
-.lista-social a:focus {
+.lista-social a:focus,
+.lista-social a:focus-visible {
     transform: translateY(-3px);
     color: #64FFDA;
 }
@@ -220,7 +221,8 @@ aside#email a {
 }
 
 aside#email a:hover,
-aside#email a:focus {
+aside#email a:focus,
+aside#email a:focus-visible {
     transform: translateY(-3px);
     color: #64FFDA;
     letter-spacing: 0.15em;
@@ -274,7 +276,8 @@ nav {
 }
 
 .button-list li a:hover,
-.button-list li a:focus {
+.button-list li a:focus,
+.button-list li a:focus-visible {
     color: #64FFDA;
     transition: 0.25s;
 }
@@ -517,7 +520,8 @@ p.dettagli-introduzione a::after {
 }
 
 .immagine-background:hover::after,
-.immagine-background:focus::after {
+.immagine-background:focus::after,
+.immagine-background:focus-visible::after {
     top: 15px;
     left: 15px;
 }
@@ -537,7 +541,8 @@ p.dettagli-introduzione a::after {
 }
 
 .immagine-background:hover div,
-.immagine-background:focus div {
+.immagine-background:focus div,
+.immagine-background:focus-visible div {
     filter: none;
     mix-blend-mode: normal;
 }
@@ -847,7 +852,8 @@ p.periodo-lavorativo {
 }
 
 .progetto-in-evidenza .titolo-progetto a:hover,
-.progetto-in-evidenza .titolo-progetto a:focus {
+.progetto-in-evidenza .titolo-progetto a:focus,
+.progetto-in-evidenza .titolo-progetto a:focus-visible {
     color: #64FFDA;
 }
 
@@ -919,7 +925,8 @@ p.periodo-lavorativo {
 }
 
 .progetto-in-evidenza .immagine-progetto:hover a,
-.progetto-in-evidenza .immagine-progetto:focus a {
+.progetto-in-evidenza .immagine-progetto:focus a,
+.progetto-in-evidenza .immagine-progetto:focus-visible a {
     background: transparent;
     outline: 0;
 }
@@ -956,7 +963,8 @@ p.periodo-lavorativo {
 }
 
 .progetto-in-evidenza .immagine-progetto:hover div,
-.progetto-in-evidenza .immagine-progetto:focus div {
+.progetto-in-evidenza .immagine-progetto:focus div,
+.progetto-in-evidenza .immagine-progetto:focus-visible div {
     filter: none;
 }
 
@@ -981,7 +989,8 @@ p.periodo-lavorativo {
 }
 
 .progetto-in-evidenza .immagine-progetto:hover img,
-.progetto-in-evidenza .immagine-progetto:focus img {
+.progetto-in-evidenza .immagine-progetto:focus img,
+.progetto-in-evidenza .immagine-progetto:focus-visible img {
     background: transparent;
     filter: none;
 }
@@ -1186,9 +1195,9 @@ article#contatti a.contatti-email {
     margin-top: 50px;
 }
 
-
 article#contatti a.contatti-email:hover,
-article#contatti a.contatti-email:focus {
+article#contatti a.contatti-email:focus,
+article#contatti a.contatti-email:focus-visible {
     outline: none;
     box-shadow: 4px 4px 0 0 #64FFDA;
     transform: translate(-5px, -5px);
@@ -1235,8 +1244,7 @@ footer .footer-contenuto {
     font-family: "Calibre", "Inter", "San Francisco", "SF Pro Text", -apple-system, system-ui, sans-serif;
 }
 
-.pagina-progetti h2.sottotitolo,
-.pagina-contatti h2 {
+.pagina-progetti h2.sottotitolo {
     color: #64FFDA;
     margin: 0;
     font-size: 16px;
@@ -1248,19 +1256,57 @@ footer .footer-contenuto {
 
 /********** Stile pagina contatti **********/
 
-#contatti section {
+.pagina-contatti section {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
 }
 
-#contatti h1 {
-    padding-top: 10px;
+@media (min-width: 1081px) {
+    .pagina-contatti section {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+.pagina-contatti h1 {
+    padding: 10px 0;
     font-weight: 600;
     color: #CCD6F6;
     font-family: "Calibre", sans-serif;
     line-height: 1.1;
     font-size: clamp(26px, 5vw, 32px);
+}
+
+.pagina-contatti h2 {
+    color: #64FFDA;
+    margin: 0;
+    font-size: 16px;
+    font-family: monospace;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+div.container-testo,
+div.container-form {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 1080px) {
+    div.container-testo,
+    div.container-form {
+        width: 100%;
+        margin-bottom: 5rem;
+    }
+}
+
+.container-form label {
+    color: #CCD6F6;
+    font-size: 16px;
+    font-family: "Calibre", sans-serif;
+    font-weight: 500;
+    margin-bottom: 5px;
 }
 
 div.input-container {
@@ -1272,10 +1318,36 @@ div.input-container input {
     width: -webkit-fill-available;
 }
 
+div.input-container input:invalid {
+    outline: red solid 1px;
+}
+
 div.icona-nome,
 div.icona-mail {
     height: 100%;
     position: absolute;
     display: flex;
     align-items: center;
+}
+
+.button-invia-email {
+    color: #64FFDA;
+    background-color: transparent;
+    border: 1px solid #64FFDA;
+    border-radius: 4px;
+    padding: 1rem;
+    font-size: 16px;
+    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    line-height: 1;
+    text-decoration: none;
+    transition: 0.25s;
+    margin-top: 15px;
+}
+
+.button-invia-email:hover,
+.button-invia-email:focus,
+.button-invia-email:focus-visible {
+    outline: none;
+    box-shadow: 4px 4px 0 0 #64FFDA;
+    transform: translate(-5px, -5px);
 }
