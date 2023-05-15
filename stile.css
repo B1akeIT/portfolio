@@ -268,7 +268,7 @@ nav {
 .button-list li a {
     align-self: center;
     text-decoration: none;
-    color: #495670;
+    color: #CCD6F6;
     transition: all 0.2s ease;
     padding: 10px;
 }
@@ -1235,7 +1235,8 @@ footer .footer-contenuto {
     font-family: "Calibre", "Inter", "San Francisco", "SF Pro Text", -apple-system, system-ui, sans-serif;
 }
 
-.pagina-progetti h2.sottotitolo {
+.pagina-progetti h2.sottotitolo,
+.pagina-contatti h2 {
     color: #64FFDA;
     margin: 0;
     font-size: 16px;
@@ -1250,4 +1251,31 @@ footer .footer-contenuto {
 #contatti section {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+}
+
+#contatti h1 {
+    padding-top: 10px;
+    font-weight: 600;
+    color: #CCD6F6;
+    font-family: "Calibre", sans-serif;
+    line-height: 1.1;
+    font-size: clamp(26px, 5vw, 32px);
+}
+
+div.input-container {
+    position: relative;
+}
+
+div.input-container textarea,
+div.input-container input {
+    width: -webkit-fill-available;
+}
+
+div.icona-nome,
+div.icona-mail {
+    height: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
 }
