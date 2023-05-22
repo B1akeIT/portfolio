@@ -1268,7 +1268,8 @@ footer .footer-contenuto {
     }
 }
 
-.pagina-contatti h1 {
+.pagina-contatti h1,
+.pagina-progetto-singolo h1 {
     padding: 10px 0;
     font-weight: 600;
     color: #CCD6F6;
@@ -1277,7 +1278,8 @@ footer .footer-contenuto {
     font-size: clamp(26px, 5vw, 32px);
 }
 
-.pagina-contatti h2 {
+.pagina-contatti h2,
+.pagina-progetto-singolo h2 {
     color: #64FFDA;
     margin: 0;
     font-size: 16px;
@@ -1286,8 +1288,8 @@ footer .footer-contenuto {
     line-height: 1.5;
 }
 
-div.container-testo,
-div.container-form {
+.pagina-contatti div.container-testo,
+.pagina-contatti div.container-form {
     width: 45%;
     display: flex;
     flex-direction: column;
