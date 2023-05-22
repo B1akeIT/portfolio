@@ -158,7 +158,6 @@ footer .lista-social {
     text-decoration-skip-ink: auto;
     color: inherit;
     position: relative;
-    transition: 0.25s;
 }
 
 
@@ -167,6 +166,7 @@ footer .lista-social {
 .lista-social a:focus-visible {
     transform: translateY(-3px);
     color: #64FFDA;
+    transition: 0.25s;
 }
 
 .lista-social svg {
@@ -217,7 +217,7 @@ aside#email a {
     text-decoration-skip-ink: auto;
     color: inherit;
     position: relative;
-    transition: 0.25s;
+    transition: letter-spacing 0.25s;
 }
 
 aside#email a:hover,
@@ -271,7 +271,6 @@ nav {
     align-self: center;
     text-decoration: none;
     color: #CCD6F6;
-    transition: all 0.2s ease;
     padding: 10px;
 }
 
@@ -279,7 +278,7 @@ nav {
 .button-list li a:focus,
 .button-list li a:focus-visible {
     color: #64FFDA;
-    transition: 0.25s;
+    transition: color 0.25s;
 }
 
 .button-list li a::before {
@@ -883,6 +882,7 @@ p.periodo-lavorativo {
 }
 
 .progetto-in-evidenza .descrizione-progetto p {
+    font-size: 19px;
     margin: 0 0 15px;
 }
 
@@ -898,7 +898,6 @@ p.periodo-lavorativo {
 
 .progetto-in-evidenza .immagine-progetto {
     box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
-    transition: 0.25s;
     grid-area: 1 / 6 / -1 / -1;
     position: relative;
     z-index: 1;
@@ -906,6 +905,7 @@ p.periodo-lavorativo {
 
 @media (max-width: 768px) {
     .progetto-in-evidenza .immagine-progetto {
+        transition: background-color 0.25s;
         grid-column: 1 / -1;
         height: 100%;
         opacity: 0.25;
