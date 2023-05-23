@@ -1099,6 +1099,7 @@ a.link-progetti-secondari {
     position: relative;
     z-index: 1;
     cursor: pointer;
+    color: inherit;
 }
 
 .progetto-secondario .link svg {
@@ -1251,6 +1252,47 @@ footer .footer-contenuto {
     font-family: monospace;
     font-weight: 400;
     line-height: 1.5;
+}
+
+
+/********** Stile pagina progetti **********/
+
+.pagina-progetto-singolo #progetto-singolo section > * {
+    margin: 15px 0;
+}
+
+.pagina-progetto-singolo .lista-link {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    color: #A8B2D1;
+}
+
+.pagina-progetto-singolo a.link {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 5px 7px;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    color: inherit;
+}
+
+.pagina-progetto-singolo a.link svg {
+    width: 20px;
+    height: 20px;
+}
+
+.pagina-progetto-singolo .immagine-progetto-singolo {
+    width: 100%;
+}
+
+.pagina-progetto-singolo .immagine-progetto-singolo img {
+    max-width: 100%;
+    border-radius: 10px;
 }
 
 
