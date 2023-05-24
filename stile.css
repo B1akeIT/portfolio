@@ -2,35 +2,41 @@
 @import url('https://fonts.cdnfonts.com/css/sf-mono');
 @import url('https://fonts.cdnfonts.com/css/calibre');
 
-/* TODO Decidere se usare il font SF Mono o semplicemente il monospace con tag <samp></samp> */
-/*
-@font-face {
-    font-family: "Calibre";
-    src: url("calibre/Calibre-ThinItalic.woff2") format("woff2"),
-    url("calibre/Calibre-Thin.woff2") format("woff2"),
-    url("calibre/Calibre-SemiboldItalic.woff2") format("woff2"),
-    url("calibre/Calibre-Semibold.woff2") format("woff2"),
-    url("calibre/Calibre-RegularItalic.woff2") format("woff2"),
-    url("calibre/Calibre-Regular.woff2") format("woff2"),
-    url("calibre/Calibre-MediumItalic.woff2") format("woff2"),
-    url("calibre/Calibre-Medium.woff2") format("woff2"),
-    url("calibre/Calibre-LightItalic.woff2") format("woff2"),
-    url("calibre/Calibre-Light.woff2") format("woff2"),
-    url("calibre/Calibre-BoldItalic.woff2") format("woff2"),
-    url("calibre/Calibre-Bold.woff2") format("woff2"),
-    url("calibre/Calibre-BlackItalic.woff2") format("woff2"),
-    url("calibre/Calibre-Black.woff2") format("woff2");
+root {
+    /* Colori */
+    --green: #64FFDA;
+    --red: #FF0000FF;
+    --light-blue: #8AB2D1;
+    --light-grey: #CCD6F6;
+    --grey: #A8B2D1;
+    --dark-grey: #8892B8;
+    --color-progetto-secondario: #E6F1FF;
+    --color-sottotitolo: #495670;
+    --color-section-line: #233554;
+    --background-color: #0A192F;
+    --background-color-progetto-secondario: #112240;
+    --background-color-header: #0a192fd9;
+    --box-shadow: #020c1bb3;
+    --border-color: #CCCCCC;
+
+    /* Font */
+    --font-calibre: "Calibre", sans-serif;
+    --font-mono: "SF Mono", monospace;
+    --font-monospace: monospace;
 }
-*/
+
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     margin: 0;
-    font-family: "Calibre", system-ui, sans-serif;
-    background-color: #0A192F;
+    font-family: var(--font-calibre);
+    background-color: var(--background-color);
 }
 
 p, ul {
-    color: #8892B8;
+    color: var(--dark-grey);
 }
 
 p {
@@ -42,7 +48,7 @@ p a {
     text-decoration: none;
     position: relative;
     transition: 0.25s;
-    color: #64FFDA;
+    color: var(--green);
 }
 
 p a:hover:after {
@@ -56,7 +62,7 @@ p a:after {
     position: absolute;
     bottom: 0.1em;
     left: 0;
-    background-color: #64FFDA;
+    background-color: var(--green);
     transition: 0.25s;
     opacity: 0.5;
 }
@@ -112,7 +118,7 @@ header {
     z-index: 11;
     /*padding: 0 50px;*/
     width: 100%;
-    background-color: rgba(10, 25, 47, 0.85);
+    background-color: var(--background-color-header);
     backdrop-filter: blur(10px);
     transition: all 0.25s;
     filter: none !important;
@@ -127,7 +133,7 @@ aside#social {
     left: 40px;
     right: auto;
     z-index: 10;
-    color: #A8B2D1;
+    color: var(--grey);
 }
 
 /* .lista-social e le icone al suo interno esisto sia in aside che in footer */
@@ -165,7 +171,7 @@ footer .lista-social {
 .lista-social a:focus,
 .lista-social a:focus-visible {
     transform: translateY(-3px);
-    color: #64FFDA;
+    color: var(--green);
     transition: 0.25s;
 }
 
@@ -181,7 +187,7 @@ aside#email {
     left: auto;
     right: 40px;
     z-index: 10;
-    color: #A8B2D1;
+    color: var(--grey);
 }
 
 aside#email div {
@@ -199,13 +205,13 @@ aside#social .lista-social::after {
     width: 1px;
     height: 90px;
     margin: 0 auto;
-    background-color: #A8B2D1;
+    background-color: var(--grey);
 }
 
 aside#email a {
     margin: 20px auto;
     padding: 10px;
-    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    font-family: var(--font-mono);
     font-size: 12px;
     line-height: 1.2;
     letter-spacing: 0.1em;
@@ -224,7 +230,7 @@ aside#email a:hover,
 aside#email a:focus,
 aside#email a:focus-visible {
     transform: translateY(-3px);
-    color: #64FFDA;
+    color: var(--green);
     letter-spacing: 0.15em;
 }
 
@@ -264,27 +270,27 @@ nav {
     font-size: 15px;
     font-weight: 400;
     line-height: 120%;
-    font-family: monospace;
+    font-family: var(--font-monospace);
 }
 
 .button-list li a {
     align-self: center;
     text-decoration: none;
-    color: #CCD6F6;
+    color: var(--light-grey);
     padding: 10px;
 }
 
 .button-list li a:hover,
 .button-list li a:focus,
 .button-list li a:focus-visible {
-    color: #64FFDA;
+    color: var(--green);
     transition: color 0.25s;
 }
 
 .button-list li a::before {
-    font-family: "SF Mono", monospace;
+    font-family: var(--font-mono);
     margin-right: 5px;
-    color: #64FFDA;
+    color: var(--green);
     font-size: 12px;
     text-align: right;
 }
@@ -316,9 +322,9 @@ nav {
     font-weight: 700;
     font-size: 26px;
     line-height: 40px;
-    border-bottom: 2px solid #CCCCCC;
+    border-bottom: 2px solid var(--border-color);
 
-    color: #495670;
+    color: var(--color-sottotitolo);
 }
 
 article {
@@ -363,38 +369,38 @@ h1 {
 h1 .titolo-piccolo {
     display: block;
     margin-bottom: 5px;
-    color: #64FFDA;
+    color: var(--green);
     font-size: 14px;
     font-weight: 400;
-    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    font-family: var(--font-mono);
 }
 
 h1 .titolo-grande {
     font-size: clamp(40px, 8vw, 80px);
     font-weight: 600;
-    color: #CCD6F6;
+    color: var(--light-grey);
     line-height: 1.1;
-    font-family: "Calibre", "Inter", "San Francisco", "SF Pro Text", -apple-system, system-ui, sans-serif;
+    font-family: var(--font-calibre);
 }
 
 h2 {
     margin: 0 0 10px;
     font-weight: 600;
-    color: #CCD6F6;
+    color: var(--light-grey);
     line-height: 1.1;
 }
 
 h3 {
     margin: 0 0 10px;
     font-weight: 500;
-    color: #CCD6F6;
+    color: var(--light-grey);
     line-height: 1.1;
 }
 
 h2.titolo-secondario {
     margin: 0;
     font-size: clamp(40px, 8vw, 80px);
-    color: #8892B8;
+    color: var(--dark-grey);
     font-weight: 600;
     line-height: 0.9;
 }
@@ -406,7 +412,7 @@ p.dettagli-introduzione {
 }
 
 p.dettagli-introduzione a {
-    color: #64FFDA;
+    color: var(--green);
     display: inline-block;
     text-decoration: none;
     position: relative;
@@ -418,7 +424,7 @@ p.dettagli-introduzione a:hover::after {
 }
 
 p.dettagli-introduzione a::after {
-    background-color: #64FFDA;
+    background-color: var(--green);
     content: "";
     display: block;
     width: 0;
@@ -447,8 +453,8 @@ p.dettagli-introduzione a::after {
     position: relative;
     content: "0" counter(section) ".";
     margin-right: 10px;
-    color: #64FFDA;
-    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    color: var(--green);
+    font-family: var(--font-mono);
     font-size: clamp(16px, 3vw, 20px);
     font-weight: 400;
     align-self: end;
@@ -473,7 +479,7 @@ p.dettagli-introduzione a::after {
     width: 300px;
     height: 1px;
     margin-left: 20px;
-    background-color: #233554;
+    background-color: var(--color-section-line);
 }
 
 #chi-sono .titolo-numerato::before {
@@ -494,14 +500,14 @@ p.dettagli-introduzione a::after {
 }
 
 .immagine-background {
-    box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+    box-shadow: 0 10px 30px -15px var(--box-shadow);
     transition: 0.25s;
     display: block;
     position: relative;
     width: 100%;
     height: 100%;
     border-radius: 4px;
-    background-color: #64FFDA;
+    background-color: var(--green);
 }
 
 .immagine-background::before {
@@ -514,7 +520,7 @@ p.dettagli-introduzione a::after {
     transition: 0.25s;
     top: 0;
     left: 0;
-    background-color: #0A192F;
+    background-color: var(--background-color);
     mix-blend-mode: screen;
 }
 
@@ -533,7 +539,7 @@ p.dettagli-introduzione a::after {
     height: 100%;
     border-radius: 4px;
     transition: 0.25s;
-    border: 2px solid #64FFDA;
+    border: 2px solid var(--green);
     top: 20px;
     left: 20px;
     z-index: -1;
@@ -609,7 +615,7 @@ p.dettagli-introduzione a::after {
     position: relative;
     margin-bottom: 10px;
     padding-left: 20px;
-    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    font-family: var(--font-mono);
     font-size: 13px;
 }
 
@@ -617,7 +623,7 @@ p.dettagli-introduzione a::after {
     content: "▹";
     position: absolute;
     left: 0;
-    color: #64FFDA;
+    color: var(--green);
     font-size: 14px;
     line-height: 16px;
 }
@@ -641,14 +647,14 @@ h3.esperienza-lavorativa {
 }
 
 h3 .nome-azienda {
-    color: #64FFDA;
+    color: var(--green);
     white-space: nowrap;
 }
 
 p.periodo-lavorativo {
     margin-bottom: 25px;
-    color: #8AB2D1;
-    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    color: var(--light-blue);
+    font-family: var(--font-mono);
     font-size: 13px;
 }
 
@@ -657,7 +663,7 @@ p.periodo-lavorativo {
     margin: 0;
     list-style: none;
     font-size: 18px;
-    font-family: "Calibre", "Inter", "San Francisco", "SF Pro Text", -apple-system, system-ui, sans-serif;;
+    font-family: var(--font-calibre);
 }
 
 #esperienze-lavorative ul li {
@@ -671,7 +677,7 @@ p.periodo-lavorativo {
     content: "▹";
     position: absolute;
     left: 0;
-    color: #64FFDA;
+    color: var(--green);
 }
 
 
@@ -732,7 +738,7 @@ p.periodo-lavorativo {
 
 @media (max-width: 768px) {
     #progetti-in-evidenza li.progetto-in-evidenza {
-        box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+        box-shadow: 0 10px 30px -15px var(--box-shadow);
         transition: 0.25s;
     }
 }
@@ -794,20 +800,20 @@ p.periodo-lavorativo {
 
 .progetto-in-evidenza .sottotitolo-progetto {
     margin: 10px 0;
-    color: #64FFDA;
-    font-family: monospace;
+    color: var(--green);
+    font-family: var(--font-monospace);
     font-size: 13px;
     font-weight: 400;
 }
 
 .progetto-in-evidenza .titolo-progetto {
-    color: #CCD6F6;
+    color: var(--light-grey);
     font-size: clamp(24px, 5vw, 28px);
 }
 
 @media (max-width: 768px) {
     .progetto-in-evidenza .titolo-progetto {
-        color: #E6F1FF;
+        color: var(--color-progetto-secondario);
     }
 }
 
@@ -853,18 +859,18 @@ p.periodo-lavorativo {
 .progetto-in-evidenza .titolo-progetto a:hover,
 .progetto-in-evidenza .titolo-progetto a:focus,
 .progetto-in-evidenza .titolo-progetto a:focus-visible {
-    color: #64FFDA;
+    color: var(--green);
 }
 
 .progetto-in-evidenza .descrizione-progetto {
-    box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+    box-shadow: 0 10px 30px -15px var(--box-shadow);
     transition: 0.25s;
     position: relative;
     z-index: 2;
     padding: 25px;
     border-radius: 4px;
-    background-color: #112240;
-    color: #A8B2D1;
+    background-color: var(--background-color-progetto-secondario);
+    color: var(--grey);
     font-size: 18px;
 }
 
@@ -897,7 +903,7 @@ p.periodo-lavorativo {
 }
 
 .progetto-in-evidenza .immagine-progetto {
-    box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+    box-shadow: 0 10px 30px -15px var(--box-shadow);
     grid-area: 1 / 6 / -1 / -1;
     position: relative;
     z-index: 1;
@@ -918,7 +924,7 @@ p.periodo-lavorativo {
     z-index: 1;
     width: 100%;
     height: 100%;
-    background-color: #64FFDA;
+    background-color: var(--green);
     border-radius: 4px;
     vertical-align: middle;
     transition: 0.25s;
@@ -939,7 +945,7 @@ p.periodo-lavorativo {
     inset: 0;
     z-index: 3;
     transition: 0.25s;
-    background-color: #0A192F;
+    background-color: var(--background-color);
     mix-blend-mode: screen;
 }
 
@@ -999,20 +1005,20 @@ p.periodo-lavorativo {
 
 h2.titolo-progetti-secondari {
     font-size: clamp(24px, 5vw, 36px);
-    font-family: "Calibre", "Inter", "San Francisco", "SF Pro Text", -apple-system, system-ui, sans-serif;
+    font-family: var(--font-calibre);
     text-align: center;
     margin: 0 0 10px;
     font-weight: 600;
-    color: #CCD6F6;
+    color: var(--light-grey);
     line-height: 1.1;
 }
 
 a.link-progetti-secondari {
     font-size: 14px;
-    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    font-family: var(--font-mono);
     display: inline-block;
     position: relative;
-    color: #64FFDA;
+    color: var(--green);
     transition: 0.25s;
     text-decoration: none;
     text-decoration-skip-ink: auto;
@@ -1043,7 +1049,7 @@ a.link-progetti-secondari {
 }
 
 .progetto-secondario .contenuto-progetto {
-    box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+    box-shadow: 0 10px 30px -15px var(--box-shadow);
     display: flex;
     -webkit-box-align: center;
     flex-direction: column;
@@ -1051,7 +1057,7 @@ a.link-progetti-secondari {
     position: relative;
     padding: 2rem 1.75rem;
     border-radius: 4px;
-    background-color: #112240;
+    background-color: var(--background-color-progetto-secondario);
     transition: 0.25s;
     overflow: auto;
     -webkit-box-pack: justify;
@@ -1086,7 +1092,7 @@ a.link-progetti-secondari {
     -webkit-box-align: center;
     align-items: center;
     margin-right: -10px;
-    color: #A8B2D1;
+    color: var(--grey);
 }
 
 .progetto-secondario .link {
@@ -1109,12 +1115,12 @@ a.link-progetti-secondari {
 
 .progetto-secondario .titolo-progetto {
     margin: 0 0 10px;
-    color: #CCD6F6;
+    color: var(--light-grey);
     font-size: 20px;
 }
 
 .progetto-secondario .descrizione-progetto {
-    color: #A8B2D1;
+    color: var(--grey);
     font-size: 17px;
 }
 
@@ -1130,7 +1136,7 @@ a.link-progetti-secondari {
 }
 
 .progetto-secondario ul.lista-tecnologie li {
-    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    font-family: var(--font-mono);
     font-size: 12px;
     line-height: 1.75;
 }
@@ -1150,8 +1156,8 @@ section#sezione-contatti {
 article#contatti p.contatti-sottotitolo {
     display: block;
     margin-bottom: 20px;
-    color: #64FFDA;
-    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    color: var(--green);
+    font-family: var(--font-mono);
     font-size: 16px;
     font-weight: 400;
 }
@@ -1163,8 +1169,8 @@ article#contatti p.contatti-sottotitolo::before {
     counter-increment: section 1;
     content: "04.";
     margin-right: 10px;
-    color: #64FFDA;
-    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    color: var(--green);
+    font-family: var(--font-mono);
     font-weight: 400;
 
 }
@@ -1173,7 +1179,7 @@ article#contatti h2.contatti-titolo {
     font-size: clamp(30px, 4vw, 45px);
     margin: 0 0 10px;
     font-weight: 600;
-    color: #CCD6F6;
+    color: var(--light-grey);
     line-height: 1.1;
 }
 
@@ -1183,13 +1189,13 @@ article#contatti .contatti-descrizione {
 }
 
 article#contatti a.contatti-email {
-    color: #64FFDA;
+    color: var(--green);
     background-color: transparent;
-    border: 1px solid #64FFDA;
+    border: 1px solid var(--green);
     border-radius: 4px;
     padding: 1.25rem 1.75rem;
     font-size: 18px;
-    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    font-family: var(--font-mono);
     line-height: 1;
     text-decoration: none;
     transition: 0.25s;
@@ -1200,7 +1206,7 @@ article#contatti a.contatti-email:hover,
 article#contatti a.contatti-email:focus,
 article#contatti a.contatti-email:focus-visible {
     outline: none;
-    box-shadow: 4px 4px 0 0 #64FFDA;
+    box-shadow: 4px 4px 0 0 var(--green);
     transform: translate(-5px, -5px);
 }
 
@@ -1217,7 +1223,7 @@ footer .footer-social {
         width: 100%;
         max-width: 200px;
         margin: 0 auto 10px;
-        color: #A8B2D1;
+        color: var(--grey);
     }
 }
 
@@ -1227,8 +1233,8 @@ footer .footer-contenuto {
     width: 100%;
     max-width: 250px;
     margin: 0 auto 10px;
-    color: #A8B2D1;
-    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    color: var(--grey);
+    font-family: var(--font-mono);
     font-size: 12px;
     line-height: 1;
     text-align: center;
@@ -1240,16 +1246,16 @@ footer .footer-contenuto {
 .pagina-progetti h1 {
     font-size: clamp(40px, 8vw, 80px);
     font-weight: 600;
-    color: #CCD6F6;
+    color: var(--light-grey);
     line-height: 1.1;
-    font-family: "Calibre", "Inter", "San Francisco", "SF Pro Text", -apple-system, system-ui, sans-serif;
+    font-family: var(--font-calibre);
 }
 
 .pagina-progetti h2.sottotitolo {
-    color: #64FFDA;
+    color: var(--green);
     margin: 0;
     font-size: 16px;
-    font-family: monospace;
+    font-family: var(--font-monospace);
     font-weight: 400;
     line-height: 1.5;
 }
@@ -1265,7 +1271,7 @@ footer .footer-contenuto {
     display: flex;
     -webkit-box-align: center;
     align-items: center;
-    color: #A8B2D1;
+    color: var(--grey);
 }
 
 .pagina-progetto-singolo a.link {
@@ -1318,18 +1324,18 @@ footer .footer-contenuto {
 .pagina-progetto-singolo h1 {
     padding: 10px 0;
     font-weight: 600;
-    color: #CCD6F6;
-    font-family: "Calibre", sans-serif;
+    color: var(--light-grey);
+    font-family: var(--font-calibre);
     line-height: 1.1;
     font-size: clamp(26px, 5vw, 32px);
 }
 
 .pagina-contatti h2,
 .pagina-progetto-singolo h2 {
-    color: #64FFDA;
+    color: var(--green);
     margin: 0;
     font-size: 16px;
-    font-family: monospace;
+    font-family: var(--font-monospace);
     font-weight: 400;
     line-height: 1.5;
 }
@@ -1350,9 +1356,9 @@ footer .footer-contenuto {
 }
 
 .container-form label {
-    color: #CCD6F6;
+    color: var(--light-grey);
     font-size: 16px;
-    font-family: "Calibre", sans-serif;
+    font-family: var(--font-calibre);
     font-weight: 500;
     margin-bottom: 5px;
 }
@@ -1379,13 +1385,13 @@ div.icona-mail {
 }
 
 .button-invia-email {
-    color: #64FFDA;
+    color: var(--green);
     background-color: transparent;
-    border: 1px solid #64FFDA;
+    border: 1px solid var(--green);
     border-radius: 4px;
     padding: 1rem;
     font-size: 16px;
-    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    font-family: var(--font-mono);
     line-height: 1;
     text-decoration: none;
     transition: 0.25s;
@@ -1396,6 +1402,6 @@ div.icona-mail {
 .button-invia-email:focus,
 .button-invia-email:focus-visible {
     outline: none;
-    box-shadow: 4px 4px 0 0 #64FFDA;
+    box-shadow: 4px 4px 0 0 var(--green);
     transform: translate(-5px, -5px);
 }
