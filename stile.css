@@ -1258,7 +1258,7 @@ footer .footer-contenuto {
 /********** Stile pagina progetti **********/
 
 .pagina-progetto-singolo #progetto-singolo section > * {
-    margin: 15px 0;
+    margin: 25px 0;
 }
 
 .pagina-progetto-singolo .lista-link {
@@ -1274,7 +1274,7 @@ footer .footer-contenuto {
     justify-content: center;
     -webkit-box-align: center;
     align-items: center;
-    padding: 5px 7px;
+    padding: 5px 7px 15px;
     position: relative;
     z-index: 1;
     cursor: pointer;
@@ -1282,8 +1282,12 @@ footer .footer-contenuto {
 }
 
 .pagina-progetto-singolo a.link svg {
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
+}
+
+.pagina-progetto-singolo p {
+    font-size: 19px;
 }
 
 .pagina-progetto-singolo .immagine-progetto-singolo {
