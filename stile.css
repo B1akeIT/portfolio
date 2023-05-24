@@ -2,7 +2,7 @@
 @import url('https://fonts.cdnfonts.com/css/sf-mono');
 @import url('https://fonts.cdnfonts.com/css/calibre');
 
-root {
+html {
     /* Colori */
     --green: #64FFDA;
     --red: #FF0000FF;
@@ -116,7 +116,6 @@ header {
     position: sticky;
     top: 0;
     z-index: 11;
-    /*padding: 0 50px;*/
     width: 100%;
     background-color: var(--background-color-header);
     backdrop-filter: blur(10px);
@@ -277,7 +276,7 @@ nav {
     align-self: center;
     text-decoration: none;
     color: var(--light-grey);
-    padding: 10px;
+    padding: 10px 8px;
 }
 
 .button-list li a:hover,
@@ -309,6 +308,65 @@ nav {
 
 .button-list li.button-contatti a::before {
     content: "04.";
+}
+
+/* Responsive navbar */
+
+.nav-btn, #nav-check {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .nav-btn {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        right: 50px;
+        top: 0;
+        bottom: 0;
+    }
+
+    .nav-btn > label {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 30px;
+        padding: 13px;
+    }
+
+    .nav-btn > label > span {
+        display: block;
+        width: 30px;
+        height: 2px;
+        background-color: var(--green);
+    }
+
+    .button-list {
+        position: absolute;
+        display: block;
+        width: 100%;
+        background-color: var(--background-color-header);
+        height: 0;
+        transition: all 0.3s ease-in;
+        overflow-y: hidden;
+        top: 50px;
+        left: 0;
+    }
+
+    .button-list > a {
+        display: block;
+        width: auto;
+    }
+
+    #nav-check:not(:checked) ~ .button-list {
+        height: 0;
+    }
+
+    #nav-check:checked ~ .button-list {
+        height: calc(100vh - 50px);
+        overflow-y: auto;
+    }
 }
 
 
