@@ -15,7 +15,7 @@ html {
     --color-section-line: #233554;
     --background-color: #0A192F;
     --background-color-progetto-secondario: #112240;
-    --background-color-header: #0a192fd9;
+    --background-color-header: #0A192FD9;
     --box-shadow: #020c1bb3;
     --border-color: #CCCCCC;
 
@@ -49,6 +49,7 @@ p a {
     position: relative;
     transition: 0.25s;
     color: var(--green);
+    white-space: nowrap;
 }
 
 p a:hover:after {
@@ -104,21 +105,15 @@ p a:after {
 
 
 header {
-    height: 100px;
+    height: 255px;
     overflow: hidden;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 3vw;
-
     -webkit-box-pack: justify;
     -webkit-box-align: center;
     position: sticky;
     top: 0;
     z-index: 11;
     width: 100%;
-    background-color: var(--background-color-header);
-    backdrop-filter: blur(10px);
     transition: all 0.25s;
     filter: none !important;
     pointer-events: auto !important;
@@ -242,13 +237,22 @@ aside#email a:focus-visible {
 nav {
     display: flex;
     width: 100%;
-    height: 100%;
+    height: 100px;
+    background-color: var(--background-color-header);
+    backdrop-filter: blur(10px);
     justify-content: space-between;
+    transition: 0.5s;
+}
+
+@media (max-width: 768px) {
+    nav:has(#nav-check:checked) {
+        height: 255px;
+    }
 }
 
 .header-logo {
-    height: 60%;
-    align-self: center;
+    height: 60px;
+    margin-top: 20px;
 }
 
 .header-logo img {
@@ -257,14 +261,16 @@ nav {
 
 .button-list {
     display: flex;
+    height: 100px;
     justify-content: end;
     list-style: none;
     margin: 0;
     padding: 0;
-    gap: 10px;
+    gap: 8px;
 }
 
-.button-list li {
+.button-list li,
+.mobile-button-list span {
     display: flex;
     font-size: 15px;
     font-weight: 400;
@@ -272,21 +278,22 @@ nav {
     font-family: var(--font-monospace);
 }
 
-.button-list li a {
+.button-list li a,
+.mobile-button-list span a {
     align-self: center;
     text-decoration: none;
     color: var(--light-grey);
-    padding: 10px 8px;
+    padding: 10px 7px;
 }
 
-.button-list li a:hover,
-.button-list li a:focus,
-.button-list li a:focus-visible {
+.button-list li a:is(:hover, :focus, :focus-visible),
+.mobile-button-list span a:is(:hover, :focus, :focus-visible) {
     color: var(--green);
     transition: color 0.25s;
 }
 
-.button-list li a::before {
+.button-list li a::before,
+.mobile-button-list span a:before {
     font-family: var(--font-mono);
     margin-right: 5px;
     color: var(--green);
@@ -294,19 +301,23 @@ nav {
     text-align: right;
 }
 
-.button-list li.button-chi-sono a::before {
+.button-list li.button-chi-sono a::before,
+.mobile-button-list span.button-chi-sono a:before {
     content: "01.";
 }
 
-.button-list li.button-esperienze a::before {
+.button-list li.button-esperienze a::before,
+.mobile-button-list span.button-esperienze a:before {
     content: "02.";
 }
 
-.button-list li.button-progetti a::before {
+.button-list li.button-progetti a::before,
+.mobile-button-list span.button-progetti a:before {
     content: "03.";
 }
 
-.button-list li.button-contatti a::before {
+.button-list li.button-contatti a::before,
+.mobile-button-list span.button-contatti a:before {
     content: "04.";
 }
 
@@ -316,14 +327,21 @@ nav {
     display: none;
 }
 
+.mobile-button-list {
+    display: none;
+}
+
 @media (max-width: 768px) {
+    .button-list {
+        display: none;
+    }
+
     .nav-btn {
         display: flex;
         align-items: center;
         position: absolute;
         right: 50px;
-        top: 0;
-        bottom: 0;
+        top: 22px;
     }
 
     .nav-btn > label {
@@ -342,30 +360,43 @@ nav {
         background-color: var(--green);
     }
 
-    .button-list {
+    .mobile-button-list {
         position: absolute;
         display: block;
         width: 100%;
-        background-color: var(--background-color-header);
+        padding: 0 50px;
         height: 0;
         transition: all 0.3s ease-in;
         overflow-y: hidden;
-        top: 50px;
+        top: 100px;
         left: 0;
     }
 
-    .button-list > a {
+    .mobile-button-list a {
         display: block;
         width: auto;
+        line-height: 1;
     }
 
-    #nav-check:not(:checked) ~ .button-list {
+    nav > #nav-check:not(:checked) ~ .mobile-button-list {
         height: 0;
+        transition: 0.5s;
     }
 
-    #nav-check:checked ~ .button-list {
-        height: calc(100vh - 50px);
-        overflow-y: auto;
+    nav > #nav-check:checked ~ .mobile-button-list {
+        height: 140px;
+        transition: 0.5s;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .nav-btn {
+        right: 25px;
+    }
+
+    .mobile-button-list {
+        padding: 0 25px;
     }
 }
 
@@ -428,9 +459,9 @@ h1 .titolo-piccolo {
     display: block;
     margin-bottom: 5px;
     color: var(--green);
-    font-size: 14px;
+    font-size: clamp(15px, 2.5vw, 25px);
     font-weight: 400;
-    font-family: var(--font-mono);
+    font-family: var(--font-monospace);
 }
 
 h1 .titolo-grande {
@@ -467,6 +498,7 @@ p.dettagli-introduzione {
     margin: 20px 0 0;
     max-width: 540px;
     line-height: 1.3;
+    font-size: 19px;
 }
 
 p.dettagli-introduzione a {
@@ -510,7 +542,7 @@ p.dettagli-introduzione a::after {
 .titolo-numerato::before {
     position: relative;
     content: "0" counter(section) ".";
-    margin-right: 10px;
+    margin: 0 10px 3px 0;
     color: var(--green);
     font-family: var(--font-mono);
     font-size: clamp(16px, 3vw, 20px);
@@ -544,17 +576,21 @@ p.dettagli-introduzione a::after {
     counter-increment: section 1;
 }
 
-@media (max-width: 768px) {
-    .immagine-chi-sono {
-        margin: 50px auto 0;
-        width: 70%;
-    }
+#chi-sono p {
+    font-size: 17px;
 }
 
 .immagine-chi-sono {
     position: relative;
     max-width: 300px;
     aspect-ratio: 1/1;
+}
+
+@media (max-width: 768px) {
+    .immagine-chi-sono {
+        margin: 50px auto 0;
+        width: 70%;
+    }
 }
 
 .immagine-background {
@@ -722,6 +758,7 @@ p.periodo-lavorativo {
     list-style: none;
     font-size: 18px;
     font-family: var(--font-calibre);
+    font-weight: 500;
 }
 
 #esperienze-lavorative ul li {
@@ -1150,10 +1187,10 @@ a.link-progetti-secondari {
     -webkit-box-align: center;
     align-items: center;
     margin-right: -10px;
-    color: var(--grey);
 }
 
 .progetto-secondario .link {
+    color: var(--grey);
     display: flex;
     -webkit-box-pack: center;
     justify-content: center;
@@ -1163,7 +1200,11 @@ a.link-progetti-secondari {
     position: relative;
     z-index: 1;
     cursor: pointer;
-    color: inherit;
+    transition: color 0.25s;
+}
+
+.progetto-secondario .link:hover {
+    color: var(--green);
 }
 
 .progetto-secondario .link svg {
@@ -1406,9 +1447,9 @@ footer .footer-contenuto {
 }
 
 @media (max-width: 1080px) {
-    div.container-testo,
-    div.container-form {
-        width: 100%;
+    .pagina-contatti div.container-testo,
+    .pagina-contatti div.container-form {
+        width: 100% !important;
         margin-bottom: 5rem;
     }
 }
