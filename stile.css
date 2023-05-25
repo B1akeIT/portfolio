@@ -50,6 +50,7 @@ p a {
     transition: 0.25s;
     color: var(--green);
     white-space: nowrap;
+    cursor: pointer;
 }
 
 p a:hover:after {
@@ -105,7 +106,7 @@ p a:after {
 
 
 header {
-    height: 255px;
+    min-height: 100px;
     overflow: hidden;
     display: flex;
     -webkit-box-pack: justify;
@@ -161,9 +162,7 @@ footer .lista-social {
 }
 
 
-.lista-social a:hover,
-.lista-social a:focus,
-.lista-social a:focus-visible {
+.lista-social a:is(:hover, :focus, :focus-visible) {
     transform: translateY(-3px);
     color: var(--green);
     transition: 0.25s;
@@ -220,9 +219,7 @@ aside#email a {
     transition: letter-spacing 0.25s;
 }
 
-aside#email a:hover,
-aside#email a:focus,
-aside#email a:focus-visible {
+aside#email a:is(:hover, :focus, :focus-visible) {
     transform: translateY(-3px);
     color: var(--green);
     letter-spacing: 0.15em;
@@ -321,7 +318,7 @@ nav {
     content: "04.";
 }
 
-/* Responsive navbar */
+/* Navbar mobile */
 
 .nav-btn, #nav-check {
     display: none;
@@ -435,8 +432,8 @@ article {
 }
 
 article#introduzione {
-    min-height: 100vh;
-    height: 100vh;
+    min-height: calc(90vh - 100px);
+    height: calc(90vh - 100px);
     padding: 0;
 }
 
@@ -494,14 +491,14 @@ h2.titolo-secondario {
     line-height: 0.9;
 }
 
-p.dettagli-introduzione {
+.dettagli-introduzione {
     margin: 20px 0 0;
     max-width: 540px;
     line-height: 1.3;
     font-size: 19px;
 }
 
-p.dettagli-introduzione a {
+.dettagli-introduzione a {
     color: var(--green);
     display: inline-block;
     text-decoration: none;
@@ -509,11 +506,11 @@ p.dettagli-introduzione a {
     transition: all 0.25s;
 }
 
-p.dettagli-introduzione a:hover::after {
+.dettagli-introduzione a:hover::after {
     width: 100%;
 }
 
-p.dettagli-introduzione a::after {
+.dettagli-introduzione a::after {
     background-color: var(--green);
     content: "";
     display: block;
@@ -618,9 +615,7 @@ p.dettagli-introduzione a::after {
     mix-blend-mode: screen;
 }
 
-.immagine-background:hover::after,
-.immagine-background:focus::after,
-.immagine-background:focus-visible::after {
+.immagine-background:is(:hover, :focus, :focus-visible)::after {
     top: 15px;
     left: 15px;
 }
@@ -639,9 +634,7 @@ p.dettagli-introduzione a::after {
     z-index: -1;
 }
 
-.immagine-background:hover div,
-.immagine-background:focus div,
-.immagine-background:focus-visible div {
+.immagine-background:is(:hover, :focus, :focus-visible) div {
     filter: none;
     mix-blend-mode: normal;
 }
@@ -745,7 +738,7 @@ h3 .nome-azienda {
     white-space: nowrap;
 }
 
-p.periodo-lavorativo {
+.periodo-lavorativo {
     margin-bottom: 25px;
     color: var(--light-blue);
     font-family: var(--font-mono);
@@ -951,9 +944,7 @@ p.periodo-lavorativo {
     transition: 0.25s;
 }
 
-.progetto-in-evidenza .titolo-progetto a:hover,
-.progetto-in-evidenza .titolo-progetto a:focus,
-.progetto-in-evidenza .titolo-progetto a:focus-visible {
+.progetto-in-evidenza .titolo-progetto a:is(:hover, :focus, :focus-visible) {
     color: var(--green);
 }
 
@@ -1025,9 +1016,7 @@ p.periodo-lavorativo {
     transition: 0.25s;
 }
 
-.progetto-in-evidenza .immagine-progetto:hover a,
-.progetto-in-evidenza .immagine-progetto:focus a,
-.progetto-in-evidenza .immagine-progetto:focus-visible a {
+.progetto-in-evidenza .immagine-progetto:is(:hover, :focus, :focus-visible) a {
     background: transparent;
     outline: 0;
 }
@@ -1063,9 +1052,7 @@ p.periodo-lavorativo {
     }
 }
 
-.progetto-in-evidenza .immagine-progetto:hover div,
-.progetto-in-evidenza .immagine-progetto:focus div,
-.progetto-in-evidenza .immagine-progetto:focus-visible div {
+.progetto-in-evidenza .immagine-progetto:is(:hover, :focus, :focus-visible) div {
     filter: none;
 }
 
@@ -1089,9 +1076,7 @@ p.periodo-lavorativo {
     border-radius: 10px;
 }
 
-.progetto-in-evidenza .immagine-progetto:hover img,
-.progetto-in-evidenza .immagine-progetto:focus img,
-.progetto-in-evidenza .immagine-progetto:focus-visible img {
+.progetto-in-evidenza .immagine-progetto:is(:hover, :focus, :focus-visible) img {
     background: transparent;
     filter: none;
 }
@@ -1108,7 +1093,7 @@ h2.titolo-progetti-secondari {
     line-height: 1.1;
 }
 
-a.link-progetti-secondari {
+.link-progetti-secondari {
     font-size: 14px;
     font-family: var(--font-mono);
     display: inline-block;
@@ -1252,7 +1237,7 @@ section#sezione-contatti {
     text-align: center;
 }
 
-article#contatti p.contatti-sottotitolo {
+article#contatti .contatti-sottotitolo {
     display: block;
     margin-bottom: 20px;
     color: var(--green);
@@ -1261,7 +1246,7 @@ article#contatti p.contatti-sottotitolo {
     font-weight: 400;
 }
 
-article#contatti p.contatti-sottotitolo::before {
+article#contatti .contatti-sottotitolo::before {
     bottom: 0;
     font-size: 16px;
     position: relative;
@@ -1287,7 +1272,7 @@ article#contatti .contatti-descrizione {
     font-weight: 400;
 }
 
-article#contatti a.contatti-email {
+article#contatti .contatti-email {
     color: var(--green);
     background-color: transparent;
     border: 1px solid var(--green);
@@ -1301,9 +1286,7 @@ article#contatti a.contatti-email {
     margin-top: 50px;
 }
 
-article#contatti a.contatti-email:hover,
-article#contatti a.contatti-email:focus,
-article#contatti a.contatti-email:focus-visible {
+article#contatti .contatti-email:is(:hover, :focus, :focus-visible) {
     outline: none;
     box-shadow: 4px 4px 0 0 var(--green);
     transform: translate(-5px, -5px);
@@ -1350,7 +1333,7 @@ footer .footer-contenuto {
     font-family: var(--font-calibre);
 }
 
-.pagina-progetti h2.sottotitolo {
+.pagina-progetti .sottotitolo {
     color: var(--green);
     margin: 0;
     font-size: 16px;
@@ -1373,7 +1356,7 @@ footer .footer-contenuto {
     color: var(--grey);
 }
 
-.pagina-progetto-singolo a.link {
+.pagina-progetto-singolo .link {
     display: flex;
     -webkit-box-pack: center;
     justify-content: center;
@@ -1386,7 +1369,7 @@ footer .footer-contenuto {
     color: inherit;
 }
 
-.pagina-progetto-singolo a.link svg {
+.pagina-progetto-singolo .link svg {
     width: 25px;
     height: 25px;
 }
@@ -1439,16 +1422,21 @@ footer .footer-contenuto {
     line-height: 1.5;
 }
 
-.pagina-contatti div.container-testo,
-.pagina-contatti div.container-form {
+.pagina-contatti p,
+.pagina-progetto-singolo p {
+    font-size: 17px;
+}
+
+.pagina-contatti .container-testo,
+.pagina-contatti .container-form {
     width: 45%;
     display: flex;
     flex-direction: column;
 }
 
 @media (max-width: 1080px) {
-    .pagina-contatti div.container-testo,
-    .pagina-contatti div.container-form {
+    .pagina-contatti .container-testo,
+    .pagina-contatti .container-form {
         width: 100% !important;
         margin-bottom: 5rem;
     }
@@ -1462,21 +1450,21 @@ footer .footer-contenuto {
     margin-bottom: 5px;
 }
 
-div.input-container {
+.input-container {
     position: relative;
 }
 
-div.input-container textarea,
-div.input-container input {
+.input-container textarea,
+.input-container input {
     width: -webkit-fill-available;
 }
 
-div.input-container input:invalid {
+.input-container input:invalid {
     outline: red solid 1px;
 }
 
-div.icona-nome,
-div.icona-mail {
+.icona-nome,
+.icona-mail {
     height: 100%;
     position: absolute;
     display: flex;
@@ -1497,9 +1485,7 @@ div.icona-mail {
     margin-top: 15px;
 }
 
-.button-invia-email:hover,
-.button-invia-email:focus,
-.button-invia-email:focus-visible {
+.button-invia-email:is(:hover, :focus, :focus-visible) {
     outline: none;
     box-shadow: 4px 4px 0 0 var(--green);
     transform: translate(-5px, -5px);
