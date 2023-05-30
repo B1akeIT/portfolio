@@ -1,3 +1,10 @@
+<?php
+include('dati.json');
+$file = "dati.json";
+$data = json_decode($file);
+echo $data
+?>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -126,6 +133,10 @@
                 <h1>
                     <span class="titolo-piccolo"> Ciao, mi chiamo </span>
                     <span class="titolo-grande"> Davide Giuntoli. </span>
+                    <div>
+                        Today’s date is <b><?php echo date('Y/m/d') ?></b> and it’s a <b><?php echo date(‘l’) ?></b>
+                        today!
+                    </div>
                 </h1>
                 <h2 class="titolo-secondario">Costruisco idee per il web.</h2>
                 <p class="dettagli-introduzione">
@@ -169,8 +180,6 @@
                     </p>
                     <ul class="lista-skills">
                         <?php
-                        $file = "dati.json";
-                        $data = json_decode($file);
                         foreach ($data->lista_skills as $skill) {
                             echo "<li>" . $skill . "</li>";
                         }
