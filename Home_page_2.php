@@ -168,6 +168,15 @@
                         Questi sono i linguaggi e le tecnologie con cui sto lavorando attualmente:
                     </p>
                     <ul class="lista-skills">
+                        <?php
+                        $file = "dati.json";
+                        $data = json_decode($file);
+                        foreach ($data->lista_skills as $skill) {
+                            echo "<li>" . $skill . "</li>";
+                        }
+
+                        ?>
+
                         <li>Angular 12+</li>
                         <li>JavaScript Es6</li>
                         <li>HTML + SCSS</li>

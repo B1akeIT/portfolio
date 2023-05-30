@@ -216,7 +216,7 @@ aside#email a {
     text-decoration-skip-ink: auto;
     color: inherit;
     position: relative;
-    transition: letter-spacing 0.25s;
+    transition: 0.25s;
 }
 
 aside#email a:is(:hover, :focus, :focus-visible) {

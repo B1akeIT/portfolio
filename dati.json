@@ -1,0 +1,39 @@
+{
+  "lista_skills": [
+    "Angular 12+",
+    "JavaScript Es6",
+    "HTML + SCSS",
+    "PHP",
+    "MySQL",
+    "Wordpress"
+  ],
+  "progetti_in_evidenza": [
+    {
+      "nome": "Accademia CODE",
+      "href": "Progetto_singolo.html",
+      "banner": {
+        "src": "img/progetto_code.png",
+        "alt": "Immagine progetto CODE"
+      },
+      "testo_intro": "Un corso per programmatori di tutti i livelli, progettato per una preparazione come full stack developer"
+    },
+    {
+      "nome": "Accademia Artesport di Pinerolo",
+      "href": "Progetto_singolo.html",
+      "banner": {
+        "src": "img/progetto_artesport.jpg",
+        "alt": "Immagine progetto palestra Artesport"
+      },
+      "testo_intro": "Un'accademia pensata per il benessere delle persone a 360 gradi, seguita da specialisti delle arti marziali e con una grande varietà di corsi ed intrattenimenti. <br> La loro pagina web è stata da poco rinnovata. Vai a dare un'occhiata!"
+    },
+    {
+      "nome": "Netflix? Si, ma niente di serio",
+      "href": "Progetto_singolo.html",
+      "banner": {
+        "src": "img/progetto_netflix.jpg",
+        "alt": "Immagine progetto Netflix"
+      },
+      "testo_intro": "Prendendo spunto dalla famosa piattaforma Netflix, ho pensato di costruire una sito per streaming dalla struttura semplice ma accattivante."
+    }
+  ]
+}
