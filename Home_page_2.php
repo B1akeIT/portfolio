@@ -1,8 +1,10 @@
 <?php
-include('dati.json');
-$file = "dati.json";
-$data = json_decode($file);
-echo $data
+
+$json = file_get_contents('dati.json');
+$data = json_decode($json);
+
+echo "encode data";
+echo json_encode($data->progetti_in_evidenza);
 ?>
 
 <!DOCTYPE html>
@@ -133,10 +135,6 @@ echo $data
                 <h1>
                     <span class="titolo-piccolo"> Ciao, mi chiamo </span>
                     <span class="titolo-grande"> Davide Giuntoli. </span>
-                    <div>
-                        Today’s date is <b><?php echo date('Y/m/d') ?></b> and it’s a <b><?php echo date(‘l’) ?></b>
-                        today!
-                    </div>
                 </h1>
                 <h2 class="titolo-secondario">Costruisco idee per il web.</h2>
                 <p class="dettagli-introduzione">
@@ -186,12 +184,14 @@ echo $data
 
                         ?>
 
+                        <!--
                         <li>Angular 12+</li>
                         <li>JavaScript Es6</li>
                         <li>HTML + SCSS</li>
                         <li>PHP</li>
                         <li>MySQL</li>
                         <li>Wordpress</li>
+                        -->
                     </ul>
                 </div>
                 <div class="immagine-chi-sono">
@@ -261,6 +261,32 @@ echo $data
             <h2 class="titolo-numerato">I miei progetti</h2>
             <section id="progetti-in-evidenza" style="padding-top: 10px">
                 <ul>
+
+                <?php
+                foreach ($data->progetti_in_evidenza as $progetto) {
+                    echo "<li class='progetto-in-evidenza'>".
+                        "<div class='contenuto-progetto'>
+                            <div>
+                                <p class='sottotitolo-progetto'>Progetto in evidenza</p>
+                                <h3 class='titolo-progetto'>
+                                    <a target='_blank' href='" . $progetto->href . "'>" . $progetto->nome . "</a>
+                                </h3>
+                                <div class='descrizione-progetto'>
+                                    <p>" . $progetto->testo_intro . "
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='immagine-progetto'>
+                            <a target='_blank' href='" . $progetto->href . "'>
+                                <div style='max-width: 700px; display: block;'>
+                                    <img alt='". $progetto->banner->alt . "' src='". $progetto->banner->src . "'/>
+                                </div>
+                            </a>
+                        </div>";
+                }
+                ?>
+                    <!--
                     <li class="progetto-in-evidenza">
                         <div class="contenuto-progetto">
                             <div>
@@ -333,6 +359,7 @@ echo $data
                             </a>
                         </div>
                     </li>
+                    -->
                 </ul>
             </section>
             <section id="altri-progetti">
