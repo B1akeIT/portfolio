@@ -35,5 +35,26 @@
       },
       "testo_intro": "Prendendo spunto dalla famosa piattaforma Netflix, ho pensato di costruire una sito per streaming dalla struttura semplice ma accattivante."
     }
+  ],
+  "progetti_secondari": [
+    {
+      "nome": "Clone Spotify",
+      "links": [
+        {
+          "tipo": "GitHub",
+          "href": "Progetto_singolo.html"
+        },
+        {
+          "tipo": "Link esterno",
+          "href": "Progetto_singolo.html"
+        }
+      ],
+      "testo_intro": "Seguendo la stessa filosofia del progetto di Netflix, ho creato una copia dello stile di Spotify, moderno e chiaro.",
+      "tecnologie": [
+        "Alpine.js",
+        "Tailwind CSS",
+        "PHP"
+      ]
+    }
   ]
 }
