@@ -55,6 +55,86 @@
         "Tailwind CSS",
         "PHP"
       ]
+    },
+    {
+      "nome": "Lorem ipsum library",
+      "links": [
+        {
+          "tipo": "Link esterno",
+          "href": "Progetto_singolo.html"
+        }
+      ],
+      "testo_intro": "Una vasta lista di font e colori per aiutarmi nella scelta degli stili nei siti che costruisco.",
+      "tecnologie": [
+        "Javascript",
+        "SCSS"
+      ]
+    },
+    {
+      "nome": "Compatibilità coi browser",
+      "links": [
+        {
+          "tipo": "Link esterno",
+          "href": "Progetto_singolo.html"
+        }
+      ],
+      "testo_intro": "Quali tag sono supportati in Google Chrome? Ed in Safari? Questa pagina chiarirà tutti i dubbi a riguardo!",
+      "tecnologie": [
+        "Angular 10",
+        "Bootstrap CSS",
+        "PHP"
+      ]
+    },
+    {
+      "nome": "Clone Google Calendar",
+      "links": [
+        {
+          "tipo": "GitHub",
+          "href": "Progetto_singolo.html"
+        }
+      ],
+      "testo_intro": "Seguendo la stessa filosofia del progetto di Netflix, ho creato una copia dello stile dell'usatissimo Google Calendar.",
+      "tecnologie": [
+        "Angular",
+        "Tailwind CSS"
+      ]
+    },
+    {
+      "nome": "CV Personale",
+      "links": [
+        {
+          "tipo": "GitHub",
+          "href": "Progetto_singolo.html"
+        },
+        {
+          "tipo": "Link esterno",
+          "href": "Progetto_singolo.html"
+        }
+      ],
+      "testo_intro": "Uno dei miei primi progetti: replicare il mio CV creato online in codice HTML e CSS.",
+      "tecnologie": [
+        "HTML",
+        "CSS"
+      ]
+    },
+    {
+      "nome": "Lista IDE",
+      "links": [
+        {
+          "tipo": "GitHub",
+          "href": "Progetto_singolo.html"
+        },
+        {
+          "tipo": "Link esterno",
+          "href": "Progetto_singolo.html"
+        }
+      ],
+      "testo_intro": "Non sai quale IDE fa al caso tuo per i tuoi progetti e per il tuo codice? Temi che Visual Studio Code non sia la scelta giusta? Questo sito compara un vasto numero di programmi che puoi usare per il tuo lavoro!",
+      "tecnologie": [
+        "Vue.js",
+        "Bootstrap CSS",
+        "PHP"
+      ]
     }
   ]
 }
