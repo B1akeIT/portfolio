@@ -135,6 +135,100 @@
         "Bootstrap CSS",
         "PHP"
       ]
+    },
+    {
+      "nome": "Lorem ipsum dolor sit amet",
+      "links": [
+        {
+          "tipo": "GitHub",
+          "href": "Progetto_singolo.html"
+        }
+      ],
+      "testo_intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ante justo, faucibus sed sodales eget, pellentesque vitae nulla. Donec accumsan, felis id sodales posuere, ex massa maximus lectus, congue venenatis libero tellus vitae turpis.",
+      "tecnologie": [
+        "Angular",
+        "Tailwind CSS"
+      ]
+    },
+    {
+      "nome": "Lorem ipsum dolor sit amet",
+      "links": [
+        {
+          "tipo": "Link esterno",
+          "href": "Progetto_singolo.html"
+        }
+      ],
+      "testo_intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ante justo, faucibus sed sodales eget, pellentesque vitae nulla. Donec accumsan, felis id sodales posuere, ex massa maximus lectus, congue venenatis libero tellus vitae turpis.",
+      "tecnologie": [
+        "HTML",
+        "CSS"
+      ]
+    },
+    {
+      "nome": "Lorem ipsum dolor sit amet",
+      "links": [
+        {
+          "tipo": "GitHub",
+          "href": "Progetto_singolo.html"
+        },
+        {
+          "tipo": "Link esterno",
+          "href": "Progetto_singolo.html"
+        }
+      ],
+      "testo_intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ante justo, faucibus sed sodales eget, pellentesque vitae nulla. Donec accumsan, felis id sodales posuere, ex massa maximus lectus, congue venenatis libero tellus vitae turpis.",
+      "tecnologie": [
+        "Vue.js",
+        "Bootstrap CSS",
+        "PHP"
+      ]
+    },
+    {
+      "nome": "Lorem ipsum dolor sit amet",
+      "links": [
+        {
+          "tipo": "GitHub",
+          "href": "Progetto_singolo.html"
+        }
+      ],
+      "testo_intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ante justo, faucibus sed sodales eget, pellentesque vitae nulla. Donec accumsan, felis id sodales posuere, ex massa maximus lectus, congue venenatis libero tellus vitae turpis.",
+      "tecnologie": [
+        "Angular",
+        "Tailwind CSS"
+      ]
+    },
+    {
+      "nome": "Lorem ipsum dolor sit amet",
+      "links": [
+        {
+          "tipo": "Link esterno",
+          "href": "Progetto_singolo.html"
+        }
+      ],
+      "testo_intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ante justo, faucibus sed sodales eget, pellentesque vitae nulla. Donec accumsan, felis id sodales posuere, ex massa maximus lectus, congue venenatis libero tellus vitae turpis.",
+      "tecnologie": [
+        "HTML",
+        "CSS"
+      ]
+    },
+    {
+      "nome": "Lorem ipsum dolor sit amet",
+      "links": [
+        {
+          "tipo": "GitHub",
+          "href": "Progetto_singolo.html"
+        },
+        {
+          "tipo": "Link esterno",
+          "href": "Progetto_singolo.html"
+        }
+      ],
+      "testo_intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ante justo, faucibus sed sodales eget, pellentesque vitae nulla. Donec accumsan, felis id sodales posuere, ex massa maximus lectus, congue venenatis libero tellus vitae turpis.",
+      "tecnologie": [
+        "Vue.js",
+        "Bootstrap CSS",
+        "PHP"
+      ]
     }
   ]
 }
