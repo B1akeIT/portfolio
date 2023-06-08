@@ -19,11 +19,13 @@ $data = json_decode($json);
     <link href="https://fonts.cdnfonts.com/css/calibre" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/sf-mono" rel="stylesheet">
     <link href="stile.css" type="text/css" rel="stylesheet"/>
-    <title> Davide Giuntoli </title>
+    <title> Progetti - Davide Giuntoli </title>
 
     <link rel="icon" href="img/logocode_small.svg">
 </head>
 <body>
+
+
 <div class="background">
 
     <!-- Header con logo e pulsanti per la navigazione -->
@@ -46,7 +48,7 @@ $data = json_decode($json);
                     <a href="Home_page_2.php#esperienze-lavorative">Esperienze</a>
                 </li>
                 <li class="button-progetti">
-                    <a href="Progetti_2.php">Progetti</a>
+                    <a href="Progetti_2.php" style="color: #64FFDA;">Progetti</a>
                 </li>
                 <li class="button-contatti">
                     <a href="Contatti.html">Contatti</a>
@@ -61,13 +63,13 @@ $data = json_decode($json);
             </div>
             <div class="mobile-button-list">
                 <span class="button-chi-sono">
-                    <a href="#introduzione">Chi sono</a>
+                    <a href="Home_page_2.php">Chi sono</a>
                 </span>
                 <span class="button-esperienze">
-                    <a href="#esperienze-lavorative">Esperienze</a>
+                    <a href="Home_page_2.php">Esperienze</a>
                 </span>
                 <span class="button-progetti">
-                    <a href="Progetti_2.php">Progetti</a>
+                    <a href="Progetti_2.php" style="color: #64FFDA;">Progetti</a>
                 </span>
                 <span class="button-contatti">
                     <a href="Contatti.html">Contatti</a>
@@ -84,7 +86,7 @@ $data = json_decode($json);
                     <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24"
                          fill="none" stroke="currentColor" stroke-width="2"
                          stroke-linecap="round"
-                         stroke-linejoin="round" class="feather feather-github">
+                         stroke-linejoin="round">
                         <title>GitHub</title>
                         <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                     </svg>
@@ -125,130 +127,14 @@ $data = json_decode($json);
     </aside>
 
     <!-- Contenuto principale -->
-    <main class="page-wrapper home-page">
-
-        <!-- Introduzione -->
-        <article id="introduzione">
-            <section class="introduzione">
-                <h1>
-                    <span class="titolo-piccolo"> Ciao, mi chiamo </span>
-                    <span class="titolo-grande"> Davide Giuntoli. </span>
-                </h1>
-                <h2 class="titolo-secondario">Costruisco idee per il web.</h2>
-                <p class="dettagli-introduzione">
-                    Sono uno sviluppatore web focalizzato nella costruzione di esperienze digitali ottimali.
-                    Attualmente, ricopro una posizione da sviluppatore front-end in
-                    <a href="https://myvirtualab.it/" target="_blank">
-                        MyVirtualab
-                    </a>
-                </p>
-            </section>
-        </article>
-
-        <!-- Sezione Chi sono -->
-        <article id="chi-sono">
-            <h2 class="titolo-numerato">Chi sono</h2>
-
-            <section class="dettagli">
-                <div>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu turpis quis diam bibendum
-                        dictum
-                        ac in quam. Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare,
-                        dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed
-                        sapien aliquet pulvinar. Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis
-                        lorem,
-                        id luctus augue mi eget felis.
-                    </p>
-                    <p>
-                        Fino ad ora, ho avuto il piacere di lavorare con
-                        <a target="_blank">una giovane startup</a> ed
-                        <a target="_blank"> un'agenzia di inbound marketing</a> e di studiare con
-                        <a target="_blank">un'agenzia formativa</a>.
-                    </p>
-                    <p>
-                        Infine, sto frequentando un corso di formazione tenuto dall'
-                        <a target="_blank">Accademia CODE</a> di Torino.
-                        Questo stesso sito sarà sottoposto alla loro valutazione!
-                    </p>
-                    <p>
-                        Questi sono i linguaggi e le tecnologie con cui sto lavorando attualmente:
-                    </p>
-                    <ul class="lista-skills">
-                        <?php
-                        foreach ($data->lista_skills as $skill) {
-                            echo "<li>" . $skill . "</li>";
-                        }
-
-                        ?>
-                    </ul>
-                </div>
-                <div class="immagine-chi-sono">
-                    <div class="immagine-background">
-                        <div>
-                            <img width="500" height="500"
-                                 src="img/immagine_placeholder.jpg" alt="Immagine placeholder"
-                                 title="Immagine placeholder"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </article>
-
-        <!-- Sezione esperienze lavorative -->
-        <article id="esperienze-lavorative">
-            <h2 class="titolo-numerato">Dove ho lavorato</h2>
-
-            <section class="dettagli" style="padding-top: 0;">
-                <h3 class="esperienza-lavorativa">Angular Developer
-                    <span class="nome-azienda">@ <a>MyVirtualab</a></span></h3>
-                <p class="periodo-lavorativo">Gen 2023 - Attuale</p>
-                <div>
-                    <ul>
-                        <li>Sviluppo front-end in Angular, HTML e SCSS</li>
-                        <li>Lavoro dinamico in più progetti e team</li>
-                        <li>
-                            Confronto costante coi membri del team tramite utilizzo di Git e della metodologia Agile
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <section class="dettagli">
-                <h3 class="esperienza-lavorativa">Full stack Developer
-                    <span class="nome-azienda">@ <a>Mediaus</a></span></h3>
-                <p class="periodo-lavorativo">Dic 2021 - Dic 2022</p>
-                <div>
-                    <ul>
-                        <li>Sviluppo front-end in Vue.js, HTML e SCSS</li>
-                        <li>Sviluppo ed assistenza su piattaforme WordPress e Magento 2.4.2 con l'ausilio di PHP</li>
-                        <li>Confronto costante con membri dei team e clienti</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section class="dettagli">
-                <h3 class="esperienza-lavorativa">Angular Developer
-                    <span class="nome-azienda">@ <a>Hastega</a></span></h3>
-                <p class="periodo-lavorativo">Nov 2020 - Dic 2021</p>
-                <div>
-                    <ul>
-                        <li>Sviluppo front-end in Angular, HTML e SCSS</li>
-                        <li>Utilizzo dei framework Bootstrap e Tailwind</li>
-                        <li>
-                            Confronto costante coi membri del team tramite utilizzo di Git e della metodologia Agile
-                            Scrum
-                        </li>
-                    </ul>
-                </div>
-            </section>
-        </article>
+    <main class="page-wrapper pagina-progetti">
 
         <!-- Sezione progetti -->
         <article id="progetti">
-            <h2 class="titolo-numerato">I miei progetti</h2>
-            <section id="progetti-in-evidenza" style="padding-top: 10px">
+            <h1>I miei progetti</h1>
+            <h2 class="sottotitolo">L'archivio dei progetti in cui ho lavorato</h2>
+
+            <section id="progetti-in-evidenza">
                 <ul>
                     <?php
                     foreach ($data->progetti_in_evidenza as $progetto) {
@@ -278,13 +164,10 @@ $data = json_decode($json);
             </section>
             <section id="altri-progetti">
 
-                <h2 class="titolo-progetti-secondari">Altri progetti</h2>
-                <p style="text-align: center">
-                    <a class="link-progetti-secondari" href="Progetti_2.php">visualizza tutto</a>
-                </p>
+                <h2 class="titolo-progetti-secondari">Altri progetti degni di nota</h2>
                 <ul class="tabella-progetti-secondari">
                     <?php
-                    foreach (array_slice($data->progetti_secondari, 0, 6) as $progetto) {
+                    foreach ($data->progetti_secondari as $progetto) {
                         echo "<li class=\"progetto-secondario\">
                             <div class=\"contenuto-progetto\">
                                 <div>
@@ -298,22 +181,22 @@ $data = json_decode($json);
                                             </svg>
                                         </div>
                                         <div class=\"lista-link\">";
-                                            // Scorre i link del progetto
-                                            foreach ($progetto->links as $link) {
-                                                // Prepara il link di riferimento nel tag
-                                                echo "<a class=\"link\" href=" . $link->href . ">";
-                                                // Stampa l'icona giusta, in base al tipo di icona
-                                                if ($link->tipo == "GitHub") {
-                                                    echo "<svg xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" viewBox=\"0 0 24 24\"
+                        // Scorre i link del progetto
+                        foreach ($progetto->links as $link) {
+                            // Prepara il link di riferimento nel tag
+                            echo "<a class=\"link\" href=" . $link->href . ">";
+                            // Stampa l'icona giusta, in base al tipo di icona
+                            if ($link->tipo == "GitHub") {
+                                echo "<svg xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" viewBox=\"0 0 24 24\"
                                                          fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"
                                                          stroke-linecap=\"round\"
                                                          stroke-linejoin=\"round\" class=\"feather feather-github\">
                                                         <title>GitHub</title>
                                                         <path d=\"M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22\"></path>
                                                     </svg>";
-                                                }
-                                                if ($link->tipo == "Link esterno") {
-                                                    echo "<svg xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" viewBox=\"0 0 24 24\"
+                            }
+                            if ($link->tipo == "Link esterno") {
+                                echo "<svg xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" viewBox=\"0 0 24 24\"
                                                          fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"
                                                          stroke-linecap=\"round\"
                                                          stroke-linejoin=\"round\" class=\"feather feather-external-link\">
@@ -322,11 +205,11 @@ $data = json_decode($json);
                                                         <polyline points=\"15 3 21 3 21 9\"></polyline>
                                                         <line x1=\"10\" y1=\"14\" x2=\"21\" y2=\"3\"></line>
                                                     </svg>";
-                                                }
-                                                // Chiudo il tag che contiene il link e l'icona
-                                                echo "</a>";
-                                            }
-                                        echo "
+                            }
+                            // Chiudo il tag che contiene il link e l'icona
+                            echo "</a>";
+                        }
+                        echo "
                                     </div>
                                 </div>
                                 <h3 class=\"titolo-progetto\">
@@ -340,10 +223,10 @@ $data = json_decode($json);
                             </div>
                             <div class=\"tecnologie-progetto\">
                                 <ul class=\"lista-tecnologie\">";
-                                    foreach ($progetto->tecnologie as $tecnologia) {
-                                        echo "<li>" . $tecnologia . "</li>";
-                                    }
-                                echo "</ul>
+                        foreach ($progetto->tecnologie as $tecnologia) {
+                            echo "<li>" . $tecnologia . "</li>";
+                        }
+                        echo "</ul>
                             </div>
                         </div>
                     </li>";
@@ -352,19 +235,6 @@ $data = json_decode($json);
             </section>
         </article>
 
-        <!-- Sezione contatti -->
-        <article id="contatti">
-            <section id="sezione-contatti" class="dettagli" style="align-items: center;">
-                <p class="contatti-sottotitolo">E adesso?</p>
-                <h2 class="contatti-titolo">Realizziamo altre idee!</h2>
-                <p class="contatti-descrizione">
-                    Attualmente non sto cercando nuove opportunità di lavoro, ma la mia email è sempre aperta.
-                    Se vuoi contattarmi per una domanda, un progetto o semplicemente per salutare, risponderò il prima
-                    possibile!
-                </p>
-                <a class="contatti-email" href="Contatti.html">Parliamo</a>
-            </section>
-        </article>
     </main>
 
     <!-- Footer -->
@@ -417,6 +287,8 @@ $data = json_decode($json);
             <p>Junior frontend developer</p>
         </div>
     </footer>
+
 </div>
+
 </body>
 </html>
