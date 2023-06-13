@@ -308,9 +308,17 @@ nav {
     content: "02.";
 }
 
+.pagina-progetti .button-progetti a {
+    color: var(--green);
+}
+
 .button-list li.button-progetti a::before,
 .mobile-button-list span.button-progetti a:before {
     content: "03.";
+}
+
+.pagina-contatti .button-contatti a {
+    color: var(--green);
 }
 
 .button-list li.button-contatti a::before,
@@ -1343,7 +1351,7 @@ footer .footer-contenuto {
 }
 
 
-/********** Stile pagina progetti **********/
+/********** Stile pagina progetto singolo **********/
 
 .pagina-progetto-singolo #progetto-singolo section > * {
     margin: 25px 0;
@@ -1390,6 +1398,10 @@ footer .footer-contenuto {
 
 /********** Stile pagina contatti **********/
 
+.pagina-contatti .button-contatti a {
+    color: var(--green);
+}
+
 .pagina-contatti section {
     display: flex;
     flex-direction: column;
@@ -1422,8 +1434,8 @@ footer .footer-contenuto {
     line-height: 1.5;
 }
 
-.pagina-contatti p,
-.pagina-progetto-singolo p {
+.pagina-contatti main p,
+.pagina-progetto-singolo main p {
     font-size: 17px;
 }
 

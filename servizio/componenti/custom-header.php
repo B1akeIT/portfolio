@@ -15,16 +15,16 @@ public string $headerText = "<header>
             </div>
             <ul class=\"button-list\">
                 <li class=\"button-chi-sono\">
-                    <a href=\"#introduzione\">Chi sono</a>
+                    <a href=\"Home_page_2.php#introduzione\">Chi sono</a>
                 </li>
                 <li class=\"button-esperienze\">
-                    <a href=\"#esperienze-lavorative\">Esperienze</a>
+                    <a href=\"Home_page_2.php#esperienze-lavorative\">Esperienze</a>
                 </li>
                 <li class=\"button-progetti\">
-                    <a href=\"Progetti.html\">Progetti</a>
+                    <a href=\"Progetti_2.php\">Progetti</a>
                 </li>
                 <li class=\"button-contatti\">
-                    <a href=\"Contatti.html\">Contatti</a>
+                    <a href=\"Contatti_2.php\">Contatti</a>
                 </li>
             </ul>
             <div class=\"nav-btn\">
@@ -36,16 +36,16 @@ public string $headerText = "<header>
             </div>
             <div class=\"mobile-button-list\">
                 <span class=\"button-chi-sono\">
-                    <a href=\"#introduzione\">Chi sono</a>
+                    <a href=\"Home_page_2.php#introduzione\">Chi sono</a>
                 </span>
                 <span class=\"button-esperienze\">
-                    <a href=\"#esperienze-lavorative\">Esperienze</a>
+                    <a href=\"Home_page_2.php#esperienze-lavorative\">Esperienze</a>
                 </span>
                 <span class=\"button-progetti\">
-                    <a href=\"Progetti.html\">Progetti</a>
+                    <a href=\"Progetti_2.php\">Progetti</a>
                 </span>
                 <span class=\"button-contatti\">
-                    <a href=\"Contatti.html\">Contatti</a>
+                    <a href=\"Contatti_2.php\">Contatti</a>
                 </span>
             </div>
         </nav>

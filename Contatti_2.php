@@ -29,7 +29,7 @@ $customFooter = new CustomFooter;
 <body>
 
 
-<div class="background">
+<div class="background pagina-contatti">
 
     <!-- Header con logo e pulsanti per la navigazione -->
     <?php
@@ -47,7 +47,7 @@ $customFooter = new CustomFooter;
     ?>
 
     <!-- Contenuto principale -->
-    <main class="page-wrapper pagina-contatti">
+    <main class="page-wrapper">
 
         <!-- Sezione progetti -->
         <article id="contatti">
