@@ -28,7 +28,7 @@ $customFooter = new CustomFooter;
     <link rel="icon" href="img/logocode_small.svg">
 </head>
 <body>
-<div class="background">
+<div class="background pagina-progetti">
 
     <!-- Header con logo e pulsanti per la navigazione -->
     <?php
@@ -46,7 +46,7 @@ $customFooter = new CustomFooter;
     ?>
 
     <!-- Contenuto principale -->
-    <main class="page-wrapper pagina-progetti">
+    <main class="page-wrapper">
 
         <!-- Sezione progetti -->
         <article id="progetti">
