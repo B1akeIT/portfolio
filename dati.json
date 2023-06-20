@@ -11,6 +11,16 @@
     {
       "nome": "Accademia CODE",
       "href": "Progetto_singolo.html",
+      "links": [
+        {
+          "tipo": "GitHub",
+          "href": "Progetto_singolo.html"
+        },
+        {
+          "tipo": "Link esterno",
+          "href": "Progetto_singolo.html"
+        }
+      ],
       "banner": {
         "src": "img/progetto_code.png",
         "alt": "Immagine progetto CODE"
@@ -20,6 +30,16 @@
     {
       "nome": "Accademia Artesport di Pinerolo",
       "href": "Progetto_singolo.html",
+      "links": [
+        {
+          "tipo": "GitHub",
+          "href": "Progetto_singolo.html"
+        },
+        {
+          "tipo": "Link esterno",
+          "href": "Progetto_singolo.html"
+        }
+      ],
       "banner": {
         "src": "img/progetto_artesport.jpg",
         "alt": "Immagine progetto palestra Artesport"
@@ -29,6 +49,16 @@
     {
       "nome": "Netflix? Si, ma niente di serio",
       "href": "Progetto_singolo.html",
+      "links": [
+        {
+          "tipo": "GitHub",
+          "href": "Progetto_singolo.html"
+        },
+        {
+          "tipo": "Link esterno",
+          "href": "Progetto_singolo.html"
+        }
+      ],
       "banner": {
         "src": "img/progetto_netflix.jpg",
         "alt": "Immagine progetto Netflix"
