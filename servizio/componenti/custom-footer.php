@@ -2,7 +2,9 @@
 
 class CustomFooter {
 
-public string $footerText = "<footer>
+    public function __construct() { }
+
+    public string $footerText = "<footer>
         <!--
         Questa parte del footer con i dettagli dei social compare
         solo se lo schermo non è abbastanza largo per fare spazio ai contenuti laterali

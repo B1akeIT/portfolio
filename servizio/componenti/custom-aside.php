@@ -3,6 +3,10 @@
 
 class CustomAside {
 
+    public function __construct()
+    {
+    }
+
     public string $socialAside = "<aside id=\"social\">
         <ul class=\"lista-social\">
             <li>

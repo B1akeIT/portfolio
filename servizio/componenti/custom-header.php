@@ -1,7 +1,8 @@
 <?php
 
-class CustomHeader
-{
+class CustomHeader {
+
+    public function __construct() { }
 
     function showHeader()
     {

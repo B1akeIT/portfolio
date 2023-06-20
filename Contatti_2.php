@@ -3,9 +3,6 @@ require_once('servizio/Servizio.php');
 $json = file_get_contents('dati.json');
 $data = json_decode($json);
 
-$customHeader = new CustomHeader;
-$customAside = new CustomAside;
-$customFooter = new CustomFooter;
 ?>
 
 <!DOCTYPE html>

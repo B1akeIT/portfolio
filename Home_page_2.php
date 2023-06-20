@@ -6,6 +6,8 @@ $data = json_decode($json);
 $customHeader = new CustomHeader;
 $customAside = new CustomAside;
 $customFooter = new CustomFooter;
+
+$servizio = new Servizio();
 ?>
 
 <!DOCTYPE html>
@@ -31,17 +33,17 @@ $customFooter = new CustomFooter;
 
     <!-- Header con logo e pulsanti per la navigazione -->
     <?php
-    $customHeader->showHeader();
+    $servizio->customHeader->showHeader();
     ?>
 
     <!-- Contenuto laterale social -->
     <?php
-    $customAside->showSocialAside();
+    $servizio->customAside->showSocialAside();
     ?>
 
     <!-- Contenuto laterale email -->
     <?php
-    $customAside->showEmailAside();
+    $servizio->customAside->showEmailAside();
     ?>
 
     <!-- Contenuto principale -->
@@ -289,7 +291,7 @@ $customFooter = new CustomFooter;
 
     <!-- Footer -->
     <?php
-    $customFooter->showFooter();
+    $servizio->customFooter->showFooter();
     ?>
 
 </div>
