@@ -12,7 +12,7 @@ class CustomHeader {
         <nav>
             <input type='checkbox' id='nav-check'>
             <div class='header-logo'>
-                <a href='Home_page_2.php'>
+                <a href='Home_page.php'>
                     <img src='img/logocode_small.svg' alt='Davide Giuntoli' title='Davide Giuntoli' />
                 </a>
             </div>
@@ -61,7 +61,7 @@ public string $headerText = "<header>
         <nav>
             <input type=\"checkbox\" id=\"nav-check\">
             <div class=\"header-logo\">
-                <a href=\"Home_page_2.php\">
+                <a href=\"Home_page.php\">
                     <img
                             src=\"img/logocode_small.svg\" alt=\"Davide Giuntoli\"
                             title=\"Davide Giuntoli\"
@@ -70,16 +70,16 @@ public string $headerText = "<header>
             </div>
             <ul class=\"button-list\">
                 <li class=\"button-chi-sono\">
-                    <a href=\"Home_page_2.php#introduzione\">Chi sono</a>
+                    <a href=\"Home_page.php#introduzione\">Chi sono</a>
                 </li>
                 <li class=\"button-esperienze\">
-                    <a href=\"Home_page_2.php#esperienze-lavorative\">Esperienze</a>
+                    <a href=\"Home_page.php#esperienze-lavorative\">Esperienze</a>
                 </li>
                 <li class=\"button-progetti\">
-                    <a href=\"Progetti_2.php\">Progetti</a>
+                    <a href=\"Progetti.php\">Progetti</a>
                 </li>
                 <li class=\"button-contatti\">
-                    <a href=\"Contatti_2.php\">Contatti</a>
+                    <a href=\"Contatti.php\">Contatti</a>
                 </li>
             </ul>
             <div class=\"nav-btn\">
@@ -91,16 +91,16 @@ public string $headerText = "<header>
             </div>
             <div class=\"mobile-button-list\">
                 <span class=\"button-chi-sono\">
-                    <a href=\"Home_page_2.php#introduzione\">Chi sono</a>
+                    <a href=\"Home_page.php#introduzione\">Chi sono</a>
                 </span>
                 <span class=\"button-esperienze\">
-                    <a href=\"Home_page_2.php#esperienze-lavorative\">Esperienze</a>
+                    <a href=\"Home_page.php#esperienze-lavorative\">Esperienze</a>
                 </span>
                 <span class=\"button-progetti\">
-                    <a href=\"Progetti_2.php\">Progetti</a>
+                    <a href=\"Progetti.php\">Progetti</a>
                 </span>
                 <span class=\"button-contatti\">
-                    <a href=\"Contatti_2.php\">Contatti</a>
+                    <a href=\"Contatti.php\">Contatti</a>
                 </span>
             </div>
         </nav>

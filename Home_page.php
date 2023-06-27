@@ -202,7 +202,7 @@ $servizio = new Servizio();
 
                 <h2 class="titolo-progetti-secondari">Altri progetti</h2>
                 <p style="text-align: center">
-                    <a class="link-progetti-secondari" href="Progetti_2.php">visualizza tutto</a>
+                    <a class="link-progetti-secondari" href="Progetti.php">visualizza tutto</a>
                 </p>
                 <ul class="tabella-progetti-secondari">
                     <?php
