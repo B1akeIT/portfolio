@@ -250,10 +250,10 @@ nav {
 .header-logo {
     height: 60px;
     margin-top: 20px;
-}
 
-.header-logo img {
-    height: 100%
+    img {
+        height: 100%
+    }
 }
 
 .button-list {
@@ -268,35 +268,33 @@ nav {
 
 .button-list li,
 .mobile-button-list span {
-    display: flex;
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 120%;
-    font-family: var(--font-monospace);
-}
+  display: flex;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 120%;
+  font-family: var(--font-monospace);
 
-.button-list li a,
-.mobile-button-list span a {
+  a {
     align-self: center;
     text-decoration: none;
     color: var(--light-grey);
     padding: 10px 7px;
+
+    &:is(:hover, :focus, :focus-visible) {
+      color: var(--green);
+      transition: color 0.25s;
+    }
+
+    &:before{
+      font-family: var(--font-mono);
+      margin-right: 5px;
+      color: var(--green);
+      font-size: 12px;
+      text-align: right;
+    }
+  }
 }
 
-.button-list li a:is(:hover, :focus, :focus-visible),
-.mobile-button-list span a:is(:hover, :focus, :focus-visible) {
-    color: var(--green);
-    transition: color 0.25s;
-}
-
-.button-list li a::before,
-.mobile-button-list span a:before {
-    font-family: var(--font-mono);
-    margin-right: 5px;
-    color: var(--green);
-    font-size: 12px;
-    text-align: right;
-}
 
 .button-list li.button-chi-sono a::before,
 .mobile-button-list span.button-chi-sono a:before {
@@ -308,22 +306,19 @@ nav {
     content: "02.";
 }
 
-.pagina-progetti .button-progetti a {
-    color: var(--green);
-}
-
 .button-list li.button-progetti a::before,
 .mobile-button-list span.button-progetti a:before {
     content: "03.";
 }
 
-.pagina-contatti .button-contatti a {
-    color: var(--green);
-}
-
 .button-list li.button-contatti a::before,
 .mobile-button-list span.button-contatti a:before {
     content: "04.";
+}
+
+.pagina-contatti .button-contatti a,
+.pagina-progetti .button-progetti a {
+    color: var(--green);
 }
 
 /* Navbar mobile */
