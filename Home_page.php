@@ -3,10 +3,6 @@ require_once('servizio/Servizio.php');
 $json = file_get_contents('dati.json');
 $data = json_decode($json);
 
-$customHeader = new CustomHeader;
-$customAside = new CustomAside;
-$customFooter = new CustomFooter;
-
 $servizio = new Servizio();
 ?>
 
@@ -257,7 +253,7 @@ $servizio = new Servizio();
                     Se vuoi contattarmi per una domanda, un progetto o semplicemente per salutare, risponderò il prima
                     possibile!
                 </p>
-                <a class="contatti-email" href="Contatti.html">Parliamo</a>
+                <a class="contatti-email" href="Contatti.php">Parliamo</a>
             </section>
         </article>
     </main>

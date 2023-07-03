@@ -265,22 +265,22 @@
     {
       "label": "Chi sono",
       "classe_css": "button-chi-sono",
-      "href": "Home_page_2.php#introduzione"
+      "href": "Home_page.php#introduzione"
     },
     {
       "label": "Esperienze",
       "classe_css": "button-esperienze",
-      "href": "Home_page_2.php#esperienze-lavorative"
+      "href": "Home_page.php#esperienze-lavorative"
     },
     {
       "label": "Progetti",
       "classe_css": "button-progetti",
-      "href": "Progetti_2.php"
+      "href": "Progetti.php"
     },
     {
       "label": "Contatti",
       "classe_css": "button-contatti",
-      "href": "Contatti_2.php"
+      "href": "Contatti.php"
     }
   ]
 }

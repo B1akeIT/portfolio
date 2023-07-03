@@ -2,6 +2,7 @@
 require_once('servizio/Servizio.php');
 $json = file_get_contents('dati.json');
 $data = json_decode($json);
+$servizio = new Servizio();
 
 ?>
 
@@ -30,17 +31,17 @@ $data = json_decode($json);
 
     <!-- Header con logo e pulsanti per la navigazione -->
     <?php
-    $customHeader->showHeader();
+    $servizio->customHeader->showHeader();
     ?>
 
     <!-- Contenuto laterale social -->
     <?php
-    $customAside->showSocialAside();
+    $servizio->customAside->showSocialAside();
     ?>
 
     <!-- Contenuto laterale email -->
     <?php
-    $customAside->showEmailAside();
+    $servizio->customAside->showEmailAside();
     ?>
 
     <!-- Contenuto principale -->
@@ -115,7 +116,7 @@ $data = json_decode($json);
 
     <!-- Footer -->
     <?php
-    $customFooter->showFooter();
+    $servizio->customFooter->showFooter();
     ?>
 
 </div>
