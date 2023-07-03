@@ -19,7 +19,7 @@ $servizio = new Servizio();
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/calibre" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/sf-mono" rel="stylesheet">
-    <link href="stile.scss" type="text/css" rel="stylesheet"/>
+    <link href="stile.css" type="text/scss" rel="stylesheet"/>
     <title> Accademia CODE - Davide Giuntoli </title>
 
     <link rel="icon" href="img/logocode_small.svg">

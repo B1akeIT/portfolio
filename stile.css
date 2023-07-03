@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import url('https://fonts.cdnfonts.com/css/sf-mono');
-@import url('https://fonts.cdnfonts.com/css/calibre');
-
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.cdnfonts.com/css/sf-mono");
+@import url("https://fonts.cdnfonts.com/css/calibre");
 html {
   /* Colori */
   --green: #64FFDA;
@@ -18,7 +18,6 @@ html {
   --background-color-header: #0A192FD9;
   --box-shadow: #020c1bb3;
   --border-color: #CCCCCC;
-
   /* Font */
   --font-calibre: "Calibre", sans-serif;
   --font-mono: "SF Mono", monospace;
@@ -85,26 +84,21 @@ p a:after {
     padding: 0 150px;
   }
 }
-
 @media (max-width: 1080px) {
   main.page-wrapper, nav {
     padding: 0 100px;
   }
 }
-
 @media (max-width: 768px) {
   main.page-wrapper, nav {
     padding: 0 50px;
   }
 }
-
 @media (max-width: 480px) {
   main.page-wrapper, nav {
     padding: 0 25px;
   }
 }
-
-
 header {
   min-height: 100px;
   overflow: hidden;
@@ -161,7 +155,6 @@ footer .lista-social {
   position: relative;
 }
 
-
 .lista-social a:is(:hover, :focus, :focus-visible) {
   transform: translateY(-3px);
   color: var(--green);
@@ -210,7 +203,6 @@ aside#email a {
   letter-spacing: 0.1em;
   -webkit-writing-mode: vertical-rl;
   writing-mode: vertical-rl;
-
   display: inline-block;
   text-decoration: none;
   text-decoration-skip-ink: auto;
@@ -230,7 +222,6 @@ aside#email a:is(:hover, :focus, :focus-visible) {
     display: none;
   }
 }
-
 nav {
   display: flex;
   width: 100%;
@@ -246,14 +237,12 @@ nav {
     height: 255px;
   }
 }
-
 .header-logo {
   height: 60px;
   margin-top: 20px;
-
-  img {
-    height: 100%
-  }
+}
+.header-logo img {
+  height: 100%;
 }
 
 .button-list {
@@ -273,42 +262,46 @@ nav {
   font-weight: 400;
   line-height: 120%;
   font-family: var(--font-monospace);
+}
+.button-list li a,
+.mobile-button-list span a {
+  align-self: center;
+  text-decoration: none;
+  color: var(--light-grey);
+  padding: 10px 7px;
+}
+.button-list li a:is(:hover, :focus, :focus-visible),
+.mobile-button-list span a:is(:hover, :focus, :focus-visible) {
+  color: var(--green);
+  transition: color 0.25s;
+}
+.button-list li a:before,
+.mobile-button-list span a:before {
+  font-family: var(--font-mono);
+  margin-right: 5px;
+  color: var(--green);
+  font-size: 12px;
+  text-align: right;
+}
 
-  a {
-    align-self: center;
-    text-decoration: none;
-    color: var(--light-grey);
-    padding: 10px 7px;
+.button-list li.button-chi-sono a::before,
+.mobile-button-list span.button-chi-sono a:before {
+  content: "01.";
+}
 
-    &:is(:hover, :focus, :focus-visible) {
-      color: var(--green);
-      transition: color 0.25s;
-    }
+.button-list li.button-esperienze a::before,
+.mobile-button-list span.button-esperienze a:before {
+  content: "02.";
+}
 
-    &:before {
-      font-family: var(--font-mono);
-      margin-right: 5px;
-      color: var(--green);
-      font-size: 12px;
-      text-align: right;
-    }
-  }
+.button-list li.button-progetti a::before,
+.mobile-button-list span.button-progetti a:before {
+  content: "03.";
+}
 
-  &.button-chi-sono a:before {
-    content: "01.";
-  }
-
-  &.button-esperienze a:before {
-    content: "02.";
-  }
-
-  &.button-progetti a:before {
-    content: "03.";
-  }
-
-  &.button-contatti a:before {
-    content: "04.";
-  }
+.button-list li.button-contatti a::before,
+.mobile-button-list span.button-contatti a:before {
+  content: "04.";
 }
 
 .pagina-contatti .button-contatti a,
@@ -317,7 +310,6 @@ nav {
 }
 
 /* Navbar mobile */
-
 .nav-btn, #nav-check {
   display: none;
 }
@@ -330,7 +322,6 @@ nav {
   .button-list {
     display: none;
   }
-
   .nav-btn {
     display: flex;
     align-items: center;
@@ -338,7 +329,6 @@ nav {
     right: 50px;
     top: 22px;
   }
-
   .nav-btn > label {
     display: flex;
     flex-wrap: wrap;
@@ -347,14 +337,12 @@ nav {
     height: 30px;
     padding: 13px;
   }
-
   .nav-btn > label > span {
     display: block;
     width: 30px;
     height: 2px;
     background-color: var(--green);
   }
-
   .mobile-button-list {
     position: absolute;
     display: block;
@@ -366,40 +354,30 @@ nav {
     top: 100px;
     left: 0;
   }
-
   .mobile-button-list a {
     display: block;
     width: auto;
     line-height: 1;
   }
-
   nav > #nav-check:not(:checked) ~ .mobile-button-list {
     height: 0;
     transition: 0.5s;
   }
-
   nav > #nav-check:checked ~ .mobile-button-list {
     height: 140px;
     transition: 0.5s;
   }
 }
-
 @media (max-width: 480px) {
-
   .nav-btn {
     right: 25px;
   }
-
   .mobile-button-list {
     padding: 0 25px;
   }
 }
-
-
 /********** Stile home page **********/
-
 /***** Sezione Introduzione  *****/
-
 .home-page h2.titolo,
 .elemento-singolo h2.titolo {
   font-style: normal;
@@ -407,7 +385,6 @@ nav {
   font-size: 26px;
   line-height: 40px;
   border-bottom: 2px solid var(--border-color);
-
   color: var(--color-sottotitolo);
 }
 
@@ -422,13 +399,11 @@ article {
     padding: 80px 0;
   }
 }
-
 @media (max-width: 480px) {
   article {
     padding: 60px 0;
   }
 }
-
 article#introduzione {
   min-height: calc(90vh - 100px);
   height: calc(90vh - 100px);
@@ -521,7 +496,6 @@ h2.titolo-secondario {
 }
 
 /***** Sezione Chi sono  *****/
-
 .titolo-numerato {
   display: flex;
   -webkit-box-align: center;
@@ -550,13 +524,11 @@ h2.titolo-secondario {
     width: 100%;
   }
 }
-
 @media (max-width: 1080px) {
   .titolo-numerato::after {
     width: 200px;
   }
 }
-
 .titolo-numerato::after {
   content: "";
   display: block;
@@ -587,7 +559,6 @@ h2.titolo-secondario {
     width: 70%;
   }
 }
-
 .immagine-background {
   box-shadow: 0 10px 30px -15px var(--box-shadow);
   transition: 0.25s;
@@ -655,7 +626,7 @@ h2.titolo-secondario {
   object-fit: contain;
   opacity: 1;
   transform: translateZ(0);
-  transition: opacity .25s linear;
+  transition: opacity 0.25s linear;
   will-change: opacity;
   width: 100%;
   height: 100%;
@@ -685,7 +656,6 @@ h2.titolo-secondario {
     display: block;
   }
 }
-
 .lista-skills {
   display: grid;
   grid-template-columns: repeat(2, minmax(140px, 200px));
@@ -713,9 +683,7 @@ h2.titolo-secondario {
   line-height: 16px;
 }
 
-
 /***** Sezione Introduzione  *****/
-
 #esperienze-lavorative .titolo-numerato::before {
   counter-increment: section 2;
 }
@@ -766,9 +734,7 @@ h3 .nome-azienda {
   color: var(--green);
 }
 
-
 /***** Sezione Progetti *****/
-
 #progetti section {
   margin: 0 auto;
   padding: 100px 0;
@@ -780,9 +746,7 @@ h3 .nome-azienda {
     padding: 80px 0;
   }
 }
-
 /* Progetti in evidenza */
-
 #progetti .titolo-numerato {
   counter-increment: section 3;
 }
@@ -806,13 +770,11 @@ h3 .nome-azienda {
     margin-bottom: 70px;
   }
 }
-
 @media (max-width: 480px) {
   #progetti-in-evidenza li.progetto-in-evidenza:not(:last-of-type) {
     margin-bottom: 30px;
   }
 }
-
 #progetti-in-evidenza li.progetto-in-evidenza {
   position: relative;
   display: grid;
@@ -828,43 +790,38 @@ h3 .nome-azienda {
     transition: 0.25s;
   }
 }
-
 #progetti-in-evidenza li.progetto-in-evidenza:nth-of-type(2n+1) .contenuto-progetto {
-  grid-column: 7 / -1;
+  grid-column: 7/-1;
   text-align: right;
 }
 
 @media (max-width: 1080px) {
   #progetti-in-evidenza li.progetto-in-evidenza:nth-of-type(2n+1) .contenuto-progetto {
-    grid-column: 5 / -1;
+    grid-column: 5/-1;
   }
 }
-
 @media (max-width: 768px) {
   #progetti-in-evidenza li.progetto-in-evidenza:nth-of-type(2n+1) .contenuto-progetto {
-    grid-column: 1 / -1;
+    grid-column: 1/-1;
     padding: 40px 40px 30px;
     text-align: left;
   }
 }
-
 @media (max-width: 480px) {
   #progetti-in-evidenza li.progetto-in-evidenza:nth-of-type(2n+1) .contenuto-progetto {
     padding: 25px 25px 20px;
   }
 }
-
 #progetti-in-evidenza li.progetto-in-evidenza .contenuto-progetto {
   position: relative;
-  grid-area: 1 / 1 / -1 / 7;
+  grid-area: 1/1/-1/7;
 }
 
 @media (max-width: 1080px) {
   #progetti-in-evidenza li.progetto-in-evidenza .contenuto-progetto {
-    grid-column: 1 / 9;
+    grid-column: 1/9;
   }
 }
-
 @media (max-width: 768px) {
   #progetti-in-evidenza li.progetto-in-evidenza .contenuto-progetto {
     display: flex;
@@ -872,18 +829,16 @@ h3 .nome-azienda {
     -webkit-box-pack: center;
     justify-content: center;
     height: 100%;
-    grid-column: 1 / -1;
+    grid-column: 1/-1;
     padding: 40px 40px 30px;
     z-index: 5;
   }
 }
-
 @media (max-width: 480px) {
   #progetti-in-evidenza li.progetto-in-evidenza .contenuto-progetto {
     padding: 30px 25px 20px;
   }
 }
-
 .progetto-in-evidenza .sottotitolo-progetto {
   margin: 10px 0;
   color: var(--green);
@@ -902,19 +857,16 @@ h3 .nome-azienda {
     color: var(--color-progetto-secondario);
   }
 }
-
 @media (min-width: 768px) {
   .progetto-in-evidenza:nth-of-type(2n+1) .titolo-progetto {
     padding-left: 30%;
     text-align: end;
   }
-
   .progetto-in-evidenza:nth-of-type(2n) .titolo-progetto {
     padding-right: 30%;
     text-align: start;
   }
 }
-
 @media (max-width: 768px) {
   .progetto-in-evidenza .titolo-progetto a::before {
     content: "";
@@ -926,12 +878,10 @@ h3 .nome-azienda {
     top: 0;
     left: 0;
   }
-
   .progetto-in-evidenza .titolo-progetto a {
     position: static;
   }
 }
-
 .progetto-in-evidenza .titolo-progetto a {
   position: relative;
   z-index: 1;
@@ -965,7 +915,6 @@ h3 .nome-azienda {
     box-shadow: none;
   }
 }
-
 .progetto-in-evidenza .descrizione-progetto p:last-child,
 .progetto-in-evidenza .descrizione-progetto p:last-of-type {
   margin: 0;
@@ -977,18 +926,17 @@ h3 .nome-azienda {
 }
 
 .progetto-in-evidenza:nth-of-type(2n+1) .immagine-progetto {
-  grid-column: 1 / 8;
+  grid-column: 1/8;
 }
 
 @media (max-width: 768px) {
   .progetto-in-evidenza:nth-of-type(2n+1) .immagine-progetto {
-    grid-column: 1 / -1;
+    grid-column: 1/-1;
   }
 }
-
 .progetto-in-evidenza .immagine-progetto {
   box-shadow: 0 10px 30px -15px var(--box-shadow);
-  grid-area: 1 / 6 / -1 / -1;
+  grid-area: 1/6/-1/-1;
   position: relative;
   z-index: 1;
 }
@@ -996,12 +944,11 @@ h3 .nome-azienda {
 @media (max-width: 768px) {
   .progetto-in-evidenza .immagine-progetto {
     transition: background-color 0.25s;
-    grid-column: 1 / -1;
+    grid-column: 1/-1;
     height: 100%;
     opacity: 0.25;
   }
 }
-
 .progetto-in-evidenza .immagine-progetto a {
   display: inline-block;
   position: relative;
@@ -1049,7 +996,6 @@ h3 .nome-azienda {
     filter: grayscale(100%) contrast(1) brightness(50%);
   }
 }
-
 .progetto-in-evidenza .immagine-progetto:is(:hover, :focus, :focus-visible) div {
   filter: none;
 }
@@ -1065,7 +1011,6 @@ h3 .nome-azienda {
   top: 0;
   width: 100%;
   object-fit: cover;
-
   transform: translateZ(0);
   transition: 0.25s;
   will-change: opacity;
@@ -1080,7 +1025,6 @@ h3 .nome-azienda {
 }
 
 /* Progetti secondari */
-
 h2.titolo-progetti-secondari {
   font-size: clamp(24px, 5vw, 36px);
   font-family: var(--font-calibre);
@@ -1102,7 +1046,6 @@ h2.titolo-progetti-secondari {
   text-decoration-skip-ink: auto;
 }
 
-
 .tabella-progetti-secondari {
   list-style: none;
   padding: 0;
@@ -1119,7 +1062,6 @@ h2.titolo-progetti-secondari {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 }
-
 .progetto-secondario {
   position: relative;
   cursor: default;
@@ -1228,7 +1170,6 @@ h2.titolo-progetti-secondari {
 }
 
 /***** Sezione Contatti *****/
-
 section#sezione-contatti {
   max-width: 600px;
   margin: 0 auto 100px;
@@ -1254,7 +1195,6 @@ article#contatti .contatti-sottotitolo::before {
   color: var(--green);
   font-family: var(--font-mono);
   font-weight: 400;
-
 }
 
 article#contatti h2.contatti-titolo {
@@ -1290,9 +1230,7 @@ article#contatti .contatti-email:is(:hover, :focus, :focus-visible) {
   transform: translate(-5px, -5px);
 }
 
-
 /*** FOOTER **/
-
 footer .footer-social {
   display: none;
 }
@@ -1306,7 +1244,6 @@ footer .footer-social {
     color: var(--grey);
   }
 }
-
 footer .footer-contenuto {
   padding: 10px;
   display: block;
@@ -1320,9 +1257,7 @@ footer .footer-contenuto {
   text-align: center;
 }
 
-
 /********** Stile pagina progetti **********/
-
 .pagina-progetti h1 {
   font-size: clamp(40px, 8vw, 80px);
   font-weight: 600;
@@ -1340,9 +1275,7 @@ footer .footer-contenuto {
   line-height: 1.5;
 }
 
-
 /********** Stile pagina progetto singolo **********/
-
 .pagina-progetto-singolo #progetto-singolo section > * {
   margin: 25px 0;
 }
@@ -1385,9 +1318,7 @@ footer .footer-contenuto {
   border-radius: 10px;
 }
 
-
 /********** Stile pagina contatti **********/
-
 .pagina-contatti .button-contatti a {
   color: var(--green);
 }
@@ -1403,7 +1334,6 @@ footer .footer-contenuto {
     justify-content: space-between;
   }
 }
-
 .pagina-contatti h1,
 .pagina-progetto-singolo h1 {
   padding: 10px 0;
@@ -1443,7 +1373,6 @@ footer .footer-contenuto {
     margin-bottom: 5rem;
   }
 }
-
 .container-form label {
   color: var(--light-grey);
   font-size: 16px;
@@ -1492,3 +1421,5 @@ footer .footer-contenuto {
   box-shadow: 4px 4px 0 0 var(--green);
   transform: translate(-5px, -5px);
 }
+
+/*# sourceMappingURL=stile.css.map */
