@@ -203,34 +203,34 @@ $servizio = new Servizio();
                 <ul class="tabella-progetti-secondari">
                     <?php
                     foreach (array_slice($data->progetti_secondari, 0, 6) as $progetto) {
-                        echo "<li class=\"progetto-secondario\">
-                            <div class=\"contenuto-progetto\">
+                        echo "<li class='progetto-secondario'>
+                            <div class='contenuto-progetto'>
                                 <div>
-                                    <div class=\"header\">
-                                        <div style=\"color: #64FFDA;\">
-                                            <svg xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" viewBox=\"0 0 24 24\"
-                                                 fill=\"none\" stroke=\"currentColor\" stroke-width=\"1\" stroke-linecap=\"round\"
-                                                 stroke-linejoin=\"round\" class=\"icona-cartella\">
+                                    <div class='header'>
+                                        <div style='color: #64FFDA;'>
+                                            <svg xmlns='http://www.w3.org/2000/svg' role='img' viewBox='0 0 24 24'
+                                                 fill='none' stroke='currentColor' stroke-width='1' stroke-linecap='round'
+                                                 stroke-linejoin='round' class='icona-cartella'>
                                                 <title> Cartella </title>
-                                                <path d=\"M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z\"></path>
+                                                <path d='M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z'></path>
                                             </svg>
                                         </div>
-                                        <div class=\"lista-link\">";
+                                        <div class='lista-link'>";
                                             echo $servizio->gestoreProgetti->costruisciLinks($progetto->links);
                                         echo "
                                     </div>
                                 </div>
-                                <h3 class=\"titolo-progetto\">
+                                <h3 class='titolo-progetto'>
                                     " . $progetto->nome . "
                                 </h3>
-                                <div class=\"descrizione-progetto\">
+                                <div class='descrizione-progetto'>
                                     <p>
                                         " . $progetto->testo_intro . "
                                     </p>
                                 </div>
                             </div>
-                            <div class=\"tecnologie-progetto\">
-                                <ul class=\"lista-tecnologie\">";
+                            <div class='tecnologie-progetto'>
+                                <ul class='lista-tecnologie'>";
                                     foreach ($progetto->tecnologie as $tecnologia) {
                                         echo "<li>" . $tecnologia . "</li>";
                                     }

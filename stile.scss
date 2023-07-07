@@ -146,6 +146,12 @@ aside#social .lista-social {
   flex-direction: column;
 }
 
+@media (min-width: 769px) {
+  aside#social .lista-social li:has(.icona-instagram) {
+    margin-bottom: 20px;
+  }
+}
+
 footer .lista-social {
   flex-direction: row;
   -webkit-box-pack: justify;
