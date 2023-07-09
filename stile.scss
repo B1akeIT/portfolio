@@ -25,6 +25,40 @@ html {
   --font-monospace: monospace;
 }
 
+p, ul {
+  color: var(--dark-grey);
+}
+
+p {
+  font-weight: 500;
+  margin: 0 0 5px;
+
+  a {
+    text-decoration: none;
+    position: relative;
+    transition: 0.25s;
+    color: var(--green);
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:after {
+      content: "";
+      width: 0;
+      height: 1px;
+      position: absolute;
+      bottom: 0.1em;
+      left: 0;
+      background-color: var(--green);
+      transition: 0.25s;
+      opacity: 0.5;
+
+      &:hover {
+        width: 100%;
+      }
+    }
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -33,40 +67,6 @@ body {
   margin: 0;
   font-family: var(--font-calibre);
   background-color: var(--background-color);
-}
-
-p, ul {
-  color: var(--dark-grey);
-}
-
-p {
-  font-weight: 500;
-  margin: 0 0 5px;
-}
-
-p a {
-  text-decoration: none;
-  position: relative;
-  transition: 0.25s;
-  color: var(--green);
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-p a:hover:after {
-  width: 100%;
-}
-
-p a:after {
-  content: "";
-  width: 0;
-  height: 1px;
-  position: absolute;
-  bottom: 0.1em;
-  left: 0;
-  background-color: var(--green);
-  transition: 0.25s;
-  opacity: 0.5;
 }
 
 .background {
@@ -103,7 +103,6 @@ p a:after {
     padding: 0 25px;
   }
 }
-
 
 header {
   min-height: 100px;
@@ -156,27 +155,26 @@ footer .lista-social {
   flex-direction: row;
   -webkit-box-pack: justify;
   justify-content: space-between;
-}
 
-.lista-social a {
-  padding: 10px;
-  display: inline-block;
-  text-decoration: none;
-  text-decoration-skip-ink: auto;
-  color: inherit;
-  position: relative;
-}
+  a {
+    transition: 0.25s;
+    padding: 10px;
+    display: inline-block;
+    text-decoration: none;
+    text-decoration-skip-ink: auto;
+    color: inherit;
+    position: relative;
 
+    &:is(:hover, :focus, :focus-visible) {
+      transform: translateY(-3px);
+      color: var(--green);
+    }
+  }
 
-.lista-social a:is(:hover, :focus, :focus-visible) {
-  transform: translateY(-3px);
-  color: var(--green);
-  transition: 0.25s;
-}
-
-.lista-social svg {
-  width: 20px;
-  height: 20px;
+  svg {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 aside#email {
@@ -187,14 +185,14 @@ aside#email {
   right: 40px;
   z-index: 10;
   color: var(--grey);
-}
 
-aside#email div {
-  display: flex;
-  flex-direction: column;
-  -webkit-box-align: center;
-  align-items: center;
-  position: relative;
+  div {
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+  }
 }
 
 aside#email div::after,
@@ -223,12 +221,12 @@ aside#email a {
   color: inherit;
   position: relative;
   transition: 0.25s;
-}
 
-aside#email a:is(:hover, :focus, :focus-visible) {
-  transform: translateY(-3px);
-  color: var(--green);
-  letter-spacing: 0.15em;
+  &:is(:hover, :focus, :focus-visible) {
+    transform: translateY(-3px);
+    color: var(--green);
+    letter-spacing: 0.15em;
+  }
 }
 
 @media (max-width: 768px) {
