@@ -1,27 +1,30 @@
 <?php
 
-class Link {
+class Link
+{
     public string $tipo = "";
     public string $href = "";
 }
 
-class Banner {
+class Banner
+{
     public string $src = "";
     public string $alt = "";
 }
 
-abstract class AbstractProgetto {
+abstract class AbstractProgetto
+{
     public string $nome = "";
     public string $testo_intro = "";
-    public Array $links = Array();
+    public array $links = array();
 }
 
-class ProgettoInEvidenza extends AbstractProgetto {
+class ProgettoInEvidenza extends AbstractProgetto
+{
     public Banner $banner;
 
     public function __construct()
     {
-        $this->links = Array();
     }
 
     /*
@@ -33,21 +36,24 @@ class ProgettoInEvidenza extends AbstractProgetto {
     */
 }
 
-class ProgettoSecondario extends AbstractProgetto {
-    public Array $tecnologie = Array();
+class ProgettoSecondario extends AbstractProgetto
+{
+    public array $tecnologie = array();
 
     public function __construct()
     {
-        $this->links = Array();
     }
 }
 
-class GestoreProgetti {
-    public Array $progettiInEvidenza = Array();
-    public Array $progettiSecondari = Array();
+class GestoreProgetti
+{
+    public array $progettiInEvidenza = array();
+    public array $progettiSecondari = array();
 
-    public function __construct()
+    public function __construct($pie, $ps)
     {
+        $this->progettiInEvidenza = $pie;
+        $this->progettiSecondari = $ps;
     }
 
     /*
@@ -88,5 +94,88 @@ class GestoreProgetti {
         }
         return $stringaLink;
     }
+
+    public function mostraProgettiInEvidenza()
+    {
+
+        $lista = "<ul>";
+
+        foreach ($this->progettiInEvidenza as $progetto) {
+            $lista .= "<li class='progetto-in-evidenza'>
+                <div class='contenuto-progetto'>
+                    <div>
+                        <p class='sottotitolo-progetto'>Progetto in evidenza</p>
+                        <h3 class='titolo-progetto'>
+                            <a target='_blank' href='" . $progetto->href . "'>" . $progetto->nome . "</a>
+                        </h3>
+                        <div class='descrizione-progetto'>
+                            <p>" . $progetto->testo_intro . "
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class='immagine-progetto'>
+                    <a target='_blank' href='" . $progetto->href . "'>
+                        <div style='max-width: 700px; display: block;'>
+                            <img alt='" . $progetto->banner->alt . "' src='" . $progetto->banner->src . "'/>
+                        </div>
+                    </a>
+                </div>
+            </li>";
+
+        }
+        $lista .= "</ul>";
+
+        echo $lista;
+    }
+
+    public function mostraProgettiSecondari(): void
+    {
+
+        $lista = "<ul class='tabella-progetti-secondari'>";
+
+        foreach ($this->progettiSecondari as $progetto) {
+            $lista .= "<li class='progetto-secondario'>
+                            <div class='contenuto-progetto'>
+                                <div>
+                                    <div class='header'>
+                                        <div style='color: #64FFDA;'>
+                                            <svg xmlns='http://www.w3.org/2000/svg' role='img' viewBox='0 0 24 24'
+                                                 fill='none' stroke='currentColor' stroke-width='1' stroke-linecap='round'
+                                                 stroke-linejoin='round' class='icona-cartella'>
+                                                <title> Cartella </title>
+                                                <path d='M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z'></path>
+                                            </svg>
+                                        </div>
+                                        <div class='lista-link'>";
+            $lista .= $this->costruisciLinks($progetto->links);
+            $lista .= "
+                                    </div>
+                                </div>
+                                <h3 class='titolo-progetto'>
+                                    " . $progetto->nome . "
+                                </h3>
+                                <div class='descrizione-progetto'>
+                                    <p>
+                                        " . $progetto->testo_intro . "
+                                    </p>
+                                </div>
+                            </div>
+                            <div class='tecnologie-progetto'>
+                                <ul class='lista-tecnologie'>";
+            foreach ($progetto->tecnologie as $tecnologia) {
+                $lista .= "<li>" . $tecnologia . "</li>";
+            }
+            $lista .= "</ul>
+                            </div>
+                        </div>
+                    </li>";
+        }
+
+        $lista .= "</ul>";
+
+        echo $lista;
+    }
 }
+
 ?>
