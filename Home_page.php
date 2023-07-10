@@ -170,28 +170,7 @@ $gestoreProgetti = new GestoreProgetti($data->progetti_in_evidenza, array_slice(
             <h2 class="titolo-numerato">I miei progetti</h2>
             <section id="progetti-in-evidenza" style="padding-top: 10px">
                     <?php
-                    foreach ($data->progetti_in_evidenza as $progetto) {
-                        echo "<li class='progetto-in-evidenza'>" .
-                            "<div class='contenuto-progetto'>
-                            <div>
-                                <p class='sottotitolo-progetto'>Progetto in evidenza</p>
-                                <h3 class='titolo-progetto'>
-                                    <a target='_blank' href='" . $progetto->href . "'>" . $progetto->nome . "</a>
-                                </h3>
-                                <div class='descrizione-progetto'>
-                                    <p>" . $progetto->testo_intro . "
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class='immagine-progetto'>
-                            <a target='_blank' href='" . $progetto->href . "'>
-                                <div style='max-width: 700px; display: block;'>
-                                    <img alt='" . $progetto->banner->alt . "' src='" . $progetto->banner->src . "'/>
-                                </div>
-                            </a>
-                        </div>";
-                    }
+                    $gestoreProgetti->mostraProgettiInEvidenza();
                     ?>
             </section>
             <section id="altri-progetti">
