@@ -24,16 +24,6 @@ html {
   --font-monospace: monospace;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  font-family: var(--font-calibre);
-  background-color: var(--background-color);
-}
-
 p, ul {
   color: var(--dark-grey);
 }
@@ -42,7 +32,6 @@ p {
   font-weight: 500;
   margin: 0 0 5px;
 }
-
 p a {
   text-decoration: none;
   position: relative;
@@ -51,11 +40,6 @@ p a {
   white-space: nowrap;
   cursor: pointer;
 }
-
-p a:hover:after {
-  width: 100%;
-}
-
 p a:after {
   content: "";
   width: 0;
@@ -66,6 +50,19 @@ p a:after {
   background-color: var(--green);
   transition: 0.25s;
   opacity: 0.5;
+}
+p a:after:hover {
+  width: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-calibre);
+  background-color: var(--background-color);
 }
 
 .background {
@@ -140,13 +137,18 @@ aside#social .lista-social {
   flex-direction: column;
 }
 
+@media (min-width: 769px) {
+  aside#social .lista-social li:has(.icona-instagram) {
+    margin-bottom: 20px;
+  }
+}
 footer .lista-social {
   flex-direction: row;
   -webkit-box-pack: justify;
   justify-content: space-between;
 }
-
-.lista-social a {
+footer .lista-social a {
+  transition: 0.25s;
   padding: 10px;
   display: inline-block;
   text-decoration: none;
@@ -154,14 +156,11 @@ footer .lista-social {
   color: inherit;
   position: relative;
 }
-
-.lista-social a:is(:hover, :focus, :focus-visible) {
+footer .lista-social a:is(:hover, :focus, :focus-visible) {
   transform: translateY(-3px);
   color: var(--green);
-  transition: 0.25s;
 }
-
-.lista-social svg {
+footer .lista-social svg {
   width: 20px;
   height: 20px;
 }
@@ -175,7 +174,6 @@ aside#email {
   z-index: 10;
   color: var(--grey);
 }
-
 aside#email div {
   display: flex;
   flex-direction: column;
@@ -210,7 +208,6 @@ aside#email a {
   position: relative;
   transition: 0.25s;
 }
-
 aside#email a:is(:hover, :focus, :focus-visible) {
   transform: translateY(-3px);
   color: var(--green);
@@ -283,23 +280,19 @@ nav {
   font-size: 12px;
   text-align: right;
 }
-
-.button-list li.button-chi-sono a::before,
+.button-list li.button-chi-sono a:before,
 .mobile-button-list span.button-chi-sono a:before {
   content: "01.";
 }
-
-.button-list li.button-esperienze a::before,
+.button-list li.button-esperienze a:before,
 .mobile-button-list span.button-esperienze a:before {
   content: "02.";
 }
-
-.button-list li.button-progetti a::before,
+.button-list li.button-progetti a:before,
 .mobile-button-list span.button-progetti a:before {
   content: "03.";
 }
-
-.button-list li.button-contatti a::before,
+.button-list li.button-contatti a:before,
 .mobile-button-list span.button-contatti a:before {
   content: "04.";
 }
@@ -1322,7 +1315,6 @@ footer .footer-contenuto {
 .pagina-contatti .button-contatti a {
   color: var(--green);
 }
-
 .pagina-contatti section {
   display: flex;
   flex-direction: column;
@@ -1334,8 +1326,7 @@ footer .footer-contenuto {
     justify-content: space-between;
   }
 }
-.pagina-contatti h1,
-.pagina-progetto-singolo h1 {
+.pagina-contatti h1, .pagina-progetto-singolo h1 {
   padding: 10px 0;
   font-weight: 600;
   color: var(--light-grey);
@@ -1343,9 +1334,7 @@ footer .footer-contenuto {
   line-height: 1.1;
   font-size: clamp(26px, 5vw, 32px);
 }
-
-.pagina-contatti h2,
-.pagina-progetto-singolo h2 {
+.pagina-contatti h2, .pagina-progetto-singolo h2 {
   color: var(--green);
   margin: 0;
   font-size: 16px;
@@ -1353,14 +1342,11 @@ footer .footer-contenuto {
   font-weight: 400;
   line-height: 1.5;
 }
-
-.pagina-contatti main p,
-.pagina-progetto-singolo main p {
+.pagina-contatti main p, .pagina-progetto-singolo main p {
   font-size: 17px;
 }
 
-.pagina-contatti .container-testo,
-.pagina-contatti .container-form {
+.pagina-contatti .container-testo, .pagina-contatti .container-form {
   width: 45%;
   display: flex;
   flex-direction: column;
@@ -1380,26 +1366,41 @@ footer .footer-contenuto {
   font-weight: 500;
   margin-bottom: 5px;
 }
-
-.input-container {
+.container-form .input-container {
   position: relative;
 }
-
-.input-container textarea,
-.input-container input {
-  width: -webkit-fill-available;
-}
-
-.input-container input:invalid {
-  outline: red solid 1px;
-}
-
-.icona-nome,
-.icona-mail {
+.container-form .input-container .icona-nome,
+.container-form .input-container .icona-mail {
   height: 100%;
   position: absolute;
   display: flex;
   align-items: center;
+}
+.container-form .input-container .icona-nome svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  padding-left: 12px;
+}
+.container-form .input-container .icona-mail svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  padding-left: 12px;
+  padding-top: 3px;
+}
+.container-form .input-container input, .container-form .input-container textarea {
+  font-size: 17px;
+  width: -webkit-fill-available !important;
+  font-family: var(--font-calibre);
+}
+.container-form .input-container input {
+  padding: 0.625rem 2.5rem;
+}
+.container-form .input-container textarea {
+  padding: 0.625rem 12px;
+  resize: vertical;
+}
+.container-form.inviato-errore input, .container-form.inviato-errore textarea {
+  outline: red solid 1px;
 }
 
 .button-invia-email {
@@ -1415,7 +1416,6 @@ footer .footer-contenuto {
   transition: 0.25s;
   margin-top: 15px;
 }
-
 .button-invia-email:is(:hover, :focus, :focus-visible) {
   outline: none;
   box-shadow: 4px 4px 0 0 var(--green);
