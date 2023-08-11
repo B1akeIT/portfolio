@@ -18,7 +18,7 @@ class CustomAside
         $socialAside .= $data->icone->github;
         $socialAside .= "</a> </li> <li> <a class='icona-linkedin'>";
         $socialAside .= $data->icone->linkedin;
-        $socialAside .= "</a> </li> <li style='margin-bottom: 20px;'> <a class='icona-instagram'>";
+        $socialAside .= "</a> </li> <li> <a class='icona-instagram'>";
         $socialAside .= $data->icone->instagram;
         $socialAside .= "</a> </li> </ul> </aside>";
         echo $socialAside;

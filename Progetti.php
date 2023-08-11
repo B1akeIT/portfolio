@@ -8,7 +8,6 @@ $servizio = new Servizio();
 $gestoreProgetti = new GestoreProgetti($data->progetti_in_evidenza, $data->progetti_secondari);
 ?>
 
-
 <!DOCTYPE html>
 <html lang="it">
 <head>

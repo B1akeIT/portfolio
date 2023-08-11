@@ -7,6 +7,30 @@ $servizio = new Servizio();
 $nome = '';
 $email = '';
 $messaggio = '';
+
+$nomeValido = null;
+$emailValida = null;
+$messaggioValido = null;
+$classeForm = '';
+
+$inviato = $servizio->getParametro('inviato');
+if ($inviato) {
+    $nome = $servizio->getParametro('nome');
+    $nomeValido = $servizio->validazioneStringa($nome);
+    $email = $servizio->getParametro('email');
+    $emailValida = $servizio->validazioneStringa($email);
+    $messaggio = $servizio->getParametro('messaggio');
+    $messaggioValido = $servizio->validazioneStringa($messaggio);
+
+    if ($nomeValido && $emailValida && $messaggioValido) {
+        $classeForm = 'inviato-successo';
+        $servizio->inviaDatiContatto("dettagliContatto.txt", $nome, $email, $messaggio);
+    } else {
+        $classeForm = 'inviato-errore';
+    }
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -65,8 +89,8 @@ $messaggio = '';
                     </p>
                 </div>
 
-                <div class="container-form">
-                    <form>
+                <div <?php echo 'class="container-form ' . $classeForm . '"' ?>>
+                    <form action="Contatti.php" method="POST">
                         <div class="form-nome" style="margin-bottom: 10px">
                             <label for="nome">
                                 <span>Nome *</span>
@@ -78,7 +102,7 @@ $messaggio = '';
                                     </svg>
                                 </div>
                                 <input placeholder="Nome" id="nome" name="nome" type="text" required maxlength="50"
-                                       value="<?php echo $nome ?>" style="padding: 0.625rem 2.5rem;"/>
+                                       value="<?php echo $nome ?>"/>
                             </div>
                         </div>
                         <div class="form-mail" style="margin-bottom: 10px; margin-top: 10px">
@@ -92,7 +116,7 @@ $messaggio = '';
                                         <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
                                     </svg>
                                 </div>
-                                <input placeholder="Email" id="mail" name="email" type="text" required
+                                <input placeholder="Email" id="mail" name="email" type="email" required
                                        value="<?php echo $email ?>"/>
                             </div>
                         </div>
@@ -101,11 +125,17 @@ $messaggio = '';
                                 <span>Messaggio *</span>
                             </label>
                             <div class="input-container">
-                                <textarea placeholder="Messaggio" id="messaggio" name="messaggio" rows="6" required><?php echo $messaggio ?></textarea>
+                                <textarea placeholder="Messaggio" id="messaggio" name="messaggio" rows="6"
+                                          required><?php echo $messaggio ?></textarea>
                             </div>
                         </div>
+
+                        <div class="alert-errore">
+                            <p>Attenzione ai dati inseriti!</p>
+                        </div>
+
                         <input type="hidden" name="inviato" value="1">
-                        <button type="button" class="button-invia-email">
+                        <button type="submit" class="button-invia-email">
                             Invia!
                         </button>
                     </form>
@@ -113,7 +143,6 @@ $messaggio = '';
 
             </section>
         </article>
-
     </main>
 
     <!-- Footer -->

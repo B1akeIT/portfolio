@@ -226,7 +226,6 @@ nav {
   background-color: var(--background-color-header);
   backdrop-filter: blur(10px);
   justify-content: space-between;
-  transition: 0.5s;
 }
 
 @media (max-width: 768px) {
@@ -270,7 +269,7 @@ nav {
 .button-list li a:is(:hover, :focus, :focus-visible),
 .mobile-button-list span a:is(:hover, :focus, :focus-visible) {
   color: var(--green);
-  transition: color 0.25s;
+  transition: color 0.5s;
 }
 .button-list li a:before,
 .mobile-button-list span a:before {
@@ -1271,15 +1270,14 @@ footer .footer-contenuto {
 /********** Stile pagina progetto singolo **********/
 .pagina-progetto-singolo #progetto-singolo section > * {
   margin: 25px 0;
+  font-size: 19px;
 }
-
 .pagina-progetto-singolo .lista-link {
   display: flex;
   -webkit-box-align: center;
   align-items: center;
   color: var(--grey);
 }
-
 .pagina-progetto-singolo .link {
   display: flex;
   -webkit-box-pack: center;
@@ -1292,20 +1290,13 @@ footer .footer-contenuto {
   cursor: pointer;
   color: inherit;
 }
-
 .pagina-progetto-singolo .link svg {
   width: 25px;
   height: 25px;
 }
-
-.pagina-progetto-singolo p {
-  font-size: 19px;
-}
-
 .pagina-progetto-singolo .immagine-progetto-singolo {
   width: 100%;
 }
-
 .pagina-progetto-singolo .immagine-progetto-singolo img {
   max-width: 100%;
   border-radius: 10px;
@@ -1319,7 +1310,18 @@ footer .footer-contenuto {
   display: flex;
   flex-direction: column;
 }
+.pagina-contatti .container-testo, .pagina-contatti .container-form {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+}
 
+@media (max-width: 1080px) {
+  .pagina-contatti .container-testo, .pagina-contatti .container-form {
+    width: 100% !important;
+    margin-bottom: 5rem;
+  }
+}
 @media (min-width: 1081px) {
   .pagina-contatti section {
     flex-direction: row;
@@ -1346,25 +1348,30 @@ footer .footer-contenuto {
   font-size: 17px;
 }
 
-.pagina-contatti .container-testo, .pagina-contatti .container-form {
-  width: 45%;
-  display: flex;
-  flex-direction: column;
-}
-
-@media (max-width: 1080px) {
-  .pagina-contatti .container-testo,
-  .pagina-contatti .container-form {
-    width: 100% !important;
-    margin-bottom: 5rem;
-  }
-}
 .container-form label {
   color: var(--light-grey);
   font-size: 16px;
   font-family: var(--font-calibre);
   font-weight: 500;
   margin-bottom: 5px;
+}
+.container-form .button-invia-email {
+  color: var(--green);
+  background-color: transparent;
+  border: 1px solid var(--green);
+  border-radius: 4px;
+  padding: 1rem;
+  font-size: 16px;
+  font-family: var(--font-mono);
+  line-height: 1;
+  text-decoration: none;
+  transition: 0.25s;
+  margin-top: 15px;
+}
+.container-form .button-invia-email:is(:hover, :focus, :focus-visible) {
+  outline: none;
+  box-shadow: 4px 4px 0 0 var(--green);
+  transform: translate(-5px, -5px);
 }
 .container-form .input-container {
   position: relative;
@@ -1385,7 +1392,6 @@ footer .footer-contenuto {
   width: 1.5rem;
   height: 1.5rem;
   padding-left: 12px;
-  padding-top: 3px;
 }
 .container-form .input-container input, .container-form .input-container textarea {
   font-size: 17px;
@@ -1393,33 +1399,21 @@ footer .footer-contenuto {
   font-family: var(--font-calibre);
 }
 .container-form .input-container input {
-  padding: 0.625rem 2.5rem;
+  padding: 0.775rem 2.5rem 0.625rem;
 }
 .container-form .input-container textarea {
-  padding: 0.625rem 12px;
+  padding: 0.775rem 12px 0.625rem;
   resize: vertical;
+}
+.container-form .alert-errore {
+  margin-top: 20px;
+  display: none;
 }
 .container-form.inviato-errore input, .container-form.inviato-errore textarea {
   outline: red solid 1px;
 }
-
-.button-invia-email {
-  color: var(--green);
-  background-color: transparent;
-  border: 1px solid var(--green);
-  border-radius: 4px;
-  padding: 1rem;
-  font-size: 16px;
-  font-family: var(--font-mono);
-  line-height: 1;
-  text-decoration: none;
-  transition: 0.25s;
-  margin-top: 15px;
-}
-.button-invia-email:is(:hover, :focus, :focus-visible) {
-  outline: none;
-  box-shadow: 4px 4px 0 0 var(--green);
-  transform: translate(-5px, -5px);
+.container-form.inviato-errore .alert-errore {
+  display: block;
 }
 
 /*# sourceMappingURL=stile.css.map */
