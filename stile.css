@@ -132,6 +132,23 @@ aside#social {
   padding: 0;
   list-style: none;
 }
+.lista-social a {
+  transition: 0.25s;
+  padding: 10px;
+  display: inline-block;
+  text-decoration: none;
+  text-decoration-skip-ink: auto;
+  color: inherit;
+  position: relative;
+}
+.lista-social a:is(:hover, :focus, :focus-visible) {
+  transform: translateY(-3px);
+  color: var(--green);
+}
+.lista-social svg {
+  width: 20px;
+  height: 20px;
+}
 
 aside#social .lista-social {
   flex-direction: column;
@@ -146,23 +163,6 @@ footer .lista-social {
   flex-direction: row;
   -webkit-box-pack: justify;
   justify-content: space-between;
-}
-footer .lista-social a {
-  transition: 0.25s;
-  padding: 10px;
-  display: inline-block;
-  text-decoration: none;
-  text-decoration-skip-ink: auto;
-  color: inherit;
-  position: relative;
-}
-footer .lista-social a:is(:hover, :focus, :focus-visible) {
-  transform: translateY(-3px);
-  color: var(--green);
-}
-footer .lista-social svg {
-  width: 20px;
-  height: 20px;
 }
 
 aside#email {
