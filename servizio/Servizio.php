@@ -56,9 +56,9 @@ class Servizio
         $stringa = "";
         $stringa .= "Nome: ";
         $stringa .= $nome;
-        $stringa .= "Email: ";
+        $stringa .= "\nEmail: ";
         $stringa .= $email;
-        $stringa .= "Messaggio: ";
+        $stringa .= "\nMessaggio: ";
         $stringa .= $messaggio;
 
         $this->scriviTesto($nomeFile, $stringa);

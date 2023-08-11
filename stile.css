@@ -746,26 +746,10 @@ h3 .nome-azienda {
 #progetti-in-evidenza {
   padding-bottom: 80px;
 }
-
 #progetti-in-evidenza ul {
   list-style: none;
   padding: 0;
   margin: 0;
-}
-
-#progetti-in-evidenza li.progetto-in-evidenza:not(:last-of-type) {
-  margin-bottom: 100px;
-}
-
-@media (max-width: 768px) {
-  #progetti-in-evidenza li.progetto-in-evidenza:not(:last-of-type) {
-    margin-bottom: 70px;
-  }
-}
-@media (max-width: 480px) {
-  #progetti-in-evidenza li.progetto-in-evidenza:not(:last-of-type) {
-    margin-bottom: 30px;
-  }
 }
 #progetti-in-evidenza li.progetto-in-evidenza {
   position: relative;
@@ -775,173 +759,20 @@ h3 .nome-azienda {
   -webkit-box-align: center;
   align-items: center;
 }
-
-@media (max-width: 768px) {
-  #progetti-in-evidenza li.progetto-in-evidenza {
-    box-shadow: 0 10px 30px -15px var(--box-shadow);
-    transition: 0.25s;
-  }
-}
-#progetti-in-evidenza li.progetto-in-evidenza:nth-of-type(2n+1) .contenuto-progetto {
-  grid-column: 7/-1;
-  text-align: right;
-}
-
-@media (max-width: 1080px) {
-  #progetti-in-evidenza li.progetto-in-evidenza:nth-of-type(2n+1) .contenuto-progetto {
-    grid-column: 5/-1;
-  }
-}
-@media (max-width: 768px) {
-  #progetti-in-evidenza li.progetto-in-evidenza:nth-of-type(2n+1) .contenuto-progetto {
-    grid-column: 1/-1;
-    padding: 40px 40px 30px;
-    text-align: left;
-  }
-}
-@media (max-width: 480px) {
-  #progetti-in-evidenza li.progetto-in-evidenza:nth-of-type(2n+1) .contenuto-progetto {
-    padding: 25px 25px 20px;
-  }
+#progetti-in-evidenza li.progetto-in-evidenza:not(:last-of-type) {
+  margin-bottom: 100px;
 }
 #progetti-in-evidenza li.progetto-in-evidenza .contenuto-progetto {
   position: relative;
   grid-area: 1/1/-1/7;
 }
-
-@media (max-width: 1080px) {
-  #progetti-in-evidenza li.progetto-in-evidenza .contenuto-progetto {
-    grid-column: 1/9;
-  }
-}
-@media (max-width: 768px) {
-  #progetti-in-evidenza li.progetto-in-evidenza .contenuto-progetto {
-    display: flex;
-    flex-direction: column;
-    -webkit-box-pack: center;
-    justify-content: center;
-    height: 100%;
-    grid-column: 1/-1;
-    padding: 40px 40px 30px;
-    z-index: 5;
-  }
-}
-@media (max-width: 480px) {
-  #progetti-in-evidenza li.progetto-in-evidenza .contenuto-progetto {
-    padding: 30px 25px 20px;
-  }
-}
-.progetto-in-evidenza .sottotitolo-progetto {
-  margin: 10px 0;
-  color: var(--green);
-  font-family: var(--font-monospace);
-  font-size: 13px;
-  font-weight: 400;
-}
-
-.progetto-in-evidenza .titolo-progetto {
-  color: var(--light-grey);
-  font-size: clamp(24px, 5vw, 28px);
-}
-
-@media (max-width: 768px) {
-  .progetto-in-evidenza .titolo-progetto {
-    color: var(--color-progetto-secondario);
-  }
-}
-@media (min-width: 768px) {
-  .progetto-in-evidenza:nth-of-type(2n+1) .titolo-progetto {
-    padding-left: 30%;
-    text-align: end;
-  }
-  .progetto-in-evidenza:nth-of-type(2n) .titolo-progetto {
-    padding-right: 30%;
-    text-align: start;
-  }
-}
-@media (max-width: 768px) {
-  .progetto-in-evidenza .titolo-progetto a::before {
-    content: "";
-    display: block;
-    position: absolute;
-    z-index: 0;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-  }
-  .progetto-in-evidenza .titolo-progetto a {
-    position: static;
-  }
-}
-.progetto-in-evidenza .titolo-progetto a {
-  position: relative;
-  z-index: 1;
-  display: inline-block;
-  text-decoration: none;
-  text-decoration-skip-ink: auto;
-  color: inherit;
-  transition: 0.25s;
-}
-
-.progetto-in-evidenza .titolo-progetto a:is(:hover, :focus, :focus-visible) {
-  color: var(--green);
-}
-
-.progetto-in-evidenza .descrizione-progetto {
-  box-shadow: 0 10px 30px -15px var(--box-shadow);
-  transition: 0.25s;
-  position: relative;
-  z-index: 2;
-  padding: 25px;
-  border-radius: 4px;
-  background-color: var(--background-color-progetto-secondario);
-  color: var(--grey);
-  font-size: 18px;
-}
-
-@media (max-width: 768px) {
-  .progetto-in-evidenza .descrizione-progetto {
-    padding: 20px 0;
-    background-color: transparent;
-    box-shadow: none;
-  }
-}
-.progetto-in-evidenza .descrizione-progetto p:last-child,
-.progetto-in-evidenza .descrizione-progetto p:last-of-type {
-  margin: 0;
-}
-
-.progetto-in-evidenza .descrizione-progetto p {
-  font-size: 19px;
-  margin: 0 0 15px;
-}
-
-.progetto-in-evidenza:nth-of-type(2n+1) .immagine-progetto {
-  grid-column: 1/8;
-}
-
-@media (max-width: 768px) {
-  .progetto-in-evidenza:nth-of-type(2n+1) .immagine-progetto {
-    grid-column: 1/-1;
-  }
-}
-.progetto-in-evidenza .immagine-progetto {
+#progetti-in-evidenza li.progetto-in-evidenza .immagine-progetto {
   box-shadow: 0 10px 30px -15px var(--box-shadow);
   grid-area: 1/6/-1/-1;
   position: relative;
   z-index: 1;
 }
-
-@media (max-width: 768px) {
-  .progetto-in-evidenza .immagine-progetto {
-    transition: background-color 0.25s;
-    grid-column: 1/-1;
-    height: 100%;
-    opacity: 0.25;
-  }
-}
-.progetto-in-evidenza .immagine-progetto a {
+#progetti-in-evidenza li.progetto-in-evidenza .immagine-progetto a {
   display: inline-block;
   position: relative;
   z-index: 1;
@@ -952,13 +783,16 @@ h3 .nome-azienda {
   vertical-align: middle;
   transition: 0.25s;
 }
-
-.progetto-in-evidenza .immagine-progetto:is(:hover, :focus, :focus-visible) a {
-  background: transparent;
-  outline: 0;
+#progetti-in-evidenza li.progetto-in-evidenza .immagine-progetto div {
+  mix-blend-mode: multiply;
+  width: 100%;
+  max-width: 100%;
+  vertical-align: middle;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
 }
-
-.progetto-in-evidenza .immagine-progetto div::before {
+#progetti-in-evidenza li.progetto-in-evidenza .immagine-progetto div:before {
   content: "";
   position: absolute;
   width: 100%;
@@ -969,30 +803,7 @@ h3 .nome-azienda {
   background-color: var(--background-color);
   mix-blend-mode: screen;
 }
-
-.progetto-in-evidenza .immagine-progetto div {
-  mix-blend-mode: multiply;
-  width: 100%;
-  max-width: 100%;
-  vertical-align: middle;
-  display: inline-block;
-  position: relative;
-  overflow: hidden;
-}
-
-@media (max-width: 768px) {
-  .progetto-in-evidenza .immagine-progetto div {
-    object-fit: contain;
-    width: auto;
-    height: 100%;
-    filter: grayscale(100%) contrast(1) brightness(50%);
-  }
-}
-.progetto-in-evidenza .immagine-progetto:is(:hover, :focus, :focus-visible) div {
-  filter: none;
-}
-
-.progetto-in-evidenza .immagine-progetto img {
+#progetti-in-evidenza li.progetto-in-evidenza .immagine-progetto img {
   bottom: 0;
   height: 100%;
   left: 0;
@@ -1010,12 +821,153 @@ h3 .nome-azienda {
   filter: grayscale(100%) contrast(1) brightness(90%);
   border-radius: 10px;
 }
-
-.progetto-in-evidenza .immagine-progetto:is(:hover, :focus, :focus-visible) img {
+#progetti-in-evidenza li.progetto-in-evidenza .immagine-progetto:is(:hover, :focus, :focus-visible) a {
+  background: transparent;
+  outline: 0;
+}
+#progetti-in-evidenza li.progetto-in-evidenza .immagine-progetto:is(:hover, :focus, :focus-visible) div {
+  filter: none;
+}
+#progetti-in-evidenza li.progetto-in-evidenza .immagine-progetto:is(:hover, :focus, :focus-visible) img {
   background: transparent;
   filter: none;
 }
+#progetti-in-evidenza li.progetto-in-evidenza:nth-of-type(2n+1) .contenuto-progetto {
+  grid-column: 7/-1;
+  text-align: right;
+}
+#progetti-in-evidenza li.progetto-in-evidenza:nth-of-type(2n+1) .immagine-progetto {
+  grid-column: 1/8;
+}
+#progetti-in-evidenza li.progetto-in-evidenza .sottotitolo-progetto {
+  margin: 10px 0;
+  color: var(--green);
+  font-family: var(--font-monospace);
+  font-size: 13px;
+  font-weight: 400;
+}
+#progetti-in-evidenza li.progetto-in-evidenza .titolo-progetto {
+  color: var(--light-grey);
+  font-size: clamp(24px, 5vw, 28px);
+}
+#progetti-in-evidenza li.progetto-in-evidenza .titolo-progetto a {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  text-decoration: none;
+  text-decoration-skip-ink: auto;
+  color: inherit;
+  transition: 0.25s;
+}
+#progetti-in-evidenza li.progetto-in-evidenza .titolo-progetto a:is(:hover, :focus, :focus-visible) {
+  color: var(--green);
+}
+#progetti-in-evidenza li.progetto-in-evidenza .descrizione-progetto {
+  box-shadow: 0 10px 30px -15px var(--box-shadow);
+  transition: 0.25s;
+  position: relative;
+  z-index: 2;
+  padding: 25px;
+  border-radius: 4px;
+  background-color: var(--background-color-progetto-secondario);
+  color: var(--grey);
+  font-size: 18px;
+}
+#progetti-in-evidenza li.progetto-in-evidenza .descrizione-progetto p {
+  font-size: 19px;
+  margin: 0 0 15px;
+}
+#progetti-in-evidenza li.progetto-in-evidenza .descrizione-progetto p:last-child, #progetti-in-evidenza li.progetto-in-evidenza .descrizione-progetto p:last-of-type {
+  margin: 0;
+}
 
+@media (max-width: 1080px) {
+  #progetti-in-evidenza li.progetto-in-evidenza .contenuto-progetto {
+    grid-column: 1/9;
+  }
+  #progetti-in-evidenza li.progetto-in-evidenza:nth-of-type(2n+1) .contenuto-progetto {
+    grid-column: 5/-1;
+  }
+}
+@media (max-width: 768px) {
+  #progetti-in-evidenza li.progetto-in-evidenza {
+    box-shadow: 0 10px 30px -15px var(--box-shadow);
+    transition: 0.25s;
+  }
+  #progetti-in-evidenza li.progetto-in-evidenza .contenuto-progetto {
+    grid-column: 1/-1;
+    padding: 40px 40px 30px;
+    text-align: left;
+  }
+  #progetti-in-evidenza li.progetto-in-evidenza .immagine-progetto {
+    grid-column: 1/-1;
+  }
+  #progetti-in-evidenza li.progetto-in-evidenza:not(:last-of-type) {
+    margin-bottom: 70px;
+  }
+  #progetti-in-evidenza li.progetto-in-evidenza .contenuto-progetto {
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    height: 100%;
+    grid-column: 1/-1 !important;
+    padding: 40px 40px 30px;
+    z-index: 5;
+  }
+  .progetto-in-evidenza {
+    color: var(--color-progetto-secondario);
+  }
+  .progetto-in-evidenza .sottotitolo-progetto {
+    text-align: start;
+  }
+  .progetto-in-evidenza .titolo-progetto {
+    padding-left: 0;
+    text-align: start;
+  }
+  .progetto-in-evidenza .titolo-progetto a {
+    position: static;
+  }
+  .progetto-in-evidenza .titolo-progetto a:before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+  .progetto-in-evidenza .immagine-progetto {
+    transition: background-color 0.25s;
+    grid-column: 1/-1 !important;
+    height: 100%;
+    opacity: 0.25;
+  }
+  .progetto-in-evidenza .immagine-progetto div {
+    object-fit: contain;
+    width: auto;
+    height: 100%;
+    filter: grayscale(100%) contrast(1) brightness(50%);
+  }
+  .progetto-in-evidenza .descrizione-progetto {
+    padding: 20px 0;
+    background-color: transparent;
+    box-shadow: none;
+    text-align: start;
+  }
+}
+@media (max-width: 480px) {
+  #progetti-in-evidenza li.progetto-in-evidenza .contenuto-progetto {
+    padding: 30px 25px 20px;
+  }
+  #progetti-in-evidenza li.progetto-in-evidenza:not(:last-of-type) {
+    margin-bottom: 30px;
+  }
+  #progetti-in-evidenza li.progetto-in-evidenza:nth-of-type(2n+1) .contenuto-progetto {
+    padding: 25px 25px 20px;
+  }
+}
 /* Progetti secondari */
 h2.titolo-progetti-secondari {
   font-size: clamp(24px, 5vw, 36px);
@@ -1028,6 +980,9 @@ h2.titolo-progetti-secondari {
 }
 
 .link-progetti-secondari {
+  text-align: center;
+}
+.link-progetti-secondari a {
   font-size: 14px;
   font-family: var(--font-mono);
   display: inline-block;
@@ -1059,7 +1014,6 @@ h2.titolo-progetti-secondari {
   cursor: default;
   transition: 0.25s;
 }
-
 .progetto-secondario .contenuto-progetto {
   box-shadow: 0 10px 30px -15px var(--box-shadow);
   display: flex;
@@ -1076,8 +1030,7 @@ h2.titolo-progetti-secondari {
   justify-content: space-between;
   height: 100%;
 }
-
-.progetto-secondario .header {
+.progetto-secondario .contenuto-progetto .header {
   display: flex;
   width: 100%;
   -webkit-box-pack: justify;
@@ -1162,13 +1115,13 @@ h2.titolo-progetti-secondari {
 }
 
 /***** Sezione Contatti *****/
-section#sezione-contatti {
+article#contatti section#sezione-contatti {
   max-width: 600px;
   margin: 0 auto 100px;
   text-align: center;
+  align-items: center;
 }
-
-article#contatti .contatti-sottotitolo {
+article#contatti section#sezione-contatti .contatti-sottotitolo {
   display: block;
   margin-bottom: 20px;
   color: var(--green);
@@ -1176,8 +1129,7 @@ article#contatti .contatti-sottotitolo {
   font-size: 16px;
   font-weight: 400;
 }
-
-article#contatti .contatti-sottotitolo::before {
+article#contatti section#sezione-contatti .contatti-sottotitolo:before {
   bottom: 0;
   font-size: 16px;
   position: relative;
@@ -1188,21 +1140,18 @@ article#contatti .contatti-sottotitolo::before {
   font-family: var(--font-mono);
   font-weight: 400;
 }
-
-article#contatti h2.contatti-titolo {
+article#contatti section#sezione-contatti .contatti-titolo {
   font-size: clamp(30px, 4vw, 45px);
   margin: 0 0 10px;
   font-weight: 600;
   color: var(--light-grey);
   line-height: 1.1;
 }
-
-article#contatti .contatti-descrizione {
+article#contatti section#sezione-contatti .contatti-descrizione {
   padding-top: 10px;
   font-weight: 400;
 }
-
-article#contatti .contatti-email {
+article#contatti section#sezione-contatti .contatti-email {
   color: var(--green);
   background-color: transparent;
   border: 1px solid var(--green);
@@ -1215,8 +1164,7 @@ article#contatti .contatti-email {
   transition: 0.25s;
   margin-top: 50px;
 }
-
-article#contatti .contatti-email:is(:hover, :focus, :focus-visible) {
+article#contatti section#sezione-contatti .contatti-email:is(:hover, :focus, :focus-visible) {
   outline: none;
   box-shadow: 4px 4px 0 0 var(--green);
   transform: translate(-5px, -5px);
@@ -1225,16 +1173,6 @@ article#contatti .contatti-email:is(:hover, :focus, :focus-visible) {
 /*** FOOTER **/
 footer .footer-social {
   display: none;
-}
-
-@media (max-width: 768px) {
-  footer .footer-social {
-    display: block;
-    width: 100%;
-    max-width: 200px;
-    margin: 0 auto 10px;
-    color: var(--grey);
-  }
 }
 footer .footer-contenuto {
   padding: 10px;
@@ -1249,6 +1187,15 @@ footer .footer-contenuto {
   text-align: center;
 }
 
+@media (max-width: 768px) {
+  footer .footer-social {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto 10px;
+    color: var(--grey);
+  }
+}
 /********** Stile pagina progetti **********/
 .pagina-progetti h1 {
   font-size: clamp(40px, 8vw, 80px);
@@ -1257,7 +1204,6 @@ footer .footer-contenuto {
   line-height: 1.1;
   font-family: var(--font-calibre);
 }
-
 .pagina-progetti .sottotitolo {
   color: var(--green);
   margin: 0;

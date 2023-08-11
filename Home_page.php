@@ -5,7 +5,7 @@ $json = file_get_contents('dati.json');
 $data = json_decode($json);
 
 $servizio = new Servizio();
-$gestoreProgetti = new GestoreProgetti($data->progetti_in_evidenza, array_slice($data->progetti_secondari, 0, 6));
+$gestoreProgetti = new GestoreProgetti($data->progetti_in_evidenza, array_slice($data->progetti_secondari, 0, 3));
 ?>
 
 <!DOCTYPE html>
@@ -174,10 +174,9 @@ $gestoreProgetti = new GestoreProgetti($data->progetti_in_evidenza, array_slice(
                     ?>
             </section>
             <section id="altri-progetti">
-
                 <h2 class="titolo-progetti-secondari">Altri progetti</h2>
-                <p style="text-align: center">
-                    <a class="link-progetti-secondari" href="Progetti.php">visualizza tutto</a>
+                <p class="link-progetti-secondari">
+                    <a href="Progetti.php">visualizza tutto</a>
                 </p>
                 <?php
                 $gestoreProgetti->mostraProgettiSecondari();
@@ -187,7 +186,7 @@ $gestoreProgetti = new GestoreProgetti($data->progetti_in_evidenza, array_slice(
 
         <!-- Sezione contatti -->
         <article id="contatti">
-            <section id="sezione-contatti" class="dettagli" style="align-items: center;">
+            <section id="sezione-contatti" class="dettagli">
                 <p class="contatti-sottotitolo">E adesso?</p>
                 <h2 class="contatti-titolo">Realizziamo altre idee!</h2>
                 <p class="contatti-descrizione">
