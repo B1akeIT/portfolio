@@ -1526,6 +1526,11 @@ footer {
     display: none;
   }
 
+  .alert-successo {
+    margin-top: 60px;
+    display: none;
+  }
+
   &.inviato-errore {
     input, textarea {
       outline: red solid 1px;
@@ -1534,5 +1539,9 @@ footer {
     .alert-errore {
       display: block;
     }
+  }
+
+  &.inviato-successo .alert-successo {
+    display: block;
   }
 }

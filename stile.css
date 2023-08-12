@@ -1352,10 +1352,17 @@ footer .footer-contenuto {
   margin-top: 20px;
   display: none;
 }
+.container-form .alert-successo {
+  margin-top: 60px;
+  display: none;
+}
 .container-form.inviato-errore input, .container-form.inviato-errore textarea {
   outline: red solid 1px;
 }
 .container-form.inviato-errore .alert-errore {
+  display: block;
+}
+.container-form.inviato-successo .alert-successo {
   display: block;
 }
 

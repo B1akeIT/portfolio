@@ -139,6 +139,11 @@ if ($inviato) {
                             Invia!
                         </button>
                     </form>
+
+                    <div class="alert-successo">
+                        <h1>Grazie per avermi contattato!</h1>
+                        <h2><samp>Risponderò non appena possibile</samp></h2>
+                    </div>
                 </div>
 
             </section>
