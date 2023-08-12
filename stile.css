@@ -1039,27 +1039,23 @@ h2.titolo-progetti-secondari {
   align-items: center;
   margin-bottom: 35px;
 }
-
-.progetto-secondario svg {
+.progetto-secondario .contenuto-progetto .header svg {
   fill: none;
   vertical-align: middle;
 }
-
-.progetto-secondario .icona-cartella {
+.progetto-secondario .contenuto-progetto .header svg.icona-cartella {
   width: 40px;
   height: 40px;
   max-width: 100%;
   vertical-align: middle;
 }
-
-.progetto-secondario .lista-link {
+.progetto-secondario .contenuto-progetto .header .lista-link {
   display: flex;
   -webkit-box-align: center;
   align-items: center;
   margin-right: -10px;
 }
-
-.progetto-secondario .link {
+.progetto-secondario .contenuto-progetto .header .lista-link .link {
   color: var(--grey);
   display: flex;
   -webkit-box-pack: center;
@@ -1072,28 +1068,23 @@ h2.titolo-progetti-secondari {
   cursor: pointer;
   transition: color 0.25s;
 }
-
-.progetto-secondario .link:hover {
+.progetto-secondario .contenuto-progetto .header .lista-link .link:hover {
   color: var(--green);
 }
-
-.progetto-secondario .link svg {
+.progetto-secondario .contenuto-progetto .header .lista-link .link svg {
   width: 20px;
   height: 20px;
 }
-
-.progetto-secondario .titolo-progetto {
+.progetto-secondario .contenuto-progetto .titolo-progetto {
   margin: 0 0 10px;
   color: var(--light-grey);
   font-size: 20px;
 }
-
-.progetto-secondario .descrizione-progetto {
+.progetto-secondario .contenuto-progetto .descrizione-progetto {
   color: var(--grey);
   font-size: 17px;
 }
-
-.progetto-secondario ul.lista-tecnologie {
+.progetto-secondario .contenuto-progetto ul.lista-tecnologie {
   display: flex;
   align-items: flex-end;
   -webkit-box-flex: 1;
@@ -1103,14 +1094,12 @@ h2.titolo-progetti-secondari {
   margin: 20px 0 0;
   list-style: none;
 }
-
-.progetto-secondario ul.lista-tecnologie li {
+.progetto-secondario .contenuto-progetto ul.lista-tecnologie li {
   font-family: var(--font-mono);
   font-size: 12px;
   line-height: 1.75;
 }
-
-.progetto-secondario ul.lista-tecnologie li:not(:last-of-type) {
+.progetto-secondario .contenuto-progetto ul.lista-tecnologie li:not(:last-of-type) {
   margin-right: 15px;
 }
 
@@ -1214,6 +1203,15 @@ footer .footer-contenuto {
 }
 
 /********** Stile pagina progetto singolo **********/
+.pagina-progetto-singolo #progetto-singolo .header {
+  margin-bottom: 50px;
+}
+.pagina-progetto-singolo #progetto-singolo .header .header-info {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  gap: 15px;
+}
 .pagina-progetto-singolo #progetto-singolo section > * {
   margin: 25px 0;
   font-size: 19px;

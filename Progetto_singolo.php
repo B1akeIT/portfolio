@@ -1,9 +1,18 @@
 <?php
 require_once('servizio/Servizio.php');
+require_once('servizio/componenti/gestore-progetti.php');
 $json = file_get_contents('dati.json');
 $data = json_decode($json);
 
 $servizio = new Servizio();
+$gestoreProgetti = new GestoreProgetti();
+$listaProgetti = $data->lista_progetti;
+$idProgetto = $servizio->getParametro('id');
+print_r($idProgetto);
+$progetto = array_filter($listaProgetti, function ($obj) use ($idProgetto) {
+    return $obj->id == $idProgetto;
+})[1];
+print_r($progetto)
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +29,7 @@ $servizio = new Servizio();
     <link href="https://fonts.cdnfonts.com/css/calibre" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/sf-mono" rel="stylesheet">
     <link href="stile.css" type="text/css" rel="stylesheet"/>
-    <title> Accademia CODE - Davide Giuntoli </title>
+    <title> <?php echo $progetto->nome ?> - Davide Giuntoli </title>
 
     <link rel="icon" href="img/logocode_small.svg">
 </head>
@@ -50,23 +59,13 @@ $servizio = new Servizio();
 
             <section>
 
-                <div style="margin-bottom: 50px">
+                <div class="header">
                     <h2><samp>Progetto in evidenza</samp></h2>
-                    <div style="display: flex; flex-direction: row; align-content: center; gap: 15px;">
-                        <h1>Accademia CODE</h1>
+                    <div class="header-info">
+                        <h1><?php echo $progetto->nome ?></h1>
 
                         <div class="lista-link">
-                            <a class="link" href="Progetto_singolo.php">
-                                <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2"
-                                     stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-external-link">
-                                    <title>Link esterno</title>
-                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                    <polyline points="15 3 21 3 21 9"></polyline>
-                                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                                </svg>
-                            </a>
+                            <?php echo $gestoreProgetti->costruisciLinks($progetto->links) ?>
                         </div>
                     </div>
                     <p>

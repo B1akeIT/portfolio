@@ -287,5 +287,182 @@
     "github": "<svg xmlns='http://www.w3.org/2000/svg' role='img' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'> <title>GitHub</title> <path d='M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22'></path></svg>",
     "linkedin": "<svg xmlns='http://www.w3.org/2000/svg' role='img' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'> <title>LinkedIn</title> <path d='M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z'></path> <rect x='2' y='9' width='4' height='12'></rect> <circle cx='4' cy='4' r='2'></circle></svg>",
     "instagram": "<svg xmlns='http://www.w3.org/2000/svg' role='img' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'> <title>Instagram</title> <rect x='2' y='2' width='20' height='20' rx='5' ry='5'></rect> <path d='M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z'></path> <line x1='17.5' y1='6.5' x2='17.51' y2='6.5'></line></svg>"
-  }
+  },
+  "lista_progetti": [
+    {
+      "id": "1",
+      "nome": "Accademia CODE",
+      "tipo": "Progetto in evidenza",
+      "testo_intro": "Un corso per programmatori di tutti i livelli, progettato per una preparazione come full stack developer",
+      "links": [
+        {
+          "tipo": "GitHub",
+          "href": "Progetto_singolo.php?id=1"
+        },
+        {
+          "tipo": "Link esterno",
+          "href": "Progetto_singolo.php?id=1"
+        }
+      ],
+      "contenuto": [
+        {
+          "tipo": "testo",
+          "testo": "Un corso per programmatori di tutti i livelli, progettato per una preparazione come full stack developer"
+        },
+        {
+          "tipo": "immagine",
+          "immagine": "img/progetto_code.png",
+          "nome": "Progetto CODE programmazione"
+        },
+        {
+          "tipo": "testo",
+          "testo": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu turpis quis diam bibendum dictum ac in quam. Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare, dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed sapien aliquet pulvinar. Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis lorem, id luctus augue mi eget felis. Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare, dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed sapien aliquet pulvinar. Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis lorem, id luctus augue mi eget felis."
+        },
+        {
+          "tipo": "testo",
+          "testo": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu turpis quis diam bibendum dictum ac in quam. Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare, dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed sapien aliquet pulvinar. Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis lorem, id luctus augue mi eget felis."
+        },
+        {
+          "tipo": "immagine",
+          "immagine": "img/progetto_code_2.png",
+          "nome": "Progetto CODE confronto col tutor"
+        },
+        {
+          "tipo": "testo",
+          "testo": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu turpis quis diam bibendum dictum ac in quam. Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare, dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed sapien aliquet pulvinar. Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis lorem, id luctus augue mi eget felis."
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "nome": "Accademia Artesport di Pinerolo",
+      "tipo": "Progetto in evidenza",
+      "testo_intro": "Un'accademia pensata per il benessere delle persone a 360 gradi, seguita da specialisti delle arti marziali e con una grande varietà di corsi ed intrattenimenti. <br> La loro pagina web è stata da poco rinnovata. Vai a dare un'occhiata!",
+      "links": [
+        {
+          "tipo": "GitHub",
+          "href": "Progetto_singolo.php?id=2"
+        },
+        {
+          "tipo": "Link esterno",
+          "href": "Progetto_singolo.php?id=2"
+        }
+      ],
+      "contenuto": [
+        {
+          "tipo": "testo",
+          "testo": "Un'accademia pensata per il benessere delle persone a 360 gradi, seguita da specialisti delle arti marziali e con una grande varietà di corsi ed intrattenimenti. La loro pagina web è stata da poco rinnovata. Vai a dare un'occhiata!"
+        },
+        {
+          "tipo": "immagine",
+          "immagine": "img/progetto_artesport.jpg",
+          "nome": "Logo palestra Artesport"
+        },
+        {
+          "tipo": "testo",
+          "testo": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu turpis quis diam bibendum dictum ac in quam. Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare, dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed sapien aliquet pulvinar. Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis lorem, id luctus augue mi eget felis. Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare, dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed sapien aliquet pulvinar. Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis lorem, id luctus augue mi eget felis."
+        },
+        {
+          "tipo": "testo",
+          "testo": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu turpis quis diam bibendum dictum ac in quam. Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare, dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed sapien aliquet pulvinar. Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis lorem, id luctus augue mi eget felis."
+        },
+        {
+          "tipo": "immagine",
+          "immagine": "img/progetto_code_2.png",
+          "nome": "Progetto CODE confronto col tutor"
+        },
+        {
+          "tipo": "testo",
+          "testo": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu turpis quis diam bibendum dictum ac in quam. Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare, dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed sapien aliquet pulvinar. Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis lorem, id luctus augue mi eget felis."
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "nome": "Netflix? Si, ma niente di serio",
+      "tipo": "Progetto in evidenza",
+      "testo_intro": "Prendendo spunto dalla famosa piattaforma Netflix, ho pensato di costruire una sito per streaming dalla struttura semplice ma accattivante.",
+      "links": [
+        {
+          "tipo": "GitHub",
+          "href": "Progetto_singolo.php?id=3"
+        },
+        {
+          "tipo": "Link esterno",
+          "href": "Progetto_singolo.php?id=3"
+        }
+      ],
+      "contenuto": [
+        {
+          "tipo": "testo",
+          "testo": "Prendendo spunto dalla famosa piattaforma Netflix, ho pensato di costruire una sito per streaming dalla struttura semplice ma accattivante."
+        },
+        {
+          "tipo": "immagine",
+          "immagine": "img/progetto_artesport.jpg",
+          "nome": "Logo Netflix"
+        },
+        {
+          "tipo": "testo",
+          "testo": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu turpis quis diam bibendum dictum ac in quam. Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare, dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed sapien aliquet pulvinar. Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis lorem, id luctus augue mi eget felis. Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare, dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed sapien aliquet pulvinar. Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis lorem, id luctus augue mi eget felis."
+        },
+        {
+          "tipo": "testo",
+          "testo": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu turpis quis diam bibendum dictum ac in quam. Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare, dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed sapien aliquet pulvinar. Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis lorem, id luctus augue mi eget felis."
+        },
+        {
+          "tipo": "immagine",
+          "immagine": "img/immagine_placeholder_progetti.jpg",
+          "nome": "Immagine progetto Netflix (placeholder)"
+        },
+        {
+          "tipo": "testo",
+          "testo": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu turpis quis diam bibendum dictum ac in quam. Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare, dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed sapien aliquet pulvinar. Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis lorem, id luctus augue mi eget felis."
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "nome": "Clone Spotify",
+      "tipo": "Progetto in archivio",
+      "links": [
+        {
+          "tipo": "GitHub",
+          "href": "Progetto_singolo.php?id=4"
+        },
+        {
+          "tipo": "Link esterno",
+          "href": "Progetto_singolo.php?id=4"
+        }
+      ],
+      "contenuto": [
+        {
+          "tipo": "testo",
+          "testo": "Seguendo la stessa filosofia del progetto di Netflix, ho creato una copia dello stile di Spotify, moderno e chiaro."
+        },
+        {
+          "tipo": "immagine",
+          "immagine": "img/immagine_placeholder_progetti.jpg",
+          "nome": "Immagine progetto Spotify (placeholder)"
+        },
+        {
+          "tipo": "testo",
+          "testo": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu turpis quis diam bibendum dictum ac in quam. Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare, dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed sapien aliquet pulvinar. Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis lorem, id luctus augue mi eget felis. Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare, dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed sapien aliquet pulvinar. Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis lorem, id luctus augue mi eget felis."
+        },
+        {
+          "tipo": "testo",
+          "testo": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu turpis quis diam bibendum dictum ac in quam. Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare, dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed sapien aliquet pulvinar. Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis lorem, id luctus augue mi eget felis."
+        },
+        {
+          "tipo": "immagine",
+          "immagine": "img/immagine_placeholder_progetti_2.jpg",
+          "nome": "Immagine progetto Spotify (placeholder)"
+        },
+        {
+          "tipo": "testo",
+          "testo": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu turpis quis diam bibendum dictum ac in quam. Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare, dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed sapien aliquet pulvinar. Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis lorem, id luctus augue mi eget felis."
+        }
+      ]
+    }
+  ]
 }

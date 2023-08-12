@@ -1138,82 +1138,82 @@ h2.titolo-progetti-secondari {
       -webkit-box-align: center;
       align-items: center;
       margin-bottom: 35px;
+
+      svg {
+        fill: none;
+        vertical-align: middle;
+
+        &.icona-cartella {
+          width: 40px;
+          height: 40px;
+          max-width: 100%;
+          vertical-align: middle;
+        }
+      }
+
+      .lista-link {
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        margin-right: -10px;
+
+        .link {
+          color: var(--grey);
+          display: flex;
+          -webkit-box-pack: center;
+          justify-content: center;
+          -webkit-box-align: center;
+          align-items: center;
+          padding: 5px 7px;
+          position: relative;
+          z-index: 1;
+          cursor: pointer;
+          transition: color 0.25s;
+
+          &:hover {
+            color: var(--green);
+          }
+
+          svg {
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+    }
+
+    .titolo-progetto {
+      margin: 0 0 10px;
+      color: var(--light-grey);
+      font-size: 20px;
+    }
+
+    .descrizione-progetto {
+      color: var(--grey);
+      font-size: 17px;
+    }
+
+    ul.lista-tecnologie {
+      display: flex;
+      align-items: flex-end;
+      -webkit-box-flex: 1;
+      flex-grow: 1;
+      flex-wrap: wrap;
+      padding: 0;
+      margin: 20px 0 0;
+      list-style: none;
+
+      li {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        line-height: 1.75;
+
+        &:not(:last-of-type) {
+          margin-right: 15px;
+        }
+      }
     }
   }
-}
-
-.progetto-secondario svg {
-  fill: none;
-  vertical-align: middle;
-}
-
-.progetto-secondario .icona-cartella {
-  width: 40px;
-  height: 40px;
-  max-width: 100%;
-  vertical-align: middle;
-}
-
-.progetto-secondario .lista-link {
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  margin-right: -10px;
-}
-
-.progetto-secondario .link {
-  color: var(--grey);
-  display: flex;
-  -webkit-box-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  align-items: center;
-  padding: 5px 7px;
-  position: relative;
-  z-index: 1;
-  cursor: pointer;
-  transition: color 0.25s;
-}
-
-.progetto-secondario .link:hover {
-  color: var(--green);
-}
-
-.progetto-secondario .link svg {
-  width: 20px;
-  height: 20px;
-}
-
-.progetto-secondario .titolo-progetto {
-  margin: 0 0 10px;
-  color: var(--light-grey);
-  font-size: 20px;
-}
-
-.progetto-secondario .descrizione-progetto {
-  color: var(--grey);
-  font-size: 17px;
-}
-
-.progetto-secondario ul.lista-tecnologie {
-  display: flex;
-  align-items: flex-end;
-  -webkit-box-flex: 1;
-  flex-grow: 1;
-  flex-wrap: wrap;
-  padding: 0;
-  margin: 20px 0 0;
-  list-style: none;
-}
-
-.progetto-secondario ul.lista-tecnologie li {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 1.75;
-}
-
-.progetto-secondario ul.lista-tecnologie li:not(:last-of-type) {
-  margin-right: 15px;
 }
 
 /***** Sezione Contatti *****/
@@ -1340,9 +1340,22 @@ footer {
 /********** Stile pagina progetto singolo **********/
 
 .pagina-progetto-singolo {
-  #progetto-singolo section > * {
-    margin: 25px 0;
-    font-size: 19px;
+  #progetto-singolo {
+    .header {
+      margin-bottom: 50px;
+
+      .header-info {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        gap: 15px;
+      }
+    }
+
+    section > * {
+      margin: 25px 0;
+      font-size: 19px;
+    }
   }
 
   .lista-link {

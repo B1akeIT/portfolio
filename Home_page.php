@@ -5,7 +5,7 @@ $json = file_get_contents('dati.json');
 $data = json_decode($json);
 
 $servizio = new Servizio();
-$gestoreProgetti = new GestoreProgetti($data->progetti_in_evidenza, array_slice($data->progetti_secondari, 0, 3));
+$gestoreProgetti = new GestoreProgetti($data->progetti_in_evidenza, array_slice($data->progetti_secondari, 0, 6));
 ?>
 
 <!DOCTYPE html>

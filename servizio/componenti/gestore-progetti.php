@@ -50,18 +50,18 @@ class GestoreProgetti
     public array $progettiInEvidenza = array();
     public array $progettiSecondari = array();
 
-    public function __construct($pie, $ps)
+    public function __construct($progettiInEvidenza = [], $progettiSecondari = [])
     {
-        $this->progettiInEvidenza = $pie;
-        $this->progettiSecondari = $ps;
+        $this->progettiInEvidenza = $progettiInEvidenza;
+        $this->progettiSecondari = $progettiSecondari;
     }
 
-    /*
+    /**
      *
-     * @param Link[] $link che contiene i link del progetto
-     *
+     * @param Link[] $links che contiene i link del progetto
+     * @return string Stringa di codice HTML dei link come una serie di <a>, senza <div> che li contiene
      */
-    public function costruisciLinks($links): string
+    public function costruisciLinks(array $links): string
     {
         $stringaLink = "";
         // Scorre i link del progetto
