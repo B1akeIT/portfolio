@@ -75,11 +75,6 @@ body {
   min-height: 100vh;
 }
 
-.page-wrapper {
-  height: 100%;
-  min-height: 300px;
-}
-
 @media (min-width: 1081px) {
   main.page-wrapper, nav {
     padding: 0 150px;
@@ -1381,6 +1376,11 @@ footer {
       width: 25px;
       height: 25px;
     }
+
+    &:is(:hover, :focus, :focus-visible) {
+      transition: color 0.5s;
+      color: var(--green);
+    }
   }
 
   .immagine-progetto-singolo {
@@ -1449,7 +1449,7 @@ footer {
   }
 
   main p {
-    font-size: 17px;
+    font-size: 21px;
   }
 }
 

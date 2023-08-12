@@ -8,11 +8,11 @@ $servizio = new Servizio();
 $gestoreProgetti = new GestoreProgetti();
 $listaProgetti = $data->lista_progetti;
 $idProgetto = $servizio->getParametro('id');
-print_r($idProgetto);
-$progetto = array_filter($listaProgetti, function ($obj) use ($idProgetto) {
+
+// Array_filter trova il progetto che mi serve. Array_values fa in modo che quest'ultimo sia nell'indice 0
+$progetto = array_values(array_filter($listaProgetti, function ($obj) use ($idProgetto) {
     return $obj->id == $idProgetto;
-})[1];
-print_r($progetto)
+}))[0];
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +60,7 @@ print_r($progetto)
             <section>
 
                 <div class="header">
-                    <h2><samp>Progetto in evidenza</samp></h2>
+                    <h2><samp><?php echo $progetto->tipo ?></samp></h2>
                     <div class="header-info">
                         <h1><?php echo $progetto->nome ?></h1>
 
@@ -69,56 +69,20 @@ print_r($progetto)
                         </div>
                     </div>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ante justo,
-                        faucibus sed sodales eget, pellentesque vitae nulla. Donec accumsan, felis id
-                        sodales posuere, ex massa maximus lectus, congue venenatis libero tellus vitae
-                        turpis.
+                        <?php echo $progetto->testo_intro ?>
                     </p>
                 </div>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu turpis quis diam bibendum
-                    dictum ac in quam.
-                    Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare,
-                    dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed
-                    sapien aliquet pulvinar.
-                    Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis
-                    lorem, id luctus augue mi eget felis.
-                </p>
-                <div class="immagine-progetto-singolo">
-                    <img src="img/progetto_code.png" title="Accademia CODE" alt="Accademia CODE"/>
-                </div>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu turpis quis diam bibendum
-                    dictum ac in quam.
-                    Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare,
-                    dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed
-                    sapien aliquet pulvinar.
-                    Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis
-                    lorem, id luctus augue mi eget felis.
-                    Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare,
-                    dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed
-                    sapien aliquet pulvinar.
-                    Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis
-                    lorem, id luctus augue mi eget felis.
-                </p>
-                <div class="immagine-progetto-singolo">
-                    <img src="img/progetto_code_2.jpeg" title="Accademia CODE" alt="Accademia CODE"/>
-                </div>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu turpis quis diam bibendum
-                    dictum ac in quam.
-                    Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare,
-                    dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed
-                    sapien aliquet pulvinar.
-                    Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis
-                    lorem, id luctus augue mi eget felis.
-                    Nulla facilisi. Fusce a sem vitae nisl dignissim viverra. Aliquam quis urna ornare,
-                    dapibus lectus eu, finibus nisi. In ullamcorper tempor quam at faucibus. Nullam quis libero sed
-                    sapien aliquet pulvinar.
-                    Integer eleifend, nibh ac sollicitudin finibus, nibh dolor convallis
-                    lorem, id luctus augue mi eget felis.
-                </p>
-
+                <?php
+                foreach ($progetto->contenuto as $contenuto) {
+                    if ($contenuto->tipo == 'testo') {
+                        echo '<p>' . $contenuto->testo . '</p>';
+                    } elseif ($contenuto->tipo == 'immagine') {
+                        echo '<div class="immagine-progetto-singolo">
+                    <img src="' . $contenuto->immagine . '" title="' . $contenuto->nome . '" alt="' . $contenuto->nome . '"/>
+                </div>';
+                    }
+                }
+                ?>
             </section>
         </article>
     </main>
