@@ -9,16 +9,16 @@ class CustomFooter
 
     function showFooter()
     {
-        require_once('servizio/Servizio.php');
-        $json = file_get_contents('dati.json');
-        $data = json_decode($json);
+        require_once('servizio/database/gestore-query.php');
+        $gestoreQuery = new GestoreQuery();
+        $icone = $gestoreQuery->getIcone();
 
         $footer = "<footer> <div class='footer-social'> <ul class='lista-social'> <li> <a class='icona-github'>";
-        $footer .= $data->icone->github;
+        $footer .= $icone["Github"];
         $footer .= "</a> </li> <li> <a class='icona-linkedin'>";
-        $footer .= $data->icone->linkedin;
+        $footer .= $icone["LinkedIn"];
         $footer .= "</a> </li> <li> <a class='icona-instagram'>";
-        $footer .= $data->icone->instagram;
+        $footer .= $icone["Instagram"];
         $footer .= "</a> </li> </ul> </div>";
         $footer .= "<div class='footer-contenuto'>
             <p>Sviluppato da Davide Giuntoli</p>

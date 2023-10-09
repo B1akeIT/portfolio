@@ -8,7 +8,7 @@ class GestoreConnessione
      * Variabili per la connessione al database
      */
 
-    private mysqli $mysqli;                    // indirizzo ip del database
+    private mysqli $mysqli;                    // connessione col database
     private string $indirizzo = "localhost";   // indirizzo ip del database
     private string $db = "portfolio";          // nome del database
     private string $utente = "root";           // username dell'utente

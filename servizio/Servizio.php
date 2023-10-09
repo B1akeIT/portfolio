@@ -4,6 +4,8 @@ require_once('componenti/custom-header.php');
 require_once('componenti/custom-aside.php');
 require_once('componenti/custom-footer.php');
 
+require_once('database/gestore-query.php');
+
 
 class Servizio
 {

@@ -10,16 +10,16 @@ class CustomAside
 
     function showSocialAside()
     {
-        require_once('servizio/Servizio.php');
-        $json = file_get_contents('dati.json');
-        $data = json_decode($json);
+        require_once('servizio/database/gestore-query.php');
+        $gestoreQuery = new GestoreQuery();
+        $icone = $gestoreQuery->getIcone();
 
         $socialAside = "<aside id='social'> <ul class='lista-social'> <li> <a class='icona-github'>";
-        $socialAside .= $data->icone->github;
+        $socialAside .= $icone["Github"];
         $socialAside .= "</a> </li> <li> <a class='icona-linkedin'>";
-        $socialAside .= $data->icone->linkedin;
+        $socialAside .= $icone["LinkedIn"];
         $socialAside .= "</a> </li> <li> <a class='icona-instagram'>";
-        $socialAside .= $data->icone->instagram;
+        $socialAside .= $icone["Instagram"];
         $socialAside .= "</a> </li> </ul> </aside>";
         echo $socialAside;
     }

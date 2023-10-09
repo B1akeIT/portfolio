@@ -6,6 +6,8 @@ $data = json_decode($json);
 
 $servizio = new Servizio();
 $gestoreProgetti = new GestoreProgetti($data->progetti_in_evidenza, array_slice($data->progetti_secondari, 0, 6));
+
+$gestoreQuery = new GestoreQuery();
 ?>
 
 <!DOCTYPE html>
@@ -96,7 +98,7 @@ $gestoreProgetti = new GestoreProgetti($data->progetti_in_evidenza, array_slice(
                     </p>
                     <ul class="lista-skills">
                         <?php
-                        foreach ($data->lista_skills as $skill) {
+                        foreach ($gestoreQuery->getSkills() as $skill) {
                             echo "<li>" . $skill . "</li>";
                         }
 

@@ -1,8 +1,15 @@
 <?php
 
-class CustomHeader {
+require_once('servizio/database/gestore-query.php');
 
-    public function __construct() { }
+class CustomHeader
+{
+    private $gestoreQuery;
+
+    public function __construct()
+    {
+        $this->gestoreQuery = new GestoreQuery();
+    }
 
     function showHeader()
     {
@@ -18,10 +25,10 @@ class CustomHeader {
             </div>
             <ul class='button-list'>";
 
-        foreach ($data->pulsanti_header as $pulsante_header) {
+        foreach ($this->gestoreQuery->getPulsantiHeader() as $pulsante_header) {
             $headerText = $headerText .
-                "<li class='" . $pulsante_header->classe_css . "'>
-                    <a href='" . $pulsante_header->href . "'>" . $pulsante_header->label . "</a>
+                "<li class='" . $pulsante_header["classe_css"] . "'>
+                    <a href='" . $pulsante_header["href"] . "'>" . $pulsante_header["label"] . "</a>
                  </li>";
         }
 
