@@ -5,43 +5,58 @@ class Link
     public string $tipo = "";
     public string $href = "";
 }
+class Icona
+{
+    public string $nome = "";
+    public string $codice = "";
+}
 
 class Banner
 {
     public string $src = "";
     public string $alt = "";
+
+    public function __construct(string $src, string $alt)
+    {
+        $this->src = $src;
+        $this->alt = $alt;
+    }
 }
 
-abstract class AbstractProgetto
+class Contenuto
 {
+    public int $id;
+
+    public string $tipo = "";
+    public string $testo = "";
+    public string $immagine = "";
     public string $nome = "";
+    public int $ordine;
+    public int $id_progetto;
+}
+
+class Progetto
+{
+    public int $id;
+    public string $nome = "";
+    public string $href = "";
+    public string $tipo = "";
     public string $testo_intro = "";
     public array $links = array();
-}
-
-class ProgettoInEvidenza extends AbstractProgetto
-{
+    public string $tecnologie = "";
     public Banner $banner;
 
-    public function __construct()
+    public function __construct(int $id, string $nome, string $href, string $tipo, string $testo_intro, string $tecnologie, string $banner_src, string $banner_alt, array $links = [], bool $get_contenuti = false)
     {
-    }
-
-    /*
-    public function __construct($nome)
-    {
-        $this->links = Array();
+        $this->id = $id;
         $this->nome = $nome;
-    }
-    */
-}
+        $this->href = $href;
+        $this->tipo = $tipo;
+        $this->testo_intro = $testo_intro;
+        $this->tecnologie = $tecnologie;
+        $this->banner = new Banner($banner_src, $banner_alt);
 
-class ProgettoSecondario extends AbstractProgetto
-{
-    public array $tecnologie = array();
-
-    public function __construct()
-    {
+        $this->links = $links;
     }
 }
 
@@ -58,7 +73,7 @@ class GestoreProgetti
 
     /**
      *
-     * @param Link[] $links che contiene i link del progetto
+     * @param Link[] $links Link del progetto, ciascuno sotto forma di array associativo Link[tipo, href]
      * @return string Stringa di codice HTML dei link come una serie di <a>, senza <div> che li contiene
      */
     public function costruisciLinks(array $links): string
@@ -163,7 +178,7 @@ class GestoreProgetti
                             </div>
                             <div class='tecnologie-progetto'>
                                 <ul class='lista-tecnologie'>";
-            foreach ($progetto->tecnologie as $tecnologia) {
+            foreach (explode(',', $progetto->tecnologie) as $tecnologia) {
                 $lista .= "<li>" . $tecnologia . "</li>";
             }
             $lista .= "</ul>

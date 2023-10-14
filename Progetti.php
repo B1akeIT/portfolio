@@ -5,7 +5,14 @@ $json = file_get_contents('dati.json');
 $data = json_decode($json);
 
 $servizio = new Servizio();
-$gestoreProgetti = new GestoreProgetti($data->progetti_in_evidenza, $data->progetti_secondari);
+$gestoreQuery = new GestoreQuery();
+
+$lista_progetti = $gestoreQuery->getProgetti();
+$gestoreProgetti = new GestoreProgetti(array_filter($lista_progetti, function (Progetto $progetto) {
+    return $progetto->tipo == "Progetto in evidenza";
+}), array_filter($lista_progetti, function (Progetto $progetto) {
+    return $progetto->tipo == "Progetto in archivio";
+}),);
 ?>
 
 <!DOCTYPE html>
