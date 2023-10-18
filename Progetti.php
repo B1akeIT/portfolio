@@ -8,11 +8,7 @@ $servizio = new Servizio();
 $gestoreQuery = new GestoreQuery();
 
 $lista_progetti = $gestoreQuery->getProgetti();
-$gestoreProgetti = new GestoreProgetti(array_filter($lista_progetti, function (Progetto $progetto) {
-    return $progetto->tipo == "Progetto in evidenza";
-}), array_filter($lista_progetti, function (Progetto $progetto) {
-    return $progetto->tipo == "Progetto in archivio";
-}),);
+$gestoreProgetti = new GestoreProgetti($lista_progetti);
 ?>
 
 <!DOCTYPE html>

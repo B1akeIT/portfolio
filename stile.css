@@ -290,9 +290,14 @@ nav {
 .mobile-button-list span.button-contatti a:before {
   content: "04.";
 }
+.button-list li.button-login a:before,
+.mobile-button-list span.button-login a:before {
+  content: "05.";
+}
 
+.pagina-progetti .button-progetti a,
 .pagina-contatti .button-contatti a,
-.pagina-progetti .button-progetti a {
+.pagina-login .button-login a {
   color: var(--green);
 }
 
@@ -1271,7 +1276,7 @@ footer .footer-contenuto {
     justify-content: space-between;
   }
 }
-.pagina-contatti h1, .pagina-progetto-singolo h1 {
+.pagina-contatti h1, .pagina-progetto-singolo h1, .pagina-login h1 {
   padding: 10px 0;
   font-weight: 600;
   color: var(--light-grey);
@@ -1279,7 +1284,7 @@ footer .footer-contenuto {
   line-height: 1.1;
   font-size: clamp(26px, 5vw, 32px);
 }
-.pagina-contatti h2, .pagina-progetto-singolo h2 {
+.pagina-contatti h2, .pagina-progetto-singolo h2, .pagina-login h2 {
   color: var(--green);
   margin: 0;
   font-size: 16px;
@@ -1287,7 +1292,7 @@ footer .footer-contenuto {
   font-weight: 400;
   line-height: 1.5;
 }
-.pagina-contatti main p, .pagina-progetto-singolo main p {
+.pagina-contatti main p, .pagina-progetto-singolo main p, .pagina-login main p {
   font-size: 21px;
 }
 
@@ -1320,7 +1325,8 @@ footer .footer-contenuto {
   position: relative;
 }
 .container-form .input-container .icona-nome,
-.container-form .input-container .icona-mail {
+.container-form .input-container .icona-mail,
+.container-form .input-container .icona-password {
   height: 100%;
   position: absolute;
   display: flex;
@@ -1334,6 +1340,11 @@ footer .footer-contenuto {
 .container-form .input-container .icona-mail svg {
   width: 1.5rem;
   height: 1.5rem;
+  padding-left: 12px;
+}
+.container-form .input-container .icona-password svg {
+  width: 1.15rem;
+  height: 1.15rem;
   padding-left: 12px;
 }
 .container-form .input-container input, .container-form .input-container textarea {
@@ -1364,6 +1375,12 @@ footer .footer-contenuto {
 }
 .container-form.inviato-successo .alert-successo {
   display: block;
+}
+
+/********** Stile settore backend **********/
+/********** Stile pagina login **********/
+.pagina-login .container-form {
+  margin-top: 5rem;
 }
 
 /*# sourceMappingURL=stile.css.map */

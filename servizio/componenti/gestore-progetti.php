@@ -65,15 +65,17 @@ class GestoreProgetti
     public array $progettiInEvidenza = array();
     public array $progettiSecondari = array();
 
-    public function __construct($progettiInEvidenza = [], $progettiSecondari = [])
+    public function __construct($progetti = [])
     {
-        $this->progettiInEvidenza = $progettiInEvidenza;
-        $this->progettiSecondari = $progettiSecondari;
+        if (count($progetti) > 0) {
+            $this->progettiInEvidenza = $this->filtraProgetti($progetti, "Progetto in evidenza");
+            $this->progettiSecondari = $this->filtraProgetti($progetti, "Progetto in archivio");
+        }
     }
 
     /**
      *
-     * @param Link[] $links Link del progetto, ciascuno sotto forma di array associativo Link[tipo, href]
+     * @param Link[] $links Link del progetto, ciascuno sotto forma di oggetto Link{->tipo, ->href}
      * @return string Stringa di codice HTML dei link come una serie di <a>, senza <div> che li contiene
      */
     public function costruisciLinks(array $links): string
@@ -190,6 +192,12 @@ class GestoreProgetti
         $lista .= "</ul>";
 
         echo $lista;
+    }
+
+    public function filtraProgetti(array $progetti = [], string $tipo = "Progetto in evidenza"): array {
+        return array_filter($progetti, function (Progetto $progetto) use ($tipo) {
+            return $progetto->tipo == $tipo;
+        });
     }
 }
 

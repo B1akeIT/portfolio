@@ -1,10 +1,10 @@
 <?php
 
-require_once('componenti/custom-header.php');
-require_once('componenti/custom-aside.php');
-require_once('componenti/custom-footer.php');
+require_once(realpath($_SERVER["DOCUMENT_ROOT"] . '/portfolio/servizio/componenti/custom-header.php'));
+require_once(realpath($_SERVER["DOCUMENT_ROOT"] . '/portfolio/servizio/componenti/custom-aside.php'));
+require_once(realpath($_SERVER["DOCUMENT_ROOT"] . '/portfolio/servizio/componenti/custom-footer.php'));
 
-require_once('database/gestore-query.php');
+require_once(realpath($_SERVER["DOCUMENT_ROOT"] . '/portfolio/servizio/database/gestore-query.php'));
 
 
 class Servizio

@@ -307,10 +307,15 @@ nav {
   &.button-contatti a:before {
     content: "04.";
   }
+
+  &.button-login a:before {
+    content: "05.";
+  }
 }
 
+.pagina-progetti .button-progetti a,
 .pagina-contatti .button-contatti a,
-.pagina-progetti .button-progetti a {
+.pagina-login .button-login a {
   color: var(--green);
 }
 
@@ -1429,7 +1434,7 @@ footer {
   }
 }
 
-.pagina-contatti, .pagina-progetto-singolo {
+.pagina-contatti, .pagina-progetto-singolo, .pagina-login {
   h1 {
     padding: 10px 0;
     font-weight: 600;
@@ -1486,7 +1491,8 @@ footer {
     position: relative;
 
     .icona-nome,
-    .icona-mail {
+    .icona-mail,
+    .icona-password{
       height: 100%;
       position: absolute;
       display: flex;
@@ -1503,6 +1509,12 @@ footer {
       width: 1.5rem;
       height: 1.5rem;
       padding-left: 12px;
+    }
+
+    .icona-password svg {
+      width: 1.15rem;
+      height: 1.15rem;
+      padding-left: 12px
     }
 
     input, textarea {
@@ -1544,4 +1556,12 @@ footer {
   &.inviato-successo .alert-successo {
     display: block;
   }
+}
+
+
+/********** Stile settore backend **********/
+
+/********** Stile pagina login **********/
+.pagina-login .container-form {
+  margin-top: 5rem;
 }

@@ -9,7 +9,7 @@ class CustomFooter
 
     function showFooter()
     {
-        require_once('servizio/database/gestore-query.php');
+        require_once(realpath($_SERVER["DOCUMENT_ROOT"] . '/portfolio/servizio/database/gestore-query.php'));
         $gestoreQuery = new GestoreQuery();
         $icone = $gestoreQuery->getIcone();
 

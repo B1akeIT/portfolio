@@ -1,35 +1,29 @@
 <?php
 require_once(realpath($_SERVER["DOCUMENT_ROOT"] . '/portfolio/servizio/Servizio.php'));
-$json = file_get_contents('dati.json');
+$json = file_get_contents(realpath($_SERVER["DOCUMENT_ROOT"] . '/portfolio/dati.json'));
 $data = json_decode($json);
 $servizio = new Servizio();
 
 $nome = '';
-$email = '';
-$messaggio = '';
+$password = '';
 
 $nomeValido = null;
-$emailValida = null;
-$messaggioValido = null;
+$passwordValida = null;
 $classeForm = '';
 
 $inviato = $servizio->getParametro('inviato');
 if ($inviato) {
     $nome = $servizio->getParametro('nome');
     $nomeValido = $servizio->validazioneStringa($nome);
-    $email = $servizio->getParametro('email');
-    $emailValida = $servizio->validazioneStringa($email);
-    $messaggio = $servizio->getParametro('messaggio');
-    $messaggioValido = $servizio->validazioneStringa($messaggio);
+    $password = $servizio->getParametro('password');
+    $passwordValida = $servizio->validazioneStringa($password);
 
-    if ($nomeValido && $emailValida && $messaggioValido) {
+    if ($nomeValido && $passwordValida) {
         $classeForm = 'inviato-successo';
-        $servizio->inviaDatiContatto("dettagliContatto.txt", $nome, $email, $messaggio);
     } else {
         $classeForm = 'inviato-errore';
     }
 }
-
 
 ?>
 
@@ -54,7 +48,7 @@ if ($inviato) {
 <body>
 
 
-<div class="background pagina-contatti">
+<div class="background pagina-login">
 
     <!-- Header con logo e pulsanti per la navigazione -->
     <?php
@@ -75,25 +69,20 @@ if ($inviato) {
     <main class="page-wrapper">
 
         <!-- Sezione progetti -->
-        <article id="contatti">
+        <article id="login">
 
             <section>
 
                 <div class="container-testo">
-                    <h2><samp>Hai un problema da risolvere?</samp></h2>
-                    <h1>Mettiamoci in contatto e lavoriamo ad una soluzione!</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ante justo,
-                        faucibus sed sodales eget, pellentesque vitae nulla. Donec accumsan, felis id
-                        sodales posuere, ex massa maximus lectus, congue venenatis libero tellus vitae
-                        turpis.
-                    </p>
+                    <h2><samp>Bentornato/a!</samp></h2>
+                    <h1>Effettua il login</h1>
                 </div>
 
                 <div <?php echo 'class="container-form ' . $classeForm . '"' ?>>
                     <form action="Contatti.php" method="POST">
                         <div class="form-nome" style="margin-bottom: 10px">
                             <label for="nome">
-                                <span>Nome *</span>
+                                <span>Nome</span>
                             </label>
                             <div class="input-container">
                                 <div class="icona-nome">
@@ -101,32 +90,20 @@ if ($inviato) {
                                         <path d="M7.5 6.5C7.5 8.981 9.519 11 12 11s4.5-2.019 4.5-4.5S14.481 2 12 2 7.5 4.019 7.5 6.5zM20 21h1v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h17z"></path>
                                     </svg>
                                 </div>
-                                <input placeholder="Nome" id="nome" name="nome" type="text" required maxlength="50"
-                                       value="<?php echo $nome ?>"/>
+                                <input placeholder="Nome" id="nome" name="nome" type="text" required maxlength="50" />
                             </div>
                         </div>
-                        <div class="form-mail" style="margin-bottom: 10px; margin-top: 10px">
-                            <label for="mail">
-                                <span>Email *</span>
+                        <div class="form-password" style="margin-bottom: 10px; margin-top: 10px">
+                            <label for="password">
+                                <span>Password</span>
                             </label>
                             <div class="input-container">
-                                <div class="icona-mail">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#495670">
-                                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                                <div class="icona-password">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"  fill="#495670">
+                                        <path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/>
                                     </svg>
                                 </div>
-                                <input placeholder="Email" id="mail" name="email" type="email" required
-                                       value="<?php echo $email ?>"/>
-                            </div>
-                        </div>
-                        <div class="form-messaggio" style="margin-top: 10px">
-                            <label for="messaggio">
-                                <span>Messaggio *</span>
-                            </label>
-                            <div class="input-container">
-                                <textarea placeholder="Messaggio" id="messaggio" name="messaggio" rows="6"
-                                          required><?php echo $messaggio ?></textarea>
+                                <input placeholder="Password" id="password" name="password" type="password" required />
                             </div>
                         </div>
 
@@ -136,14 +113,9 @@ if ($inviato) {
 
                         <input type="hidden" name="inviato" value="1">
                         <button type="submit" class="button-invia-email">
-                            Invia!
+                            Login
                         </button>
                     </form>
-
-                    <div class="alert-successo">
-                        <h1>Grazie per avermi contattato!</h1>
-                        <h2><samp>Risponderò non appena possibile</samp></h2>
-                    </div>
                 </div>
 
             </section>
