@@ -1,7 +1,5 @@
 <?php
 require_once(realpath($_SERVER["DOCUMENT_ROOT"] . '/portfolio/servizio/Servizio.php'));
-$json = file_get_contents('dati.json');
-$data = json_decode($json);
 $servizio = new Servizio();
 
 $nome = '';

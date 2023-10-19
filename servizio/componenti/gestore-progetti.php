@@ -5,6 +5,7 @@ class Link
     public string $tipo = "";
     public string $href = "";
 }
+
 class Icona
 {
     public string $nome = "";
@@ -78,13 +79,18 @@ class GestoreProgetti
      * @param Link[] $links Link del progetto, ciascuno sotto forma di oggetto Link{->tipo, ->href}
      * @return string Stringa di codice HTML dei link come una serie di <a>, senza <div> che li contiene
      */
-    public function costruisciLinks(array $links): string
+    public function costruisciLinks(array $links, $indietro = 0): string
     {
+        $indietroText = "";
+        if ($indietro > 0) {
+            $indietroText = str_repeat("../", $indietro);
+        }
+
         $stringaLink = "";
         // Scorre i link del progetto
         foreach ($links as $link) {
             // Prepara il link di riferimento nel tag
-            $stringaLink .= "<a class='link' href=" . $link->href . ">";
+            $stringaLink .= "<a class='link' href=" . $indietroText . $link->href . ">";
             // Stampa l'icona giusta, in base al tipo di icona
             if ($link->tipo == "GitHub") {
                 $stringaLink .= "<svg xmlns='http://www.w3.org/2000/svg' role='img' viewBox='0 0 24 24'
@@ -112,9 +118,12 @@ class GestoreProgetti
         return $stringaLink;
     }
 
-    public function mostraProgettiInEvidenza()
+    public function mostraProgettiInEvidenza($indietro = 0)
     {
-
+        $indietroText = "";
+        if ($indietro > 0) {
+            $indietroText = str_repeat("../", $indietro);
+        }
         $lista = "<ul>";
 
         foreach ($this->progettiInEvidenza as $progetto) {
@@ -123,7 +132,7 @@ class GestoreProgetti
                     <div>
                         <p class='sottotitolo-progetto'>Progetto in evidenza</p>
                         <h3 class='titolo-progetto'>
-                            <a target='_blank' href='" . $progetto->href . "'>" . $progetto->nome . "</a>
+                            <a target='_blank' href='" . $indietroText . $progetto->href . "'>" . $progetto->nome . "</a>
                         </h3>
                         <div class='descrizione-progetto'>
                             <p>" . $progetto->testo_intro . "
@@ -132,9 +141,9 @@ class GestoreProgetti
                     </div>
                 </div>
                 <div class='immagine-progetto'>
-                    <a target='_blank' href='" . $progetto->href . "'>
+                    <a target='_blank' href='" . $indietroText . $progetto->href . "'>
                         <div style='max-width: 700px; display: block;'>
-                            <img alt='" . $progetto->banner->alt . "' src='" . $progetto->banner->src . "'/>
+                            <img alt='" . $progetto->banner->alt . "' src='" . $indietroText . $progetto->banner->src . "'/>
                         </div>
                     </a>
                 </div>
@@ -146,7 +155,7 @@ class GestoreProgetti
         echo $lista;
     }
 
-    public function mostraProgettiSecondari(): void
+    public function mostraProgettiSecondari($indietro = 0): void
     {
 
         $lista = "<ul class='tabella-progetti-secondari'>";
@@ -165,7 +174,7 @@ class GestoreProgetti
                                             </svg>
                                         </div>
                                         <div class='lista-link'>";
-            $lista .= $this->costruisciLinks($progetto->links);
+            $lista .= $this->costruisciLinks($progetto->links, $indietro);
             $lista .= "
                                     </div>
                                 </div>
@@ -194,7 +203,8 @@ class GestoreProgetti
         echo $lista;
     }
 
-    public function filtraProgetti(array $progetti = [], string $tipo = "Progetto in evidenza"): array {
+    public function filtraProgetti(array $progetti = [], string $tipo = "Progetto in evidenza"): array
+    {
         return array_filter($progetti, function (Progetto $progetto) use ($tipo) {
             return $progetto->tipo == $tipo;
         });

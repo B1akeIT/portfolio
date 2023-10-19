@@ -1,25 +1,23 @@
 <?php
 
-
 class CustomAside
 {
+    private array $icone;
 
-    public function __construct()
+    public function __construct($icone)
     {
+        $this->icone = $icone;
     }
 
     function showSocialAside()
     {
-        require_once(realpath($_SERVER["DOCUMENT_ROOT"] . '/portfolio/servizio/database/gestore-query.php'));
-        $gestoreQuery = new GestoreQuery();
-        $icone = $gestoreQuery->getIcone();
 
         $socialAside = "<aside id='social'> <ul class='lista-social'> <li> <a class='icona-github'>";
-        $socialAside .= $icone["Github"];
+        $socialAside .= $this->icone["Github"];
         $socialAside .= "</a> </li> <li> <a class='icona-linkedin'>";
-        $socialAside .= $icone["LinkedIn"];
+        $socialAside .= $this->icone["LinkedIn"];
         $socialAside .= "</a> </li> <li> <a class='icona-instagram'>";
-        $socialAside .= $icone["Instagram"];
+        $socialAside .= $this->icone["Instagram"];
         $socialAside .= "</a> </li> </ul> </aside>";
         echo $socialAside;
     }

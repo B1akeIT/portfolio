@@ -1,6 +1,6 @@
 <?php
-require_once('servizio/Servizio.php');
-require_once('servizio/componenti/gestore-progetti.php');
+require_once('../servizio/Servizio.php');
+require_once('../servizio/componenti/gestore-progetti.php');
 
 $servizio = new Servizio();
 $gestoreQuery = new GestoreQuery();
@@ -22,17 +22,17 @@ $gestoreProgetti = new GestoreProgetti($listaProgetti);
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/calibre" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/sf-mono" rel="stylesheet">
-    <link href="stile.css" type="text/css" rel="stylesheet"/>
+    <link href="../stile.css" type="text/css" rel="stylesheet"/>
     <title> Progetti - Davide Giuntoli </title>
 
-    <link rel="icon" href="img/logocode_small.svg">
+    <link rel="icon" href="../img/logocode_small.svg">
 </head>
 <body>
 <div class="background pagina-progetti">
 
     <!-- Header con logo e pulsanti per la navigazione -->
     <?php
-    $servizio->customHeader->showHeader();
+    $servizio->customHeader->showHeader(1);
     ?>
 
     <!-- Contenuto laterale social -->
@@ -50,19 +50,19 @@ $gestoreProgetti = new GestoreProgetti($listaProgetti);
 
         <!-- Sezione progetti -->
         <article id="progetti">
-            <h1>I miei progetti</h1>
-            <h2 class="sottotitolo">L'archivio dei progetti in cui ho lavorato</h2>
+            <h1>Backend</h1>
+            <h2 class="sottotitolo">SUUUUUUUUUUUIIIIIIIIIIIIIIII</h2>
 
             <section id="progetti-in-evidenza">
                 <?php
-                $gestoreProgetti->mostraProgettiInEvidenza();
+                $gestoreProgetti->mostraProgettiInEvidenza(1);
                 ?>
             </section>
             <section id="altri-progetti">
 
                 <h2 class="titolo-progetti-secondari">Altri progetti degni di nota</h2>
                 <?php
-                $gestoreProgetti->mostraProgettiSecondari();
+                $gestoreProgetti->mostraProgettiSecondari(1);
                 ?>
             </section>
         </article>

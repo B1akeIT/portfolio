@@ -1,32 +1,34 @@
 <?php
 
-require_once(realpath($_SERVER["DOCUMENT_ROOT"] . '/portfolio/servizio/database/gestore-query.php'));
-
 class CustomHeader
 {
-    private $gestoreQuery;
+    private array $pulsanti_header;
 
-    public function __construct()
+    public function __construct($pulsanti_header)
     {
-        $this->gestoreQuery = new GestoreQuery();
+        $this->pulsanti_header = $pulsanti_header;
     }
 
-    function showHeader()
+    function showHeader($indietro = 0)
     {
+        $indietroText = "";
+        if ($indietro > 0) {
+            $indietroText = str_repeat("../", $indietro);
+        }
         $headerText = "<header>
         <nav>
             <input type='checkbox' id='nav-check'>
             <div class='header-logo'>
-                <a href='Home_page.php'>
-                    <img src='img/logocode_small.svg' alt='Davide Giuntoli' title='Davide Giuntoli' />
+                <a href='" . $indietroText . "Home_page.php'>
+                    <img src='" . $indietroText . "img/logocode_small.svg' alt='Davide Giuntoli' title='Davide Giuntoli' />
                 </a>
             </div>
             <ul class='button-list'>";
 
-        foreach ($this->gestoreQuery->getPulsantiHeader() as $pulsante_header) {
+        foreach ($this->pulsanti_header as $pulsante_header) {
             $headerText = $headerText .
                 "<li class='" . $pulsante_header["classe_css"] . "'>
-                    <a href='" . $pulsante_header["href"] . "'>" . $pulsante_header["label"] . "</a>
+                    <a href='" . $indietroText . $pulsante_header["href"] . "'>" . $pulsante_header["label"] . "</a>
                  </li>";
         }
 
@@ -41,10 +43,10 @@ class CustomHeader
             </div>
             <div class='mobile-button-list'>";
 
-        foreach ($this->gestoreQuery->getPulsantiHeader() as $pulsante_header) {
+        foreach ($this->pulsanti_header as $pulsante_header) {
             $headerText = $headerText .
                 "<span class='" . $pulsante_header["classe_css"] . "'>
-                    <a href='" . $pulsante_header["href"] . "'>" . $pulsante_header["label"] . "</a>
+                    <a href='" . $indietroText . $pulsante_header["href"] . "'>" . $pulsante_header["label"] . "</a>
                  </span>";
         }
 

@@ -1,12 +1,11 @@
 <?php
 require_once('servizio/Servizio.php');
 require_once('servizio/componenti/gestore-progetti.php');
-$json = file_get_contents('dati.json');
-$data = json_decode($json);
-
 $servizio = new Servizio();
-$gestoreProgetti = new GestoreProgetti();
-$listaProgetti = $data->lista_progetti;
+$gestoreQuery = new GestoreQuery();
+$listaProgetti = $gestoreQuery->getProgetti();
+$gestoreProgetti = new GestoreProgetti($listaProgetti);
+
 $idProgetto = $servizio->getParametro('id');
 
 // Array_filter trova il progetto che mi serve. Array_values fa in modo che quest'ultimo sia nell'indice 0

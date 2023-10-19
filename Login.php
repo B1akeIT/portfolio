@@ -1,7 +1,5 @@
 <?php
 require_once(realpath($_SERVER["DOCUMENT_ROOT"] . '/portfolio/servizio/Servizio.php'));
-$json = file_get_contents(realpath($_SERVER["DOCUMENT_ROOT"] . '/portfolio/dati.json'));
-$data = json_decode($json);
 $servizio = new Servizio();
 
 $nome = '';
@@ -79,8 +77,8 @@ if ($inviato) {
                 </div>
 
                 <div <?php echo 'class="container-form ' . $classeForm . '"' ?>>
-                    <form action="Contatti.php" method="POST">
-                        <div class="form-nome" style="margin-bottom: 10px">
+                    <form action="backend/Backend.php" method="POST">
+                        <div class="form-nome">
                             <label for="nome">
                                 <span>Nome</span>
                             </label>
@@ -93,7 +91,7 @@ if ($inviato) {
                                 <input placeholder="Nome" id="nome" name="nome" type="text" required maxlength="50" />
                             </div>
                         </div>
-                        <div class="form-password" style="margin-bottom: 10px; margin-top: 10px">
+                        <div class="form-password">
                             <label for="password">
                                 <span>Password</span>
                             </label>

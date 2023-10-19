@@ -10,15 +10,21 @@ require_once(realpath($_SERVER["DOCUMENT_ROOT"] . '/portfolio/servizio/database/
 class Servizio
 {
     // Componenti custom
+
+    public GestoreQuery $gestoreQuery;
     public CustomHeader $customHeader;
     public CustomAside $customAside;
     public CustomFooter $customFooter;
 
     public function __construct()
     {
-        $this->customHeader = new CustomHeader();
-        $this->customAside = new CustomAside();
-        $this->customFooter = new CustomFooter();
+        $this->gestoreQuery = new GestoreQuery();
+        $this->customHeader = new CustomHeader($this->gestoreQuery->getPulsantiHeader());
+
+        // Utilizzo un array per le icone per evitare di fare due volte la stessa chiamata
+        $icone = $this->gestoreQuery->getIcone();
+        $this->customAside = new CustomAside($icone);
+        $this->customFooter = new CustomFooter($icone);
     }
 
     /**
