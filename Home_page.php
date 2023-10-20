@@ -1,14 +1,12 @@
 <?php
 require_once('servizio/Servizio.php');
 require_once('servizio/componenti/gestore-progetti.php');
-$json = file_get_contents('dati.json');
-$data = json_decode($json);
 
 $servizio = new Servizio();
 $gestoreQuery = new GestoreQuery();
 
-$lista_progetti = $gestoreQuery->getProgetti();
-$gestoreProgetti = new GestoreProgetti($lista_progetti);
+$listaProgetti = $gestoreQuery->getProgetti();
+$gestoreProgetti = new GestoreProgetti($listaProgetti);
 
 ?>
 

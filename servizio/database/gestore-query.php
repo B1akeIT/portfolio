@@ -45,7 +45,7 @@ class GestoreQuery
     public function getProgetti()
     {
         $progetti = [];
-        $result = $this->gestoreConnessione->getMysqli()->query("SELECT * FROM getProgetti");
+        $result = $this->gestoreConnessione->getMysqli()->query("SELECT * FROM getProgetti;");
         if ($result->num_rows > 0) {
             foreach ($result->fetch_all(MYSQLI_ASSOC) as $row) {
                 $progetto = new Progetto($row["id"], $row["nome"], $row["href"], $row["tipo"], $row["testo_intro"], $row["tecnologie"] ?? [], $row["banner_src"], $row["banner_alt"], $this->getLinksProgetto($row["id"]));
@@ -53,6 +53,13 @@ class GestoreQuery
             }
         }
         return $progetti;
+    }
+
+    public function getProgetto($id): Progetto
+    {
+        $result = $this->gestoreConnessione->getMysqli()->query("SELECT progetto.id, nome, tipo, LEFT(testo_intro, 256) AS testo_intro, IFNULL(tecnologie, '') AS tecnologie, href, IFNULL(banner_progetto.src, 'img/immagine_placeholder_progetti_2.jpg') AS banner_src, IFNULL(banner_progetto.alt, '') AS banner_alt FROM progetto LEFT JOIN banner_progetto ON progetto.id = banner_progetto.id_progetto WHERE progetto.id = $id;");
+        $row = $result->fetch_all(MYSQLI_ASSOC)[0];
+        return new Progetto($row["id"], $row["nome"], $row["href"], $row["tipo"], $row["testo_intro"], $row["tecnologie"] ?? [], $row["banner_src"], $row["banner_alt"], $this->getLinksProgetto($row["id"]));
     }
 
     /**
@@ -73,5 +80,12 @@ class GestoreQuery
             }
         }
         return $links;
+    }
+
+    public function getContenutiProgetto($id): array
+    {
+        $result = $this->gestoreConnessione->getMysqli()->query("SELECT * FROM contenuto_progetto WHERE id_progetto=" . $id . " ORDER BY ordine;");
+        $contenuti = $result->fetch_all(MYSQLI_ASSOC);
+        return $contenuti;
     }
 }

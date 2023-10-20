@@ -27,7 +27,6 @@ class Banner
 class Contenuto
 {
     public int $id;
-
     public string $tipo = "";
     public string $testo = "";
     public string $immagine = "";

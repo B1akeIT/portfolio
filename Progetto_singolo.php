@@ -3,15 +3,12 @@ require_once('servizio/Servizio.php');
 require_once('servizio/componenti/gestore-progetti.php');
 $servizio = new Servizio();
 $gestoreQuery = new GestoreQuery();
-$listaProgetti = $gestoreQuery->getProgetti();
-$gestoreProgetti = new GestoreProgetti($listaProgetti);
+$gestoreProgetti = new GestoreProgetti();
 
 $idProgetto = $servizio->getParametro('id');
 
-// Array_filter trova il progetto che mi serve. Array_values fa in modo che quest'ultimo sia nell'indice 0
-$progetto = array_values(array_filter($listaProgetti, function ($obj) use ($idProgetto) {
-    return $obj->id == $idProgetto;
-}))[0];
+$progetto = $gestoreQuery->getProgetto(1);
+$contenuti = $gestoreQuery->getContenutiProgetto(1);
 ?>
 
 <!DOCTYPE html>
@@ -72,12 +69,12 @@ $progetto = array_values(array_filter($listaProgetti, function ($obj) use ($idPr
                     </p>
                 </div>
                 <?php
-                foreach ($progetto->contenuto as $contenuto) {
-                    if ($contenuto->tipo == 'testo') {
-                        echo '<p>' . $contenuto->testo . '</p>';
-                    } elseif ($contenuto->tipo == 'immagine') {
+                foreach ($contenuti as $contenuto) {
+                    if ($contenuto["tipo"] == 'testo') {
+                        echo '<p>' . $contenuto["testo"] . '</p>';
+                    } elseif ($contenuto["tipo"] == 'immagine') {
                         echo '<div class="immagine-progetto-singolo">
-                    <img src="' . $contenuto->immagine . '" title="' . $contenuto->nome . '" alt="' . $contenuto->nome . '"/>
+                    <img src="' . $contenuto["immagine"] . '" title="' . $contenuto["nome"] . '" alt="' . $contenuto["nome"] . '"/>
                 </div>';
                     }
                 }
