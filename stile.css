@@ -1479,12 +1479,12 @@ footer .footer-contenuto {
   font-size: 20px;
   font-weight: 600;
 }
-.pagina-backend table td.link-progetto, .pagina-backend table td.operazioni-progetto {
+.pagina-backend table td.link-progetto, .pagina-backend table td.operazioni {
   display: flex;
   justify-items: start;
   gap: 5px;
 }
-.pagina-backend table td.link-progetto a, .pagina-backend table td.operazioni-progetto a {
+.pagina-backend table td.link-progetto a, .pagina-backend table td.operazioni a {
   width: 25px;
   height: 25px;
   transition: 0.25s;
@@ -1494,43 +1494,48 @@ footer .footer-contenuto {
   position: relative;
   color: var(--grey);
 }
-.pagina-backend table td.link-progetto a:hover, .pagina-backend table td.operazioni-progetto a:hover {
+.pagina-backend table td.link-progetto a:hover, .pagina-backend table td.operazioni a:hover {
   color: var(--green);
 }
-.pagina-backend table td.link-progetto a svg, .pagina-backend table td.operazioni-progetto a svg {
+.pagina-backend table td.link-progetto a svg, .pagina-backend table td.operazioni a svg {
   width: 25px;
   height: 25px;
 }
-.pagina-backend table td.titolo-progetto {
+.pagina-backend table td.titolo-progetto,
+.pagina-backend table td.nome-categoria {
   font-size: 20px;
   font-weight: 600;
   padding-top: 10px;
   color: var(--light-grey);
 }
-.pagina-backend table td.tecnologie-progetto {
+.pagina-backend table td.tecnologie-progetto,
+.pagina-backend table td.id-categoria {
   font-size: 14px;
   word-spacing: 1px;
   font-family: var(--font-mono);
   color: var(--green);
 }
-.pagina-backend table td.tipo-progetto {
+.pagina-backend table td.tipo-progetto,
+.pagina-backend table td.permesso-progetti-categoria,
+.pagina-backend table td.permesso-utenti-categoria,
+.pagina-backend table td.permesso-categorie-categoria {
   padding-top: 10px;
   font-size: 18px;
   font-weight: 500;
   color: var(--grey);
 }
-.pagina-backend table td.operazioni-progetto {
+.pagina-backend table td.operazioni {
   gap: 10px;
 }
-.pagina-backend table td.operazioni-progetto a {
+.pagina-backend table td.operazioni a {
   color: var(--grey);
   fill: var(--grey);
 }
-.pagina-backend table td.operazioni-progetto a:hover:not(.elimina-progetto) {
+.pagina-backend table td.operazioni a:hover:not(.elimina) {
   color: var(--green);
   fill: var(--green);
 }
-.pagina-backend table td.operazioni-progetto a:hover:is(.elimina-progetto) {
+.pagina-backend table td.operazioni a:hover:is(.elimina) {
   color: var(--red);
   fill: var(--red);
 }

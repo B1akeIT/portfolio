@@ -1685,7 +1685,7 @@ footer {
       font-weight: 600;
     }
 
-    td.link-progetto, td.operazioni-progetto {
+    td.link-progetto, td.operazioni {
       display: flex;
       justify-items: start;
       gap: 5px;
@@ -1711,40 +1711,45 @@ footer {
       }
     }
 
-    td.titolo-progetto {
+    td.titolo-progetto,
+    td.nome-categoria {
       font-size: 20px;
       font-weight: 600;
       padding-top: 10px;
       color: var(--light-grey);
     }
 
-    td.tecnologie-progetto {
+    td.tecnologie-progetto,
+    td.id-categoria {
       font-size: 14px;
       word-spacing: 1px;
       font-family: var(--font-mono);
       color: var(--green);
     }
 
-    td.tipo-progetto {
+    td.tipo-progetto,
+    td.permesso-progetti-categoria,
+    td.permesso-utenti-categoria,
+    td.permesso-categorie-categoria {
       padding-top: 10px;
       font-size: 18px;
       font-weight: 500;
       color: var(--grey);
     }
 
-    td.operazioni-progetto {
+    td.operazioni {
       gap: 10px;
 
       a {
         color: var(--grey);
         fill: var(--grey);
 
-        &:hover:not(.elimina-progetto) {
+        &:hover:not(.elimina) {
           color: var(--green);
           fill: var(--green);
         }
 
-        &:hover:is(.elimina-progetto) {
+        &:hover:is(.elimina) {
           color: var(--red);
           fill: var(--red);
         }

@@ -85,8 +85,7 @@ class GestoreQuery
     public function getContenutiProgetto($id): array
     {
         $result = $this->gestoreConnessione->getMysqli()->query("SELECT * FROM contenuto_progetto WHERE id_progetto=" . $id . " ORDER BY ordine;");
-        $contenuti = $result->fetch_all(MYSQLI_ASSOC);
-        return $contenuti;
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function createUtente($username, $password, $categoria): void
@@ -96,11 +95,11 @@ class GestoreQuery
         $query = $this->gestoreConnessione->getMysqli()->prepare($sql);
         $query->bind_param("ssi", $username, $hashedPassword, $categoria);
         $result = $query->execute();
-        echo $result;
-        if ($result) {
-            echo "<samp> SUUUUUUUUUUIIIII</samp>";
-        }
-        $id = $this->gestoreConnessione->getMysqli()->insert_id;
-        echo $id;
+    }
+
+    public function getCategorieUtenti(): array
+    {
+        $result = $this->gestoreConnessione->getMysqli()->query("SELECT id, nome, gestione_progetti, gestione_utenti, gestione_categorie FROM utente_categoria ORDER BY id ASC");
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 }
