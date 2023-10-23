@@ -9,6 +9,7 @@ html {
   --light-blue: #8AB2D1;
   --light-grey: #CCD6F6;
   --grey: #A8B2D1;
+  --grey-background: #A8B2D144;
   --dark-grey: #8892B8;
   --color-progetto-secondario: #E6F1FF;
   --color-sottotitolo: #495670;
@@ -40,7 +41,7 @@ p a {
   white-space: nowrap;
   cursor: pointer;
 }
-p a:after {
+p a::after {
   content: "";
   width: 0;
   height: 1px;
@@ -49,9 +50,8 @@ p a:after {
   left: 0;
   background-color: var(--green);
   transition: 0.25s;
-  opacity: 0.5;
 }
-p a:after:hover {
+p a:hover::after {
   width: 100%;
 }
 
@@ -484,7 +484,6 @@ h2.titolo-secondario {
   position: relative;
   bottom: 0.1em;
   transition: all 0.25s;
-  opacity: 0.5;
 }
 
 /***** Sezione Chi sono  *****/
@@ -1276,7 +1275,7 @@ footer .footer-contenuto {
     justify-content: space-between;
   }
 }
-.pagina-contatti h1, .pagina-progetto-singolo h1, .pagina-login h1 {
+.pagina-contatti h1, .pagina-progetto-singolo h1, .pagina-login h1, .pagina-backend h1 {
   padding: 10px 0;
   font-weight: 600;
   color: var(--light-grey);
@@ -1284,7 +1283,7 @@ footer .footer-contenuto {
   line-height: 1.1;
   font-size: clamp(26px, 5vw, 32px);
 }
-.pagina-contatti h2, .pagina-progetto-singolo h2, .pagina-login h2 {
+.pagina-contatti h2, .pagina-progetto-singolo h2, .pagina-login h2, .pagina-backend h2 {
   color: var(--green);
   margin: 0;
   font-size: 16px;
@@ -1292,7 +1291,7 @@ footer .footer-contenuto {
   font-weight: 400;
   line-height: 1.5;
 }
-.pagina-contatti main p, .pagina-progetto-singolo main p, .pagina-login main p {
+.pagina-contatti main p, .pagina-progetto-singolo main p, .pagina-login main p, .pagina-backend main p {
   font-size: 21px;
 }
 
@@ -1390,6 +1389,150 @@ footer .footer-contenuto {
 }
 .pagina-login .form-password {
   margin-block: 30px;
+}
+
+/********** Stile pagina login **********/
+.pagina-backend h1 {
+  font-size: clamp(40px, 6.5vw, 50px);
+}
+.pagina-backend article#introduzione {
+  min-height: calc(40vh - 100px);
+  height: calc(40vh - 100px);
+  padding: 0;
+}
+.pagina-backend article#introduzione section#introduzione {
+  height: 100%;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+}
+.pagina-backend section {
+  margin: 0 auto;
+  padding: 100px 0;
+  max-width: 1000px;
+}
+.pagina-backend .titolo-contenuto {
+  font-weight: 600;
+  color: var(--light-grey);
+  line-height: 1.1;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  position: relative;
+  margin: 10px 0 40px;
+  width: 100%;
+  font-size: clamp(26px, 5vw, 32px);
+  white-space: nowrap;
+  font-family: sans-serif;
+}
+.pagina-backend .titolo-contenuto::before {
+  position: relative;
+  content: "";
+  display: block;
+  width: 50px;
+  height: 1px;
+  margin-right: 20px;
+  background-color: var(--color-section-line);
+}
+@media (max-width: 768px) {
+  .pagina-backend .titolo-contenuto::after {
+    width: 100%;
+  }
+}
+@media (max-width: 1080px) {
+  .pagina-backend .titolo-contenuto::after {
+    width: 200px;
+  }
+}
+.pagina-backend .titolo-contenuto::after {
+  position: relative;
+  content: "";
+  display: block;
+  width: 300px;
+  height: 1px;
+  margin-left: 20px;
+  background-color: var(--color-section-line);
+}
+.pagina-backend table {
+  width: 100%;
+}
+.pagina-backend table tr *:first-child {
+  padding-left: 0;
+}
+.pagina-backend table tr *:last-child {
+  padding-right: 0;
+}
+.pagina-backend table tr:hover {
+  background-color: rgba(168, 178, 209, 0.2666666667);
+}
+.pagina-backend table th, .pagina-backend table td {
+  padding: 8px 10px;
+  text-align: left;
+  font-family: var(--font-calibre);
+}
+.pagina-backend table th {
+  color: var(--dark-grey);
+  font-size: 20px;
+  font-weight: 600;
+}
+.pagina-backend table td.link-progetto, .pagina-backend table td.operazioni-progetto {
+  display: flex;
+  justify-items: start;
+  gap: 5px;
+}
+.pagina-backend table td.link-progetto a, .pagina-backend table td.operazioni-progetto a {
+  width: 25px;
+  height: 25px;
+  transition: 0.25s;
+  display: inline-block;
+  text-decoration: none;
+  text-decoration-skip-ink: auto;
+  position: relative;
+  color: var(--grey);
+}
+.pagina-backend table td.link-progetto a:hover, .pagina-backend table td.operazioni-progetto a:hover {
+  color: var(--green);
+}
+.pagina-backend table td.link-progetto a svg, .pagina-backend table td.operazioni-progetto a svg {
+  width: 25px;
+  height: 25px;
+}
+.pagina-backend table td.titolo-progetto {
+  font-size: 20px;
+  font-weight: 600;
+  padding-top: 10px;
+  color: var(--light-grey);
+}
+.pagina-backend table td.tecnologie-progetto {
+  font-size: 14px;
+  word-spacing: 1px;
+  font-family: var(--font-mono);
+  color: var(--green);
+}
+.pagina-backend table td.tipo-progetto {
+  padding-top: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--grey);
+}
+.pagina-backend table td.operazioni-progetto {
+  gap: 10px;
+}
+.pagina-backend table td.operazioni-progetto a {
+  color: var(--grey);
+  fill: var(--grey);
+}
+.pagina-backend table td.operazioni-progetto a:hover:not(.elimina-progetto) {
+  color: var(--green);
+  fill: var(--green);
+}
+.pagina-backend table td.operazioni-progetto a:hover:is(.elimina-progetto) {
+  color: var(--red);
+  fill: var(--red);
 }
 
 /*# sourceMappingURL=stile.css.map */

@@ -88,4 +88,19 @@ class GestoreQuery
         $contenuti = $result->fetch_all(MYSQLI_ASSOC);
         return $contenuti;
     }
+
+    public function createUtente($username, $password, $categoria): void
+    {
+        $hashedPassword = hash("sha512", $password);
+        $sql = "INSERT INTO utente (nome_utente, password, id_categoria) VALUES (?, ?, ?)";
+        $query = $this->gestoreConnessione->getMysqli()->prepare($sql);
+        $query->bind_param("ssi", $username, $hashedPassword, $categoria);
+        $result = $query->execute();
+        echo $result;
+        if ($result) {
+            echo "<samp> SUUUUUUUUUUIIIII</samp>";
+        }
+        $id = $this->gestoreConnessione->getMysqli()->insert_id;
+        echo $id;
+    }
 }

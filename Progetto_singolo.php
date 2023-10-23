@@ -7,8 +7,8 @@ $gestoreProgetti = new GestoreProgetti();
 
 $idProgetto = $servizio->getParametro('id');
 
-$progetto = $gestoreQuery->getProgetto(1);
-$contenuti = $gestoreQuery->getContenutiProgetto(1);
+$progetto = $gestoreQuery->getProgetto($idProgetto);
+$contenuti = $gestoreQuery->getContenutiProgetto($idProgetto);
 ?>
 
 <!DOCTYPE html>
