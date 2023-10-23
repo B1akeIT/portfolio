@@ -102,4 +102,10 @@ class GestoreQuery
         $result = $this->gestoreConnessione->getMysqli()->query("SELECT id, nome, gestione_progetti, gestione_utenti, gestione_categorie FROM utente_categoria ORDER BY id ASC");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getUtenti()
+    {
+        $result = $this->gestoreConnessione->getMysqli()->query("SELECT * FROM getutenti;");
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }

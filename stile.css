@@ -1466,9 +1466,6 @@ footer .footer-contenuto {
 .pagina-backend table tr *:last-child {
   padding-right: 0;
 }
-.pagina-backend table tr:hover {
-  background-color: rgba(168, 178, 209, 0.2666666667);
-}
 .pagina-backend table th, .pagina-backend table td {
   padding: 8px 10px;
   text-align: left;
@@ -1502,14 +1499,17 @@ footer .footer-contenuto {
   height: 25px;
 }
 .pagina-backend table td.titolo-progetto,
-.pagina-backend table td.nome-categoria {
+.pagina-backend table td.nome-categoria,
+.pagina-backend table td.nome-utente {
   font-size: 20px;
   font-weight: 600;
   padding-top: 10px;
   color: var(--light-grey);
 }
 .pagina-backend table td.tecnologie-progetto,
-.pagina-backend table td.id-categoria {
+.pagina-backend table td.id-categoria,
+.pagina-backend table td.id-utente,
+.pagina-backend table td.categoria-utente {
   font-size: 14px;
   word-spacing: 1px;
   font-family: var(--font-mono);
@@ -1524,7 +1524,11 @@ footer .footer-contenuto {
   font-weight: 500;
   color: var(--grey);
 }
+.pagina-backend table td.categoria-utente {
+  font-size: 16px;
+}
 .pagina-backend table td.operazioni {
+  justify-content: end;
   gap: 10px;
 }
 .pagina-backend table td.operazioni a {
