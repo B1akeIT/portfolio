@@ -1,0 +1,624 @@
+<div class="mb-4" style="width: calc( 100% );height: calc( 100% );">
+  <div class="d-flex flex-column" style="height: calc( 100% );">
+    <div class="accounting-bar border-bottom">
+      <div class="float-left ml-2" style="padding: 0.5em 0.40rem !important">
+        <span title="AccountingData: [id: {{ wAccountingData?.id }} | cid: {{ wAccountingData?.clienteId }} | aid: {{ wAccountingData?.aziendaId }}]">{{ aziendaData.azienda }}</span>
+        <!-- <span class="ml-3 col-form-field-sm">{{ wAccountingData.clienteId }} | {{ wAccountingData.aziendaId }}</span> -->
+      </div>
+      <div class="btn-group float-right" style="padding: 0.2em 0.40rem !important" *ngIf="accountingData && !loading && !readOnly">
+        <ng-template [appHasPermission]="isClient() ? 'FUNCLIENTECONTABILITA' : 'FUNFORNITORECONTABILITA'" [action]="'edit'" [owner]="true">
+          <button type="button" class="btn btn-sm btn-cyan mr-1" (click)="onSave($event)" *ngIf="edit">
+            <span><i class="cui-save"></i> {{ 'APP.BUTTON.save' | translate }}</span>
+          </button>
+          <button type="button" class="btn btn-sm btn-light" (click)="cancelEdit($event)" *ngIf="edit">
+            <span><i class="cui-x"></i> {{ 'APP.BUTTON.cancel' | translate }}</span>
+          </button>
+          <button type="button" class="btn btn-sm btn-light" (click)="onEdit($event)" *ngIf="!edit">
+            <span><i class="cui-pencil"></i></span>
+          </button>
+        </ng-template>
+        <ng-template [appHasPermission]="isClient() ? 'FUNCLIENTECONTABILITA' : 'FUNFORNITORECONTABILITA'" [action]="'delete'" [owner]="true">
+          <button class="btn btn-sm btn-danger ml-1" *ngIf="!edit"
+            tooltip="{{ 'APP.TOOLTIP.delete_accounting_data' | translate }}"
+            container="body"
+            mwlConfirmationPopover
+            [popoverTitle]="'APP.TITLE.delete' | translate"
+            [popoverMessage]="'APP.MESSAGE.are_you_sure' | translate"
+            [cancelText]="'APP.BUTTON.cancel' | translate"
+            [cancelButtonType]="'outline-secondary btn-sm'"
+            [confirmText]="'APP.BUTTON.confirm' | translate"
+            [confirmButtonType]="'danger btn-sm'"
+            [appendToBody]="true"
+            placement="left"
+            (confirm)="onDelete(accountingData)">
+            <i class="icon-trash"></i></button>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="accounting-content px-2 overflow-auto h-100">
+      <div class="text-center py-3" *ngIf="loading">
+        <div class="h3 text-muted text-center mt-3">
+          <i class="fa fa-circle-o-notch fa-spin"></i>
+        </div>
+      </div>
+      <!-- <ngx-loading
+        [show]="loading"
+        [config]="loadingOptions">
+      </ngx-loading> -->
+
+      <div class="mt-5" *ngIf="!accountingData && !loading">
+        <div class="details-content h-100">
+          <div class="d-flex flex-column justify-content-center align-items-center h-75">
+            <div class="text-center">
+              <h6 class="no-messages-text message-small mt-3">{{ 'APP.MESSAGE.no_data' | translate }}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="" *ngIf="accountingData && !edit && !loading">
+        <!-- <pre class="pre-code"><code>{{ accountingData | json }}</code></pre> -->
+        <div class="cliente-data mt-3 mb-3 px-3" *ngIf="isClient()">
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.listinoId' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.listinoDescrizione || '---' }}</div>
+          </div>
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.importoFido' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.importoFido | currency: 'EUR':'symbol':undefined:'it-IT' }}</div>
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.dataUltimoAggiornamentoFido' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.dataUltimoAggiornamentoFido | date: 'dd-MM-yyy' }}</div>
+          </div>
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.dichiarazioneIntento' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.dichiarazioneIntento || '---' }}</div>
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.dichIntImporto' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.dichIntImporto | currency: 'EUR':'symbol':undefined:'it-IT' }}</div>
+          </div>
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.dichIntEsposizione' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.dichIntEsposizione | currency: 'EUR':'symbol':undefined:'it-IT' }}</div>
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.dataInizioInt' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.dataInizioInt | date: 'dd-MM-yyy' }}</div>
+          </div>
+          <div class="mb-1 row">
+            <div class="col-md-3 col-form-field-sm-">
+              <ion-icon class="align-middle text-blue" name="checkbox" *ngIf="accountingData.isSpeseIncasso"></ion-icon>
+              <ion-icon class="align-middle" name="square-outline" *ngIf="!accountingData.isSpeseIncasso"></ion-icon>
+              <label class="col-md-11- col-form-label col-form-label-sm pl-2">{{ 'APP.FIELD.isSpeseIncasso' | translate }}</label>
+            </div>
+            <div class="col-md-3 col-form-field-sm-">
+              <div class="row">
+                <label class="col-md-4 col-form-label col-form-label-sm">{{ 'APP.FIELD.speseIncasso' | translate }}</label>
+                <div class="col-md-8 col-form-field-sm">{{ accountingData.speseIncasso | currency: 'EUR':'symbol':undefined:'it-IT' }}</div>
+              </div>
+            </div>
+            <div class="col-md-3 col-form-field-sm-">
+              <div class="row">
+                <label class="col-md-4 col-form-label col-form-label-sm">{{ 'APP.FIELD.speseImballo' | translate }}</label>
+                <div class="col-md-8 col-form-field-sm">{{ accountingData.speseImballo | currency: 'EUR':'symbol':undefined:'it-IT' }}</div>
+              </div>
+            </div>
+            <div class="col-md-3 col-form-field-sm-">
+              <div class="row">
+                <label class="col-md-4 col-form-label col-form-label-sm">{{ 'APP.FIELD.speseBolliSuEsenti' | translate }}</label>
+                <div class="col-md-8 col-form-field-sm">{{ accountingData.speseBolliSuEsenti | currency: 'EUR':'symbol':undefined:'it-IT' }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-1 row">
+            <div class="col-md-3 col-form-field-sm-">
+              <ion-icon class="align-middle text-blue" name="checkbox" *ngIf="accountingData.isRaggruppaOrdini"></ion-icon>
+              <ion-icon class="align-middle" name="square-outline" *ngIf="!accountingData.isRaggruppaOrdini"></ion-icon>
+              <label class="col-md-11- col-form-label col-form-label-sm pl-2">{{ 'APP.FIELD.isRaggruppaOrdini' | translate }}</label>
+            </div>
+            <div class="col-md-3 col-form-field-sm-">
+              <ion-icon class="align-middle text-blue" name="checkbox" *ngIf="accountingData.isRaggruppaScadenza"></ion-icon>
+              <ion-icon class="align-middle" name="square-outline" *ngIf="!accountingData.isRaggruppaScadenza"></ion-icon>
+              <label class="col-md-11- col-form-label col-form-label-sm pl-2">{{ 'APP.FIELD.isRaggruppaScadenza' | translate }}</label>
+            </div>
+            <div class="col-md-3 col-form-field-sm-">
+              <ion-icon class="align-middle text-blue" name="checkbox" *ngIf="accountingData.isPrezzoLordoIva"></ion-icon>
+              <ion-icon class="align-middle" name="square-outline" *ngIf="!accountingData.isPrezzoLordoIva"></ion-icon>
+              <label class="col-md-11- col-form-label col-form-label-sm pl-2">{{ 'APP.FIELD.isPrezzoLordoIva' | translate }}</label>
+            </div>
+            <div class="col-md-3 col-form-field-sm-">
+              <ion-icon class="align-middle text-blue" name="checkbox" *ngIf="accountingData.isSplitPayment"></ion-icon>
+              <ion-icon class="align-middle" name="square-outline" *ngIf="!accountingData.isSplitPayment"></ion-icon>
+              <label class="col-md-11- col-form-label col-form-label-sm pl-2">{{ 'APP.FIELD.isSplitPayment' | translate }}</label>
+            </div>
+          </div>
+          <div class="mb-1 row">
+            <div class="col-md-2 col-form-field-sm-">
+              <ion-icon class="align-middle text-blue" name="checkbox" *ngIf="accountingData.isEsenteIVA"></ion-icon>
+              <ion-icon class="align-middle" name="square-outline" *ngIf="!accountingData.isEsenteIVA"></ion-icon>
+              <label class="col-md-11- col-form-label col-form-label-sm pl-2">{{ 'APP.FIELD.isEsenteIVA' | translate }}</label>
+            </div>
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.iva' | translate }}</label>
+            <div class="col-md-2 col-form-field-sm">{{ accountingData.anagIvaDescrizione || '---' }}</div>
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.porto' | translate }}</label>
+            <div class="col-md-2 col-form-field-sm">{{ accountingData.anagPortoDescrizione || '---' }}</div>
+          </div>
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.modalitaPagamento' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.anagModalitaPagamentoDescrizione || '---' }}</div>
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.tipoPagamento' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.anagTipoPagamentoDescrizione || '---' }}</div>
+          </div>
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.iban' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.iban || '---' }}</div>
+          </div>
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.bancaAbi' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.anagAbiDescrizione || '---' }} - {{ accountingData.abi?.descrizione || '---' }}</div>
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.bancaCab' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.anagCabDescrizione || '---' }} - {{ accountingData.cab?.descrizione || '---' }}</div>
+          </div>
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.bancaCC' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.bancaCC || '---' }}</div>
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.bancaCIN' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.bancaCIN || '---' }}</div>
+          </div>
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.phone-contacts' | translate }}</label>
+            <div class="col-md-10">
+              <div class="mb-1 row">
+                <div class="col nTel"><span class="mr-2"><i class="cui-phone"></i></span> <span class="col-form-field-sm">{{ accountingData.nTel || '---' }}</span></div>
+                <div class="col nFax"><span class="mr-2"><i class="cui-fax"></i></span> <span class="col-form-field-sm">{{ accountingData.nFax || '---' }}</span></div>
+              </div>
+              <div class="mb-1 row">
+                <div class="col nCell"><span class="mr-2"><i class="cui-mobile"></i></span> <span class="col-form-field-sm">{{ accountingData.nCell || '---' }}</span></div>
+                <div class="col"></div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.referente' | translate }}</label>
+            <div class="col-md-4">
+              <div class="mb-1 row">
+                <div class="col referente col-form-field-sm">{{ accountingData.referente || '---' }}</div>
+              </div>
+            </div>
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.referenteMaster' | translate }}</label>
+            <div class="col-md-4">
+              <div class="mb-1 row">
+                <div class="col referente col-form-field-sm">{{ accountingData.referenteMaster || '---' }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.email' | translate }}</label>
+            <div class="col-md-10">
+              <div class="mb-1 row">
+                <div class="col email col-form-field-sm">{{ accountingData.email || '---' }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fornitore-data mt-3 mb-3 px-3" *ngIf="isSupplier()">
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.importoFido' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.importoFido | currency: 'EUR':'symbol':undefined:'it-IT' }}</div>
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.dichiarazioneIntento' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.dichiarazioneIntento || '---' }}</div>
+          </div>
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.dichIntImporto' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.dichIntImporto | currency: 'EUR':'symbol':undefined:'it-IT' }}</div>
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.dichIntEsposizione' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.dichIntEsposizione | currency: 'EUR':'symbol':undefined:'it-IT' }}</div>
+          </div>
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.dataInizioInt' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.dataInizioInt | date: 'dd-MM-yyy' }}</div>
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.dataUltimoAggiornamentoFido' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.dataUltimoAggiornamentoFido | date: 'dd-MM-yyy' }}</div>
+          </div>
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.anagIvaId' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ accountingData.anagIvaDescrizione || '---' }}</div>
+            <div class="col-md-4 col-form-field-sm-">
+              <ion-icon class="align-middle text-blue" name="checkbox" *ngIf="accountingData.isCaricaQuantitaMaggiore"></ion-icon>
+              <ion-icon class="align-middle" name="square-outline" *ngIf="!accountingData.isCaricaQuantitaMaggiore"></ion-icon>
+              <label class="col-md-11- col-form-label col-form-label-sm pl-2">{{ 'APP.FIELD.isCaricaQuantitaMaggiore' | translate }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3" *ngIf="accountingData && edit && !loading">
+        <!-- <form (ngSubmit)="onSave(accountingData)"> -->
+          <div class="mt-3 px-3" *ngIf="isClient()">
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm" for="listinoId">{{ 'APP.FIELD.listinoId' | translate }}</label>
+              <div class="col-md-4">
+                <select name="listinoId" class="form-control form-control-sm" [(ngModel)]="wAccountingData.listinoId">
+                  <option [value]="listino.id" *ngFor="let listino of anagraficheCombo['SpComboListino'];">{{ listino.descrizione }}</option>
+                </select>
+                <!-- <input type="number" name="listinoId" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.listinoId' | translate }}" [(ngModel)]="wAccountingData.listinoId"> -->
+              </div>
+            </div>
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm" for="importoFido">{{ 'APP.FIELD.importoFido' | translate }}</label>
+              <div class="col-md-4">
+                <input type="text" name="importoFido" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.importoFido' | translate }}" [(ngModel)]="wAccountingData.importoFido">
+              </div>
+              <label class="col-md-2 col-form-label col-form-label-sm" for="dataUltimoAggiornamentoFido">{{ 'APP.FIELD.dataUltimoAggiornamentoFido' | translate }}</label>
+              <div class="col-md-4">
+                <input type="date" name="dataUltimoAggiornamentoFido" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.dataUltimoAggiornamentoFido' | translate }}" [(ngModel)]="wAccountingData.dataUltimoAggiornamentoFido">
+              </div>
+            </div>
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm" for="dichiarazioneIntento">{{ 'APP.FIELD.dichiarazioneIntento' | translate }}</label>
+              <div class="col-md-4">
+                <input type="text" name="dichiarazioneIntento" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.dichiarazioneIntento' | translate }}" [(ngModel)]="wAccountingData.dichiarazioneIntento">
+              </div>
+              <label class="col-md-2 col-form-label col-form-label-sm" for="dichIntImporto">{{ 'APP.FIELD.dichIntImporto' | translate }}</label>
+              <div class="col-md-4">
+                <input type="text" name="dichIntImporto" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.dichIntImporto' | translate }}" [(ngModel)]="wAccountingData.dichIntImporto">
+              </div>
+            </div>
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm" for="dichIntEsposizione">{{ 'APP.FIELD.dichIntEsposizione' | translate }}</label>
+              <div class="col-md-4">
+                <input type="text" name="dichIntEsposizione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.dichIntEsposizione' | translate }}" [(ngModel)]="wAccountingData.dichIntEsposizione">
+              </div>
+              <label class="col-md-2 col-form-label col-form-label-sm" for="dataInizioInt">{{ 'APP.FIELD.dataInizioInt' | translate }}</label>
+              <div class="col-md-4">
+                <input type="date" name="dataInizioInt" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.dataInizioInt' | translate }}" [(ngModel)]="wAccountingData.dataInizioInt">
+              </div>
+            </div>
+            <div class="form-group- mb-1 row">
+              <div class="col-md-2">
+                <div class="row px-3">
+                  <div class="form-check col-12">
+                    <input id="isSpeseIncasso" class="form-check-input pt-0" type="checkbox" name="isSpeseIncasso" [(ngModel)]="wAccountingData.isSpeseIncasso">
+                    <label class="form-check-label col-form-label-sm" for="isSpeseIncasso">{{ 'APP.FIELD.isSpeseIncasso' | translate }}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <label class="col-4 col-form-label col-form-label-sm" for="speseIncasso">{{ 'APP.FIELD.speseIncasso' | translate }}</label>
+                  <div class="col-8">
+                    <input type="text" name="speseIncasso" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.speseIncasso' | translate }}" [(ngModel)]="wAccountingData.speseIncasso">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <label class="col-4 col-form-label col-form-label-sm" for="speseImballo">{{ 'APP.FIELD.speseImballo' | translate }}</label>
+                  <div class="col-8">
+                    <input type="text" name="speseImballo" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.speseImballo' | translate }}" [(ngModel)]="wAccountingData.speseImballo">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <label class="col-4 col-form-label col-form-label-sm" for="speseBolliSuEsenti">{{ 'APP.FIELD.speseBolliSuEsenti' | translate }}</label>
+                  <div class="col-8">
+                    <input type="text" name="speseBolliSuEsenti" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.speseBolliSuEsenti' | translate }}" [(ngModel)]="wAccountingData.speseBolliSuEsenti">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group- mb-1 row">
+              <div class="col-md-3">
+                <div class="row px-3">
+                  <div class="form-check col-12">
+                    <input id="isRaggruppaOrdini" class="form-check-input pt-0" type="checkbox" name="isRaggruppaOrdini" [(ngModel)]="wAccountingData.isRaggruppaOrdini">
+                    <label class="form-check-label col-form-label-sm" for="isRaggruppaOrdini">{{ 'APP.FIELD.isRaggruppaOrdini' | translate }}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="row px-3">
+                  <div class="form-check col-12">
+                    <input id="isRaggruppaScadenza" class="form-check-input pt-0" type="checkbox" name="isRaggruppaScadenza" [(ngModel)]="wAccountingData.isRaggruppaScadenza">
+                    <label class="form-check-label col-form-label-sm" for="isRaggruppaScadenza">{{ 'APP.FIELD.isRaggruppaScadenza' | translate }}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="row px-3">
+                  <div class="form-check col-12">
+                    <input id="isPrezzoLordoIva" class="form-check-input pt-0" type="checkbox" name="isPrezzoLordoIva" [(ngModel)]="wAccountingData.isPrezzoLordoIva">
+                    <label class="form-check-label col-form-label-sm" for="isPrezzoLordoIva">{{ 'APP.FIELD.isPrezzoLordoIva' | translate }}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="row px-3">
+                  <div class="form-check col-12">
+                    <input id="isSplitPayment" class="form-check-input pt-0" type="checkbox" name="isSplitPayment" [(ngModel)]="wAccountingData.isSplitPayment">
+                    <label class="form-check-label col-form-label-sm" for="isSplitPayment">{{ 'APP.FIELD.isSplitPayment' | translate }}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group- mb-1 row">
+              <div class="col-md-2">
+                <div class="row px-3">
+                  <div class="form-check col-12">
+                    <input id="isEsenteIVA" class="form-check-input pt-0" type="checkbox" name="isEsenteIVA" [(ngModel)]="wAccountingData.isEsenteIVA">
+                    <label class="form-check-label col-form-label-sm" for="isEsenteIVA">{{ 'APP.FIELD.isEsenteIVA' | translate }}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="row">
+                  <label class="col-md-4 col-form-label col-form-label-sm" for="anagIVAId">{{ 'APP.FIELD.anagIvaId' | translate }} <span class="btn btn-sm p-0 float-right" (click)="tableMS.openTableModal('Iva')"><i class="cui-pencil"></i></span></label>
+                  <div class="col-md-8">
+                    <select name="anagIVAId" class="form-control form-control-sm" [(ngModel)]="wAccountingData.anagIVAId">
+                      <option value="0">&nbsp;</option>
+                      <option [value]="iva.id" *ngFor="let iva of anagraficheCombo['SpComboIva'];">{{ iva.descrizione }}</option>
+                    </select>
+                    <!-- <input type="number" name="anagIVAId" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.anagIvaId' | translate }}" [(ngModel)]="wAccountingData.anagIVAId"> -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <label class="col-4 col-form-label col-form-label-sm" for="anagPortoId">{{ 'APP.FIELD.anagPortoId' | translate }}</label>
+                  <div class="col-8">
+                    <select name="anagPortoId" class="form-control form-control-sm" [(ngModel)]="wAccountingData.anagPortoId">
+                      <option value="0">&nbsp;</option>
+                      <option [value]="porto.id" *ngFor="let porto of anagraficheCombo['SpComboPorto'];">{{ porto.descrizione }}</option>
+                    </select>
+                    <!-- <input type="number" name="importoFido" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.anagPortoId' | translate }}" [(ngModel)]="wAccountingData.anagPortoId"> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm" for="anagModalitaPagamentoId">{{ 'APP.FIELD.anagModalitaPagamentoId' | translate }}</label>
+              <div class="col-md-4">
+                <!-- <select name="anagModalitaPagamentoId" class="form-control form-control-sm" [(ngModel)]="wAccountingData.anagModalitaPagamentoId">
+                  <option value="0">&nbsp;</option>
+                  <option [value]="mp.id" *ngFor="let mp of anagrafiche['AnagModalitaPagamento'];">{{ mp.descrizione }}</option>
+                </select> -->
+                <ng-select class="form-select-sm"
+                  name="anagModalitaPagamentoId"
+                  [items]="anagraficheCombo['SpComboModalitaPagamento']"
+                  bindValue="id"
+                  bindLabel="descrizione"
+                  appendTo="body"
+                  [searchFn]="customSearchFn"
+                  [(ngModel)]="wAccountingData.anagModalitaPagamentoId"
+                  (clear)="clearField('anagTipoPagamentoId', 'SpComboTipoPagamentoPerModalita')"
+                  (change)="loadTipoByModalita($event?.id)">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{item.descrizione}}
+                    </ng-template>
+                </ng-select>
+              </div>
+              <label class="col-md-2 col-form-label col-form-label-sm" for="anagTipoPagamentoId">{{ 'APP.FIELD.anagTipoPagamentoId' | translate }}</label>
+              <div class="col-md-4">
+                <!-- <select name="anagTipoPagamentoId" class="form-control form-control-sm" [(ngModel)]="wAccountingData.anagTipoPagamentoId">
+                  <option value="0">&nbsp;</option>
+                  <option [value]="tp.id" *ngFor="let tp of anagrafiche['AnagTipoPagamento'];">{{ tp.descrizione }}</option>
+                </select> -->
+                <ng-select class="form-select-sm"
+                  name="anagTipoPagamentoId"
+                  [items]="anagraficheCombo['SpComboTipoPagamentoPerModalita']"
+                  bindValue="id"
+                  bindLabel="descrizione"
+                  appendTo="body"
+                  [searchFn]="customSearchFn"
+                  [(ngModel)]="wAccountingData.anagTipoPagamentoId"
+                  (change)="onChangeSelect($event)"
+                  [disabled]="!anagraficheCombo['SpComboTipoPagamentoPerModalita']?.length">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{item.descrizione}}
+                    </ng-template>
+                </ng-select>
+              </div>
+            </div>
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm" for="iban">{{ 'APP.FIELD.iban' | translate }}</label>
+              <div class="col-md-4">
+                <input type="text" name="iban" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.iban' | translate }}" [(ngModel)]="wAccountingData.iban">
+              </div>
+            </div>
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm" for="anagAbiId">{{ 'APP.FIELD.anagAbiId' | translate }}</label>
+              <div class="col-md-4">
+                <!-- <select name="anagAbiId" class="form-control form-control-sm" [(ngModel)]="wAccountingData.anagAbiId" (change)="loadCabByAbi(wAccountingData.anagAbiId)">
+                  <option value="0">&nbsp;</option>
+                  <option [value]="ta.id" *ngFor="let ta of anagrafiche['AnagAbi'];">{{ ta.descrizione }}</option>
+                </select> -->
+                <ng-select class="form-select-sm"
+                  name="anagAbiId"
+                  [items]="anagraficheCombo['SpComboAbi']"
+                  bindValue="id"
+                  bindLabel="descrizione"
+                  appendTo="body"
+                  [searchFn]="customSearchFn"
+                  [(ngModel)]="wAccountingData.anagAbiId"
+                  (clear)="clearField('anagCabId', 'SpComboAnagCAB')"
+                  (change)="loadCabByAbi($event?.id)">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{item.descrizione}} <br/>
+                      <small>{{item.codice}}<!-- - {{item.id}} --></small>
+                    </ng-template>
+                </ng-select>
+              </div>
+              <label class="col-md-2 col-form-label col-form-label-sm" for="anagCabId">{{ 'APP.FIELD.anagCabId' | translate }}</label>
+              <div class="col-md-4">
+                <!-- <select name="anagCabId" class="form-control form-control-sm" [(ngModel)]="wAccountingData.anagCabId" [disabled]="!anagrafiche['AnagCab']?.length">
+                  <option value="0">&nbsp;</option>
+                  <option [value]="tc.id" *ngFor="let tc of anagrafiche['AnagCab'];">{{ tc.descrizione }}</option>
+                </select> -->
+                <ng-select class="form-select-sm"
+                  name="anagCabId"
+                  [items]="anagraficheCombo['SpComboAnagCAB']"
+                  bindValue="id"
+                  bindLabel="descrizione"
+                  appendTo="body"
+                  [searchFn]="customSearchFn"
+                  [(ngModel)]="wAccountingData.anagCabId"
+                  (change)="onChangeSelect($event)"
+                  [disabled]="!anagraficheCombo['SpComboAnagCAB']?.length">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{item.descrizione}} <br/>
+                      <small>{{item.codice}}<!-- - {{item.id}} --></small>
+                    </ng-template>
+                </ng-select>
+              </div>
+            </div>
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm" for="bancaCC">{{ 'APP.FIELD.bancaCC' | translate }}</label>
+              <div class="col-md-4">
+                <input type="text" name="bancaCC" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.bancaCC' | translate }}" [(ngModel)]="wAccountingData.bancaCC">
+              </div>
+              <label class="col-md-2 col-form-label col-form-label-sm" for="bancaCIN">{{ 'APP.FIELD.bancaCIN' | translate }}</label>
+              <div class="col-md-4">
+                <input type="text" name="bancaCIN" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.bancaCIN' | translate }}" [(ngModel)]="wAccountingData.bancaCIN">
+              </div>
+            </div>
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.phone-contacts' | translate }}</label>
+              <div class="col-md-10">
+                <div class="form-group- mb-1 row">
+                  <div class="col nTel">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="cui-phone"></i></span>
+                      </div>
+                      <input type="text" name="nTel" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.phone' | translate }}" [(ngModel)]="wAccountingData.nTel">
+                    </div>
+                  </div>
+                  <div class="col nFax">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="cui-fax"></i></span>
+                      </div>
+                      <input type="text" name="nFax" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.fax' | translate }}" [(ngModel)]="wAccountingData.nFax">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group- mb-1 row">
+                  <div class="col nCell">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="cui-mobile"></i></span>
+                      </div>
+                      <input type="text" name="nCell" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.mobile' | translate }}" [(ngModel)]="wAccountingData.nCell">
+                    </div>
+                  </div>
+                  <div class="col">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm" for="referente">{{ 'APP.FIELD.referente' | translate }}</label>
+              <div class="col-md-4">
+                <div class="form-group- mb-1 row">
+                  <div class="col referente">
+                    <input type="text" name="referente" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.referente' | translate }}" [(ngModel)]="wAccountingData.referente">
+                  </div>
+                </div>
+              </div>
+              <label class="col-md-2 col-form-label col-form-label-sm" for="referenteMaster">{{ 'APP.FIELD.referenteMaster' | translate }}</label>
+              <div class="col-md-4">
+                <div class="form-group- mb-1 row">
+                  <div class="col referenteMaster">
+                    <input type="text" name="referenteMaster" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.referenteMaster' | translate }}" [(ngModel)]="wAccountingData.referenteMaster">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm" for="email">{{ 'APP.FIELD.email' | translate }}</label>
+              <div class="col-md-10">
+                <div class="form-group- mb-1 row">
+                  <div class="col email">
+                    <input type="text" name="email" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.email' | translate }}" [(ngModel)]="wAccountingData.email">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 px-3" *ngIf="isSupplier()">
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm" for="importoFido">{{ 'APP.FIELD.importoFido' | translate }}</label>
+              <div class="col-md-4">
+                <input type="text" name="importoFido" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.importoFido' | translate }}" [(ngModel)]="wAccountingData.importoFido">
+              </div>
+              <label class="col-md-2 col-form-label col-form-label-sm" for="dichiarazioneIntento">{{ 'APP.FIELD.dichiarazioneIntento' | translate }}</label>
+              <div class="col-md-4">
+                <input type="text" name="dichiarazioneIntento" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.dichiarazioneIntento' | translate }}" [(ngModel)]="wAccountingData.dichiarazioneIntento">
+              </div>
+            </div>
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm" for="dichIntImporto">{{ 'APP.FIELD.dichIntImporto' | translate }}</label>
+              <div class="col-md-4">
+                <input type="text" name="dichIntImporto" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.dichIntImporto' | translate }}" [(ngModel)]="wAccountingData.dichIntImporto">
+              </div>
+              <label class="col-md-2 col-form-label col-form-label-sm" for="dichIntEsposizione">{{ 'APP.FIELD.dichIntEsposizione' | translate }}</label>
+              <div class="col-md-4">
+                <input type="text" name="dichIntEsposizione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.dichIntEsposizione' | translate }}" [(ngModel)]="wAccountingData.dichIntEsposizione">
+              </div>
+            </div>
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm" for="dataInizioInt">{{ 'APP.FIELD.dataInizioInt' | translate }}</label>
+              <div class="col-md-4">
+                <input type="date" name="dataInizioInt" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.dataInizioInt' | translate }}" [(ngModel)]="wAccountingData.dataInizioInt">
+              </div>
+              <label class="col-md-2 col-form-label col-form-label-sm" for="dataUltimoAggiornamentoFido">{{ 'APP.FIELD.dataUltimoAggiornamentoFido' | translate }}</label>
+              <div class="col-md-4">
+                <input type="date" name="dataUltimoAggiornamentoFido" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.dataUltimoAggiornamentoFido' | translate }}" [(ngModel)]="wAccountingData.dataUltimoAggiornamentoFido">
+              </div>
+            </div>
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm" for="anagIVAId">{{ 'APP.FIELD.anagIvaId' | translate }}</label>
+              <div class="col-md-4">
+                <select name="anagIVAId" class="form-control form-control-sm" [(ngModel)]="wAccountingData.anagIVAId">
+                  <option value="0">&nbsp;</option>
+                  <option [value]="iva.id" *ngFor="let iva of anagraficheCombo['SpComboIva'];">{{ iva.descrizione }}</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <div class="form-check">
+                  <input id="isCaricaQuantitaMaggiore" class="form-check-input mt-2" type="checkbox" name="isCaricaQuantitaMaggiore" [(ngModel)]="wAccountingData.isCaricaQuantitaMaggiore">
+                  <label class="form-check-label col-form-label-sm" for="isCaricaQuantitaMaggiore">{{ 'APP.FIELD.isCaricaQuantitaMaggiore' | translate }}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- </form> -->
+      </div>
+
+      <div class="mb-3 px-3" *ngIf="accountingData && !edit && !loading && isClient()">
+        <mat-tab-group mat-align-tabs="left" class="col-12 px-0" [selectedIndex]="0">
+          <mat-tab label="{{ 'APP.TAB.credit-cards' | translate }}">
+            <div class="mx-auto mt-3" style="min-height: 150px;">
+              <app-credit-cards
+                [clienteId]="accountingData.clienteId"
+                [clienteContabilitaId]="accountingData.id || accountingData.iD"
+                [aziendaId]="aziendaId"
+                [readOnly]="readOnly">
+              </app-credit-cards>
+            </div>
+          </mat-tab>
+          <mat-tab label="{{ 'APP.TAB.advances' | translate }}">
+            <div class="mx-auto border mt-3" style="min-height: 150px;">
+              <app-advances
+                [showTitle]="true"
+                [editable]="true"
+                [clienteContabilitaId]="accountingData.id || accountingData.iD"
+                [aziendaId]="aziendaId"
+                [options]="{ height: '150px' }">
+              </app-advances>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+
+    </div>
+  </div>
+</div>

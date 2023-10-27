@@ -1,0 +1,147 @@
+<div class="card card-accent-warning user-tenant" *ngIf="user">
+  <div class="card-header bg-white px-1 py-1 d-flex justify-content-between align-items-center">
+    <h6 class="font-weight-bold mb-0 pl-2" [class.py-1]="isNew">
+      <ion-icon name="person-outline"></ion-icon>
+      <span *ngIf="!isNew">{{ 'APP.TITLE.user' | translate }} <!-- {{ tenant }} --></span>
+      <span *ngIf="isNew">{{ 'APP.TITLE.new_user' | translate }}</span>
+    </h6>
+    <div class="action-bar" *ngIf="isNew">
+      <span class="badge badge-pill badge-light">{{ tenant }}</span>
+    </div>
+    <div class="action-bar" *ngIf="!isNew && showEdit">
+      <div class="btn btn-light btn-sm" *ngIf="editing" (click)="toggleEdit()" tooltip="{{ 'APP.TOOLTIP.cancel' | translate }}" placement="bottom" container="body">
+        <span><i class="cui-x"></i> {{ 'APP.BUTTON.cancel' | translate }}</span>
+      </div>
+      <div class="btn btn-light btn-sm" *ngIf="!editing" (click)="toggleEdit()" tooltip="{{ 'APP.TOOLTIP.edit_user' | translate }}" placement="bottom" container="body">
+        <span><i class="icon-pencil"></i><!-- {{ 'APP.BUTTON.edit' | translate }} --></span>
+      </div>
+      <div class="btn btn-danger btn-sm" *ngIf="!editing"
+        tooltip="{{ 'APP.TOOLTIP.delete_user' | translate }}" placement="bottom" container="body"
+        mwlConfirmationPopover
+        [popoverTitle]="'APP.TITLE.delete' | translate"
+        [popoverMessage]="'APP.MESSAGE.are_you_sure' | translate"
+        [cancelText]="'APP.BUTTON.cancel' | translate"
+        [cancelButtonType]="'outline-secondary btn-sm'"
+        [confirmText]="'APP.BUTTON.confirm' | translate"
+        [confirmButtonType]="'danger btn-sm'"
+        [appendToBody]="true"
+        placement="left"
+        (confirm)="onDelete(true)"
+        (cancel)="onDelete(false)">
+        <span><i class="icon-trash"></i><!-- {{ 'APP.BUTTON.delete' | translate }} --></span>
+      </div>
+    </div>
+  </div>
+  <div class="card-content preview-content mt-2" *ngIf="!editing">
+    <dl class="row ml-0 mr-0 mb-0" *ngIf="user.anagCredenzialeID && showEmpty">
+      <dt class="col-sm-4 font-weight-500 text-truncate" [ngClass]="{ 'text-right': showIcon, 'px-0': showLabel }" *ngIf="showEdit">
+        <span *ngIf="showIcon"><i class="icon-link"></i></span>
+        <span *ngIf="showLabel">{{ 'APP.FIELD.anagCredenzialeID' | translate }}</span>
+      </dt>
+      <dd class="col-sm-8 pl-0" [innerHTML]="getUserField('anagCredenzialeID')" *ngIf="showEdit"></dd>
+    </dl>
+    <dl class="row ml-0 mr-0 mb-0" *ngIf="user.id || showEmpty">
+      <dt class="col-sm-4 font-weight-500 text-truncate" [ngClass]="{ 'text-right': showIcon, 'px-0': showLabel }">
+        <span *ngIf="showIcon"><i class="fa fa-id-card-o-"></i>id</span>
+        <span *ngIf="showLabel">{{ 'APP.FIELD.id' | translate }}</span>
+      </dt>
+      <dd class="col-sm-8 pl-0" [innerHTML]="getUserField('id')"></dd>
+    </dl>
+    <dl class="row ml-0 mr-0 mb-0" *ngIf="user.userName || showEmpty">
+      <dt class="col-sm-4 font-weight-500 text-truncate" [ngClass]="{ 'text-right': showIcon, 'px-0': showLabel }">
+        <span *ngIf="showIcon"><i class="icon-login"></i></span>
+        <span *ngIf="showLabel">{{ 'APP.FIELD.username' | translate }}</span>
+      </dt>
+      <dd class="col-sm-8 pl-0" [innerHTML]="getUserField('userName')"></dd>
+    </dl>
+    <dl class="row ml-0 mr-0 mb-0" *ngIf="user.nome || showEmpty">
+      <dt class="col-sm-4 font-weight-500 text-truncate" [ngClass]="{ 'text-right': showIcon, 'px-0': showLabel }">
+        <span *ngIf="showIcon"><i class="icon-user"></i></span>
+        <span *ngIf="showLabel">{{ 'APP.FIELD.firstname' | translate }}</span>
+      </dt>
+      <dd class="col-sm-8 pl-0" [innerHTML]="getUserField('nome')"></dd>
+    </dl>
+    <dl class="row ml-0 mr-0 mb-0" *ngIf="user.cognome || showEmpty">
+      <dt class="col-sm-4 font-weight-500 text-truncate" [ngClass]="{ 'text-right': showIcon, 'px-0': showLabel }">
+        <span *ngIf="showIcon"><i class="icon-user"></i></span>
+        <span *ngIf="showLabel">{{ 'APP.FIELD.lastname' | translate }}</span>
+      </dt>
+      <dd class="col-sm-8 pl-0" [innerHTML]="getUserField('cognome')"></dd>
+    </dl>
+    <dl class="row ml-0 mr-0 mb-0" *ngIf="user.email">
+      <dt class="col-sm-4 font-weight-500 text-truncate" [ngClass]="{ 'text-right': showIcon, 'px-0': showLabel }">
+        <span *ngIf="showIcon"><i class="icon-envelope"></i></span>
+        <span *ngIf="showLabel">{{ 'APP.FIELD.email' | translate }}</span>
+      </dt>
+      <dd class="col-sm-8 pl-0" [innerHTML]="getUserField('email')"></dd>
+    </dl>
+    <dl class="row ml-0 mr-0 mb-0" *ngIf="user.telefono || showEmpty">
+      <dt class="col-sm-4 font-weight-500 text-truncate" [ngClass]="{ 'text-right': showIcon, 'px-0': showLabel }">
+        <span *ngIf="showIcon"><i class="icon-phone"></i></span>
+        <span *ngIf="showLabel">{{ 'APP.FIELD.phone' | translate }}</span>
+      </dt>
+      <dd class="col-sm-8 pl-0" [innerHTML]="getUserField('telefono')"></dd>
+    </dl>
+    <dl class="row ml-0 mr-0 mb-0" *ngIf="user.cellulare || showEmpty">
+      <dt class="col-sm-4 font-weight-500 text-truncate" [ngClass]="{ 'text-right': showIcon, 'px-0': showLabel }">
+        <span *ngIf="showIcon"><i class="fa fa-mobile-phone"></i></span>
+        <span *ngIf="showLabel">{{ 'APP.FIELD.mobile' | translate }}</span>
+      </dt>
+      <dd class="col-sm-8 pl-0" [innerHTML]="getUserField('cellulare')"></dd>
+    </dl>
+    <dl class="row ml-0 mr-0 mb-0" *ngIf="user.department || showEmpty">
+      <dt class="col-sm-4 font-weight-500 text-truncate" [ngClass]="{ 'text-right': showIcon, 'px-0': showLabel }">
+        <span *ngIf="showIcon"><i class="icon-chemistry"></i></span>
+        <span *ngIf="showLabel">{{ 'APP.FIELD.department' | translate }}</span>
+      </dt>
+      <dd class="col-sm-8 pl-0" [innerHTML]="getUserField('department')"></dd>
+    </dl>
+    <dl class="row ml-0 mr-0 mb-0" *ngIf="user.ruolo || showEmpty">
+      <dt class="col-sm-4 font-weight-500 text-truncate" [ngClass]="{ 'text-right': showIcon, 'px-0': showLabel }">
+        <span *ngIf="showIcon"><i class="icon-shield"></i></span>
+        <span *ngIf="showLabel">{{ 'APP.FIELD.role' | translate }}</span>
+      </dt>
+      <dd class="col-sm-8 pl-0" [innerHTML]="getUserField('role')"></dd>
+    </dl>
+    <dl class="row ml-0 mr-0 mb-0" *ngIf="user.aziendaId || showEmpty">
+      <dt class="col-sm-4 font-weight-500 text-truncate" [ngClass]="{ 'text-right': showIcon, 'px-0': showLabel }">
+        <span *ngIf="showIcon"><ion-icon name="business-outline"></ion-icon></span>
+        <span *ngIf="showLabel">{{ 'APP.FIELD.aziendaId' | translate }}</span>
+      </dt>
+      <dd class="col-sm-8 pl-0" [innerHTML]="getUserField('aziendaId')"></dd>
+    </dl>
+    <dl class="row ml-0 mr-0 mb-0" *ngIf="user.departmentId || showEmpty">
+      <dt class="col-sm-4 font-weight-500 text-truncate" [ngClass]="{ 'text-right': showIcon, 'px-0': showLabel }">
+        <span *ngIf="showIcon"><ion-icon name="remove-outline"></ion-icon></span>
+        <span *ngIf="showLabel">{{ 'APP.FIELD.departmentId' | translate }}</span>
+      </dt>
+      <dd class="col-sm-8 pl-0" [innerHTML]="getUserField('departmentId')"></dd>
+    </dl>
+    <dl class="row ml-0 mr-0 mb-0" *ngIf="user.anagMansioneId || showEmpty">
+      <dt class="col-sm-4 font-weight-500 text-truncate" [ngClass]="{ 'text-right': showIcon, 'px-0': showLabel }">
+        <span *ngIf="showIcon"><ion-icon name="remove-outline"></ion-icon></span>
+        <span *ngIf="showLabel">{{ 'APP.FIELD.anagMansioneId' | translate }}</span>
+      </dt>
+      <dd class="col-sm-8 pl-0" [innerHTML]="getUserField('anagMansioneId')"></dd>
+    </dl>
+    <dl class="row ml-0 mr-0 mb-0" *ngIf="user.magazzinoId || showEmpty">
+      <dt class="col-sm-4 font-weight-500 text-truncate" [ngClass]="{ 'text-right': showIcon, 'px-0': showLabel }">
+        <span *ngIf="showIcon"><ion-icon name="cube-outline"></ion-icon></span>
+        <span *ngIf="showLabel">{{ 'APP.FIELD.magazzinoId' | translate }}</span>
+      </dt>
+      <dd class="col-sm-8 pl-0" [innerHTML]="getUserField('magazzinoId')"></dd>
+    </dl>
+  </div>
+  <div class="card-content form-content mt-2" *ngIf="editing">
+    <div class="px-3 py-2">
+      <form [formGroup]="userForm" (ngSubmit)="onSave(userModel)">
+        <formly-form [form]="userForm" [model]="userModel" [fields]="userFields" [options]="options" (modelChange)="modelChange($event)">
+          <button class="btn btn-primary btn-sm mt-3" type="submit" [disabled]="!userForm.valid">
+            <span *ngIf="userModel.id == 0">{{ 'APP.BUTTON.save' | translate }}</span>
+            <span *ngIf="userModel.id != 0">{{ 'APP.BUTTON.modify' | translate }}</span>
+          </button>
+        </formly-form>
+      </form>
+    </div>
+  </div>
+</div>

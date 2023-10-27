@@ -1,0 +1,13 @@
+<form>
+  <div class="input-group input-group-sm">
+    <input type="text" name="filter" class="form-control" aria-label="filter" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="model.filter" placeholder="{{ 'APP.PLACEHOLDER.search' | translate }}"/>
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" (click)="filterChanged($event)" [disabled]="!model.filter && !prevFilter">
+        <i class="icon-magnifier"></i>
+      </button>
+      <button class="btn btn-outline-secondary" (click)="clearFilter($event)" [hidden]="!model.filter">
+        <i class="cui-x"></i>
+      </button>
+    </div>
+  </div>
+</form>

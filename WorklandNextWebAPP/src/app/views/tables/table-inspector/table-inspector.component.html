@@ -1,0 +1,90 @@
+<div class="d-flex flex-column h-100">
+  <div class="header border-bottom">
+    <nav class="toolbar toolbar-small" *ngIf="table">
+      <ul class="bar-full bar-start">
+        <ng-template [appHasPermission]="table.permission" [action]="'create'" [owner]="true">
+          <li class="toolbar-divider" aria-hidden="true"></li>
+          <li>
+            <a class="btn" (click)="onAdd()" [class.disabled]="tableStatus == 'edit'" tooltip="{{ 'APP.TOOLTIP.add' | translate }}" placement="bottom" container="body">
+              <i class="cui-plus"></i>
+            </a>
+          </li>
+        </ng-template>
+        <ng-template [appHasPermission]="table.permission" [action]="'edit'" [owner]="true">
+          <li class="toolbar-divider" aria-hidden="true"></li>
+          <li *ngIf="data || tableId || (tableStatus == 'edit')">
+            <a class="btn" (click)="onEdit()" [class.disabled]="false"
+              tooltip="{{ ((tableStatus == 'edit') ? 'APP.TOOLTIP.cancel': 'APP.TOOLTIP.edit') | translate }}"
+              placement="bottom"
+              container="body">
+              <i class="cui-pencil" *ngIf="tableStatus != 'edit'"></i>
+              <i class="cui-x" *ngIf="tableStatus == 'edit'"></i>
+            </a>
+          </li>
+        </ng-template>
+        <ng-template [appHasPermission]="table.permission" [action]="'delete'" [owner]="true">
+          <li class="toolbar-divider" aria-hidden="true" *ngIf="data || tableId || (tableStatus == 'edit')"></li>
+          <li *ngIf="(data || tableId)">
+            <a class="btn" [class.disabled]="tableStatus == 'edit'"
+              tooltip="{{ 'APP.TOOLTIP.delete' | translate }}"
+              container="body"
+              placement="bottom"
+              mwlConfirmationPopover
+              [popoverTitle]="'APP.TITLE.delete' | translate"
+              [popoverMessage]="'APP.MESSAGE.are_you_sure' | translate"
+              [cancelText]="'APP.BUTTON.cancel' | translate"
+              [cancelButtonType]="'outline-secondary btn-sm'"
+              [confirmText]="'APP.BUTTON.confirm' | translate"
+              [confirmButtonType]="'danger btn-sm'"
+              [appendToBody]="true"
+              [placement]="'bottom'"
+              (confirm)="onDelete(true)">
+              <i class="cui-trash"></i></a>
+          </li>
+        </ng-template>
+        <li class="toolbar-divider" aria-hidden="true" *ngIf="(data || tableId)"></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="content flex-grow-1">
+    <div class="details-content">
+      <div class="text-center py-3" *ngIf="loading">
+        <div class="h1 text-muted text-center mt-5 mb-1">
+          <i class="fa fa-circle-o-notch fa-spin"></i>
+        </div>
+      </div>
+      <div class="my-5 h-75" *ngIf="!loading && !data && !tableId && !((table && !tableId) && (tableStatus == 'edit'))">
+        <div class="h-100">
+          <div class="d-flex flex-column justify-content-center align-items-center h-100">
+            <!-- loading & messages -->
+            <div class="text-center" style="height: 120px;" *ngIf="showAnimation">
+              <ng-lottie [options]="options" (animationCreated)="animationCreated($event)"></ng-lottie>
+            </div>
+            <div class="text-center">
+              <i class="icon-mouse icon-messages-50" *ngIf="!showAnimation"></i>
+              <h6 class="no-messages-text mt-3" *ngIf="!table">{{ 'APP.MESSAGE.select_table' | translate }}</h6>
+              <h6 class="no-messages-text mt-3" *ngIf="table">{{ 'APP.MESSAGE.select_item' | translate }}</h6>
+            </div>
+            <div class="text-center" *ngIf="error">
+              <h6 class="text-danger mt-3 w-75 mx-auto">{{ errorMessage | translate }}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-3" *ngIf="!loading && table">
+        <div class="">
+          <app-table-model-view
+            [id]="tableId"
+            [table]="table.model"
+            [tableApi]="table.api"
+            [status]="tableStatus"
+            (close)="onClodeEdit($event)">
+          </app-table-model-view>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="footer border-top">
+    <nav class="toolbar toolbar-small"></nav>
+  </div> -->
+</div>

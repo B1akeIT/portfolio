@@ -1,0 +1,244 @@
+<div class="animated fadeIn bg-white" style="height:100%;" [hidden]="panelIsOpen">
+  <div class="flex-layout-header">
+    <div class="bg-gray-100-" style="width: 100%;">
+      <div class="d-flex flex-row justify-content-between">
+        <div class="col-5 px-1">
+          <div class="float-left mr-2 d-none d-lg-block" style="padding: 0.5em 0.40rem !important">
+            <i class="cui-contact"></i> {{ 'APP.TITLE.contacts' | translate }}
+          </div>
+          <div class="btn-group btn-group-sm float-left" style="padding: 0.2em 0rem !important">
+            <ng-template [appHasPermission]="'MENUCONTATTO'" [action]="'create'" [owner]="true">
+              <a class="btn btn-warning" (click)="onEdit(true)" tooltip="{{ 'APP.TOOLTIP.new_contact' | translate }}" placement="bottom" container="body" *ngIf="showBarNew">
+              <i class="cui-plus"></i><!-- {{ 'APP.BUTTON.add' | translate }} --></a>
+            </ng-template>
+            <ng-template [appHasPermission]="'MENUCONTATTO'" [action]="'edit'" [owner]="isOwner()">
+              <a class="btn btn-warning" (click)="onEdit()" [class.disabled]="currentId == 0" tooltip="{{ 'APP.TOOLTIP.edit_contact' | translate }}" placement="bottom" container="body" *ngIf="showBarEdit">
+                <i class="icon-pencil"></i><!-- {{ 'APP.BUTTON.modify' | translate }} --></a>
+            </ng-template>
+            <ng-template [appHasPermission]="'MENUCONTATTO'" [action]="'edit'" [owner]="isOwner()" [behaviour]="'show'">
+              <a class="btn btn-warning disabled" tooltip="{{ 'APP.TOOLTIP.edit_contact' | translate }}" placement="bottom" container="body">
+                <i class="icon-pencil"></i></a>
+            </ng-template>
+            <ng-template [appHasPermission]="'MENUCONTATTO'" [action]="'delete'" [owner]="isOwner()">
+              <a class="btn btn-warning" [class.disabled]="currentId == 0" tooltip="{{ 'APP.TOOLTIP.delete_contact' | translate }}" *ngIf="showBarDelete"
+                tooltip="{{ 'APP.TOOLTIP.delete_contact' | translate }}"
+                container="body"
+                mwlConfirmationPopover
+                [popoverTitle]="'APP.TITLE.delete' | translate"
+                [popoverMessage]="'APP.MESSAGE.are_you_sure' | translate"
+                [cancelText]="'APP.BUTTON.cancel' | translate"
+                [cancelButtonType]="'outline-secondary btn-sm'"
+                [confirmText]="'APP.BUTTON.confirm' | translate"
+                [confirmButtonType]="'danger btn-sm'"
+                [appendToBody]="true"
+                placement="bottom"
+                (confirm)="onDelete(true)"
+                (cancel)="onDelete(false)">
+                <i class="icon-trash"></i><!-- {{ 'APP.BUTTON.delete' | translate }} --></a>
+            </ng-template>
+            <ng-template [appHasPermission]="'MENUCONTATTO'" [action]="'delete'" [owner]="isOwner()" [behaviour]="'show'">
+              <a class="btn btn-warning disabled" tooltip="{{ 'APP.TOOLTIP.delete_contact' | translate }}" placement="bottom" container="body">
+                <i class="icon-trash"></i></a>
+            </ng-template>
+          </div>
+          <div class="btn-group btn-group-sm float-left ml-1" style="padding: 0.2em 0rem !important" *ngIf="showBarPrint">
+            <ng-template [appHasPermission]="'MENUCONTATTO'" [action]="'print'" [owner]="true">
+              <a class="btn btn-outline-secondary" (click)="dummyAction($event);" tooltip="{{ 'APP.TOOLTIP.print' | translate }}" placement="bottom" container="body">
+              <i class="cui-print"></i></a>
+            </ng-template>
+          </div>
+
+          <div class="btn-group btn-group-sm float-right ml-1" style="padding: 0.2em 0rem !important" *ngIf="showBarFilter">
+            <label class="btn btn-light border" (click)="clearFilerType();" tooltip="{{ 'APP.TOOLTIP.clear_filter' | translate }}" placement="bottom" container="body" *ngIf="hasFilerType()">
+              <i class="cui-x"></i></label>
+            <label class="btn btn-outline-cyan" [(ngModel)]="filterType.clients" (click)="setFilterType($event);" tooltip="{{ 'APP.TOOLTIP.clients' | translate }}" placement="bottom" container="body" btnCheckbox>
+              <i class="cui-euro"></i></label>
+            <label class="btn btn-outline-cyan" [(ngModel)]="filterType.suppliers" (click)="setFilterType($event);" tooltip="{{ 'APP.TOOLTIP.suppliers' | translate }}" placement="bottom" container="body" btnCheckbox>
+              <i class="cui-factory"></i></label>
+            <label class="btn btn-outline-cyan" [(ngModel)]="filterType.boats" (click)="setFilterType($event);" tooltip="{{ 'APP.TOOLTIP.boats' | translate }}" placement="bottom" container="body" btnCheckbox>
+              <i class="cui-boat-alt"></i></label>
+            <!-- <label class="btn btn-outline-cyan" [(ngModel)]="filterType.agents" (click)="setFilterType($event);" tooltip="{{ 'APP.TOOLTIP.agents' | translate }}" placement="bottom" container="body" btnCheckbox>
+              <i class="cui-user"></i></label> -->
+            <label class="btn btn-outline-cyan" [(ngModel)]="filterType.carriers" (click)="setFilterType($event);" tooltip="{{ 'APP.TOOLTIP.carriers' | translate }}" placement="bottom" container="body" btnCheckbox>
+              <i class="cui-truck"></i></label>
+          </div>
+        </div>
+        <div class="col-3 px-0">
+          <div class="" style="padding: 0.2em 0.40rem !important" *ngIf="showBarSearch">
+            <app-filter-textbox class="w-50" (changed)="onFilterChanged($event)"></app-filter-textbox>
+          </div>
+        </div>
+        <div class="col-4 px-0">
+          <div class="buttons-bar float-left">
+            <div class="btn-toolbar" style="padding: 0.20em 0.25rem !important">
+              <div class="btn-group btn-group-sm mr-1" *ngIf="showBarRefreah">
+                <label class="btn btn-outline-secondary cursor-pointer" title="Aggiorna" (click)="refresh()">
+                  <i class="icon-reload" aria-hidden="true"></i>
+                </label>
+              </div>
+              <div class="btn-group btn-group-sm float-left ml-1">
+                <a class="btn" [ngClass]="{ 'btn-outline-secondary': !gridPinned, 'btn-secondary': gridPinned }" (click)="togglePinned()" tooltip="{{ 'APP.TOOLTIP.pinned' | translate }}" placement="bottom" container="body">
+                  <i class="cui-pin"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="float-left">
+            <app-sorting #sortingComponent
+              [fields]="sortingFields"
+              [showTitle]="false"
+              [showDropDown]="true"
+              [sorting]="{ column: this.sort.column, direction: this.sort.direction }"
+              (groupSorting)="onGroupSorting($event)">
+            </app-sorting>
+          </div>
+          <div class="buttons-bar float-right">
+            <div class="btn-toolbar" role="toolbar" style="padding: 0.20em 0.25rem !important">
+              <div class="btn-group btn-group-sm">
+                <!-- <label class="btn cursor-pointer" tooltip="{{ 'APP.TOOLTIP.clear_filter_sort' | translate }}" placement="bottom" container="body" (click)="clearFilterSort($event)" *ngIf="hasFilter"><i class="cui-x fa-lg text-success"></i></label> -->
+                <!-- <label class="btn" [(ngModel)]="sideBarStatus" btnRadio="sort" uncheckable role="button" tooltip="{{ 'APP.TOOLTIP.show_hide_sort' | translate }}" placement="bottom" container="body" [class.btn-outline-warning]="hasSorting"><i class="cui-sort-ascending fa-lg" [class.text-primary]="sideBarStatus == 'sort' && !hasSorting"></i></label> -->
+                <!-- <label class="btn" [(ngModel)]="sideBarStatus" btnRadio="filter" uncheckable role="button" tooltip="{{ 'APP.TOOLTIP.show_hide_filter' | translate }}" placement="bottom" container="body" [class.btn-outline-warning]="hasFilter"><i class="cui-list-filter fa-lg" [class.text-primary]="sideBarStatus == 'filter' && !hasFilter"></i></label> -->
+                <label class="btn" [(ngModel)]="sideBarStatus" btnRadio="inspector" uncheckable role="button" tooltip="{{ 'APP.TOOLTIP.show_hide_inspector' | translate }}" placement="bottom" container="body"><i class="icon-info fa-lg" [class.text-primary]="sideBarStatus == 'inspector'"></i></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-layout-body" style="overflow: auto;height: calc( 100% - 40px - 40px );">
+		<!-- <div class="flex-layout-sidebar bg-gray-100 sidebar-left"></div> -->
+    <div class="flex-layout-content">
+      <div class="layout-content animated fadeIn">
+        <ngx-loading
+          [show]="loading"
+          [config]="loadingOptions">
+        </ngx-loading>
+        <div class="d-flex flex-column justify-content-center align-items-center h-100" *ngIf="!contacts?.length">
+          <div class="text-center" *ngIf="!contacts?.length && !loading">
+            <i class="cui-contact icon-messages-50"></i>
+            <h6 class="no-messages-text mt-3">{{ 'APP.MESSAGE.no_elements' | translate }}</h6>
+          </div>
+          <div class="text-center" *ngIf="error">
+            <h6 class="text-danger mt-3 w-75 mx-auto">{{ errorMessage | translate }}</h6>
+          </div>
+        </div>
+        <div class="container-fluid px-0" style="width: calc( 100% ); height: calc( 100% );" *ngIf="contacts?.length">
+          <div id="grid-wrapper" class="px-0" style="width: calc( 100% ); height: calc( 100% );">
+            <!-- Contacts list -->
+            <ag-grid-angular
+              style="width: 100%; height: 100%;"
+              class="ag-theme-balham"
+              [rowData]="contacts"
+              [columnDefs]="agColumnDefs"
+              [defaultColDef]="agDefaultColumnDefs"
+              [gridOptions]="agGridOptions"
+              (gridReady)="onGridReady($event)"
+              (gridSizeChanged)="onGridSizeChanged($event)"
+              (selectionChanged)="onSelectionChanged($event)"
+              (sortChanged)="onSortChanged($event)"
+              (cellDoubleClicked)="onDoubleClicked($event)">
+            </ag-grid-angular>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div #sidebarInspector class="flex-layout-sidebar sidebar-right preview-content inspector-content"
+      mwlResizable
+      [validateResize]="validate"
+      [enableGhostResize]="true"
+      [resizeSnapGrid]="{ left: 1, right: 1 }"
+      (resizeStart)="onResizeStart($event)"
+      (resizing)="onResizing($event)"
+      (resizeEnd)="onResizeEnd($event)"
+      [class.hidden]="!sideBarStatus">
+      <div class="resize-handle-left" mwlResizeHandle [resizeEdges]="{ left: true }"></div>
+      <div class="details-content" *ngIf="sideBarStatus == 'edit'">
+        <div class="card bg-default">
+          <div class="card-header bg-white px-1 py-1 d-flex justify-content-between align-items-center">
+            <h6 class="font-weight-bold mb-0 pl-2">
+              <ion-icon name="person-outline"></ion-icon>
+              <span>{{ 'APP.TITLE.contact' | translate }}</span>
+            </h6>
+            <div class="action-bar">
+              <div class="btn btn-light btn-sm" (click)="sideBarStatus = 'inspector'" tooltip="{{ 'APP.TOOLTIP.cancel' | translate }}" placement="bottom" container="body">
+                <span><i class="cui-x"></i> {{ 'APP.BUTTON.cancel' | translate }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="contactForm" (ngSubmit)="onSavePrincipal(contact)">
+              <formly-form [form]="contactForm" [fields]="contactFields" [model]="contact">
+                <button class="btn btn-primary btn-sm mt-3" type="submit" [disabled]="!contactForm.valid">
+                  <span *ngIf="contact.id == 0">{{ 'APP.BUTTON.save' | translate }}</span>
+                  <span *ngIf="contact.id != 0">{{ 'APP.BUTTON.modify' | translate }}</span>
+                </button>
+              </formly-form>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- <app-contacts-sorting #contactsSortingComponent
+        (groupSorting)="onGroupSorting($event)"
+        [hidden]="sideBarStatus != 'sort'">
+      </app-contacts-sorting> -->
+      <app-contacts-filter #contactsFilterComponent
+        (groupFilters)="onGroupFilters($event)"
+        [hidden]="sideBarStatus != 'filter'">
+      </app-contacts-filter>
+      <app-contact-inspector
+        [contactId]="currentId"
+        [dragging]="dragging"
+        [showAvatar]="true"
+        [hidden]="sideBarStatus != 'inspector'">
+      </app-contact-inspector>
+    </div>
+  </div>
+  <div class="flex-layout-footer" *ngIf="fxlayoutConfig.footer">
+    <div class="bg-gray-100-" style="width: 100%;text-align: right;">
+      <div class="d-flex flex-row justify-content-between">
+        <div class="col-5 pr-0 text-left">
+          <div class="command-menu btn-group btn-group-sm mr-1" *ngIf="numPages > 1">
+            <select class="form-control form-control-sm col-xs-2" [(ngModel)]="perPage" (change)="perPageChanged()" [disabled]="loading">
+              <option *ngFor="let item of selectPerPage;" [value]="item">{{ item }}</option>
+            </select>
+          </div>
+          <div class="command-menu btn-group btn-group-sm" *ngIf="numPages > 0">
+            <pagination class="pagination-sm mb-0"
+              [pageBtnClass]="'btn-danger'"
+              [boundaryLinks]="true"
+              [maxSize]="maxPages"
+              [itemsPerPage]="perPage"
+              [totalItems]="contactsMeta?.totalItems"
+              [(ngModel)]="currentPage"
+              (pageChanged)="pageChanged($event)"
+              previousText="&lsaquo;"
+              nextText="&rsaquo;"
+              firstText="&laquo;"
+              lastText="&raquo;">
+            </pagination>
+          </div>
+          <div class="command-menu btn-group btn-group-sm" *ngIf="numPages > 0">
+            <span class="btn btn-outline-secondary" tooltip="{{ 'APP.TOOLTIP.num_pages' | translate }}" placement="top"
+              container="body">
+              <i class="icon-book-open"></i> {{ numPages }}</span>
+          </div>
+        </div>
+        <div class="col pl-0 pr-0 text-center" *ngIf="contacts?.length">
+          <span class="btn btn-sm" *ngIf="!loading">{{ 'count_of_total_elements' | translate:countTranslateParams }}</span>
+        </div>
+        <div class="col pl-0 text-right">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="animated fadeIn bg-white" style="height:100%;" *ngIf="panelIsOpen">
+  <app-contact-edit-view
+    [contactId]="currentId"
+    (save)="onSave($event)"
+    (closed)="onClosePanel($event)"
+    (prev)="onPrevElement($event)"
+    (next)="onNextElement($event)">
+  </app-contact-edit-view>
+</div>

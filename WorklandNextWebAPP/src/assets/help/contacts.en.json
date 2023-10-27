@@ -1,0 +1,12 @@
+{
+  "version": "0.1",
+  "help_title": "HELP - Contacts",
+  "default_message": "In questa sezione saranno mostrati gli aiuti per una corretta compilazione dei dati.",
+
+  "artwork": {
+    "title": "Contacts",
+    "description": "Descrizione del contatto."
+  },
+
+  "author": "AT@"
+}

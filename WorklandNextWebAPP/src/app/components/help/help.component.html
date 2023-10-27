@@ -1,0 +1,21 @@
+<!-- <div class="sidebar-tool side-title bbottom">{{ help?.help_title }} {{ help?.version }}</div>
+<div class="help-context mt-1 px-1" *ngIf="section == 'default'">
+	<div class="alert alert-info">{{ help?.default_message }}</div>
+</div> -->
+<div class="help-context mt-1 px-1" *ngIf="!loading && !isDefaultSection()">
+  <ng-container *ngFor="let tag of objectKeys(help[section]);">
+    <ng-container *ngIf="tag.includes('title')">
+      <div class="title">{{ help[section]['title'] }}</div>
+    </ng-container>
+    <ng-container *ngIf="tag.includes('description')">
+      <p>{{ help[section]['description'] }}</p>
+    </ng-container>
+    <ng-container *ngIf="tag.includes('ul')">
+      <ul>
+        <ng-container *ngFor="let elem of objectKeys(help[section]['ul']);">
+          <li>{{ help[section]['ul'][elem] }}</li>
+        </ng-container>
+      </ul>
+    </ng-container>
+  </ng-container>
+</div>

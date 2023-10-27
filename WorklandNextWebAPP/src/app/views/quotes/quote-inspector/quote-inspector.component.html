@@ -1,0 +1,141 @@
+<div class="text-center py-3" *ngIf="loading">
+  <div class="h1 text-muted text-center mt-5 mb-1">
+    <i class="fa fa-circle-o-notch fa-spin"></i>
+  </div>
+</div>
+<div class="h-75" *ngIf="!quote && !loading">
+	<div class="details-content h-100">
+    <div class="d-flex flex-column justify-content-center align-items-center h-100">
+      <!-- loading & messages -->
+      <div class="text-center" style="height: 120px;" *ngIf="!dragging">
+        <ng-lottie [options]="options" (animationCreated)="animationCreated($event)"></ng-lottie>
+      </div>
+      <div class="text-center">
+        <i class="icon-mouse icon-messages-50" *ngIf="dragging"></i>
+        <h6 class="no-messages-text mt-3">{{ 'APP.MESSAGE.select_quote' | translate }}</h6>
+      </div>
+    </div>
+	</div>
+</div>
+<div class="mt-3" *ngIf="quote && !loading">
+  <div class="details-content">
+    <div class="">
+      <div class="quote-email"><span class="badge badge-light">{{ quote.numero }}</span></div>
+      <div class="quote-name" [title]="quote.id">{{ quote.titolo || '-' }}</div>
+      <div class="quote-email"><span class="badge badge-success">{{ quote.stato }}</span></div>
+      <div class="quote-email"><span class="badge badge-light">{{ quote.categoriaDocumentoDescrizione || quote.categoriaDocumentoId }}</span></div>
+      <div class="quote-email mb-3"><span class="badge badge-light">{{ (quote.dataCreazione | date: 'dd-MM-yyy') || '-' }}</span> | <span class="badge badge-light">{{ (quote.dataScadenza | date: 'dd-MM-yyy') || '-' }}</span></div>
+      <!-- <div class="text-center small mb-2">{{ quote.id }}</div> -->
+      <div class="card mb-1">
+        <div class="card-body">
+          <address>
+            <strong>{{ 'APP.TITLE.intestatario' | translate }}<span *ngIf="quote.isStessoFatturazione"> & {{ 'APP.TITLE.fatturazione' | translate }}</span></strong><br>
+            {{ quote.nominativoIntestatario || '-' }}<br>
+            {{ quote.indirizzoIntestatario || '-' }}<br>
+            {{ quote.capIntestatario || '-' }} {{ quote.comuneIntestatario || '-' }} {{ quote.provinciaIntestatario || '-' }}<br>
+            {{ quote.nazioneIntestatario || '-' }}<br>
+          </address>
+        </div>
+      </div>
+      <div class="card mb-1" *ngIf="!quote.isStessoFatturazione">
+        <div class="card-body">
+          <address>
+            <strong>{{ 'APP.TITLE.fatturazione' | translate }}</strong><br>
+            {{ quote.nominativoFatturazione || '-' }}<br>
+            {{ quote.indirizzoFatturazione || '-' }}<br>
+            {{ quote.capFatturazione || '-' }} {{ quote.comuneFatturazione || '-' }} {{ quote.provinciaFatturazione || '-' }}<br>
+            {{ quote.nazioneFatturazione || '-' }}<br>
+          </address>
+        </div>
+      </div>
+      <div class="card mb-1">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <dl class="mt-2 mb-0">
+                <dt>{{ 'APP.FIELD.piva' | translate }}</dt>
+                <dd class="pt-2">{{ quote.piva || '-' }}</dd>
+              </dl>
+            </div>
+            <div class="col-12 col-md-6">
+              <dl class="mt-2 mb-0">
+                <dt>{{ 'APP.FIELD.codiceFiscale' | translate }}</dt>
+                <dd class="pt-2 mb-0">{{ quote.codiceFiscale || '-' }}</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-1">
+        <div class="card-body">
+          <address>
+            <strong>{{ 'APP.TITLE.destinazione' | translate }}</strong><br>
+            {{ quote.nominativoDestinazione || '-' }}<br>
+            {{ quote.indirizzoDestinazione || '-' }}<br>
+            {{ quote.capDestinazione || '-' }} {{ quote.comuneDestinazione || '-' }} {{ quote.provinciaDestinazione || '-' }}<br>
+            {{ quote.nazioneDestinazione || '-' }}<br>
+          </address>
+        </div>
+      </div>
+      <div class="card mb-1">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <dl class="mt-2 mb-0">
+                <dt>{{ 'APP.FIELD.totaleLordoCliente' | translate }}</dt>
+                <dd class="pt-2">{{ (quote.totaleLordoCliente | currency:'EUR':'symbol':'1.2-2':'it-IT') || '-' }}</dd>
+              </dl>
+            </div>
+            <div class="col-12 col-md-6">
+              <dl class="mt-2 mb-0">
+                <dt>{{ 'APP.FIELD.totaleLordoAzienda' | translate }}</dt>
+                <dd class="pt-2 mb-1">{{ (quote.totaleLordoAzienda | currency:'EUR':'symbol':'1.2-2':'it-IT') || '-' }}</dd>
+              </dl>
+            </div>
+            <div class="col-12 col-md-6">
+              <dl class="mt-2 mb-0">
+                <dt>{{ 'APP.FIELD.totaleIvaCliente' | translate }}</dt>
+                <dd class="pt-2 mb-1">{{ (quote.totaleIvaCliente | currency:'EUR':'symbol':'1.2-2':'it-IT') || '-' }}</dd>
+              </dl>
+            </div>
+            <div class="col-12 col-md-6">
+              <dl class="mt-2 mb-0">
+                <dt>{{ 'APP.FIELD.totaleIvaAzienda' | translate }}</dt>
+                <dd class="pt-2 mb-1">{{ (quote.totaleIvaAzienda | currency:'EUR':'symbol':'1.2-2':'it-IT') || '-' }}</dd>
+              </dl>
+            </div>
+            <div class="col-12 col-md-6">
+              <dl class="mt-2 mb-0">
+                <dt>{{ 'APP.FIELD.totaleNettoCliente' | translate }}</dt>
+                <dd class="pt-2 mb-1">{{ (quote.totaleNettoCliente | currency:'EUR':'symbol':'1.2-2':'it-IT') || '-' }}</dd>
+              </dl>
+            </div>
+            <div class="col-12 col-md-6">
+              <dl class="mt-2 mb-0">
+                <dt>{{ 'APP.FIELD.totaleNettoAzienda' | translate }}</dt>
+                <dd class="pt-2 mb-1">{{ (quote.totaleNettoAzienda | currency:'EUR':'symbol':'1.2-2':'it-IT') || '-' }}</dd>
+              </dl>
+            </div>
+            <div class="col-12 col-md-6">
+              <dl class="mt-2 mb-0">
+                <dt>{{ 'APP.FIELD.totaleMerceLorda' | translate }}</dt>
+                <dd class="pt-2 mb-1">{{ (quote.totaleMerceLorda | currency:'EUR':'symbol':'1.2-2':'it-IT') || '-' }}</dd>
+              </dl>
+            </div>
+            <div class="col-12 col-md-6">
+              <dl class="mt-2 mb-0">
+                <dt>{{ 'APP.FIELD.totaleMargine' | translate }}</dt>
+                <dd class="pt-2 mb-1">{{ (quote.totaleMargine | currency:'EUR':'symbol':'1.2-2':'it-IT') || '-' }}</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <app-item-attribute *ngFor="let field of objectKey(quote)"
+        [attribute]="{key: field, value: quote[field]}"
+        [excluded]="excluded"
+        [hideEmpty]="true">
+      </app-item-attribute> -->
+    </div>
+	</div>
+</div>

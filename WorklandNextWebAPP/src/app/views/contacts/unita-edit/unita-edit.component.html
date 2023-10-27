@@ -1,0 +1,142 @@
+<!-- <pre class="pre-code"><code>{{ wUnitaData | json }}</code></pre> -->
+<div class="mb-4" style="width: calc( 100% );height: calc( 100% );">
+  <div class="d-flex flex-column" style="height: calc( 100% );">
+    <div class="unita-bar border-bottom">
+      <div class="float-left ml-2" style="padding: 0.5em 0.40rem !important">
+        {{ name || '' }}<!-- [{{ clientId }}] -->
+      </div>
+      <div class="btn-group float-right" style="padding: 0.2em 0.40rem !important" *ngIf="wUnitaData && !loading && !readOnly">
+        <ng-template [appHasPermission]="'TABUNITA'" [action]="'edit'" [owner]="true">
+          <button type="button" class="btn btn-sm btn-cyan mr-1" (click)="onSave($event)" *ngIf="edit" [disabled]="!wUnitaData.ragioneSociale && unitaData?.id == 0">
+            <span><i class="cui-save"></i> {{ 'APP.BUTTON.save' | translate }}</span>
+          </button>
+          <button type="button" class="btn btn-sm btn-light" (click)="onCancelEdit($event)" *ngIf="edit">
+            <span><i class="cui-x"></i> {{ 'APP.BUTTON.cancel' | translate }}</span>
+          </button>
+          <button type="button" class="btn btn-sm btn-light" (click)="onEdit($event)" *ngIf="!edit">
+            <span><i class="cui-pencil"></i></span>
+          </button>
+        </ng-template>
+        <ng-template [appHasPermission]="'TABUNITA'" [action]="'delete'" [owner]="true">
+          <button class="btn btn-sm btn-danger ml-1" *ngIf="!edit && showDelete"
+            tooltip="{{ 'APP.TOOLTIP.disconnect_unit' | translate }}"
+            container="body"
+            mwlConfirmationPopover
+            [popoverTitle]="titleDelete | translate"
+            [popoverMessage]="messageDelete | translate"
+            [cancelText]="cancelText | translate"
+            [cancelButtonType]="'outline-secondary btn-sm'"
+            [confirmText]="confirmText | translate"
+            [confirmButtonType]="'danger btn-sm'"
+            [appendToBody]="true"
+            placement="left"
+            (confirm)="onDelete(unitaId)">
+            <i class="{{ iconDelete }}"></i></button>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="unita-content px-2 overflow-auto h-100">
+      <div class="text-center py-3" *ngIf="loading">
+        <div class="h3 text-muted text-center mt-3">
+          <i class="fa fa-circle-o-notch fa-spin"></i>
+        </div>
+      </div>
+      <!-- <ngx-loading
+        [show]="loading"
+        [config]="loadingOptions">
+      </ngx-loading> -->
+
+      <div class="mt-5" *ngIf="!unitaData && !edit && !loading">
+        <div class="details-content h-100">
+          <div class="d-flex flex-column justify-content-center align-items-center h-75">
+            <div class="text-center">
+              <h6 class="no-messages-text message-small mt-3">{{ 'APP.MESSAGE.no_data' | translate }}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="" *ngIf="unitaData && !edit && !loading">
+        <div class="mt-3 mb-3 px-3">
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.typeOfShip' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ unitaData.shipTypeDescrizione }}</div>
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.imoNumber' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ unitaData.imoNumber }}</div>
+          </div>
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.lenght' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ unitaData.lenght }}</div>
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.grossTonnage' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ unitaData.grossTonnage }}</div>
+          </div>
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.shipyard' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ unitaData.shipyardDescrizione }}</div>
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.nameEngineMakers' | translate }}</label>
+            <div class="col-md-4 col-form-field-sm">{{ unitaData.nameEngineMakers }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3" *ngIf="wUnitaData && edit && !loading">
+        <form (ngSubmit)="onSave(wUnitaData)">
+          <div class="mt-3 px-3">
+            <div class="form-group- mb-1 row required" *ngIf="!unitaId">
+              <label class="col-md-2 col-form-label col-form-label-sm " for="lenght">{{ 'APP.FIELD.newUnitName' | translate }}</label>
+              <div class="col-md-4">
+                <input type="text" name="ragioneSociale" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.newUnitName' | translate }}" [(ngModel)]="wUnitaData.ragioneSociale">
+              </div>
+            </div>
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm" for="typeOfShip">{{ 'APP.FIELD.typeOfShip' | translate }} <span class="btn btn-sm p-0 float-right" (click)="tableMS.openTableModal('ShipType')"><i class="cui-pencil"></i></span></label>
+              <div class="col-md-4">
+                <select name="anagShipTypeId" class="form-control form-control-sm" [(ngModel)]="wUnitaData.anagShipTypeId">
+                  <option value="0">&nbsp;</option>
+                  <option [value]="ship.id" *ngFor="let ship of anagrafiche['AnagShipType'];">{{ ship.descrizione }}</option>
+                </select>
+              </div>
+              <label class="col-md-2 col-form-label col-form-label-sm" for="imoNumber">{{ 'APP.FIELD.imoNumber' | translate }}</label>
+              <div class="col-md-4">
+                <input type="text" name="imoNumber" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.imoNumber' | translate }}" [(ngModel)]="wUnitaData.imoNumber">
+              </div>
+            </div>
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm" for="lenght">{{ 'APP.FIELD.lenght' | translate }}</label>
+              <div class="col-md-4">
+                <input type="text" name="lenght" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.lenght' | translate }}" [(ngModel)]="wUnitaData.lenght">
+              </div>
+              <label class="col-md-2 col-form-label col-form-label-sm" for="grossTonnage">{{ 'APP.FIELD.grossTonnage' | translate }}</label>
+              <div class="col-md-4">
+                <input type="text" name="grossTonnage" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.grossTonnage' | translate }}" [(ngModel)]="wUnitaData.grossTonnage">
+              </div>
+            </div>
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm" for="shipyard">{{ 'APP.FIELD.shipyard' | translate }} <span class="btn btn-sm p-0 float-right" (click)="tableMS.openTableModal('Shipyard')"><i class="cui-pencil"></i></span></label>
+              <div class="col-md-4">
+                <ng-select class="form-select-sm"
+                  name="anagShipyardId"
+                  [items]="anagrafiche['AnagShipyard']"
+                  bindValue="id"
+                  bindLabel="descrizione"
+                  appendTo="body"
+                  [searchFn]="customSearchFn"
+                  [(ngModel)]="wUnitaData.anagShipyardId">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{item.descrizione}}
+                    </ng-template>
+                </ng-select>
+
+              </div>
+              <label class="col-md-2 col-form-label col-form-label-sm" for="bancaCC">{{ 'APP.FIELD.nameEngineMakers' | translate }}</label>
+              <div class="col-md-4">
+                <input type="text" name="nameEngineMakers" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.nameEngineMakers' | translate }}" [(ngModel)]="wUnitaData.nameEngineMakers">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

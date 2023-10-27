@@ -1,0 +1,278 @@
+:host ::ng-deep {
+  .mat-tab-label {
+    min-width: 80px;
+  }
+
+  .current-item {
+    background-color: var(--yellow) !important;
+  }
+
+  .sub-title {
+    font-size: .8em !important;
+  }
+
+  .contact-container {
+    .images-group {
+      position: relative;
+
+      > .row {
+        overflow-x: auto;
+        white-space: nowrap;
+        flex-wrap: nowrap;
+
+        > .col {
+          display: inline-block;
+          float: none;
+
+          .figure {
+            img {
+              width: 50%;
+            }
+
+            i {
+              position: absolute;
+              top: 105px;
+              left: 124px;
+              font-size: 50px;
+            }
+          }
+        }
+      }
+    }
+
+    .card {
+      &.card-image-main {
+        width: 60%;
+        // height: 211px;
+      }
+    }
+
+    .scrolling-wrapper {
+      position: relative;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .card-image {
+        display: inline-block;
+        padding-left: 1rem;
+        padding-top: 1rem;
+        padding-right: 1rem;
+        width: 9.9em;
+        display: inline-block;
+
+        img {
+          width: 7.5em;
+        }
+
+        figcaption {
+          width: 7.5em;
+        }
+      }
+    }
+
+    .scrolling-wrapper-flexbox {
+      position: relative;
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .card-image {
+        position: relative;
+        flex: 0 0 auto;
+        padding-left: 1rem;
+        padding-top: 1rem;
+        padding-right: 1rem;
+        width: 9.9em;
+        display: inline-block;
+
+        img {
+          width: 7.5em;
+        }
+
+        figcaption {
+          width: 7.5em;
+        }
+
+        &.main-image {
+          img {
+            width: 9.5em;
+          }
+
+          figcaption {
+            width: 9.5em;
+          }
+        }
+
+        .float-delete {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          width: 20px;
+          height: 20px;
+          background-color: var(--danger);
+          color: var(--white);
+          border-radius: 50% !important;
+          text-align: center;
+          display: none;
+        }
+
+        &:hover {
+          .float-delete {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+  .nav-tabs {
+    border-bottom: 0 solid #cfd8dc;
+  }
+
+  .nav-tabs .nav-link.active,
+  .nav-tabs .navbar .active.dropdown-toggle,
+  .navbar .nav-tabs .active.dropdown-toggle {
+    color: #29363d;
+    // background-color: var(--primary);
+    border: none;
+    border-bottom: 3px solid var(--primary);
+  }
+
+  .nav-tabs .nav-link {
+    border: none;
+    padding-bottom: 3px;
+    height: 48px;
+    padding: .9rem 1rem;
+  }
+
+  .nav-tabs .nav-link.disabled {
+    color: #a0a0a0;
+  }
+
+  .nav-tabs .nav-link.active:focus,
+  .nav-tabs .nav-link:hover {
+    color: #29363d;
+    // background-color: var(--primary);
+    border: none;
+    border-bottom: 3px solid var(--primary);
+  }
+
+  .nav-link,
+  .navbar .dropdown-toggle {
+    display: block;
+    padding: .36rem 1rem;
+  }
+
+  .tab-content {
+    margin-top: -1px;
+    background: #fff;
+    border: 0 solid #a4b7c1;
+    display: none;
+  }
+
+  .tab-content .tab-pane {
+    padding: 0;
+  }
+
+  .tab-container {
+    &.tab-orange {
+      .nav-tabs .nav-link.active,
+      .nav-tabs .navbar .active.dropdown-toggle,
+      .navbar .nav-tabs .active.dropdown-toggle {
+        color: #29363d;
+        border: none;
+        border-bottom: 3px solid #FFA101;
+      }
+
+      .nav-tabs .nav-link.active:focus,
+      .nav-tabs .nav-link:hover {
+        color: #29363d;
+        border: none;
+        border-bottom: 3px solid #FFA101;
+      }
+    }
+  }
+
+  .card-contacts {
+    .my-card-deck {
+      .card {
+        position: relative;
+
+        &.card-scroll {
+          height: 150px;
+          overflow: scroll;
+        }
+
+        .card-actions {
+          position: absolute;
+          top: 0;
+          right: 0;
+          display: none;
+        }
+
+        &:hover {
+          .card-actions {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+  .card {
+    position: relative;
+
+    .list-group-flush:last-child .list-group-item:last-child {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    }
+
+    .list-group-item {
+      .list-actions {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: none;
+
+        .btn-sm {
+          line-height: 0;
+        }
+      }
+
+      &:hover {
+        .list-actions {
+          display: block;
+        }
+      }
+    }
+
+    .card-body {
+      h5 {
+        font-size: 1.0rem;
+      }
+    }
+
+    &.card-scroll {
+      height: 150px;
+      overflow: scroll;
+    }
+  }
+
+  .table {
+    &.table-no-bordered {
+      td,
+      th {
+        border-top: none;
+      }
+    }
+  }
+}

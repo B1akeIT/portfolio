@@ -1,0 +1,52 @@
+@import "./mixin";
+
+.drag-vertical-controller {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 10px;
+  background-color: var(--red);
+}
+
+.mwlResizable {
+  box-sizing: border-box; // required for the enableGhostResize option to work
+}
+
+.resize-handle-bottom,
+.resize-handle-top {
+  position: absolute;
+  height: 5px;
+  cursor: row-resize;
+  width: 100%;
+  @include mesh;
+}
+
+.resize-handle-top {
+  top: 0;
+}
+
+.resize-handle-bottom {
+  bottom: 0;
+}
+
+.resize-handle-left,
+.resize-handle-right {
+  position: absolute;
+  height: 100%;
+  cursor: col-resize;
+  width: 5px;
+
+  &:hover {
+    @include mesh;
+    border-right: 1px solid #cfd8dc;
+    // background-color: #00000078;
+  }
+}
+
+.resize-handle-left {
+  left: 0;
+}
+
+.resize-handle-right {
+  right: 0;
+}

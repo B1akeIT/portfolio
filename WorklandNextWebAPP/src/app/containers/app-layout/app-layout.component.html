@@ -1,0 +1,103 @@
+<app-header
+  [navbarBrandRouterLink]="['/dashboard']"
+  [fixed]="true"
+  [navbarBrandFull]="getLogoBrand()"
+  [navbarBrandMinimized]="getLogoBrand(true)"
+  [sidebarToggler]="'lg'"
+  [asideMenuToggler]="false"
+  [mobileAsideMenuToggler]="false">
+  <app-choose-tenant [class]="'light'"
+    [tenants]="tenants"
+    (changed)="onTenantChanged($event)">
+  </app-choose-tenant>
+  <!-- <div class="btn-group ml-4 d-none d-md-block" dropdown>
+    <button dropdownToggle type="button" class="btn btn-light dropdown-toggle">
+      <span><ion-icon name="color-palette-outline"></ion-icon> Themes…</span>
+      <span class="caret"></span>
+    </button>
+    <div class="dropdown-menu" *dropdownMenu aria-labelledby="simple-dropdown">
+      <span class="dropdown-item cursor-pointer border-bottom-0" (click)="loadStyle('vss-theme')" ><i><ion-icon name="color-palette-outline"></ion-icon></i> {{ 'APP.MENU.vss-theme' | translate }}</span>
+      <span class="dropdown-item cursor-pointer border-bottom-0" (click)="loadStyle('orange-theme')" ><i><ion-icon name="color-palette-outline"></ion-icon></i> {{ 'APP.MENU.orange-theme' | translate }}</span>
+    </div>
+  </div> -->
+  <!-- <ul class="nav navbar-nav"> -->
+    <!-- <li class="nav-item px-3">
+      <a class="nav-link" (click)="toggleUserMenu($event)" >{{ 'APP.GENERAL.application' | translate }}</a>
+    </li> -->
+    <!-- <li class="nav-item px-3">
+      <a class="nav-link" href="#">{{ 'APP.MENU.dashboard' | translate }}</a>
+    </li> -->
+    <!-- <li class="nav-item px-3">
+      <a class="nav-link" href="#">{{ 'APP.MENU.users' | translate }}</a>
+    </li> -->
+    <!-- <li class="nav-item px-3">
+      <a class="nav-link" href="#">{{ 'APP.MENU.settings' | translate }}</a>
+    </li> -->
+  <!-- </ul> -->
+  <ul class="nav navbar-nav ml-auto">
+    <!-- <li class="nav-item d-md-down-none">
+      <a class="nav-link" href="#"><i class="icon-bell"></i><span class="badge badge-pill badge-danger">5</span></a>
+    </li>
+    <li class="nav-item d-md-down-none">
+      <a class="nav-link" href="#"><i class="icon-list"></i></a>
+    </li>
+    <li class="nav-item d-md-down-none">
+      <a class="nav-link" href="#"><i class="icon-location-pin"></i></a>
+    </li> -->
+    <li class="nav-item dropdown mr-1" dropdown placement="bottom right">
+      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
+        <div class="d-flex">
+          <div class="flex-fill align-self-center text-right d-none d-md-block">
+            <span class="d-block">{{ getUserName() }}</span>
+            <span class="d-block small" *ngIf="getRoleName()">{{ getRoleName() }}</span>
+          </div>
+          <ngx-avatar class="flex-fill mx-2"
+            [src]="getUserAvatar()"
+            [name]="getUserName()"
+            size="35" [round]="true">
+          </ngx-avatar>
+        </div>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+        <!-- <div class="dropdown-header text-center"><strong>Account</strong></div>
+        <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i> Updates<span class="badge badge-info">42</span></a>
+        <a class="dropdown-item" href="#"><i class="fa fa-envelope-o"></i> Messages<span class="badge badge-success">42</span></a>
+        <a class="dropdown-item" href="#"><i class="fa fa-tasks"></i> Tasks<span class="badge badge-danger">42</span></a>
+        <a class="dropdown-item" href="#"><i class="fa fa-comments"></i> Comment<span class="badge badge-warning">42</span></a> -->
+        <!-- <div class="dropdown-header text-center"><strong>Settings</strong></div> -->
+        <span class="dropdown-item cursor-pointer border-bottom-0 disabled" routerLink="/profile"><i><ion-icon name="person-outline"></ion-icon></i> {{ 'APP.MENU.profile' | translate }}</span>
+        <span class="dropdown-item cursor-pointer border-bottom-0" routerLink="/settings"><i><ion-icon name="settings-outline"></ion-icon></i> {{ 'APP.MENU.settings' | translate }}</span>
+        <!-- <a class="dropdown-item" href="#"><i class="fa fa-usd"></i> Payments<span class="badge badge-dark">42</span></a>
+        <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a> -->
+        <div class="divider"></div>
+        <!-- <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock account</a> -->
+        <span class="dropdown-item cursor-pointer border-bottom-0" routerLink="/auth/login"><i><ion-icon name="log-out-outline"></ion-icon></i> {{ 'APP.MENU.logout' | translate }}</span>
+      </div>
+    </li>
+  </ul>
+</app-header>
+<div class="app-body">
+  <app-sidebar #appSidebar [fixed]="true" [display]="'lg'" [minimized]="sidebarMinimized" (minimizedChange)="toggleMinimize($event)">
+    <app-sidebar-nav class="custom-scroll-" [navItems]="navItems" [disabled]="appSidebar.minimized"></app-sidebar-nav>
+    <app-sidebar-minimizer></app-sidebar-minimizer>
+  </app-sidebar>
+  <!-- Main content -->
+  <main class="main">
+    <div class="container-fluid px-0">
+      <div class="fx-layout" fxLayout="column" fxFlexFill appFlexLayout header="47" footer="60">
+        <div fxFlex="<grow> <shrink> 100%" class="fx-sec-container">
+          <div class="fx-container" appFlexLayout header="24" footer="82">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </main>
+  <app-aside [fixed]="true" [display]="false" [ngClass]="'test d-none'">
+  </app-aside>
+</div>
+<app-footer [fixed]="true">
+  <span><img [src]="logoCopyright" style="height: 25px;margin-right: 5px;"><a href="https://www.nkey.it">{{ 'APP.GENERAL.application' | translate }}</a> {{ copyright }} - {{ version }}</span>
+  <!-- <span class="ml-auto">Powered by <a href="https://coreui.io/angular">CoreUI for Angular</a></span> -->
+</app-footer>
+<ng-snotify class="snotify-custom"></ng-snotify>

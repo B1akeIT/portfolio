@@ -1,0 +1,88 @@
+<div class="permissions">
+  <div class="px-0" *ngIf="(roleId && !error)">
+    <h5 class="mt-4">{{ 'APP.TITLE.permissions' | translate }}</h5>
+    <hr>
+    <div class="">
+      <app-choose-tenant-company
+        [tenant]="tenant"
+        [companies]="anagraficheCombo['SpComboAzienda']"
+        [class]="'gray-500 btn-sm mr-3'"
+        (changed)="onCompany($event)">
+      </app-choose-tenant-company>
+      <div class="btn-group btn-group-sm pull-right" btnRadioGroup [(ngModel)]="owner" *ngIf="currentCompany">
+        <label class="btn btn-light mb-0" [btnRadio]="true">{{ 'owner' | translate }}</label>
+        <label class="btn btn-light mb-0" [btnRadio]="false">{{ 'other' | translate }}</label>
+      </div>
+    </div>
+    <hr>
+    <ngx-loading
+      [show]="loading"
+      [config]="loadingOptions">
+    </ngx-loading>
+    <div class="px-3 py-3" *ngIf="!currentCompany">
+      <div class="d-flex flex-column justify-content-center align-items-center h-100" *ngIf="((!currentCompany && !loading) || error)">
+        <div class="text-center" *ngIf="!error">
+          <ion-icon name="business-outline" class="icon-messages-50 message-small"></ion-icon>
+          <h6 class="no-messages-text message-small mt-1">{{ 'APP.MESSAGE.select_company' | translate }}</h6>
+        </div>
+        <div class="text-center" *ngIf="error">
+          <h6 class="text-danger mt-3 w-75 mx-auto">{{ errorMessage | translate }}</h6>
+        </div>
+      </div>
+    </div>
+    <div class="border-" *ngIf="currentCompany && !grouped">
+      <div class="grid-container bg-white border-bottom sticky-top mb-0">
+        <div class="grid-item grid-item-header"><span class="badge badge-blue text-uppercase">{{ owner ? 'owner' : 'other' }}</span></div>
+        <div class="grid-item font-weight-bold"><i class="icon-eye"></i> <span class="d-none d-xl-inline-block">{{ 'view' | translate }}</span></div>
+        <div class="grid-item font-weight-bold"><i class="cui-plus"></i> <span class="d-none d-xl-inline-block">{{ 'create' | translate }}</span></div>
+        <div class="grid-item font-weight-bold"><i class="cui-pencil"></i> <span class="d-none d-xl-inline-block">{{ 'edit' | translate }}</span></div>
+        <div class="grid-item font-weight-bold"><i class="icon-trash"></i> <span class="d-none d-xl-inline-block">{{ 'delete' | translate }}</span></div>
+        <div class="grid-item font-weight-bold"><i class="cui-print"></i> <span class="d-none d-xl-inline-block">{{ 'print/export' | translate }}</span></div>
+      </div>
+      <ng-container *ngFor="let item of permissions;">
+        <app-permission [permission]="item" [tenant]="tenant" [status]="'view'" [owner]="owner"></app-permission>
+      </ng-container>
+      <div class="border-top" *ngIf="!permissions.length">
+        <div class="d-flex flex-column justify-content-center align-items-center h-100 py-5">
+          <div class="text-center">
+            <ion-icon name="shield-checkmark-outline" class="icon-messages-50 message-small"></ion-icon>
+            <h6 class="no-messages-text message-small mt-1">{{ 'APP.MESSAGE.no_permissions' | translate }}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="" *ngIf="currentCompany && grouped">
+      <mat-accordion [multi]="false">
+        <ng-container *ngFor="let group of permissionGroups">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>{{ group.modulo | translate }}</mat-panel-title>
+              <!-- <mat-panel-description>{{ group.moduloId }}</mat-panel-description> -->
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+              <div class="grid-container bg-white border-bottom sticky-top mb-0">
+                <div class="grid-item grid-item-header"><span class="badge badge-blue text-uppercase">{{ owner ? 'owner' : 'other' }}</span></div>
+                <div class="grid-item font-weight-bold"><i class="icon-eye"></i> <span class="d-none d-xl-inline-block">{{ 'view' | translate }}</span></div>
+                <div class="grid-item font-weight-bold"><i class="cui-plus"></i> <span class="d-none d-xl-inline-block">{{ 'create' | translate }}</span></div>
+                <div class="grid-item font-weight-bold"><i class="cui-pencil"></i> <span class="d-none d-xl-inline-block">{{ 'edit' | translate }}</span></div>
+                <div class="grid-item font-weight-bold"><i class="icon-trash"></i> <span class="d-none d-xl-inline-block">{{ 'delete' | translate }}</span></div>
+                <div class="grid-item font-weight-bold"><i class="cui-print"></i> <span class="d-none d-xl-inline-block">{{ 'print/export' | translate }}</span></div>
+              </div>
+              <ng-container *ngFor="let item of group.items;">
+                <app-permission [permission]="item" [tenant]="tenant" [status]="'view'" [owner]="owner"></app-permission>
+              </ng-container>
+            </ng-template>
+          </mat-expansion-panel>
+        </ng-container>
+      </mat-accordion>
+      <div class="border" *ngIf="!permissions.length">
+        <div class="d-flex flex-column justify-content-center align-items-center h-100 py-5">
+          <div class="text-center">
+            <ion-icon name="shield-checkmark-outline" class="icon-messages-50 message-small"></ion-icon>
+            <h6 class="no-messages-text message-small mt-1">{{ 'APP.MESSAGE.no_permissions' | translate }}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

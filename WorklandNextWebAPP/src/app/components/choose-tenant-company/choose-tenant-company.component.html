@@ -1,0 +1,16 @@
+<div class="btn-group" dropdown [dropup]="dropup">
+  <button dropdownToggle type="button" class="btn btn-{{class}} dropdown-toggle">
+    <span *ngIf="!currentCompany"><ion-icon name="business-outline"></ion-icon><span class="ml-2">{{ 'APP.TITLE.choose-company' | translate }}…</span></span>
+    <span *ngIf="currentCompany"><ion-icon name="business-outline"></ion-icon><span class="ml-2">{{ currentCompany?.descrizione }}</span></span>
+    <span class="caret"></span>
+  </button>
+  <ul *dropdownMenu class="dropdown-menu dropdown-menu-zindex" [class.dropdown-menu-right]="right" role="menu">
+    <li class="cursor-pointer" role="menuitem" *ngFor="let company of companies" (click)="menuSelected(company)">
+      <span class="dropdown-item">
+        <i><ion-icon name="business-outline"></ion-icon></i>{{ company.descrizione }}
+      </span></li>
+    <li class="cursor-pointer" role="menuitem" (click)="clearMenu()" *ngIf="showClear">
+      <span class="dropdown-item">
+        <i><ion-icon name="close-outline"></ion-icon></i> {{ 'APP.MENU.clear-company' | translate }}</span></li>
+  </ul>
+</div>

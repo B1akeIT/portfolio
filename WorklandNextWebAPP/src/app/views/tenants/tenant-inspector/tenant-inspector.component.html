@@ -1,0 +1,69 @@
+<div class="details-content h-100">
+  <div class="text-center py-3" *ngIf="loading">
+    <div class="h1 text-muted text-center mt-5 mb-1">
+      <i class="fa fa-circle-o-notch fa-spin"></i>
+    </div>
+  </div>
+  <div class="h-75" *ngIf="!tenant && !loading">
+    <div class="d-flex flex-column justify-content-center align-items-center h-100">
+      <!-- loading & messages -->
+      <div class="text-center" style="height: 120px;" *ngIf="!dragging">
+        <ng-lottie [options]="options" (animationCreated)="animationCreated($event)"></ng-lottie>
+      </div>
+      <div class="text-center">
+        <i class="icon-mouse icon-messages-50" *ngIf="dragging"></i>
+        <h6 class="no-messages-text mt-3">{{ 'APP.MESSAGE.select_tenant' | translate }}</h6>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="tenant && !loading">
+    <div class="details-content">
+      <div class="">
+
+        <div class="text-center mt-4 mb-2">
+          <ion-icon name="server-outline" class="icon-messages-50"></ion-icon>
+        </div>
+        <div class="tenant-name text-center">{{ tenant.nomeConnessione }}</div>
+        <p class="text-center mb-0"><span class="badge badge-pill badge-dark">{{ tenant.dbName }}</span></p>
+        <p class="text-center mb-4"><span class="">{{ tenant.description }}</span></p>
+
+        <div class="block-roles d-flex justify-content-between align-items-center mt-3">
+          <h6 class="mb-1"><ion-icon name="people-outline"></ion-icon> {{ 'APP.TITLE.users' | translate }} [{{ users.length || 0 }}]</h6>
+        </div>
+        <mat-accordion class="block-list-users">
+          <mat-expansion-panel disabled *ngIf="(users.length == 0)">
+            <mat-expansion-panel-header>
+              <mat-panel-title>{{ 'APP.MESSAGE.no_users' | translate }}</mat-panel-title>
+            </mat-expansion-panel-header>
+          </mat-expansion-panel>
+          <mat-expansion-panel *ngFor="let user of users">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <div class="media">
+                  <ion-icon name="person-outline" class="mr-3"></ion-icon>
+                  <div class="media-body">
+                    <h6 class="mt-0 mb-0">{{user.userName}}</h6>
+                    <span class="small mb-1">{{ user.nome }} {{ user.cognome }}</span>
+                  </div>
+                </div>
+              </mat-panel-title>
+              <mat-panel-description>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="mb-2 panel-content">
+              <!-- {{ user | json }} -->
+              <app-user-tenant
+                [tenant]="tenant.nomeConnessione"
+                [user]="user"
+                [showIcon]="true"
+                [showLabel]="false"
+                [showEmpty]="false"
+                [showEdit]="false">
+              </app-user-tenant>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+  </div>
+</div>

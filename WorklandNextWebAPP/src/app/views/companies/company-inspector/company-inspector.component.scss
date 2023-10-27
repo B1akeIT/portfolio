@@ -1,0 +1,47 @@
+:host ::ng-deep {
+  .thumbnail-image {
+    height: 12em !important;
+
+    .thumb {
+      opacity: 0;
+      transition: opacity ease .2s;
+      height: 0 !important;
+
+      &.thumb-show {
+        opacity: 1;
+        height: 12em !important;
+      }
+    }
+  }
+
+  .company-name {
+    padding: 10px 3px 3px;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .company-email {
+    padding: 3px;
+    font-size: 14px;
+    text-align: center;
+
+    i {
+      font-size: .9em;
+    }
+  }
+
+  .field-edit {
+    padding: .25rem .5rem;
+    cursor: pointer;
+
+    i {
+      font-size: .9em;
+    }
+
+    &:hover {
+      color: #151b1e;
+      background-color: #d9e1e6;
+      border-color: #d1dbe1;
+    }
+  }
+}

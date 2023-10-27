@@ -1,0 +1,108 @@
+<div class="mb-4" style="width: calc( 100% );height: calc( 100% );">
+  <div class="d-flex flex-column" style="height: calc( 100% );">
+    <div class="accounting-bar border-bottom">
+      <div class="float-left ml-2" style="padding: 0.5em 0.40rem !important">
+        <span title="{{ wCarrierData?.clienteId }} | {{ wCarrierData?.aziendaId }}">{{ aziendaData.azienda }}</span>
+        <!-- <span class="ml-3 col-form-field-sm">{{ wCarrierData.clienteId }} | {{ wCarrierData.aziendaId }}</span> -->
+      </div>
+      <div class="btn-group float-right" style="padding: 0.2em 0.40rem !important" *ngIf="carrierData && !loading && !readOnly">
+        <ng-template [appHasPermission]="'TABVETTORE'" [action]="'edit'" [owner]="aziendaId == user?.aziendaId">
+          <button type="button" class="btn btn-sm btn-cyan mr-1" (click)="onSave($event)" *ngIf="edit">
+            <span><i class="cui-save"></i> {{ 'APP.BUTTON.save' | translate }}</span>
+          </button>
+          <button type="button" class="btn btn-sm btn-light" (click)="cancelEdit($event)" *ngIf="edit">
+            <span><i class="cui-x"></i> {{ 'APP.BUTTON.cancel' | translate }}</span>
+          </button>
+          <button type="button" class="btn btn-sm btn-light" (click)="onEdit($event)" *ngIf="!edit">
+            <span><i class="cui-pencil"></i></span>
+          </button>
+        </ng-template>
+        <ng-template [appHasPermission]="'TABVETTORE'" [action]="'delete'" [owner]="aziendaId == user?.aziendaId">
+          <button class="btn btn-sm btn-danger ml-1" *ngIf="!edit"
+            tooltip="{{ 'APP.TOOLTIP.delete_carrier' | translate }}"
+            container="body"
+            mwlConfirmationPopover
+            [popoverTitle]="'APP.TITLE.delete' | translate"
+            [popoverMessage]="'APP.MESSAGE.are_you_sure' | translate"
+            [cancelText]="'APP.BUTTON.cancel' | translate"
+            [cancelButtonType]="'outline-secondary btn-sm'"
+            [confirmText]="'APP.BUTTON.confirm' | translate"
+            [confirmButtonType]="'danger btn-sm'"
+            [appendToBody]="true"
+            placement="left"
+            (confirm)="onDelete(carrierData)">
+            <i class="icon-trash"></i></button>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="accounting-content px-2 overflow-auto h-100">
+      <div class="text-center py-3" *ngIf="loading">
+        <div class="h3 text-muted text-center mt-3">
+          <i class="fa fa-circle-o-notch fa-spin"></i>
+        </div>
+      </div>
+      <!-- <ngx-loading
+        [show]="loading"
+        [config]="loadingOptions">
+      </ngx-loading> -->
+
+      <div class="mt-5" *ngIf="!carrierData && !loading">
+        <div class="details-content h-100">
+          <div class="d-flex flex-column justify-content-center align-items-center h-75">
+            <div class="text-center">
+              <h6 class="no-messages-text message-small mt-3">{{ 'APP.MESSAGE.no_data' | translate }}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="" *ngIf="carrierData && !edit && !loading">
+        <!-- <pre class="pre-code"><code>{{ carrierData | json }}</code></pre> -->
+        <div class="cliente-data mt-3 mb-3 px-3">
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.trackingWebSite' | translate }}</label>
+            <div class="col-md-7 col-form-field-sm">{{ carrierData.trackingWebSite || '---' }}</div>
+          </div>
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.abbonamento' | translate }}</label>
+            <div class="col-md-7 col-form-field-sm">{{ carrierData.abbonamento || '---' }}</div>
+          </div>
+          <div class="mb-1 row">
+            <label class="col-md-2 col-form-label col-form-label-sm">{{ 'APP.FIELD.note' | translate }}</label>
+            <div class="col-md-7 col-form-field-sm">{{ carrierData.note || '---' }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3" *ngIf="carrierData && edit && !loading">
+        <!-- <form (ngSubmit)="onSave(carrierData)"> -->
+          <div class="mt-3 px-2">
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm" for="trackingWebSite">{{ 'APP.FIELD.trackingWebSite' | translate }}</label>
+              <div class="col-md-7">
+                <input type="text" name="trackingWebSite" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.trackingWebSite' | translate }}" [(ngModel)]="wCarrierData.trackingWebSite">
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 px-2">
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm" for="abbonamento">{{ 'APP.FIELD.abbonamento' | translate }}</label>
+              <div class="col-md-7">
+                <input type="text" name="abbonamento" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.abbonamento' | translate }}" [(ngModel)]="wCarrierData.abbonamento">
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 px-2">
+            <div class="form-group- mb-1 row">
+              <label class="col-md-2 col-form-label col-form-label-sm" for="note">{{ 'APP.FIELD.note' | translate }}</label>
+              <div class="col-md-7">
+                <input type="text" name="note" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.note' | translate }}" [(ngModel)]="wCarrierData.note">
+              </div>
+            </div>
+          </div>
+        <!-- </form> -->
+      </div>
+    </div>
+  </div>
+</div>

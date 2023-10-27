@@ -1,0 +1,296 @@
+<div class="px-0">
+  <ngx-loading
+    [show]="loading"
+    [config]="loadingOptions">
+  </ngx-loading>
+  <div class="px-4 py-4" [formGroup]="fGroup" *ngIf="!loading">
+    <div class="form-row align-items-start">
+      <div class="form-group input-group input-group-sm col-6 mb-0" *ngIf="!_modCodiceCombo">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('codiceArticolo')" for="codiceArticolo">{{ 'APP.FIELD.codiceArticolo' | translate }} <span class="btn btn-sm p-0 float-right" style="font-size: 0.9em;" (click)="openChoiceModal('articolo')"><i class="icon-magnifier"></i></span></label>
+        <input type="text" name="codiceArticolo" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" formControlName="codiceArticolo" readonly>
+        <!-- <div class="input-group-append cursor-pointer" (click)="_modCodiceCombo = !_modCodiceCombo"><span class="input-group-text"><i class="icon-pencil"></i></span></div> -->
+      </div>
+      <div class="form-group col-6 mb-0" *ngIf="_modCodiceCombo">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate pb-0" [class.modified]="isModifiedProperty('codiceArticolo')" for="codiceArticolo">{{ 'APP.FIELD.codiceArticolo' | translate }} <span class="btn btn-sm p-0 float-right" style="font-size: 0.9em;" (click)="_modCodiceCombo = !_modCodiceCombo"><i class="icon-close"></i></span></label>
+        <ng-select class="form-select-sm"
+          name="codiceArticolo"
+          appendTo="body"
+          bindValue="id"
+          bindLabel="codiceArticolo"
+          [items]="articoli$ | async"
+          [trackByFn]="trackByArticoli"
+          [placeholder]="'APP.MESSAGE.choose_articolo' | translate"
+          [minTermLength]="minLengthTerm"
+          [loading]="articoliLoading"
+          [loadingText]="'APP.MESSAGE.loading' | translate"
+          [notFoundText]="'APP.MESSAGE.no_items_found' | translate"
+          [typeToSearchText]="'APP.MESSAGE.limit_lenght_term' | translate:minTranslateParams"
+          [typeahead]="articoliInput$"
+          formControlName="codiceArticolo"
+          (change)="onChangeArticolo($event)">
+            <ng-template ng-option-tmp let-item="item">
+              {{ item.codiceArticolo }} - {{ item.descrizione }}
+              <br/> <small>{{ item.descrizioneEN }} - {{ item.id }}</small>
+            </ng-template>
+        </ng-select>
+      </div>
+      <div class="form-group col-6 mb-0">
+        <div class="form-row align-items-start">
+          <div class="form-group col-12 mb-0">
+            <label class="col-form-label col-form-label-sm w-100 text-truncate pb-0" [class.modified]="isModifiedProperty('partNumber')" for="partNumber">{{ 'APP.FIELD.partNumber' | translate }} <span class="btn btn-sm p-0 float-right" style="font-size: 0.9em;" (click)="openChoiceModal('articolo')"><i class="icon-magnifier"></i></span></label>
+            <input type="text" name="partNumber" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.partNumber' | translate }}" formControlName="partNumber">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row align-items-start">
+      <div class="form-group col-6 mb-0">
+        <div class="form-row align-items-start">
+          <div class="form-group col-12 mb-0">
+            <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('descrizioneEN')" for="descrizioneEN">{{ 'APP.FIELD.descrizioneEN' | translate }}</label>
+            <input type="text" name="descrizioneEN" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.descrizioneEN' | translate }}" formControlName="descrizioneEN">
+          </div>
+        </div>
+        <div class="form-row align-items-start">
+          <div class="form-group col-12 mb-0">
+            <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('descrizioneArticoloPerAzienda')" for="descrizioneArticoloPerAzienda">{{ 'APP.FIELD.descrizioneArticoloPerAzienda' | translate }}</label>
+            <input type="text" name="descrizioneArticoloPerAzienda" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.descrizioneArticoloPerAzienda' | translate }}" formControlName="descrizioneArticoloPerAzienda">
+          </div>
+        </div>
+        <div class="form-row align-items-start">
+          <div class="form-group col-12 mb-0">
+            <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('descrizioneArticoloPerCliente')" for="descrizioneArticoloPerCliente">{{ 'APP.FIELD.descrizioneArticoloPerCliente' | translate }}</label>
+            <input type="text" name="descrizioneArticoloPerCliente" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.descrizioneArticoloPerCliente' | translate }}" formControlName="descrizioneArticoloPerCliente">
+          </div>
+        </div>
+        <div class="form-row align-items-start">
+          <!-- <div class="form-group col-6 mb-0">
+            <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('articoloId')" for="articoloId">{{ 'APP.FIELD.articoloId' | translate }}</label>
+            <input type="text" name="articoloId" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.articoloId' | translate }}" formControlName="articoloId">
+          </div> -->
+          <div class="form-group col-12 mb-0">
+            <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('codiceArticoloPerCliente')" for="codiceArticoloPerCliente">{{ 'APP.FIELD.codiceArticoloPerCliente' | translate }}</label>
+            <input type="text" name="codiceArticoloPerCliente" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.codiceArticoloPerCliente' | translate }}" formControlName="codiceArticoloPerCliente">
+          </div>
+        </div>
+        <div class="form-row align-items-start">
+          <div class="form-group col-12 mb-0">
+            <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('anagraficaProduttore')" for="anagraficaProduttore">{{ 'APP.FIELD.anagraficaProduttore' | translate }}</label>
+            <input type="text" name="anagraficaProduttore" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.anagraficaProduttore' | translate }}" formControlName="anagraficaProduttore">
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-6 mb-0">
+        <div class="form-row align-items-start">
+          <div class="form-group col-6 mb-0">
+            <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('numeroRiga')" for="numeroRiga">{{ 'APP.FIELD.numeroRiga' | translate }}</label>
+            <input type="text" name="numeroRiga" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.numeroRiga' | translate }}" formControlName="numeroRiga" readonly>
+          </div>
+          <div class="form-group col-6 mb-0">
+            <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('categoria')" for="categoria">{{ 'APP.FIELD.categoria' | translate }}</label>
+            <input type="text" name="categoria" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.categoria' | translate }}" formControlName="categoria" readonly>
+          </div>
+        </div>
+        <div class="form-row align-items-start">
+          <div class="form-group col-3 mb-0">
+            <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('fornitoreId')" for="fornitoreId">{{ 'APP.FIELD.fornitoreId' | translate }}</label>
+            <input type="text" name="fornitoreId" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.fornitoreId' | translate }}" formControlName="fornitoreId" readonly>
+          </div>
+          <div class="form-group col-9 mb-0">
+            <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('fornitore')" for="fornitore">{{ 'APP.FIELD.fornitore' | translate }} <span class="btn btn-sm p-0 float-right" style="font-size: 0.9em;" (click)="openChoiceModal('fornitore')"><i class="icon-magnifier"></i></span></label>
+            <input type="text" name="fornitore" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.fornitore' | translate }}" formControlName="fornitore" readonly>
+          </div>
+        </div>
+        <div class="form-row align-items-start">
+          <div class="form-group col-6 mb-0">
+            <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('codiceFornitore')" for="codiceFornitore">{{ 'APP.FIELD.codiceFornitore' | translate }}</label>
+            <input type="text" name="codiceFornitore" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.codiceFornitore' | translate }}" formControlName="codiceFornitore">
+          </div>
+          <div class="form-group col-6 mb-0">
+            <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('fornitorePerArticoloId')" for="fornitorePerArticoloId">{{ 'APP.FIELD.fornitorePerArticoloId' | translate }}</label>
+            <input type="text" name="fornitorePerArticoloId" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.fornitorePerArticoloId' | translate }}" formControlName="fornitorePerArticoloId">
+          </div>
+        </div>
+        <div class="form-row align-items-start">
+          <div class="form-group col-12 mb-0">
+            <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('link')" for="link">{{ 'APP.FIELD.link' | translate }}</label>
+            <input type="text" name="link" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.link' | translate }}" formControlName="link">
+          </div>
+        </div>
+        <div class="form-row align-items-start">
+          <div class="form-group col-6 mb-0">
+            <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('listinoId')" for="listinoId">{{ 'APP.FIELD.listinoId' | translate }}</label>
+            <input type="text" name="listinoId" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.listinoId' | translate }}" formControlName="listinoId">
+          </div>
+          <div class="form-group col-6 mb-0">
+            <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('riferimentoDocumento')" for="riferimentoDocumento">{{ 'APP.FIELD.riferimentoDocumento' | translate }}</label>
+            <input type="number" name="riferimentoDocumento" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.riferimentoDocumento' | translate }}" formControlName="riferimentoDocumento">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row align-items-start mt-3 pt-2 border-top">
+      <div class="form-group col-2 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('quantita')" for="quantita">{{ 'APP.FIELD.quantita' | translate }}</label>
+        <input type="text" name="quantita" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.quantita' | translate }}" formControlName="quantita" (change)="ricalcolaValori('quantita')">
+      </div>
+      <div class="form-group col-2 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('prezzoUnitario')" for="prezzoUnitario">{{ 'APP.FIELD.prezzoUnitario' | translate }}</label>
+        <input type="text" name="prezzoUnitario" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.prezzoUnitario' | translate }}" formControlName="prezzoUnitario" (change)="ricalcolaValori('prezzoUnitario')">
+      </div>
+      <div class="form-group col-2 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('costo')" for="costo">{{ 'APP.FIELD.costo' | translate }}</label>
+        <input type="text" name="costo" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.costo' | translate }}" formControlName="costo" (change)="ricalcolaValori('costo')">
+      </div>
+      <div class="form-group col-2 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('ricaricoPercentuale')" for="ricaricoPercentuale">{{ 'APP.FIELD.ricaricoPercentuale' | translate }}</label>
+        <input type="text" name="ricaricoPercentuale" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.ricaricoPercentuale' | translate }}" formControlName="ricaricoPercentuale" (change)="ricalcolaValori('ricaricoPercentuale')">
+      </div>
+      <div class="form-group col-2 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('sconto1')" for="sconto1">{{ 'APP.FIELD.sconto1' | translate }}</label>
+        <input type="text" name="sconto1" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.sconto1' | translate }}" formControlName="sconto1" (change)="ricalcolaValori('sconto1')">
+      </div>
+      <div class="form-group col-2 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('sconto2')" for="sconto2">{{ 'APP.FIELD.sconto2' | translate }}</label>
+        <input type="text" name="sconto2" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.sconto2' | translate }}" formControlName="sconto2" (change)="ricalcolaValori('sconto2')">
+      </div>
+    </div>
+    <div class="form-row align-items-start">
+      <div class="form-group col-3 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('prezzoUnitarioScontato')" for="prezzoUnitarioScontato">{{ 'APP.FIELD.prezzoUnitarioScontato' | translate }}</label>
+        <input type="text" name="prezzoUnitarioScontato" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.prezzoUnitarioScontato' | translate }}" formControlName="prezzoUnitarioScontato" readonly>
+      </div>
+      <div class="form-group col-3 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('prezzoTotale')" for="prezzoTotale">{{ 'APP.FIELD.prezzoTotale' | translate }}</label>
+        <input type="text" name="prezzoTotale" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.prezzoTotale' | translate }}" formControlName="prezzoTotale" readonly>
+      </div>
+      <div class="form-group col-2 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('totaleIva')" for="totaleIva">{{ 'APP.FIELD.totaleIva' | translate }}</label>
+        <input type="text" name="totaleIva" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.totaleIva' | translate }}" formControlName="totaleIva" readonly>
+      </div>
+      <div class="form-group col-2 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('totaleLordo')" for="totaleLordo">{{ 'APP.FIELD.totaleLordo' | translate }}</label>
+        <input type="text" name="totaleLordo" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.totaleLordo' | translate }}" formControlName="totaleLordo" readonly>
+      </div>
+      <div class="form-group col-2 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('margine')" for="margine">{{ 'APP.FIELD.margine' | translate }}</label>
+        <input type="text" name="margine" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.margine' | translate }}" formControlName="margine" readonly>
+      </div>
+    </div>
+    <div class="form-row align-items-start">
+      <div class="form-group col-4 mb-0">
+        <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('anagIvaId')" for="anagIvaId">{{ 'APP.FIELD.anagIvaId' | translate }}</label>
+        <!-- <input type="text" name="anagIvaId" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.anagIvaId' | translate }}" formControlName="anagIvaId"> -->
+        <ng-select class="form-select-sm" style="padding: 0.45rem 0rem 0rem 0rem;"
+          name="anagIvaId"
+          [items]="anagrafiche['AnagIVA']"
+          bindValue="id"
+          bindLabel="descrizione"
+          appendTo="body"
+          [searchFn]="customSearchFn"
+          formControlName="anagIvaId"
+          (change)="onChangeIvaId($event)">
+            <ng-template ng-option-tmp let-item="item">
+              {{item.descrizione}} <br/>
+              <small>{{item.codice}} - {{item.id}}</small>
+            </ng-template>
+        </ng-select>
+      </div>
+      <div class="form-group col-4 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('descrizioneIva')" for="descrizioneIva">{{ 'APP.FIELD.descrizioneIva' | translate }}</label>
+        <input type="text" name="descrizioneIva" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.descrizioneIva' | translate }}" formControlName="descrizioneIva">
+      </div>
+      <div class="form-group col-2 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('aliquotaIva')" for="aliquotaIva">{{ 'APP.FIELD.aliquotaIva' | translate }}</label>
+        <input type="text" name="aliquotaIva" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.aliquotaIva' | translate }}" formControlName="aliquotaIva" (change)="ricalcolaValori('aliquotaIva')" readonly>
+      </div>
+      <div class="form-group col-2 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('codiceIva')" for="codiceIva">{{ 'APP.FIELD.codiceIva' | translate }}</label>
+        <input type="text" name="codiceIva" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.codiceIva' | translate }}" formControlName="codiceIva" readonly>
+      </div>
+    </div>
+    <div class="form-row align-items-start">
+      <!-- <div class="form-group col-3 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('quantitaEvasa')" for="quantitaEvasa">{{ 'APP.FIELD.quantitaEvasa' | translate }}</label>
+        <input type="number" name="quantitaEvasa" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.quantitaEvasa' | translate }}" formControlName="quantitaEvasa">
+      </div> -->
+      <!-- <div class="form-group col-3 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('quantitaScaricata')" for="quantitaScaricata">{{ 'APP.FIELD.quantitaScaricata' | translate }}</label>
+        <input type="number" name="quantitaScaricata" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.quantitaScaricata' | translate }}" formControlName="quantitaScaricata">
+      </div> -->
+      <div class="form-group col-3 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('numColli')" for="numColli">{{ 'APP.FIELD.numColli' | translate }}</label>
+        <input type="number" name="numColli" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.numColli' | translate }}" formControlName="numColli">
+      </div>
+      <div class="form-group col-3 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('anagUnitaDiMisuraId')" for="anagUnitaDiMisuraId">{{ 'APP.FIELD.anagUnitaDiMisuraId' | translate }}</label>
+        <!-- <input type="text" name="anagUnitaDiMisuraId" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.anagUnitaDiMisuraId' | translate }}" formControlName="anagUnitaDiMisuraId"> -->
+        <ng-select class="form-select-sm"
+          name="anagUnitaDiMisuraId"
+          [items]="anagrafiche['AnagUnitaDiMisura']"
+          bindValue="id"
+          bindLabel="descrizione"
+          appendTo="body"
+          [searchFn]="customSearchFn"
+          formControlName="anagUnitaDiMisuraId"
+          (change)="onChangeUDMId($event)">
+            <ng-template ng-option-tmp let-item="item">
+              {{item.descrizione}} <br/>
+              <small>{{item.codice}} - {{item.id}}</small>
+            </ng-template>
+        </ng-select>
+      </div>
+      <!-- <div class="form-group col-3 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('unitaDiMisura')" for="unitaDiMisura">{{ 'APP.FIELD.unitaDiMisura' | translate }}</label>
+        <input type="text" name="unitaDiMisura" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.unitaDiMisura' | translate }}" formControlName="unitaDiMisura">
+      </div> -->
+      <div class="form-group col-3 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('anagUDMVisualizzataId')" for="anagUDMVisualizzataId">{{ 'APP.FIELD.anagUDMVisualizzataId' | translate }}</label>
+        <input type="text" name="anagUDMVisualizzataId" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.anagUDMVisualizzataId' | translate }}" formControlName="anagUDMVisualizzataId">
+      </div>
+      <div class="form-group col-3 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('barCode')" for="barCode">{{ 'APP.FIELD.barCode' | translate }}</label>
+        <input type="text" name="barCode" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.barCode' | translate }}" formControlName="barCode" readonly>
+      </div>
+      <!-- <div class="form-group col-3 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('barCodeDocumento')" for="barCodeDocumento">{{ 'APP.FIELD.barCodeDocumento' | translate }}</label>
+        <input type="text" name="barCodeDocumento" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.barCodeDocumento' | translate }}" formControlName="barCodeDocumento">
+      </div> -->
+    </div>
+    <div class="form-row align-items-start">
+      <div class="form-group col-12 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('descrizioneRifiuto')" for="descrizioneRifiuto">{{ 'APP.FIELD.descrizioneRifiuto' | translate }}</label>
+        <input type="text" name="descrizioneRifiuto" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.descrizioneRifiuto' | translate }}" formControlName="descrizioneRifiuto">
+      </div>
+    </div>
+    <div class="form-row align-items-start mx-4 mt-3">
+      <div class="form-group- form-check col-3 mb-0">
+        <input type="checkbox" name="isEscludiDalTotale" class="form-check-input form-control-sm-" formControlName="isEscludiDalTotale">
+        <label class="form-check-label col-form-label-sm" for="isEscludiDalTotale">{{ 'APP.FIELD.isEscludiDalTotale' | translate }}</label>
+      </div>
+      <div class="form-group- form-check col-3 mb-0">
+        <input type="checkbox" name="isEscludiDalTotale" class="form-check-input form-control-sm-" formControlName="isEscludiInStampa">
+        <label class="form-check-label col-form-label-sm" for="isEscludiInStampa">{{ 'APP.FIELD.isEscludiInStampa' | translate }}</label>
+      </div>
+    </div>
+    <div class="form-row align-items-start">
+      <div class="form-group col-12 mb-0">
+        <label class="col-form-label col-form-label-sm w-100 text-truncate" [class.modified]="isModifiedProperty('note')" for="note">{{ 'APP.FIELD.note' | translate }}</label>
+        <textarea class="form-control form-control-sm" name="note" rows="4" formControlName="note" autocomplete="off"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="px-4 py-4" *ngIf="false">
+    {{ itemId }} - {{ quoteId }}
+    <div class="row">
+      <div class="col-6">
+        <h5>item</h5>
+        <pre>{{ item | json }}</pre>
+      </div>
+      <div class="col-6">
+        <h5>Form</h5>
+        <pre>{{ fGroup.value | json }}</pre>
+      </div>
+    </div>
+  </div>
+</div>

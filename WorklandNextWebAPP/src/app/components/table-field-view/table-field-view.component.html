@@ -1,0 +1,12 @@
+<div class="text-center" *ngIf="loading">
+  <div class="h1 text-muted text-center mt-2 mb-2">
+    <i class="fa fa-circle-o-notch fa-spin"></i>
+  </div>
+</div>
+<alert type="danger" dismissOnTimeout="5000" *ngIf="error">{{ errorMessage | translate }}</alert>
+
+<div class="" *ngIf="data && field && !loading">
+  <div class="attribute">
+    <div class="value">{{ data[field] || '-' }}</div>
+  </div>
+</div>

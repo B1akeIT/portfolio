@@ -1,0 +1,27 @@
+:host ::ng-deep {
+  position: relative;
+
+  tr {
+    &.no-hover {
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+
+  .field {
+    padding: .25rem .5rem;
+    font-size: .765625rem;
+    line-height: 1.7;
+    font-weight: 600;
+  }
+
+  .box-height {
+    min-height: 160px;
+
+    &.box-small {
+      min-height: 145px;
+      height: 145px;
+    }
+  }
+}

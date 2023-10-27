@@ -1,0 +1,1010 @@
+<div class="flex-layout-header">
+  <div class="bg-gray-100-" style="width: 100%;">
+    <div class="d-flex flex-row justify-content-between">
+      <div class="colo-xs-12 col-sm-4 pl-0 pr-0">
+        <div class="float-left mr-1">
+          <div class="btn-group btn-group-sm">
+            <label class="btn btn-outiline-secondary" (click)="closeEdit($event)" style="padding-top: 0.7em;"> <!-- tooltip="{{ 'APP.TOOLTIP.back_panel' | translate }}" placement="right" container="body"  -->
+              <i class="icon-arrow-left fa-lg"></i>
+            </label>
+          </div>
+        </div>
+        <div class="float-left mr-2" style="padding: 0.5em 0.40rem !important">
+          <ion-icon class="" name="document-text-outline"></ion-icon> <span class="d-sm-none d-md-inline-block">{{ 'APP.TITLE.ddt' | translate }}</span>
+        </div>
+        <div class="float-left- mr-2 text-truncate font-weight-bold" style="padding: 0.5em 0.40rem !important;" *ngIf="!loading">
+          <span class="mr-3" *ngIf="!wDdt?.id && !error">{{ 'APP.TITLE.new_ddt' | translate }}</span>
+          <span class="h5 text-truncate" *ngIf="wDdt?.id || error" title="{{ wDdt?.id || ddtId }}">
+            {{ wDdt?.numero }}
+          </span>
+          <span class="small text-muted ml-3" *ngIf="wDdt?.id">
+            <!-- {{ wDdt?.nome + ' ' + wDdt?.cognome }} -->
+            <span>{{ wDdt?.dataCreazione | date:'dd/MM/yyyy'}}</span>&nbsp;-&nbsp;
+            <span class="bagde badge-pill badge-cyan text-uppercase">{{wDdt?.statoDocumentoDescrizione }}</span>&nbsp;-&nbsp;
+            <span>{{wDdt?.nominativoIntestatario }}</span>&nbsp;-&nbsp;
+            <span>{{wDdt?.nominativoFatturazione }}</span>&nbsp;-&nbsp;
+            <span>{{wDdt?.nominativoDestinazione }}</span>
+          </span>
+        </div>
+      </div>
+      <div class="col-4 pl-0 pr-0 d-sm-none d-md-inline-block">
+        <div class="text-center" style="padding: 0.15em 0.40rem !important;">
+        </div>
+        <!-- <div class="buttons-bar float-right">
+          <div class="btn-toolbar" role="toolbar" style="padding: 0.20em 0.25rem !important">
+            <div class="btn-group btn-group-sm">
+              <span class="muted mr-2" style="margin-top: 0.3em;">1 di 400</span>
+              <label class="btn btn-outline-info- mr-2" (click)="nextElement($event)" tooltip="{{ 'APP.TOOLTIP.next' | translate }}" placement="bottom" container="body">
+                <i class="icon-arrow-left fa-1x"></i>
+              </label>
+              <label class="btn btn-outline-info-" (click)="prevElement($event)" tooltip="{{ 'APP.TOOLTIP.prev' | translate }}" placement="bottom" container="body">
+                <i class="icon-arrow-right fa-1x"></i>
+              </label>
+            </div>
+          </div>
+        </div> -->
+      </div>
+      <div class="col-4 pl-0 pr-0 d-sm-none d-md-inline-block">
+        <!-- <div class="btn-toolbar float-right" role="toolbar" style="padding: 0.5em 0.40rem !important">
+          <div class="btn-group btn-group-sm">
+            <span class="muted mr-2" style="margin-top: 0.3em;">1 di 400</span>
+            <label class="btn btn-outline-info- mr-2" (click)="nextElement($event)" tooltip="{{ 'APP.TOOLTIP.next' | translate }}" placement="bottom" container="body">
+              <i class="icon-arrow-left fa-1x"></i>
+            </label>
+            <label class="btn btn-outline-info-" (click)="prevElement($event)" tooltip="{{ 'APP.TOOLTIP.prev' | translate }}" placement="bottom" container="body">
+              <i class="icon-arrow-right fa-1x"></i>
+            </label>
+          </div>
+        </div> -->
+        <!-- <div class="buttons-bar float-right">
+          <div class="btn-toolbar" role="toolbar" style="padding: 0.20em 0.25rem !important">
+            <div class="btn-group btn-group-sm">
+              <label class="btn btn-outline-secondary-" (click)="closeEdit()" tooltip="{{ 'APP.TOOLTIP.close_panel' | translate }}" placement="left" container="body" style="padding-top: 0.5em;">
+                <i class="cui-x fa-lg"></i>
+              </label>
+            </div>
+          </div>
+        </div> -->
+        <!-- <div class="buttons-bar float-right">
+          <div class="btn-toolbar" role="toolbar" style="padding: 0.20em 0.25rem !important">
+            <div class="btn-group btn-group-sm">
+              <label class="btn btn-outline-info-" (click)="toggleSidebar($event)" [class.text-info]="sidebarOpened" tooltip="{{ 'APP.TOOLTIP.show_hide_help' | translate }}" placement="left" container="body">
+                <i class="icon-question fa-lg"></i>
+              </label>
+            </div>
+          </div>
+        </div> -->
+        <div class="buttons-bar float-right" *ngIf="wDdt?.id">
+          <div class="btn-toolbar" role="toolbar" style="padding: 0.25em 0.25rem !important">
+            <div class="btn-group btn-group-sm mx-1">
+              <button class="btn btn-outline-secondary"
+                tooltip="{{ 'APP.TOOLTIP.delete' | translate }}"
+                container="body"
+                mwlConfirmationPopover
+                [popoverTitle]="'APP.TITLE.delete' | translate"
+                [popoverMessage]="'APP.MESSAGE.are_you_sure_s' | translate"
+                [cancelText]="'APP.BUTTON.cancel' | translate"
+                [cancelButtonType]="'outline-secondary btn-sm'"
+                [confirmText]="'APP.BUTTON.confirm' | translate"
+                [confirmButtonType]="'danger btn-sm'"
+                [appendToBody]="true"
+                placement="left"
+                (confirm)="onDelete(true)">
+                <i class="icon-trash"></i></button>
+            </div>
+            <div class="btn-group btn-group-sm mr-1">
+              <button class="btn btn-outline-secondary" (click)="onCopy()" tooltip="{{ 'APP.TOOLTIP.copy' | translate }}" placement="bottom" container="body">
+                <i class="cui-copy"></i></button>
+            </div>
+            <div class="btn-group btn-group-sm">
+              <label class="btn btn-outline-secondary" (click)="toggleSidebar($event)" tooltip="{{ 'APP.TOOLTIP.print' | translate }}" placement="left" container="body">
+                <i class="cui-print fa-lg"></i> {{ 'APP.BUTTON.print' | translate }}
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="float-right mr-2" style="padding: 0.5em 0.40rem !important;" *ngIf="!loading">
+          <span class="badge badge-warning rounded-pill" style="font-size: 0.9em;" *ngIf="!wDdt?.id">{{ 'APP.MESSAGE.not_saved' | translate }}</span>
+          <span class="badge badge-warning rounded-pill" style="font-size: 0.9em;" *ngIf="wDdt?.id && modified">{{ 'APP.MESSAGE.modified' | translate }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="flex-layout-body" style="overflow: auto;height: calc( 100% - 40px - 40px );">
+  <div class="flex-layout-content" appFit>
+    <ngx-loading
+      [show]="loading"
+      [config]="loadingOptions">
+    </ngx-loading>
+    <div class="bg-gray-100-" [ngStyle]="{ 'border-bottom': '1px solid #cfd8dc', 'height': offsetLayout }" *ngIf="!loading && wDdt">
+      <div class="d-flex flex-row justify-content-center px-3" *ngIf="!loading">
+        <mat-tab-group mat-align-tabs="left" class="col-12 px-0" (selectedTabChange)="onSelectMatTabChange($event)">
+          <ng-container *ngFor="let panel of panels;let idx = index;">
+            <ng-template [appHasPermission]="panel.permission" [action]="'view'" [owner]="false">
+              <mat-tab label="{{ panel.title | translate }}" [disabled]="isTabDisabled(panel)"></mat-tab>
+            </ng-template>
+          </ng-container>
+        </mat-tab-group>
+      </div>
+    </div>
+    <div class="layout-content ddt-container" *ngIf="error">
+      <div class="text-center py-3">
+        <div class="h1 text-muted text-center mt-5 mb-1">
+          <h5>{{ errorMessage }}</h5>
+        </div>
+      </div>
+    </div>
+    <div class="layout-content ddt-container custom-scroll" [ngStyle]="{ 'width': 'calc( 100% )', 'height': 'calc( 100% - ' + offsetLayout + ')' }" *ngIf="!error">
+      <div class="tab-content- mx-0" style="width: calc( 100% );" *ngIf="!loading && wDdt">
+        <div class="container-fluid tab-pane fadeIn px-2 px-sm-3" id="general_info">
+          <form #ddtForm="ngForm" class="form-horizontal" (change)="onFormChanges($event)" autocomplete="off">
+            <fieldset [disabled]="isReadOnly()">
+              <div class="form-row align-items-start" style="min-height: 555px;">
+                <div class="form-group col-12 mb-0">
+                  <!-- <mat-tab-group mat-align-tabs="left" class="px-0"> -->
+                    <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3 mb-3" id="header" [hidden]="!isTabActive('header')">
+                    <!-- <mat-tab label="{{ 'APP.TAB.body' | translate }}"> -->
+                      <div class="form-row align-items-start mb-1">
+                        <div class="form-group col-6 mb-0">
+                          <div class="card card-client-info mx-auto pt-0 mb-2">
+                            <div class="card-body px-2 pt-0 pb-1">
+                              <div class="d-flex flex-row justify-content-center px-0">
+                                <mat-tab-group mat-align-tabs="left" class="col-12 px-0 tab-custom-content">
+                                  <mat-tab label="{{ 'Intestatario' | translate }}">
+                                    <div class="block-intestatario">
+                                      <div class="form-row align-items-center">
+                                        <div class="form-group col-2 mb-0">
+                                          <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('contattoIntestatarioId')" for="contattoIntestatarioId">{{ 'APP.FIELD.contattoIntestatarioId' | translate }}</label>
+                                          <input type="text" name="contattoIntestatarioId" class="form-control form-control-sm mb-1-" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="wDdt.contattoIntestatarioId" readonly>
+                                        </div>
+                                        <div class="form-group input-group input-group-sm col-10 mb-0">
+                                          <label class="col-form-label col-form-label-sm w-100" [class.modified-]="isModifiedProperty('nominativoIntestatario')" for="nominativoIntestatario">{{ 'APP.FIELD.empty' | translate }}&nbsp; <span class="btn btn-sm p-0 float-right" style="font-size: 0.9em;" (click)="openChoiceModal('intestatario')" *ngIf="!isReadOnly()"><i class="icon-magnifier"></i></span></label>
+                                          <input type="text" name="nominativoIntestatario" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="wDdt.nominativoIntestatario" readonly>
+                                          <div class="input-group-append cursor-pointer" (click)="showContact(wDdt.contattoIntestatarioId, wDdt.nominativoIntestatario)" *ngIf="wDdt.contattoIntestatarioId"><span class="input-group-text"><i class="icon-eye"></i></span></div>
+                                        </div>
+                                      </div>
+                                      <div class="form-row align-items-center" *ngIf="wDdt.unitaId">
+                                        <div class="form-group col-2 mb-0">
+                                          <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('clienteProprietarioId')" for="contattoIntestatarioId">{{ 'APP.FIELD.clienteProprietarioId' | translate }}</label>
+                                          <input type="text" name="clienteProprietarioId" class="form-control form-control-sm mb-1-" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="wDdt.clienteProprietarioId" readonly>
+                                        </div>
+                                        <div class="form-group input-group input-group-sm col-10 mb-0">
+                                          <label class="col-form-label col-form-label-sm w-100" [class.modified-]="isModifiedProperty('nominativoProprietario')" for="nominativoProprietario">{{ 'APP.FIELD.empty' | translate }}&nbsp;</label>
+                                          <input type="text" name="nominativoProprietario" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="wDdt.nominativoProprietario" readonly>
+                                          <div class="input-group-append cursor-pointer" (click)="showContact(wDdt.clienteProprietarioId, wDdt.nominativoProprietario)" *ngIf="wDdt.nominativoProprietario"><span class="input-group-text"><i class="icon-eye"></i></span></div>
+                                        </div>
+                                      </div>
+                                      <div class="form-row align-items-center">
+                                        <div class="form-group col-12 mb-0">
+                                          <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('indirizzoIntestatario')" for="indirizzoIntestatario">{{ 'APP.FIELD.indirizzo' | translate }}</label>
+                                          <input type="text" name="indirizzoIntestatario" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.indirizzo' | translate }}" [(ngModel)]="wDdt.indirizzoIntestatario" readonly>
+                                        </div>
+                                      </div>
+                                      <div class="form-row align-items-center">
+                                        <div class="form-group col-2 mb-0">
+                                          <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('capIntestatario')" for="capIntestatario">{{ 'APP.FIELD.cap' | translate }}</label>
+                                          <input type="text" name="capIntestatario" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.cap' | translate }}" [(ngModel)]="wDdt.capIntestatario" readonly>
+                                        </div>
+                                        <div class="form-group col-5 mb-0">
+                                          <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('comuneIntestatario')" for="comuneIntestatario">{{ 'APP.FIELD.comune' | translate }}</label>
+                                          <input type="text" name="comuneIntestatario" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.comune' | translate }}" [(ngModel)]="wDdt.comuneIntestatario" readonly>
+                                        </div>
+                                        <div class="form-group col-2 mb-0">
+                                          <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('provinciaIntestatario')" for="provinciaIntestatario">{{ 'APP.FIELD.provincia' | translate }}</label>
+                                          <input type="text" name="provinciaIntestatario" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.provincia' | translate }}" [(ngModel)]="wDdt.provinciaIntestatario" readonly>
+                                        </div>
+                                        <div class="form-group col-3 mb-0">
+                                          <label class="col-form-label col-form-label-sm w-100" [class.modified]="isModifiedProperty('nazioneIntestatario')" for="nazioneIntestatario" title="{{ wDdt.nazioneIntestatario }}">{{ 'APP.FIELD.nazione' | translate }}</label>
+                                          <input type="text" name="nazioneIntestatario" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.nazione' | translate }}" [(ngModel)]="wDdt.nazioneIntestatario" readonly>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="form-row mt-3">
+                                      <div class="form-group form-check col-8 mb-0">
+                                        <label class="form-check-label col-form-label-sm" for="isStessoFatturazione">{{ 'APP.FIELD.isStessoFatturazione' | translate }}</label>
+                                        <!-- <input type="checkbox" name="isStessoFatturazione" class="form-control form-check-input form-control-sm-" [(ngModel)]="wDdt.isStessoFatturazione"> --><br>
+                                        <label class="switch switch-sm switch-3d switch-primary">
+                                          <input type="checkbox" name="isStessoFatturazione" [checked]="wDdt.isStessoFatturazione" class="switch-input" [(ngModel)]="wDdt.isStessoFatturazione">
+                                          <span class="switch-slider"></span>
+                                        </label>
+                                      </div>
+                                      <div class="form-group col-4 mb-0">
+                                      </div>
+                                    </div>
+                                    <div class="card card-client-info mx-auto mb-0 mt-2">
+                                      <div class="card-body px-2 py-2">
+                                        <app-emails-list
+                                          [contactId]="wDdt.contattoIntestatarioId"
+                                          [small]="true"
+                                          [onlyRead]="isReadOnly()">
+                                        </app-emails-list>
+                                      </div>
+                                    </div>
+                                  </mat-tab>
+                                  <mat-tab label="{{ 'Fatturazione' | translate }}" [disabled]="wDdt.isStessoFatturazione">
+                                    <div class="block-fatturazione">
+                                      <div class="form-row align-items-center">
+                                        <div class="form-group col-2 mb-0">
+                                          <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('clienteFatturazioneId')" for="clienteFatturazioneId">{{ 'APP.FIELD.clienteFatturazioneId' | translate }}</label>
+                                          <input type="text" name="clienteFatturazioneId" class="form-control form-control-sm mb-1" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="wDdt.clienteFatturazioneId" readonly>
+                                        </div>
+                                        <div class="form-group input-group input-group-sm col-10 mb-0">
+                                          <label class="col-form-label col-form-label-sm w-100" [class.modified-]="isModifiedProperty('nominativoFatturazione')" for="nominativoFatturazione">{{ 'APP.FIELD.empty' | translate }}&nbsp; <span class="btn btn-sm p-0 float-right" style="font-size: 0.9em;" (click)="openChoiceModal('fatturazione')" *ngIf="!isReadOnly()"><i class="icon-magnifier"></i></span></label>
+                                          <input type="text" name="nominativoFatturazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="wDdt.nominativoFatturazione" readonly>
+                                          <div class="input-group-append cursor-pointer" (click)="showContact(wDdt.clienteFatturazioneId, wDdt.nominativoFatturazione)" *ngIf="wDdt.clienteFatturazioneId"><span class="input-group-text"><i class="icon-eye"></i></span></div>
+                                        </div>
+                                      </div>
+                                      <div class="form-row align-items-center">
+                                        <div class="form-group col-12 mb-0">
+                                          <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('indirizzoFatturazione')" for="indirizzoFatturazione">{{ 'APP.FIELD.indirizzo' | translate }}</label>
+                                          <input type="text" name="indirizzoFatturazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.indirizzo' | translate }}" [(ngModel)]="wDdt.indirizzoFatturazione" readonly>
+                                        </div>
+                                      </div>
+                                      <div class="form-row align-items-center">
+                                        <div class="form-group col-2 mb-0">
+                                          <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('capFatturazione')" for="capFatturazione">{{ 'APP.FIELD.cap' | translate }}</label>
+                                          <input type="text" name="capFatturazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.cap' | translate }}" [(ngModel)]="wDdt.capFatturazione" readonly>
+                                        </div>
+                                        <div class="form-group col-5 mb-0">
+                                          <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('comuneFatturazione')" for="comuneFatturazione">{{ 'APP.FIELD.comune' | translate }}</label>
+                                          <input type="text" name="comuneFatturazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.comune' | translate }}" [(ngModel)]="wDdt.comuneFatturazione" readonly>
+                                        </div>
+                                        <div class="form-group col-2 mb-0">
+                                          <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('provinciaFatturazione')" for="provinciaFatturazione">{{ 'APP.FIELD.provincia' | translate }}</label>
+                                          <input type="text" name="provinciaFatturazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.provincia' | translate }}" [(ngModel)]="wDdt.provinciaFatturazione" readonly>
+                                        </div>
+                                        <div class="form-group col-3 mb-0">
+                                          <label class="col-form-label col-form-label-sm w-100" [class.modified]="isModifiedProperty('nazioneFatturazione')" for="nazioneFatturazione" title="{{ wDdt.nazioneFatturazione }}">{{ 'APP.FIELD.nazione' | translate }}</label>
+                                          <input type="text" name="nazioneFatturazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.nazione' | translate }}" [(ngModel)]="wDdt.nazioneFatturazione" readonly>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="card card-client-info mx-auto mb-0 mt-4">
+                                      <div class="card-body px-2 py-2">
+                                        <app-emails-list [contactId]="wDdt.clienteFatturazioneId" [small]="true"></app-emails-list>
+                                      </div>
+                                    </div>
+                                  </mat-tab>
+                                  <mat-tab label="{{ 'Destinazione' | translate }}">
+                                    <div class="block-destinazione">
+                                      <div class="form-row align-items-center">
+                                        <div class="form-group col-2 mb-0">
+                                          <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('contattoDestinazioneId')" for="contattoDestinazioneId">{{ 'APP.FIELD.contattoDestinazioneId' | translate }}</label>
+                                          <input type="text" name="contattoDestinazioneId" class="form-control form-control-sm mb-1" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="wDdt.contattoDestinazioneId" readonly>
+                                        </div>
+                                        <div class="form-group input-group input-group-sm col-10 mb-0">
+                                          <label class="col-form-label col-form-label-sm w-100" [class.modified-]="isModifiedProperty('nominativoDestinazione')" for="nominativoDestinazione">{{ 'APP.FIELD.empty' | translate }}&nbsp; <span class="btn btn-sm p-0 float-right" style="font-size: 0.9em;" (click)="openChoiceModal('destinazione')" *ngIf="!isReadOnly()"><i class="icon-magnifier"></i></span></label>
+                                          <input type="text" name="nominativoDestinazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="wDdt.nominativoDestinazione">
+                                          <div class="input-group-append cursor-pointer" (click)="showContact(wDdt.contattoDestinazioneId, wDdt.nominativoDestinazione)" *ngIf="wDdt.contattoDestinazioneId"><span class="input-group-text"><i class="icon-eye"></i></span></div>
+                                        </div>
+                                      </div>
+                                      <div class="form-row align-items-center">
+                                        <div class="form-group col-12 mb-0">
+                                          <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('indirizzoDestinazione')" for="indirizzoDestinazione">{{ 'APP.FIELD.indirizzo' | translate }}</label>
+                                          <input type="text" name="indirizzoDestinazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.indirizzo' | translate }}" [(ngModel)]="wDdt.indirizzoDestinazione">
+                                        </div>
+                                      </div>
+                                      <div class="form-row align-items-center">
+                                        <div class="form-group col-2 mb-0">
+                                          <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('capDestinazione')" for="capDestinazione">{{ 'APP.FIELD.cap' | translate }}</label>
+                                          <input type="text" name="capDestinazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.cap' | translate }}" [(ngModel)]="wDdt.capDestinazione">
+                                        </div>
+                                        <div class="form-group col-5 mb-0">
+                                          <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('comuneDestinazione')" for="comuneDestinazione">{{ 'APP.FIELD.comune' | translate }}</label>
+                                          <input type="text" name="comuneDestinazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.comune' | translate }}" [(ngModel)]="wDdt.comuneDestinazione">
+                                        </div>
+                                        <div class="form-group col-2 mb-0">
+                                          <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('provinciaDestinazione')" for="provinciaDestinazione">{{ 'APP.FIELD.provincia' | translate }}</label>
+                                          <input type="text" name="provinciaDestinazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.provincia' | translate }}" [(ngModel)]="wDdt.provinciaDestinazione">
+                                        </div>
+                                        <div class="form-group col-3 mb-0">
+                                          <label class="col-form-label col-form-label-sm w-100" [class.modified]="isModifiedProperty('nazioneDestinazione')" for="nazioneDestinazione" title="{{ wDdt.nazioneDestinazione }}">{{ 'APP.FIELD.nazione' | translate }} <span class="btn btn-sm p-0 float-right" (click)="tableMS.openTableModal('Nazione')"><i class="cui-pencil"></i></span></label>
+                                          <ng-select class="form-select-sm"
+                                            name="nazioneDestinazione"
+                                            [items]="anagrafiche['AnagNazione']"
+                                            bindValue="id"
+                                            bindLabel="descrizione"
+                                            appendTo="body"
+                                            [loading]="nationLoading"
+                                            [searchFn]="customSearchFn"
+                                            [(ngModel)]="wDdt.nazioneDestinazione"
+                                            (change)="onChangeNazione($event)">
+                                              <ng-template ng-option-tmp let-item="item">
+                                                {{item.descrizione}} <br/>
+                                                <small>{{item.codice}} - {{item.id}}</small>
+                                              </ng-template>
+                                          </ng-select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="card card-client-info mx-auto mb-0 mt-4">
+                                      <div class="card-body px-2 py-2">
+                                        <app-emails-list [contactId]="wDdt.contattoDestinazioneId" [small]="true"></app-emails-list>
+                                      </div>
+                                    </div>
+                                  </mat-tab>
+                                </mat-tab-group>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group col-6 mb-0">
+                          <div class="card card-general-info mx-auto mb-2">
+                            <div class="card-body px-2 pt-1">
+                              <div class="form-row align-items-center">
+                                <div class="form-group col-4 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('numero')" for="numero">{{ 'APP.FIELD.numero' | translate }}</label>
+                                  <input type="text" name="numero" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.numero' | translate }}" [(ngModel)]="wDdt.numero" [readonly]="wDdt.id">
+                                </div>
+                                <div class="form-group col-4 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('tipoDocumentoId')" for="tipoDocumentoId">{{ 'APP.FIELD.tipoDocumento' | translate }}</label>
+                                  <select name="tipoDocumentoId" class="form-control form-control-sm" [(ngModel)]="wDdt.tipoDocumentoId" disabled>
+                                    <option [value]="tipoDoc.id" *ngFor="let tipoDoc of anagraficheCombo['SpComboTipoDocumento'];">{{ tipoDoc.descrizione }}</option>
+                                  </select>
+                                </div>
+                                <div class="form-group col-4 mb-0">
+                                  <label class="col-form-label col-form-label-sm w-100" [class.modified]="isModifiedProperty('sezionaleId')" for="sezionaleId">{{ 'APP.FIELD.sezionaleId' | translate }}<!-- <span class="btn btn-sm p-0 float-right" style="font-size: 0.9em;" (click)="openChoiceModal('sezionale')" *ngIf="!isReadOnly()"><i class="icon-magnifier"></i></span> --></label>
+                                  <select name="sezionaleId" class="form-control form-control-sm" [(ngModel)]="wDdt.sezionaleId">
+                                    <option [value]="sezionale.id" *ngFor="let sezionale of anagraficheCombo['SpComboSezionale'];">{{ sezionale.descrizione }}</option>
+                                  </select>
+                                  <!-- <input type="text" name="sezionaleDescrizione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="wDdt.sezionaleDescrizione" readonly> -->
+                                </div>
+                              </div>
+                              <div class="form-row align-items-center">
+                                <div class="form-group col-4 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('dataCreazione')" for="dataCreazione">{{ 'APP.FIELD.dataCreazione' | translate }}</label>
+                                  <input type="date" name="dataCreazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.dataCreazione' | translate }}" [(ngModel)]="wDdt.dataCreazione">
+                                </div>
+                                <div class="form-group col-4 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('anagTipoClienteId')" for="anagTipoClienteId">{{ 'APP.FIELD.tipoCliente' | translate }}</label>
+                                  <select name="anagTipoClienteId" class="form-control form-control-sm" [(ngModel)]="wDdt.anagTipoClienteId">
+                                    <option [value]="tipoCli.id" *ngFor="let tipoCli of anagraficheCombo['SpComboTipoCliente'];">{{ tipoCli.descrizione }}</option>
+                                  </select>
+                                </div>
+                                <div class="form-group col-4 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('riferimentoCliente')" for="riferimentoCliente">{{ 'APP.FIELD.riferimentoCliente' | translate }}</label>
+                                  <input type="text" name="riferimentoCliente" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.riferimentoCliente' | translate }}" [(ngModel)]="wDdt.riferimentoCliente">
+                                </div>
+                              </div>
+                              <div class="form-row align-items-center">
+                                <div class="form-group col-4 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('riferimentoCommerciale')" for="riferimentoCommerciale">{{ 'APP.FIELD.riferimentoCommerciale' | translate }}</label>
+                                  <input type="text" name="riferimentoCommerciale" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.riferimentoCommerciale' | translate }}" [(ngModel)]="wDdt.riferimentoCommerciale" readonly>
+                                </div>
+                                <div class="form-group col-4 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('listinoId')" for="listinoId">{{ 'APP.FIELD.listinoId' | translate }}</label>
+                                  <select name="listinoId" class="form-control form-control-sm" [(ngModel)]="wDdt.listinoId">
+                                    <option value="0">&nbsp;</option>
+                                    <option [value]="listino.id" *ngFor="let listino of anagraficheCombo['SpComboListino'];">{{ listino.descrizione }}</option>
+                                  </select>
+                                </div>
+                                <div class="form-group col-4 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('anagValutaId')" for="anagValutaId">{{ 'APP.FIELD.anagValutaId' | translate }}</label>
+                                  <select name="anagValutaId" class="form-control form-control-sm" [(ngModel)]="wDdt.anagValutaId">
+                                    <option value="0">&nbsp;</option>
+                                    <option [value]="currencie.id" *ngFor="let currencie of anagraficheCombo['SpComboValuta'];">{{ currencie.descrizione }}</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="form-row align-items-center">
+                                <div class="form-group col-4 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('anagTipoPagamentoId')" for="anagTipoPagamentoId">{{ 'APP.FIELD.anagTipoPagamentoId' | translate }}</label>
+                                  <ng-select class="form-select-sm"
+                                    name="anagTipoPagamentoId"
+                                    [items]="anagraficheCombo['SpComboTipoPagamento']"
+                                    bindValue="id"
+                                    bindLabel="descrizione"
+                                    appendTo="body"
+                                    [loading]="otherLoading"
+                                    [searchFn]="customSearchFn"
+                                    [(ngModel)]="wDdt.anagTipoPagamentoId"
+                                    (change)="onFormChanges($event)">
+                                  </ng-select>
+                                </div>
+                                <div class="form-group col-4 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('bancaAziendaId')" [title]="wDdt.bancaAziendaDescrizione" for="bancaAziendaId">{{ 'APP.FIELD.bancaAziendaId' | translate }}</label>
+                                  <select name="bancaAziendaId" class="form-control form-control-sm" [(ngModel)]="wDdt.bancaAziendaId">
+                                    <option value=""></option>
+                                    <option [value]="banca.id" *ngFor="let banca of anagraficheCombo['SpComboBancaAzienda'];">{{ banca.descrizione }}</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="form-row align-items-center">
+                                <div class="form-group col-4 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('categoriaDocumentoId')" for="categoriaDocumentoId">{{ 'APP.FIELD.categoriaDocumentoId' | translate }}</label>
+                                  <select name="categoriaDocumentoId" class="form-control form-control-sm" [(ngModel)]="wDdt.categoriaDocumentoId">
+                                    <option value="0">&nbsp;</option>
+                                    <option [value]="categoria.id" *ngFor="let categoria of anagraficheCombo['SpComboCategoriaDocumento'];">{{ categoria.descrizione }}</option>
+                                  </select>
+                                </div>
+                                <div class="form-group col-4 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('anagDepartmentId')" for="anagDepartmentId">{{ 'APP.FIELD.anagDepartmentId' | translate }}</label>
+                                  <select name="anagDepartmentId" class="form-control form-control-sm" [(ngModel)]="wDdt.anagDepartmentId">
+                                    <option value="0">&nbsp;</option>
+                                    <option [value]="department.id" *ngFor="let department of anagraficheCombo['SpComboDepartment'];">{{ department.descrizione }}</option>
+                                  </select>
+                                </div>
+                                <div class="form-group col-4 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('magazzinoId')" for="magazzinoId">{{ 'APP.FIELD.magazzino' | translate }}</label>
+                                  <select name="magazzinoId" class="form-control form-control-sm" [(ngModel)]="wDdt.magazzinoId">
+                                    <option value="0">&nbsp;</option>
+                                    <option [value]="magazzino.id" *ngFor="let magazzino of anagraficheCombo['SpComboMagazzino'];">{{ magazzino.descrizione }}</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="form-row align-items-center mt-2">
+                                <div class="form-group col-12 mb-0">
+                                  <fieldset class="fieldset-border">
+                                    <legend class="small">{{ 'Dati Fiscali' | translate }}</legend>
+                                    <div class="form-row align-items-center" *ngIf="true">
+                                      <div class="form-group col-6 mb-0">
+                                        <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('codiceFiscale')" for="stato">{{ 'APP.FIELD.codiceFiscale' | translate }}</label>
+                                        <input type="text" name="codiceFiscale" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.codiceFiscale' | translate }}" [(ngModel)]="wDdt.codiceFiscale" readonly>
+                                      </div>
+                                      <div class="form-group col-6 mb-0">
+                                        <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('pIVA')" for="stato">{{ 'APP.FIELD.piva' | translate }}</label>
+                                        <input type="text" name="piva" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.piva' | translate }}" [(ngModel)]="wDdt.pIVA" readonly>
+                                      </div>
+                                    </div>
+                                    <div class="form-row align-items-center">
+                                      <div class="form-group col-3 mb-0">
+                                        <label class="col-form-label col-form-label-sm" for="isEsenteIva">{{ 'APP.PLACEHOLDER.isEsenteIva' | translate }}</label>
+                                        <input type="checkbox" name="isEsenteIva" class="d-block form-control-sm" [(ngModel)]="wDdt.isEsenteIva">
+                                      </div>
+                                      <div class="form-group col-9 mb-0">
+                                        <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('anagIvaId')" for="stato">{{ 'APP.FIELD.iva' | translate }}</label>
+                                        <ng-select class="form-select-sm" [disabled]="!wDdt.isEsenteIva || isReadOnly()"
+                                          name="anagIvaId"
+                                          [items]="anagraficheCombo['SpComboIva']"
+                                          bindValue="id"
+                                          bindLabel="descrizione"
+                                          appendTo="body"
+                                          [searchFn]="customSearchFn"
+                                          [(ngModel)]="wDdt.anagIvaId"
+                                          (change)="onFormChanges($event)">
+                                            <ng-template ng-option-tmp let-item="item">
+                                              {{item.descrizione}} <br/>
+                                              <small>{{item.codice}} - {{item.id}}</small>
+                                            </ng-template>
+                                        </ng-select>
+                                      </div>
+                                    </div>
+                                  </fieldset>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <fieldset class="fieldset-border fieldset-textarea">
+                        <legend class="small">{{ 'Note interne' | translate }}</legend>
+                        <div class="form-row align-items-center">
+                          <div class="form-group col-12 mb-0">
+                            <textarea class="form-control form-control-sm" name="noteInterne" rows="6" [(ngModel)]="wDdt.noteInterne" autocomplete="off"></textarea>
+                          </div>
+                        </div>
+                      </fieldset>
+                      <!-- </mat-tab> -->
+                    </div>
+                    <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="body" [hidden]="!isTabActive('body')">
+                    <!-- <mat-tab label="{{ 'APP.TAB.body' | translate }}"> -->
+                      <div class="card card-client-info mx-auto">
+                        <div class="card-body px-0 py-0" *ngIf="wDdt?.id" >
+                          <app-ddt-body
+                            [ddtId]="wDdt.id"
+                            [sortable]="true"
+                            [filter]="false"
+                            [editable]="!isReadOnly()"
+                            [testataModified]="modified"
+                            [options]="{ height: '450px' }"
+                            (save)="onDdtBodySave($event)">
+                          </app-ddt-body>
+                        </div>
+                      </div>
+                    <!-- </mat-tab> -->
+                    </div>
+                    <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="footer" [hidden]="!isTabActive('footer')">
+                      <div class="card card-client-info mx-auto">
+                        <div class="card-body pt-2 pb-4 py-2">
+                          <div class="px-0">
+                            <div class="form-row align-items-center">
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('scontoValore')" for="scontoValore">{{ 'APP.FIELD.scontoValore' | translate }}</label>
+                                <input type="text" name="scontoValore" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.scontoValore' | translate }}" [(ngModel)]="wDdt.scontoValore">
+                              </div>
+                              <div class="form-group col-1 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('scontoPercentuale')" for="scontoPercentuale">{{ 'APP.FIELD.scontoPercentuale' | translate }}</label>
+                                <input type="text" name="scontoPercentuale" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.scontoPercentuale' | translate }}" [(ngModel)]="wDdt.scontoPercentuale">
+                              </div>
+                            </div>
+                            <div class="form-row align-items-center">
+                              <fieldset class="fieldset-border fieldset-textarea col-8 mr-1">
+                                <legend class="small">{{ 'Trasporto' | translate }}</legend>
+                                <div class="row">
+                                  <div class="form-group col-2 mb-0">
+                                    <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('costoTrasportoValoreAzienda')" for="costoTrasportoValoreAzienda">{{ 'APP.FIELD.costoTrasportoValoreAzienda' | translate }}</label>
+                                    <input type="text" name="costoTrasportoValoreAzienda" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.costoTrasportoValoreAzienda' | translate }}" [(ngModel)]="wDdt.costoTrasportoValoreAzienda">
+                                  </div>
+                                  <div class="form-group col-2 mb-0">
+                                    <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('costoTrasportoPercentualeRicarico')" for="costoTrasportoPercentualeRicarico">{{ 'APP.FIELD.costoTrasportoPercentualeRicarico' | translate }}</label>
+                                    <input type="text" name="costoTrasportoPercentualeRicarico" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.costoTrasportoPercentualeRicarico' | translate }}" [(ngModel)]="wDdt.costoTrasportoPercentualeRicarico">
+                                  </div>
+                                  <div class="form-group col-2 mb-0">
+                                    <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('costoTrasportoValore')" for="costoTrasportoValore">{{ 'APP.FIELD.costoTrasportoValore' | translate }}</label>
+                                    <input type="text" name="costoTrasportoValore" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.costoTrasportoValore' | translate }}" [(ngModel)]="wDdt.costoTrasportoValore">
+                                  </div>
+                                  <div class="form-group col-2 mb-0">
+                                    <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('costoTrasportoPercentuale')" for="costoTrasportoPercentuale">{{ 'APP.FIELD.costoTrasportoPercentuale' | translate }}</label>
+                                    <input type="text" name="costoTrasportoPercentuale" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.costoTrasportoPercentuale' | translate }}" [(ngModel)]="wDdt.costoTrasportoPercentuale">
+                                  </div>
+                                  <div class="form-group col-4 mb-0">
+                                    <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('trasportoTotale')" for="trasportoTotale">{{ 'APP.FIELD.trasportoTotale' | translate }}</label>
+                                    <input type="text" name="trasportoTotale" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.trasportoTotale' | translate }}" [(ngModel)]="wDdt.trasportoTotale" readonly>
+                                  </div>
+                                </div>
+                              </fieldset>
+                            </div>
+                            <div class="form-row align-items-center">
+                              <fieldset class="fieldset-border fieldset-textarea col-4 mr-1">
+                                <legend class="small">{{ 'Imballo' | translate }}</legend>
+                                <div class="row">
+                                  <div class="form-group col-4 mb-0">
+                                    <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('costoImballoValore')" for="costoImballoValore">{{ 'APP.FIELD.costoImballoValore' | translate }}</label>
+                                    <input type="text" name="costoImballoValore" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.costoImballoValore' | translate }}" [(ngModel)]="wDdt.costoImballoValore">
+                                  </div>
+                                  <div class="form-group col-4 mb-0">
+                                    <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('costoImballoPercentuale')" for="costoImballoPercentuale">{{ 'APP.FIELD.costoImballoPercentuale' | translate }}</label>
+                                    <input type="text" name="costoImballoPercentuale" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.costoImballoPercentuale' | translate }}" [(ngModel)]="wDdt.costoImballoPercentuale">
+                                  </div>
+                                  <div class="form-group col-4 mb-0">
+                                    <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('imballoTotale')" for="imballoTotale">{{ 'APP.FIELD.imballoTotale' | translate }}</label>
+                                    <input type="text" name="imballoTotale" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.imballoTotale' | translate }}" [(ngModel)]="wDdt.imballoTotale" readonly>
+                                  </div>
+                                </div>
+                              </fieldset>
+                              <fieldset class="fieldset-border fieldset-textarea col-4">
+                                <legend class="small">{{ 'Spese Incasso' | translate }}</legend>
+                                <div class="row">
+                                  <div class="form-group col-4 mb-0">
+                                    <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('speseIncassoValore')" for="speseIncassoValore">{{ 'APP.FIELD.speseIncassoValore' | translate }}</label>
+                                    <input type="text" name="speseIncassoValore" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.speseIncassoValore' | translate }}" [(ngModel)]="wDdt.speseIncassoValore">
+                                  </div>
+                                  <div class="form-group col-4 mb-0">
+                                    <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('speseIncassoPercentuale')" for="speseIncassoPercentuale">{{ 'APP.FIELD.speseIncassoPercentuale' | translate }}</label>
+                                    <input type="text" name="speseIncassoPercentuale" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.speseIncassoPercentuale' | translate }}" [(ngModel)]="wDdt.speseIncassoPercentuale">
+                                  </div>
+                                  <div class="form-group col-4 mb-0">
+                                    <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('speseIncassoTotale')" for="speseIncassoTotale">{{ 'APP.FIELD.speseIncassoTotale' | translate }}</label>
+                                    <input type="text" name="speseIncassoTotale" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.speseIncassoTotale' | translate }}" [(ngModel)]="wDdt.speseIncassoTotale" readonly>
+                                  </div>
+                                </div>
+                              </fieldset>
+                            </div>
+                            <div class="form-row align-items-center">
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('doganaCustom')" for="doganaCustom">{{ 'APP.FIELD.doganaCustom' | translate }}</label>
+                                <input type="text" name="doganaCustom" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.doganaCustom' | translate }}" [(ngModel)]="wDdt.doganaCustom">
+                              </div>
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('altreSpese')" for="altreSpese">{{ 'APP.FIELD.altreSpese' | translate }}</label>
+                                <input type="text" name="altreSpese" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.altreSpese' | translate }}" [(ngModel)]="wDdt.altreSpese">
+                              </div>
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('speseBolli')" for="speseBolli">{{ 'APP.FIELD.speseBolli' | translate }}</label>
+                                <input type="text" name="speseBolli" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.speseBolli' | translate }}" [(ngModel)]="wDdt.speseBolli">
+                              </div>
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('bolliEsenti')" for="bolliEsenti">{{ 'APP.FIELD.bolliEsenti' | translate }}</label>
+                                <input type="text" name="bolliEsenti" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.bolliEsenti' | translate }}" [(ngModel)]="wDdt.bolliEsenti">
+                              </div>
+                            </div>
+                            <div class="form-row align-items-center">
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('valutaDiRedazioneId')" for="valutaDiRedazioneId">{{ 'APP.FIELD.valutaDiRedazioneId' | translate }}</label>
+                                <select name="valutaDiRedazioneId" class="form-control form-control-sm" [(ngModel)]="wDdt.valutaDiRedazioneId">
+                                  <option value="0">&nbsp;</option>
+                                  <option [value]="currencie.id" *ngFor="let currencie of anagraficheCombo['SpComboValuta'];">{{ currencie.descrizione }}</option>
+                                </select>
+                              </div>
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('cambio')" for="cambio">{{ 'APP.FIELD.cambio' | translate }}</label>
+                                <input type="text" name="cambio" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.cambio' | translate }}" [(ngModel)]="wDdt.cambio">
+                              </div>
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('totaleInValuta')" for="totaleInValuta">{{ 'APP.FIELD.totaleInValuta' | translate }}</label>
+                                <input type="text" name="totaleInValuta" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.totaleInValuta' | translate }}" [(ngModel)]="wDdt.totaleInValuta">
+                              </div>
+                            </div>
+                            <div class="form-row align-items-center">
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('totaleNetto')" for="totaleNetto">{{ 'APP.FIELD.totaleNetto' | translate }}</label>
+                                <input type="text" name="totaleNetto" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.totaleNetto' | translate }}" [(ngModel)]="wDdt.totaleNetto" readonly>
+                              </div>
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('totaleMerce')" for="totaleMerce">{{ 'APP.FIELD.totaleMerce' | translate }}</label>
+                                <input type="text" name="totaleMerce" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.totaleMerce' | translate }}" [(ngModel)]="wDdt.totaleMerce" readonly>
+                              </div>
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('totaleSconto')" for="totaleSconto">{{ 'APP.FIELD.totaleSconto' | translate }}</label>
+                                <input type="text" name="totaleSconto" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.totaleSconto' | translate }}" [(ngModel)]="wDdt.totaleSconto" readonly>
+                              </div>
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('totaleIva')" for="totaleIva">{{ 'APP.FIELD.totaleIva' | translate }}</label>
+                                <input type="text" name="totaleIva" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.totaleIva' | translate }}" [(ngModel)]="wDdt.totaleIva" readonly>
+                              </div>
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('totaleLordo')" for="totaleLordo">{{ 'APP.FIELD.totaleLordo' | translate }}</label>
+                                <input type="text" name="totaleLordo" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.totaleLordo' | translate }}" [(ngModel)]="wDdt.totaleLordo" readonly>
+                              </div>
+                            </div>
+                            <div class="form-row align-items-center">
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('documentoCopiatoDa')" for="documentoCopiatoDa">{{ 'APP.FIELD.documentoCopiatoDa' | translate }}</label>
+                                <input type="text" name="documentoCopiatoDa" class="form-control form-control-sm" [(ngModel)]="wDdt.documentoCopiatoDa" readonly>
+                              </div>
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('documentoCopiatoIn')" for="documentoCopiatoIn">{{ 'APP.FIELD.documentoCopiatoIn' | translate }}</label>
+                                <input type="text" name="documentoCopiatoIn" class="form-control form-control-sm" [(ngModel)]="wDdt.documentoCopiatoIn" readonly>
+                              </div>
+                            </div>
+                            <div class="form-row align-items-center">
+                              <div class="form-group col-12 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('dichiarazioneIntento')" for="dichiarazioneIntento">{{ 'APP.FIELD.dichiarazioneIntento' | translate }}</label>
+                                <textarea class="form-control form-control-sm" name="dichiarazioneIntento" rows="6" [(ngModel)]="wDdt.dichiarazioneIntento" autocomplete="off"></textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- <div class="d-flex flex-row justify-content-center px-0">
+                            <div class="py-5">{{ 'APP.TAB.footer' | translate }}</div>
+                          </div> -->
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="other_data" [hidden]="!isTabActive('other_data')">
+                      <div class="card card-client-info mx-auto">
+                        <div class="card-body px-2 py-2">
+                          <div class="px-0">
+                            <!-- <div class="py-5">{{ 'APP.TAB.other_data' | translate }}</div> -->
+                            <div class="form-row align-items-center">
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('numeroScontrino')" for="numeroScontrino">{{ 'APP.FIELD.numeroScontrino' | translate }}</label>
+                                <input type="text" name="numeroScontrino" class="form-control form-control-sm" [(ngModel)]="wDdt.numeroScontrino">
+                              </div>
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('totaleScontrinoInviato')" for="totaleScontrinoInviato">{{ 'APP.FIELD.totaleScontrinoInviato' | translate }}</label>
+                                <input type="text" name="totaleScontrinoInviato" class="form-control form-control-sm" [(ngModel)]="wDdt.totaleScontrinoInviato">
+                              </div>
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('isPrezzoLordoIva')" for="isPrezzoLordoIva">{{ 'APP.FIELD.isPrezzoLordoIva' | translate }}</label>
+                                <input type="checkbox" name="isPrezzoLordoIva" class="d-block form-control-sm" [(ngModel)]="wDdt.isPrezzoLordoIva">
+                              </div>
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('isEscludiDaFatturare')" for="isEscludiDaFatturare">{{ 'APP.FIELD.isEscludiDaFatturare' | translate }}</label>
+                                <input type="checkbox" name="isEscludiDaFatturare" class="d-block form-control-sm" [(ngModel)]="wDdt.isEscludiDaFatturare">
+                              </div>
+                            </div>
+                            <div class="form-row align-items-center">
+                              <div class="form-group col-3 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('ivaTrasportoId')" for="ivaTrasportoId">{{ 'APP.FIELD.ivaTrasporto' | translate }}</label>
+                                <ng-select class="form-select-sm" [disabled]="isReadOnly()"
+                                  name="ivaTrasportoId"
+                                  [items]="anagraficheCombo['SpComboIva']"
+                                  bindValue="id"
+                                  bindLabel="descrizione"
+                                  appendTo="body"
+                                  [searchFn]="customSearchFn"
+                                  [(ngModel)]="wDdt.ivaTrasportoId"
+                                  (change)="onFormChanges($event)">
+                                    <ng-template ng-option-tmp let-item="item">
+                                      {{item.descrizione}} <br/>
+                                      <small>{{item.codice}} - {{item.id}}</small>
+                                    </ng-template>
+                                </ng-select>
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('ivaSpeseDiIncassoId')" for="ivaSpeseDiIncassoId">{{ 'APP.FIELD.ivaSpeseDiIncasso' | translate }}</label>
+                                <ng-select class="form-select-sm" [disabled]="isReadOnly()"
+                                  name="ivaSpeseDiIncassoId"
+                                  [items]="anagraficheCombo['SpComboIva']"
+                                  bindValue="id"
+                                  bindLabel="descrizione"
+                                  appendTo="body"
+                                  [searchFn]="customSearchFn"
+                                  [(ngModel)]="wDdt.ivaSpeseDiIncassoId"
+                                  (change)="onFormChanges($event)">
+                                    <ng-template ng-option-tmp let-item="item">
+                                      {{item.descrizione}} <br/>
+                                      <small>{{item.codice}} - {{item.id}}</small>
+                                    </ng-template>
+                                </ng-select>
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('ivaImballoId')" for="ivaImballoId">{{ 'APP.FIELD.ivaImballo' | translate }}</label>
+                                <ng-select class="form-select-sm" [disabled]="isReadOnly()"
+                                  name="ivaImballoId"
+                                  [items]="anagraficheCombo['SpComboIva']"
+                                  bindValue="id"
+                                  bindLabel="descrizione"
+                                  appendTo="body"
+                                  [searchFn]="customSearchFn"
+                                  [(ngModel)]="wDdt.ivaImballoId"
+                                  (change)="onFormChanges($event)">
+                                    <ng-template ng-option-tmp let-item="item">
+                                      {{item.descrizione}} <br/>
+                                      <small>{{item.codice}} - {{item.id}}</small>
+                                    </ng-template>
+                                </ng-select>
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('ivaAltreSpeseId')" for="ivaAltreSpeseId">{{ 'APP.FIELD.ivaAltreSpese' | translate }}</label>
+                                <ng-select class="form-select-sm" [disabled]="isReadOnly()"
+                                  name="ivaAltreSpeseId"
+                                  [items]="anagraficheCombo['SpComboIva']"
+                                  bindValue="id"
+                                  bindLabel="descrizione"
+                                  appendTo="body"
+                                  [searchFn]="customSearchFn"
+                                  [(ngModel)]="wDdt.ivaAltreSpeseId"
+                                  (change)="onFormChanges($event)">
+                                    <ng-template ng-option-tmp let-item="item">
+                                      {{item.descrizione}} <br/>
+                                      <small>{{item.codice}} - {{item.id}}</small>
+                                    </ng-template>
+                                </ng-select>
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('ivaDoganaCustomId')" for="ivaDoganaCustomId">{{ 'APP.FIELD.ivaDogana' | translate }}</label>
+                                <ng-select class="form-select-sm" [disabled]="isReadOnly()"
+                                  name="ivaDoganaCustomId"
+                                  [items]="anagraficheCombo['SpComboIva']"
+                                  bindValue="id"
+                                  bindLabel="descrizione"
+                                  appendTo="body"
+                                  [searchFn]="customSearchFn"
+                                  [(ngModel)]="wDdt.ivaDoganaCustomId"
+                                  (change)="onFormChanges($event)">
+                                    <ng-template ng-option-tmp let-item="item">
+                                      {{item.descrizione}} <br/>
+                                      <small>{{item.codice}} - {{item.id}}</small>
+                                    </ng-template>
+                                </ng-select>
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('ivaBolliSuEffettiId')" for="ivaBolliSuEffettiId">{{ 'APP.FIELD.ivaBolliSuEffettiId' | translate }}</label>
+                                <ng-select class="form-select-sm" [disabled]="isReadOnly()"
+                                  name="ivaBolliSuEffettiId"
+                                  [items]="anagraficheCombo['SpComboIva']"
+                                  bindValue="id"
+                                  bindLabel="descrizione"
+                                  appendTo="body"
+                                  [searchFn]="customSearchFn"
+                                  [(ngModel)]="wDdt.ivaBolliSuEffettiId"
+                                  (change)="onFormChanges($event)">
+                                    <ng-template ng-option-tmp let-item="item">
+                                      {{item.descrizione}} <br/>
+                                      <small>{{item.codice}} - {{item.id}}</small>
+                                    </ng-template>
+                                </ng-select>
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('ivaBolliSuEsentiId')" for="ivaBolliSuEsentiId">{{ 'APP.FIELD.ivaBolliSuEsentiId' | translate }}</label>
+                                <ng-select class="form-select-sm" [disabled]="isReadOnly()"
+                                  name="ivaBolliSuEsentiId"
+                                  [items]="anagraficheCombo['SpComboIva']"
+                                  bindValue="id"
+                                  bindLabel="descrizione"
+                                  appendTo="body"
+                                  [searchFn]="customSearchFn"
+                                  [(ngModel)]="wDdt.ivaBolliSuEsentiId"
+                                  (change)="onFormChanges($event)">
+                                    <ng-template ng-option-tmp let-item="item">
+                                      {{item.descrizione}} <br/>
+                                      <small>{{item.codice}} - {{item.id}}</small>
+                                    </ng-template>
+                                </ng-select>
+                              </div>
+                            </div>
+                            <div class="form-row align-items-center">
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('numeroColli')" for="numeroColli">{{ 'APP.FIELD.numeroColli' | translate }}</label>
+                                <input type="text" name="numeroColli" class="form-control form-control-sm" [(ngModel)]="wDdt.numeroColli">
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('aspettoEsterioreArticoloId')" for="aspettoEsterioreArticoloId">{{ 'APP.FIELD.aspettoEsterioreArticoloId' | translate }}</label>
+                                <ng-select class="form-select-sm" [disabled]="isReadOnly()"
+                                  name="aspettoEsterioreArticoloId"
+                                  [items]="anagraficheCombo['SpComboAspettoEsterioreArticolo']"
+                                  bindValue="id"
+                                  bindLabel="descrizione"
+                                  appendTo="body"
+                                  [searchFn]="customSearchFn"
+                                  [(ngModel)]="wDdt.aspettoEsterioreArticoloId"
+                                  (change)="onFormChanges($event)">
+                                    <ng-template ng-option-tmp let-item="item">
+                                      {{item.descrizione}} <br/>
+                                      <small>{{item.codice}} - {{item.id}}</small>
+                                    </ng-template>
+                                </ng-select>
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('anagCausaleTrasportoId')" for="anagCausaleTrasportoId">{{ 'APP.FIELD.anagCausaleTrasportoId' | translate }}</label>
+                                <ng-select class="form-select-sm" [disabled]="isReadOnly()"
+                                  name="anagCausaleTrasportoId"
+                                  [items]="anagraficheCombo['SpComboCausaleTrasporto']"
+                                  bindValue="id"
+                                  bindLabel="descrizione"
+                                  appendTo="body"
+                                  [searchFn]="customSearchFn"
+                                  [(ngModel)]="wDdt.anagCausaleTrasportoId"
+                                  (change)="onFormChanges($event)">
+                                    <ng-template ng-option-tmp let-item="item">
+                                      {{item.descrizione}} <br/>
+                                      <small>{{item.codice}} - {{item.id}}</small>
+                                    </ng-template>
+                                </ng-select>
+                              </div>
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('dataInizioTrasporto')" for="dataInizioTrasporto">{{ 'APP.FIELD.dataInizioTrasporto' | translate }}</label>
+                                <input type="date" name="dataInizioTrasporto" class="form-control form-control-sm" [(ngModel)]="wDdt.dataInizioTrasporto">
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('anagTrasportoACuraDelId')" for="anagTrasportoACuraDelId">{{ 'APP.FIELD.anagTrasportoACuraDelId' | translate }}</label>
+                                <ng-select class="form-select-sm" [disabled]="isReadOnly()"
+                                  name="anagTrasportoACuraDelId"
+                                  [items]="anagraficheCombo['SpComboTrasportoACuraDel']"
+                                  bindValue="id"
+                                  bindLabel="descrizione"
+                                  appendTo="body"
+                                  [searchFn]="customSearchFn"
+                                  [(ngModel)]="wDdt.anagTrasportoACuraDelId"
+                                  (change)="onFormChanges($event)">
+                                    <ng-template ng-option-tmp let-item="item">
+                                      {{item.descrizione}} <br/>
+                                      <small>{{item.codice}} - {{item.id}}</small>
+                                    </ng-template>
+                                </ng-select>
+                              </div>
+                            </div>
+                            <div class="form-row align-items-center">
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('vettoreId')" for="vettoreId">{{ 'APP.FIELD.vettoreId' | translate }}</label>
+                                <input type="text" name="vettoreId" class="form-control form-control-sm mb-1" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="wDdt.vettoreId" readonly>
+                              </div>
+                              <div class="form-group input-group input-group-sm col-4 mb-0">
+                                <label class="col-form-label col-form-label-sm w-100" [class.modified-]="isModifiedProperty('nominativoVettore')" for="nominativoVettore">{{ 'APP.FIELD.empty' | translate }}&nbsp; <span class="btn btn-sm p-0 float-right" style="font-size: 0.9em;" (click)="openChoiceModal('vettore')" *ngIf="!isReadOnly()"><i class="icon-magnifier"></i></span></label>
+                                <input type="text" name="nominativoVettore" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="wDdt.nominativoVettore" readonly>
+                                <div class="input-group-append cursor-pointer" (click)="showContact(wDdt.vettoreId, wDdt.nominativoVettore)" *ngIf="wDdt.vettoreId"><span class="input-group-text"><i class="icon-eye"></i></span></div>
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('abbonamentoVettore')" for="abbonamentoVettore">{{ 'APP.FIELD.abbonamentoVettore' | translate }}</label>
+                                <input type="text" name="abbonamentoVettore" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.abbonamentoVettore' | translate }}" [(ngModel)]="wDdt.abbonamentoVettore">
+                              </div>
+                            </div>
+                            <div class="form-row align-items-center">
+                              <div class="form-group col-2 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('numeroLetteraDiVettura')" for="numeroLetteraDiVettura">{{ 'APP.FIELD.numeroLetteraDiVettura' | translate }}</label>
+                                <input type="text" name="numeroLetteraDiVettura" class="form-control form-control-sm" [(ngModel)]="wDdt.numeroLetteraDiVettura">
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('anagPortoId')" for="anagPortoId">{{ 'APP.FIELD.anagPortoId' | translate }}</label>
+                                <ng-select class="form-select-sm" [disabled]="isReadOnly()"
+                                  name="anagPortoId"
+                                  [items]="anagraficheCombo['SpComboPorto']"
+                                  bindValue="id"
+                                  bindLabel="descrizione"
+                                  appendTo="body"
+                                  [searchFn]="customSearchFn"
+                                  [(ngModel)]="wDdt.anagPortoId"
+                                  (change)="onFormChanges($event)">
+                                    <ng-template ng-option-tmp let-item="item">
+                                      {{item.descrizione}} <br/>
+                                      <small>{{item.codice}} - {{item.id}}</small>
+                                    </ng-template>
+                                </ng-select>
+                              </div>
+                            </div>
+                            <div class="form-row align-items-center">
+                              <div class="form-group col-3 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('responsabile')" for="responsabile">{{ 'APP.FIELD.responsabile' | translate }}</label>
+                                <input type="text" name="responsabile" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.responsabile' | translate }}" [(ngModel)]="wDdt.responsabile">
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('anagLinguaId')" for="anagLinguaId">{{ 'APP.FIELD.lingua' | translate }}</label>
+                                <select name="anagLinguaId" class="form-control form-control-sm" [(ngModel)]="wDdt.anagLinguaId">
+                                  <option value="0">&nbsp;</option>
+                                  <option [value]="al.id" *ngFor="let al of anagraficheCombo['SpComboLingua'];">{{ al.descrizione }}</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-row align-items-center">
+                              <fieldset class="fieldset-border">
+                                <legend class="small">{{ 'Sistema esterno' | translate }}</legend>
+                                <div class="form-group mb-0">
+                                  <label class="col-form-label col-form-label-sm" for="isNoExportAltroSistema">{{ 'APP.FIELD.isNoExportAltroSistema' | translate }}</label>
+                                  <input type="checkbox" name="isNoExportAltroSistema" class="d-block form-control-sm" [(ngModel)]="wDdt.isNoExportAltroSistema">
+                                </div>
+                              </fieldset>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="orders" [hidden]="!isTabActive('quotes')">
+                      <div class="card card-general-info mx-auto layout-2" style="min-height: 200px;" *ngIf="!loading && wDdt && wDdt?.id">
+                        <div class="card-body pt-2">
+                          <app-ddt-quotes
+                            [ddtId]="wDdt.id"
+                            [tipoDocumentoId]="wDdt.tipoDocumentoId"
+                            [macroTipoDocumento]="2"
+                            [aziendaId]="wDdt.aziendaId"
+                          ></app-ddt-quotes>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="orders" [hidden]="!isTabActive('orders')">
+                      <div class="card card-general-info mx-auto layout-2" style="min-height: 200px;" *ngIf="!loading && wDdt && wDdt?.id">
+                        <div class="card-body pt-2">
+                          <app-ddt-orders
+                            [ddtId]="wDdt.id"
+                            [tipoDocumentoId]="wDdt.tipoDocumentoId"
+                            [macroTipoDocumento]="2"
+                            [aziendaId]="wDdt.aziendaId"
+                          ></app-ddt-orders>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="orders" [hidden]="!isTabActive('orders-suppliers')">
+                      <div class="card card-general-info mx-auto layout-2" style="min-height: 200px;" *ngIf="!loading && wDdt && wDdt?.id">
+                        <div class="card-body pt-2">
+                          <app-ddt-orders-suppliers
+                            [ddtId]="wDdt.id"
+                            [tipoDocumentoId]="wDdt.tipoDocumentoId"
+                            [macroTipoDocumento]="2"
+                            [aziendaId]="wDdt.aziendaId"
+                          ></app-ddt-orders-suppliers>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="orders" [hidden]="!isTabActive('documents-processed')">
+                      <div class="card card-general-info mx-auto layout-2" style="min-height: 200px;" *ngIf="!loading && wDdt && wDdt?.id">
+                        <div class="card-body pt-2">
+                          <app-ddt-documents
+                            [ddtId]="wDdt.id"
+                            [tipoDocumentoId]="wDdt.tipoDocumentoId"
+                            [macroTipoDocumento]="2"
+                            [aziendaId]="wDdt.aziendaId"
+                          ></app-ddt-documents>
+                        </div>
+                      </div>
+                    </div>
+                  <!-- </mat-tab-group> -->
+                </div>
+              </div>
+            </fieldset>
+          </form>
+          <div class="row mb-4" *ngIf="showJsonEditor">
+            <div class="col-12">
+              <json-editor [options]="editorOptions" [data]="wDdt"></json-editor>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-layout-sidebar sidebar-right inspector-content" [hidden]="!sidebarOpened">
+    <!-- <app-help [chapter]="'ddt'" [section]="'section'"></app-help> -->
+  </div>
+</div>
+<div class="flex-layout-footer">
+  <div class="bg-gray-100-" style="width: 100%;">
+    <div class="d-flex flex-row justify-content-between">
+      <div class="col-6 pr-0">
+        <button class="btn btn-sm btn-light" (click)="closeEdit($event)"><i class="cui-x"></i> {{ 'APP.BUTTON.close' | translate }}</button>
+        <button class="btn btn-sm btn-primary" (click)="saveEdit($event)" [disabled]="!modified"><i class="cui-save"></i> {{ 'APP.BUTTON.save' | translate }}</button>
+      </div>
+      <div class="col-6 pl-0">
+      </div>
+    </div>
+  </div>
+</div>

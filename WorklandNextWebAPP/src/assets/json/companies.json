@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Azienda #1",
+      "description": "Azienda #1"
+    },
+    {
+      "id": 2,
+      "name": "Azienda #2",
+      "description": "Azienda #2"
+    },
+    {
+      "id": 3,
+      "name": "Azienda #2",
+      "description": "Azienda #2"
+    }
+  ]
+}

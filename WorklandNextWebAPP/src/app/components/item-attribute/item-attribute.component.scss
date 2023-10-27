@@ -1,0 +1,25 @@
+:host ::ng-deep {
+  .attribute {
+    display: block;
+    width: 100%;
+    margin-bottom: .3em;
+    padding: 4px;
+    background-color: rgba(255, 255, 255, 0.6);
+    // background-color: #f0f3f5;
+
+    .key {
+      width: 100%;
+      font-size: .875em;
+      font-weight: 600;
+      text-align: left;
+      padding: 0 5px;
+    }
+
+    .value {
+      width: 100%;
+      font-size: inherit;
+      text-align: left;
+      padding: 0 5px 0 5px;
+    }
+  }
+}

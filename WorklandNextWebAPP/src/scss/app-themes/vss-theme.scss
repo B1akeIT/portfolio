@@ -1,0 +1,182 @@
+// Workland - VSS theme
+
+$main-color: #FFA101;
+$menu-title-color: #FFFFFF;
+$menu-background-color: #29363d;
+$menu-text-color: #FFFFFF;
+$menu-icon-color: #BBC5D5;
+$border-color: #BBC5D5;
+$menu-background-color-active: #33444c;
+$menu-text-color-active: #FFFFFF;
+$menu-icon-color-active: #FFFFFF;
+
+.workland-theme {
+  .app-header {
+    border-bottom: 1px solid $border-color;
+  }
+
+  .aside-menu {
+    border-left: 1px solid $border-color;
+  }
+
+  .sidebar {
+    color: $menu-text-color;
+    background-color: $menu-background-color;
+    border-right: 1px solid $border-color;
+
+    .nav {
+      width: 199px;
+    }
+
+    .nav-title {
+      color: $menu-title-color;
+    }
+
+    .nav-link {
+      color: $menu-text-color;
+      border-right: 3px solid transparent;
+
+      &.active {
+        color: $menu-text-color-active;
+        background-color: $menu-background-color-active;
+        border-right: 3px solid $menu-background-color-active;
+
+        .nav-icon {
+          color: $menu-icon-color-active;
+        }
+      }
+
+      &:hover {
+        color: $menu-text-color-active;
+        background-color: $menu-background-color;
+        border-right: 3px solid $menu-background-color-active !important;
+
+        .nav-icon {
+          color: $menu-icon-color-active;
+        }
+      }
+
+      .nav-icon {
+        color: $border-color;
+      }
+    }
+
+    .nav-dropdown.open {
+      background: $menu-background-color;
+
+      .nav-link {
+        color: $menu-text-color;
+        border-left: 3px solid transparent;
+      }
+    }
+
+    .sidebar-minimizer {
+      background-color: $menu-background-color;
+      border: 0;
+
+      &:before {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 14'%3E%3Cpath fill='%2373818f' d='M9.148 2.352l-4.148 4.148 4.148 4.148q0.148 0.148 0.148 0.352t-0.148 0.352l-1.297 1.297q-0.148 0.148-0.352 0.148t-0.352-0.148l-5.797-5.797q-0.148-0.148-0.148-0.352t0.148-0.352l5.797-5.797q0.148-0.148 0.352-0.148t0.352 0.148l1.297 1.297q0.148 0.148 0.148 0.352t-0.148 0.352z'/%3E%3C/svg%3E");
+      }
+    }
+  }
+
+  &.sidebar-minimized {
+    .sidebar {
+      .nav-item {
+        &:hover {
+          .nav-link {
+            color: #ffffff;
+            background-color: $menu-background-color;
+
+            .nav-icon {
+              color: #ffffff;
+            }
+          }
+        }
+      }
+
+      .nav {
+        .nav-dropdown {
+          &:hover {
+            color: $menu-text-color-active;
+            background-color: $menu-background-color;
+          }
+
+          .nav-dropdown-items {
+            color: $menu-text-color;
+            background-color: $menu-background-color;
+            // border-right: 1px solid $border-color;
+            border-bottom: 1px solid $border-color;
+
+            .nav-link {
+              color: $menu-text-color;
+              background-color: $menu-background-color;
+              border-right: 1px solid $border-color;
+
+              .nav-icon {
+                color: $menu-text-color;
+              }
+            }
+          }
+        }
+      }
+
+      .nav-link {
+        &:hover {
+          background-color: $menu-background-color;
+        }
+      }
+
+      .sidebar-minimizer {
+        width: 49px;
+      }
+    }
+  }
+
+  // Material
+
+  .mat-tab-header,
+  .mat-tab-nav-bar {
+    border-bottom: 1px solid #dee2e6 !important;
+  }
+
+  .mat-tab-group.mat-primary .mat-ink-bar,
+  .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: $main-color !important;
+  }
+
+  .mat-tab-label,
+  .mat-tab-link {
+    color: rgba(0, 0, 0, 0.87);
+    padding: 0 10px !important;
+  }
+
+  .mat-button-toggle-group-appearance-standard {
+    width: 80%;
+  }
+
+  .mat-button-toggle-appearance-standard {
+    color: rgba(0, 0, 0, 0.87);
+    background: white;
+    width: 50%;
+  }
+
+  .mat-button-toggle-checked {
+    background-color: $main-color;
+    color: #fff;
+  }
+
+  .mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+    background-color: $main-color;
+    color: #fff !important;
+  }
+
+  .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+    line-height: 30px;
+  }
+
+  .mat-button-toggle-group-appearance-standard,
+  .mat-button-toggle-standalone.mat-button-toggle-appearance-standard {
+    border-radius: 0;
+  }
+}

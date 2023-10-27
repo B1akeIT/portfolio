@@ -1,0 +1,34 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Tenant #1",
+      "description": "Description #1",
+      "active": true
+    },
+    {
+      "id": 2,
+      "name": "Tenant #2",
+      "description": "Description #2",
+      "active": true
+    },
+    {
+      "id": 3,
+      "name": "Tenant #3",
+      "description": "Description #3",
+      "active": true
+    },
+    {
+      "id": 4,
+      "name": "Tenant #4",
+      "description": "Description #4",
+      "active": false
+    },
+    {
+      "id": 5,
+      "name": "Tenant #5",
+      "description": "Description #5",
+      "active": true
+    }
+  ]
+}

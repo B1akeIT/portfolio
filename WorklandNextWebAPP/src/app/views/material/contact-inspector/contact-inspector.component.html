@@ -1,0 +1,148 @@
+<div class="text-center py-3" *ngIf="loading">
+  <div class="h1 text-muted text-center mt-5 mb-1">
+    <i class="fa fa-circle-o-notch fa-spin"></i>
+  </div>
+</div>
+<div class="h-75" *ngIf="!contact && !loading">
+	<div class="details-content h-100">
+    <div class="d-flex flex-column justify-content-center align-items-center h-100">
+      <!-- loading & messages -->
+      <div class="text-center" style="height: 120px;">
+        <ng-lottie [options]="options" (animationCreated)="animationCreated($event)"></ng-lottie>
+      </div>
+      <div class="text-center">
+        <!-- <i class="icon-mouse icon-messages-50"></i> -->
+        <h6 class="no-messages-text mt-3">{{ 'APP.MESSAGE.select_contact' | translate }}</h6>
+      </div>
+    </div>
+	</div>
+</div>
+<div *ngIf="contact && !loading">
+  <div class="details-content">
+    <div class="contact-details">
+
+      <div class="card-contact" *ngIf="showNewCard">
+        <div class="mb-2">
+          <div class="contact-grid">
+            <div class="profile-header bg-dark">
+              <div class="user-name">{{ contact.fullname }}</div>
+              <div class="name-center" *ngIf="contact.companyname">{{ contact.companyname }}</div>
+            </div>
+            <img alt="avatar" class="user-img" src="{{ contact?.avatar }}">
+            <p class="text-uppercase">{{ contact?.q_meta?.qualification }}</p>
+            <p class="w-50 mx-auto">{{ getWhereaboutType('address', false) }}</p>
+            <div class="mb-2">
+              <span class="phone"><i class="icon-phone"></i> {{ getWhereaboutType('phone', false) }}</span>
+            </div>
+            <div class="row mx-0">
+              <div class="col-6">
+                <h5>564</h5><small>{{ 'APP.TITLE.authors'| translate }}</small>
+              </div>
+              <!-- <div class="col-4">
+                <h5>18k</h5><small>{{ 'APP.TITLE.authors'| translate }}</small>
+              </div> -->
+              <div class="col-6">
+                <h5>565</h5><small>{{ 'APP.TITLE.artworks' | translate }}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <app-whereabouts-preview
+        [mainRelated]="mainRelated"
+        [showAvatar]="true"
+        [showWhereabouts]="false">
+      </app-whereabouts-preview>
+
+      <div class="text-center" [innerHTML]="getPersonName(true)"></div>
+      <p class="text-center text-uppercase mb-4"><span class="badge bagde-light">{{ contact?.q_meta?.qualification }}</span></p>
+
+      <app-whereabouts-preview
+        [mainRelated]="mainRelated"
+        [showAvatar]="false"
+        [showWhereabouts]="true">
+      </app-whereabouts-preview>
+
+      <!-- <div class="d-flex flex-column justify-content-center align-items-center img-avatar mx-auto"
+        [ngStyle]="{ 'background-image': 'url(' + getImage(avatar, 'tablet', 'avatar') + ')', 'background-repeat': 'no-repeat', 'background-size': 'cover', 'background-position': 'center center', 'margin-bottom': '1rem', 'width': '12em', 'height': '12em' }">
+        <i class="cui-author icon-messages-50"></i>
+      </div> -->
+
+      <table class="table table-sm table-no-bordered">
+        <ng-container *ngFor="let row of fields; let idx = index;">
+        <!-- <ng-container *ngFor="let row of objectKeys(contact); let idx = index;"> -->
+          <tr class="d-flex" *ngIf="!isCustomFields(row)">
+            <th class="th-{{ idx }} col-4 text-truncate">
+              <span title="{{ 'APP.FIELD_.' + row | translate }}">{{ 'APP.FIELD.' + row | translate }}</span>
+            </th>
+            <td class="td-{{ idx }} col-8">
+              {{ contact[row] }}
+            </td>
+          </tr>
+          <tr class="d-flex border-top border-bottom mt-3" *ngIf="row == 'q_meta'">
+            <th class="th-{{ idx }} col-12 text-truncate" colspan="2">
+              <span title="{{ 'APP.FIELD_.q_meta' | translate }}">{{ 'APP.FIELD_.' + row | translate | uppercase }}</span>
+            </th>
+          </tr>
+          <tr class="d-flex" *ngIf="row == 'q_meta'">
+            <td class="td-{{ idx }} col-12" colspan="2">
+              <!-- <span>{{ contact[row] | json }}</span> -->
+              <table class="table table-sm table-no-bordered mb-0">
+                <ng-container *ngFor="let meta of contact[row] | keyvalue; let idxMeta = index;">
+                  <tr class="d-flex" *ngIf="!isCustomFields(meta.key)">
+                    <th class="th-{{ idx }}-{{ idxMeta }} col-4 text-truncate">
+                      <span
+                        title="{{ 'APP.FIELD_.' + meta.key | translate }} - {{ meta.key }}">{{ 'APP.FIELD_.' + meta.key | translate }}</span>
+                    </th>
+                    <td class="td-{{ idx }}-{{ idxMeta }} col-8">
+                      <span>{{ meta.value }}</span>
+                    </td>
+                  </tr>
+                  <tr class="d-flex" *ngIf="meta.key == 'custom'">
+                    <!-- <th class="th-{{ idx }}-{{ idxMeta }} col-4 text-truncate">
+                      <span
+                        title="{{ 'APP.FIELD_.' + meta.key | translate }} - {{ meta.key }}">{{ 'APP.FIELD_.' + meta.key | translate }}</span>
+                    </th> -->
+                    <td class="td-{{ idx }}-{{ idxMeta }} col-12 py-0" colspan="2">
+                      <dl class="row mx-0">
+                        <ng-container *ngFor="let cst of meta.value | keyvalue;">
+                          <dt class="col-sm-4 text-truncate" title="{{ 'APP.FIELD_.' + cst.key | translate }} - {{ cst.key }}">
+                            {{ 'APP.FIELD_.' + cst.key | translate }}</dt>
+                          <dd class="col-sm-8">{{ cst.value }}</dd>
+                        </ng-container>
+                      </dl>
+                    </td>
+                  </tr>
+                </ng-container>
+              </table>
+            </td>
+          </tr>
+          <ng-container *ngIf="row == 'q_import_data_2_fix'">
+            <tr class="d-flex border-top border-bottom mt-3">
+              <th class="th-{{ idx }} col-12 text-truncate" colspan="2">
+                <span title="{{ 'APP.FIELD_.q_import_data_2_fix' | translate }}">{{ 'APP.FIELD_.q_import_data_2_fix' | translate | uppercase }}</span>
+              </th>
+            </tr>
+            <tr class="d-flex">
+              <td class="td-{{ idx }} col-12" colspan="2">
+                  <table class="table table-sm table-no-bordered mb-0">
+                    <ng-container *ngFor="let impFix of contact['q_import_data_2_fix'] | keyvalue; let idxfix = index;">
+                      <tr class="d-flex">
+                        <th class="th-{{ idx }}-{{ idxfix }} col-4 text-truncate">
+                          <span title="{{ 'APP.FIELD_.' + impFix.key | translate }} - {{ impFix.key }}">{{ 'APP.FIELD_.' + impFix.key | translate }}</span>
+                        </th>
+                        <td class="td-{{ idx }}-{{ idxfix }} col-8">
+                          <span>{{ impFix.value }}</span>
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </table>
+              </td>
+            </tr>
+          </ng-container>
+        </ng-container>
+      </table>
+    </div>
+	</div>
+</div>

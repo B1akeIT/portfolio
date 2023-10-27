@@ -1,0 +1,64 @@
+@mixin hideScrollbar {
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@mixin mesh {
+  background-image: -webkit-gradient(linear,left top,right bottom,color-stop(.25,rgba(0, 0, 0, 0.03)),color-stop(.25,rgba(0, 0, 0, 0)),color-stop(.5,rgba(0, 0, 0, 0)),color-stop(.5,rgba(0, 0, 0, 0.03)),color-stop(.75,rgba(0, 0, 0, 0.03)),color-stop(.75,rgba(0, 0, 0, 0)),to(rgba(0, 0, 0, 0)));
+  background-image: -webkit-linear-gradient(135deg,rgba(0, 0, 0, 0.03) 25%,rgba(0, 0, 0, 0) 25%,rgba(0, 0, 0, 0) 50%,rgba(0, 0, 0, 0.03) 50%,rgba(0, 0, 0, 0.03) 75%,rgba(0, 0, 0, 0) 75%,rgba(0, 0, 0, 0));
+  background-image: -webkit-linear-gradient(315deg,rgba(0, 0, 0, 0.03) 25%,rgba(0, 0, 0, 0) 25%,rgba(0, 0, 0, 0) 50%,rgba(0, 0, 0, 0.03) 50%,rgba(0, 0, 0, 0.03) 75%,rgba(0, 0, 0, 0) 75%,rgba(0, 0, 0, 0));
+  background-image: linear-gradient(135deg,rgba(0, 0, 0, 0.03) 25%,rgba(0, 0, 0, 0) 25%,rgba(0, 0, 0, 0) 50%,rgba(0, 0, 0, 0.03) 50%,rgba(0, 0, 0, 0.03) 75%,rgba(0, 0, 0, 0) 75%,rgba(0, 0, 0, 0));
+  -webkit-background-size: 16px 16px;
+  background-size: 16px 16px;
+}
+@mixin grid {
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, grey 1px, transparent 1px), linear-gradient(to bottom, grey 1px, transparent 1px);
+}
+@mixin dotted {
+  background-size: 40px 40px;
+  background-image: radial-gradient(circle, #000000 1px, rgba(0, 0, 0, 0) 1px);
+}
+@mixin grid-mm {
+  background: linear-gradient(-90deg, rgba(0,0,0,.05) 1px, transparent 1px), linear-gradient(rgba(0,0,0,.05) 1px, transparent 1px), linear-gradient(-90deg, rgba(0, 0, 0, .04) 1px, transparent 1px), linear-gradient(rgba(0,0,0,.04) 1px, transparent 1px), linear-gradient(transparent 3px, #f2f2f2 3px, #f2f2f2 78px, transparent 78px), linear-gradient(-90deg, #aaa 1px, transparent 1px), linear-gradient(-90deg, transparent 3px, #f2f2f2 3px, #f2f2f2 78px, transparent 78px), linear-gradient(#aaa 1px, transparent 1px), #f2f2f2;
+  background-size: 4px 4px, 4px 4px, 80px 80px, 80px 80px, 80px 80px, 80px 80px, 80px 80px, 80px 80px;
+}
+@mixin highlight-small {
+  position: relative !important;
+  background-image: linear-gradient(180deg,transparent 70%,#FEF4D1 0) !important;
+  background-repeat: no-repeat !important;
+  background-position: 0 -6px !important;
+}
+@mixin highlight-full {
+  position: relative !important;
+  background-image: linear-gradient(0deg,transparent 0%, $gray-100 100%) !important;
+  background-repeat: no-repeat !important;
+  background-position: 0 0 !important;
+}
+@keyframes crossTransition {
+  from {
+    opacity: 1;
+    clip-path: polygon(0 0, 0% 20%, 0 50%, 0 100%, 20% 100%, 50% 100%, 80% 100%, 100% 100%, 100% 50%, 100% 20%, 100% 0, 50% 0);
+  }
+
+  to {
+    opacity: .5;
+    clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+  }
+
+}
+@keyframes crossTransition2 {
+  from {
+    opacity: 1;
+    clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%, 100% 0%, 100% 0%, 100% 0%, 100% 0%, 100% 0%, 100% 0%, 100% 0%, 100% 0%);
+  }
+
+  to {
+    opacity: .5;
+    clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+  }
+
+}

@@ -1,0 +1,5 @@
+<div class="attribute" *ngIf="!isExcluded()">
+  <div class="key text-truncate">{{ 'APP.FIELD.' + attribute?.key | translate }}</div>
+  <!-- <div class="value">{{ attribute?.value || '-' }}</div> -->
+  <div class="value" [innerHTML]="getContactField(attribute?.key)"></div>
+</div>

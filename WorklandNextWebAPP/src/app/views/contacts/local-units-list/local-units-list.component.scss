@@ -1,0 +1,10 @@
+:host ::ng-deep {
+  position: relative;
+
+  .field {
+    padding: .25rem .5rem;
+    font-size: .765625rem;
+    line-height: 1.7;
+    font-weight: 600;
+  }
+}

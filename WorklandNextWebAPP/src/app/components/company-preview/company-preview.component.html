@@ -1,0 +1,18 @@
+<p class="text-center" *ngIf="loading"><i class="fa fa-circle-o-notch fa-spin"></i></p>
+<mat-accordion class="mt-3" *ngIf="company && !loading">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ company.contatto.ragioneSociale }}
+      </mat-panel-title>
+      <mat-panel-description *ngIf="company.aziendaID">{{ 'APP.TITLE.subsidiary' | translate }}</mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+      <app-item-attribute *ngFor="let field of company.contatto | keyvalue"
+        [attribute]="field"
+        [excluded]="fieldExcluded"
+        [hideEmpty]="true">
+      </app-item-attribute>
+    </ng-template>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -1,0 +1,106 @@
+<ngx-loading
+  [show]="loading"
+  [config]="loadingOptions">
+</ngx-loading>
+<div class="d-block" *ngIf="!data && !loading">
+  <div class="mt-2">
+    <ng-template [appHasPermission]="'TABVETTORE'" [action]="'create'" [owner]="true">
+      <div class="btn btn-sm btn-cyan" (click)="onEdit($event, {})">
+        <span>{{ 'APP.BUTTON.create_carrier' | translate }}</span>
+      </div>
+    </ng-template>
+  </div>
+</div>
+<div class="" *ngIf="data">
+  <div class="client-supplier-data">
+    <h5 class="mb-2">
+      <span>{{ 'APP.TITLE.carrier-data' | translate }}</span>
+      <!-- <div class="btn btn-sm btn-light ml-2" (click)="onEdit($event, data)"><i class="cui-pencil"></i></div> -->
+    </h5>
+  </div>
+  <hr>
+  <div class="d-block">
+    <div class="row">
+      <div class="col-2">
+        <h6 class="">{{ 'APP.TITLE.companies' | translate }}</h6>
+      </div>
+      <div class="col">
+        <div class="btn-group btn-group-sm mb-1" *ngIf="!readOnly">
+          <a class="btn btn-cyan" (click)="onAddCarrier()" tooltip="{{ 'APP.TOOLTIP.add_carrier' | translate }}" placement="bottom" container="body" [class.disabled]="selectedIndex != -1">
+            <i class="cui-plus"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-block mb-1 border-bottom">
+    <tabset #panelsTabs>
+      <ng-container *ngFor="let item of aziende | orderBy : ['aziendaId']">
+        <ng-template [appHasPermission]="'TABVETTORE'" [action]="'view'" [owner]="item.aziendaId == user?.aziendaId">
+          <tab [active]="item.aziendaId == user?.aziendaId" (selectTab)="setCurrentAzienda($event, item)">
+            <ng-template tabHeading>
+              <img [src]="item.pathLogo" style="width: 28px;" title="{{ item.aziendaId }}">
+            </ng-template>
+          </tab>
+        </ng-template>
+      </ng-container>
+    </tabset>
+  </div>
+  <div class="d-flex flex-row mb-3 border" style="min-height: 250px;">
+    <!-- {{ aziende | json }} -->
+    <div class="flex-grow-1 h-100">
+      <div class="h-100" *ngIf="!currentAzienda && !loading">
+        <div class="details-content h-100 mt-5">
+          <div class="d-flex flex-column justify-content-center align-items-center h-75">
+            <!-- loading & messages -->
+            <div class="text-center" *ngIf="aziende?.length">
+              <i class="icon-mouse icon-messages-50 message-small"></i>
+              <h6 class="no-messages-text message-small mt-3">{{ 'APP.MESSAGE.select_company' | translate }}</h6>
+            </div>
+            <div class="text-center" *ngIf="!aziende?.length">
+              <i class="icon-plus icon-messages-50 message-small"></i>
+              <h6 class="no-messages-text message-small mt-3">{{ 'APP.MESSAGE.add_carrier' | translate }}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="(data && currentAzienda) || addCarrier" style="height: calc( 100% );">
+        <!-- {{ currentAzienda | json }} - {{ contactId }} -->
+        <app-carrier-edit
+          [contactId]="contactId"
+          [aziendaId]="currentAzienda.aziendaId || aziendaId"
+          [aziendaData]="currentAzienda"
+          [edit]="addCarrier"
+          [readOnly]="readOnly"
+          (delete)="onDeleteCarrier($event)"
+          (closeEdit)="onCloseEdit($event)">
+        </app-carrier-edit>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #editClientSupplierModal>
+  <form [formGroup]="dataForm" (ngSubmit)="onSave(dataModel)">
+    <div class="modal-header">
+      <h5 class="modal-title" *ngIf="!dataModel?.id">
+        <span>{{ 'APP.TITLE.create_carrier' | translate }}</span>
+      </h5>
+      <h5 class="modal-title" *ngIf="dataModel?.id">
+        <span>{{ 'APP.TITLE.edit_carrier' | translate }}</span>
+      </h5>
+      <button type="button" class="close" (click)="modalRef.hide()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <formly-form [form]="dataForm" [model]="dataModel" [fields]="dataFields">
+      </formly-form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary btn-sm" type="submit" [disabled]="!dataForm?.valid">
+        <span *ngIf="dataModel?.id == 0">{{ 'APP.BUTTON.save' | translate }}</span>
+        <span *ngIf="dataModel?.id != 0">{{ 'APP.BUTTON.modify' | translate }}</span>
+      </button>
+    </div>
+  </form>
+</ng-template>

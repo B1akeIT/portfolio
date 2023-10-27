@@ -1,0 +1,21 @@
+<div class="text-center py-3" *ngIf="loading">
+  <div class="h1 text-muted text-center mt-1 mb-1">
+    <i class="fa fa-circle-o-notch fa-spin"></i>
+  </div>
+</div>
+<!-- <pre class="pre-code" *ngIf="!loading && carrierData">
+  <code>{{ carrierData | json }}</code>
+</pre> -->
+<div *ngIf="!loading && carrierData">
+  <h6>{{ data.azienda }}</h6>
+  <app-item-attribute *ngFor="let field of objectKey(carrierData)"
+    [attribute]="{key: field, value: carrierData[field]}"
+    [excluded]="excluded"
+    [hideEmpty]="true">
+  </app-item-attribute>
+</div>
+<div *ngIf="!loading && !carrierData">
+  <div class="text-muted text-center mt-1 mb-3">
+    {{ 'APP.MESSAGE.no_data' | translate }}
+  </div>
+</div>

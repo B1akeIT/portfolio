@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Esente ai fini …",
+      "description": "Esente ai fini …",
+      "aliquota": "0"
+    },
+    {
+      "id": 1,
+      "name": "IVA 5%",
+      "description": "IVA 5%",
+      "aliquota": "5"
+    }
+  ]
+}

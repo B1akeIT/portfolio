@@ -1,0 +1,8 @@
+:host ::ng-deep {
+  display: contents;
+
+  .btn-bar {
+    margin-top: .20em;
+    padding: .20em .25rem !important;
+  }
+}

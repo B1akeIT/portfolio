@@ -1,0 +1,24 @@
+:host ::ng-deep {
+  .header {
+    height: 46px;
+
+    .navbar-brand {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  .content {
+    height: 100%;
+    overflow: auto;
+    // background-color: #ffffff;
+  }
+
+  .footer {
+    height: 46px;
+  }
+
+  .filter-content {
+    display: relative;
+  }
+}

@@ -1,0 +1,11 @@
+:host ::ng-deep {
+  position: relative;
+
+  .current-item {
+    background-color: var(--yellow) !important;
+  }
+
+  .sub-title {
+    font-size: .8em !important;
+  }
+}

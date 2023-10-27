@@ -1,0 +1,50 @@
+  <div>
+    <div class="d-flex flex-column justify-content-center align-items-center mx-auto img-avatar bg-white border" [ngStyle]="{ 'background-image': 'url(' + getImage('tablet', 'avatar') + ')', 'background-repeat': 'no-repeat', 'background-size': 'cover', 'background-position': 'center center', 'margin-bottom': '1rem', 'width': '200px', 'height': '200px' }" *ngIf="showAvatar"></div>
+    <div class="row mt-4 mb-4" *ngIf="showEdit">
+      <div class="col-9 mx-auto">
+        <div class="btn btn-light btn-sm d-block" (click)="onChangeAvatar()">{{ 'APP.BUTTON.change_avatar' | translate }}</div>
+      </div>
+    </div>
+    <dl class="row ml-0 mr-0" *ngIf="showWhereabouts">
+      <dt class="col-sm-4 font-weight-500 text-truncate text-right">
+        <span *ngIf="showIcon"><i class="icon-location-pin"></i></span>
+        <span *ngIf="showLabel">{{ 'APP.FIELD.address' | translate }}</span>
+      </dt>
+      <dd class="col-sm-8 pl-0" [innerHTML]="getWhereabout('address')"></dd>
+
+      <dt class="col-sm-4 font-weight-500 text-truncate text-right">
+        <span *ngIf="showIcon"><i class="icon-phone"></i></span>
+        <span *ngIf="showLabel">{{ 'APP.FIELD.phone' | translate }}</span>
+      </dt>
+      <dd class="col-sm-8 pl-0" [innerHTML]="getWhereabout('phone')"></dd>
+
+      <dt class="col-sm-4 font-weight-500 text-truncate text-right">
+        <span *ngIf="showIcon"><i class="fa fa-mobile-phone"></i></span>
+        <span *ngIf="showLabel">{{ 'APP.FIELD.mobile' | translate }}</span>
+      </dt>
+      <dd class="col-sm-8 pl-0" [innerHTML]="getWhereabout('mobile')"></dd>
+
+      <dt class="col-sm-4 font-weight-500 text-truncate text-right">
+        <span *ngIf="showIcon"><i class="icon-envelope"></i></span>
+        <span *ngIf="showLabel">{{ 'APP.FIELD.email' | translate }}</span>
+      </dt>
+      <dd class="col-sm-8 pl-0" [innerHTML]="getWhereabout('email')"></dd>
+
+      <dt class="col-sm-4 font-weight-500 text-truncate text-right">
+        <span *ngIf="showIcon"><i class="icon-envelope"></i></span>
+        <span *ngIf="showIcon"><i class="cui-badge"></i></span>
+        <!-- <span *ngIf="showIcon"><i class="fa fa-certificate"></i></span> -->
+        <span *ngIf="showLabel">{{ 'APP.FIELD.pec' | translate }}</span>
+      </dt>
+      <dd class="col-sm-8 pl-0" [innerHTML]="getWhereabout('pec')"></dd>
+
+      <dt class="col-sm-4 font-weight-500 text-truncate text-right">
+        <span *ngIf="showIcon"><i class="icon-link"></i></span>
+        <span *ngIf="showLabel">{{ 'APP.FIELD.website' | translate }}</span>
+      </dt>
+      <dd class="col-sm-8 pl-0" [innerHTML]="getWhereabout('website')"></dd>
+    </dl>
+    <div class="mt-4" *ngIf="showDebug">
+      <json-editor [options]="editorOptions" [data]="mainRelated"></json-editor>
+    </div>
+  </div>

@@ -1,0 +1,13 @@
+:host ::ng-deep {
+  .current-item {
+    background-color: var(--yellow) !important;
+  }
+
+  .sub-title {
+    font-size: .8em !important;
+  }
+
+  .mat-expansion-panel-body {
+    padding: 0 0 !important;
+  }
+}

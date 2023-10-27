@@ -1,0 +1,190 @@
+<div class="animated fadeIn bg-white" style="height:100%;" [hidden]="panelIsOpen">
+  <div class="flex-layout-header">
+    <div class="bg-gray-100-" style="width: 100%;">
+      <div class="d-flex flex-row justify-content-between">
+        <div class="col-6 pr-0">
+          <div class="float-left mr-2" style="padding: 0.5em 0.40rem !important">
+            <i class="cui-image1"></i> {{ 'APP.TITLE.material' | translate }}
+          </div>
+          <div class="btn-group btn-group-sm float-left" style="padding: 0.2em 0rem !important">
+            <a class="btn btn-warning" href="#" (click)="dummyAction($event)" tooltip="{{ 'APP.TOOLTIP.new_artwork' | translate }}" placement="bottom" container="body">
+              <i class="cui-plus"></i><!-- {{ 'APP.BUTTON.add' | translate }} --></a>
+            <a class="btn btn-warning" href="#" (click)="dummyAction($event)" [class.disabled]="currentId == 0" tooltip="{{ 'APP.TOOLTIP.edit_artwork' | translate }}" placement="bottom" container="body">
+              <i class="icon-pencil"></i><!-- {{ 'APP.BUTTON.modify' | translate }} --></a>
+            <a class="btn btn-warning" href="#" (click)="dummyAction($event)" [class.disabled]="currentId == 0" tooltip="{{ 'APP.TOOLTIP.delete_artwork' | translate }}" placement="bottom" container="body">
+              <i class="icon-trash"></i><!-- {{ 'APP.BUTTON.delete' | translate }} --></a>
+          </div>
+          <div class="btn-group btn-group-sm float-left ml-1" style="padding: 0.2em 0rem !important">
+            <!-- <a class="btn btn-warning" href="#" (click)="toggleAvatar($event);" *ngIf="view == 'list'">
+              <i class="cui-circle"></i> {{ 'APP.BUTTON.preview' | translate }}</a> -->
+            <a class="btn btn-outline-secondary" href="#" (click)="dummyAction($event);" [class.disabled]="currentId == 0" tooltip="{{ 'APP.TOOLTIP.show_preview' | translate }}" placement="bottom" container="body">
+              <i class="cui-window-maximize"></i><!-- {{ 'APP.BUTTON.show_preview' | translate }} --></a>
+            <a class="btn btn-outline-secondary" href="#" (click)="dummyAction($event);" tooltip="{{ 'APP.TOOLTIP.print' | translate }}" placement="bottom" container="body">
+              <i class="cui-print"></i></a>
+          </div>
+          <div class="buttons-bar float-right">
+            <div class="btn-toolbar" style="padding: 0.20em 0.25rem !important">
+              <div class="btn-group btn-group-sm">
+                <label class="btn btn-outline-primary cursor-pointer" [class.active]="view == 'list'" (click)="setView('list')">
+                  <i class="cui-list-rich" aria-hidden="true"></i>
+                </label>
+                <label class="btn btn-outline-primary cursor-pointer" [class.active]="view == 'thumb'" (click)="setView('thumb')">
+                  <i class="cui-grid" aria-hidden="true"></i>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col pl-0 pr-0">
+          <div class="" style="padding: 0.2em 0.40rem !important">
+            <app-filter-textbox class="" (changed)="onFilterChanged($event)"></app-filter-textbox>
+          </div>
+        </div>
+        <div class="col pl-0">
+          <div class="buttons-bar float-left">
+            <div class="btn-toolbar" style="padding: 0.20em 0.25rem !important">
+              <div class="btn-group btn-group-sm mr-1">
+                <label class="btn btn-outline-secondary cursor-pointer" title="Aggiorna" (click)="refresh()">
+                  <i class="icon-reload" aria-hidden="true"></i>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="buttons-bar float-right">
+
+            <div class="btn-toolbar" role="toolbar" style="padding: 0.20em 0.25rem !important">
+              <div class="btn-group btn-group-sm">
+                <label class="btn cursor-pointer" tooltip="{{ 'APP.TOOLTIP.clear_filter_sort' | translate }}" placement="bottom" container="body" (click)="clearFilterSort($event)" *ngIf="hasFilter || hasSorting"><i class="cui-x fa-lg text-success"></i></label>
+                <label class="btn" [(ngModel)]="sideBarStatus" btnRadio="sort" uncheckable role="button" tooltip="{{ 'APP.TOOLTIP.show_hide_sort' | translate }}" placement="bottom" container="body" [class.btn-outline-warning]="hasSorting"><i class="cui-sort-ascending fa-lg" [class.text-primary]="sideBarStatus == 'sort' && !hasSorting"></i></label>
+                <label class="btn" [(ngModel)]="sideBarStatus" btnRadio="filter" uncheckable role="button" tooltip="{{ 'APP.TOOLTIP.show_hide_filter' | translate }}" placement="bottom" container="body" [class.btn-outline-warning]="hasFilter"><i class="cui-list-filter fa-lg" [class.text-primary]="sideBarStatus == 'filter' && !hasFilter"></i></label>
+                <label class="btn" [(ngModel)]="sideBarStatus" btnRadio="inspector" uncheckable role="button" tooltip="{{ 'APP.TOOLTIP.show_hide_inspector' | translate }}" placement="bottom" container="body"><i class="icon-info fa-lg" [class.text-primary]="sideBarStatus == 'inspector'"></i></label>
+              </div>
+              <!-- <div class="btn-group btn-group-sm">
+                <label class="btn btn-outline-secondary- cursor-pointer" (click)="toggleInspectorSidebar($event)"
+                  [class.text-info]="showInspector" tooltip="{{ 'APP.TOOLTIP.show_hide_inspector' | translate }}" placement="bottom" container="body">
+                  <i class="icon-info fa-lg"></i>
+                </label>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-layout-body" style="overflow: auto;height: calc( 100% - 40px - 40px );">
+		<!-- <div class="flex-layout-sidebar bg-gray-100 sidebar-left"></div> -->
+    <div class="flex-layout-content">
+      <div class="layout-content animated fadeIn" *ngIf="view == 'list'">
+        <ngx-loading
+          [show]="loading"
+          [config]="loadingOptions">
+        </ngx-loading>
+        <div class="d-flex flex-column justify-content-center align-items-center h-100" *ngIf="!contacts?.length">
+          <div class="text-center" *ngIf="!contacts?.length && !loading">
+            <i class="cui-contact icon-messages-50"></i>
+            <h6 class="no-messages-text mt-3">{{ 'APP.MESSAGE.no_elements' | translate }}</h6>
+          </div>
+        </div>
+        <div class="container-fluid px-0" style="width: calc( 100% ); height: calc( 100% );" *ngIf="contacts?.length">
+          <div id="grid-wrapper" class="px-0" style="width: calc( 100% ); height: calc( 100% );">
+            <!-- contacts list -->
+            <ag-grid-angular
+              style="width: 100%; height: 100%;"
+              class="ag-theme-balham"
+              [rowData]="contacts"
+              [columnDefs]="agColumnDefs"
+              [gridOptions]="agGridOptions"
+              (gridReady)="onGridReady($event)"
+              (gridSizeChanged)="onGridSizeChanged($event)"
+              (selectionChanged)="onSelectionChanged($event)"
+              (cellDoubleClicked)="onDoubleClicked($event)"
+              rowSelection="single">
+            </ag-grid-angular>
+          </div>
+        </div>
+      </div>
+      <div class="layout-content px-2 py-2 animated fadeIn" *ngIf="view == 'thumb'">
+        <div class="other">
+          <div class="row mx-0 mb-5">
+            <div class="col-6">
+              <div class="card bg-default p-3">
+                <form [formGroup]="orderForm" (ngSubmit)="onSubmit(order)">
+                  <formly-form [form]="orderForm" [fields]="orderFields" [model]="order">
+                    <button mat-raised-button color="primary" type="submit">
+                      {{ 'APP.BUTTON.save' | translate }}
+                    </button>
+                  </formly-form>
+                </form>
+              </div>
+            </div>
+            <div class="col-6 border">
+              <ng-lottie [options]="options" (animationCreated)="animationCreated($event)"></ng-lottie>
+            </div>
+          </div>
+          <div class="row mx-0 mb-5">
+            <div class="col-6">
+              <div class="card bg-default px-5 py-5">
+                <mat-form-field style="width: 100%;">
+                  <mat-label>{{ 'APP.FIELD.company' | translate }}</mat-label>
+                  <!-- <mat-select>
+                    <mat-option>{{ '' }}</mat-option>
+                  </mat-select> -->
+                  <input type="text" matInput>
+                </mat-form-field>
+              </div>
+              <div class="card bg-default px-5 py-5">
+                <mat-button-toggle-group color="accent" class="w-100">
+                  <mat-button-toggle value="Bar">{{ "app.tab-1" | translate | uppercase }}</mat-button-toggle>
+                  <mat-button-toggle value="Push">{{ "app.tab-2" | translate | uppercase }}</mat-button-toggle>
+                </mat-button-toggle-group>
+              </div>
+              <div class="card bg-default px-0 py-5">
+                <mat-tab-group mat-align-tabs="center" class="col-12">
+                  <mat-tab label="{{ 'card-' + card }}" *ngFor="let card of [1, 2, 3]">
+                    <div class="container-fluid mt-3">
+                      <div class="row">
+                        <div class="col-12">
+                          <!-- {{ card | json }} -->
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                </mat-tab-group>
+              </div>
+            </div>
+            <div class="col-6 text-right">
+              <div class="card bg-default px-5 py-5">
+                <button class="btn btn-success d-inline mr-4">
+                  {{ 'APP.MENU.account' | translate }}
+                </button>
+                <mat-slide-toggle class="mr-4">
+                </mat-slide-toggle>
+                <mat-slide-toggle class="mr-4">
+                </mat-slide-toggle>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-layout-sidebar sidebar-right preview-content inspector-content" [class.hidden]="!sideBarStatus">
+      <app-contacts-sorting #contactsSortingComponent
+        (groupSorting)="onGroupSorting($event)"
+        [hidden]="sideBarStatus != 'sort'">
+      </app-contacts-sorting>
+      <app-contacts-filter #contactsFilterComponent
+        (groupFilters)="onGroupFilters($event)"
+        [hidden]="sideBarStatus != 'filter'">
+      </app-contacts-filter>
+      <app-contact-inspector
+        [contactId]="currentId"
+        [contact]="currentElement"
+        [hidden]="sideBarStatus != 'inspector'">
+      </app-contact-inspector>
+    </div>
+  </div>
+  <div class="flex-layout-footer">
+    <div class="bg-gray-100-" style="width: 100%;text-align: right;">
+    </div>
+  </div>
+</div>

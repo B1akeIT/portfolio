@@ -1,0 +1,575 @@
+<div class="flex-layout-header" *ngIf="showHeader">
+  <div class="bg-gray-100-" style="width: 100%;">
+    <div class="d-flex flex-row justify-content-between">
+      <div class="colo-xs-12 col-sm-6 pl-0 pr-0">
+        <div class="float-left mr-1">
+          <div class="btn-group btn-group-sm">
+            <label class="btn btn-outiline-secondary" (click)="closeEdit($event)" style="padding-top: 0.7em;"> <!-- tooltip="{{ 'APP.TOOLTIP.back_panel' | translate }}" placement="right" container="body"  -->
+              <i class="icon-arrow-left fa-lg"></i>
+            </label>
+          </div>
+        </div>
+        <div class="float-left mr-2" style="padding: 0.5em 0.40rem !important">
+          <i class="cui-contact"></i> <span class="d-sm-none d-md-inline-block">{{ 'APP.TITLE.contact' | translate }}</span>
+        </div>
+        <div class="float-left mr-2 text-truncate font-weight-bold" style="padding: 0.5em 0.40rem !important;width: 75%;" *ngIf="!loading">
+          <span class="h5" *ngIf="wContact?.id" title="{{ wContact?.id }}">
+            {{ wContact?.ragioneSociale }}
+          </span>
+          <span class="small text-muted ml-3" *ngIf="wContact?.id">
+            <!-- {{ wContact?.nome + ' ' + wContact?.cognome }} -->
+          </span>
+          <span *ngIf="!wContact?.id">{{ 'APP.TITLE.new_contact' | translate }}</span>
+        </div>
+      </div>
+      <div class="col-3 pl-0 pr-0 d-sm-none d-md-inline-block">
+        <div class="text-center" style="padding: 0.5em 0.40rem !important;">
+          <i class="text-warning pr-1" *ngFor="let item of tipoContattoList"
+            [ngClass]="{ 'cui-user text-warning': item == 'Agente', 'cui-euro text-danger': item == 'Cliente', 'cui-factory text-info': item == 'Fornitore', 'cui-boat-alt text-indigo': item == 'Unita' }" tooltip="{{ item | translate }}" placement="bottom" container="body"></i>
+        </div>
+        <!-- <div class="buttons-bar float-right">
+          <div class="btn-toolbar" role="toolbar" style="padding: 0.20em 0.25rem !important">
+            <div class="btn-group btn-group-sm">
+              <span class="muted mr-2" style="margin-top: 0.3em;">1 di 400</span>
+              <label class="btn btn-outline-info- mr-2" (click)="nextElement($event)" tooltip="{{ 'APP.TOOLTIP.next' | translate }}" placement="bottom" container="body">
+                <i class="icon-arrow-left fa-1x"></i>
+              </label>
+              <label class="btn btn-outline-info-" (click)="prevElement($event)" tooltip="{{ 'APP.TOOLTIP.prev' | translate }}" placement="bottom" container="body">
+                <i class="icon-arrow-right fa-1x"></i>
+              </label>
+            </div>
+          </div>
+        </div> -->
+      </div>
+      <div class="col-3 pl-0 pr-0 d-sm-none d-md-inline-block">
+        <!-- <div class="btn-toolbar float-right" role="toolbar" style="padding: 0.5em 0.40rem !important">
+          <div class="btn-group btn-group-sm">
+            <span class="muted mr-2" style="margin-top: 0.3em;">1 di 400</span>
+            <label class="btn btn-outline-info- mr-2" (click)="nextElement($event)" tooltip="{{ 'APP.TOOLTIP.next' | translate }}" placement="bottom" container="body">
+              <i class="icon-arrow-left fa-1x"></i>
+            </label>
+            <label class="btn btn-outline-info-" (click)="prevElement($event)" tooltip="{{ 'APP.TOOLTIP.prev' | translate }}" placement="bottom" container="body">
+              <i class="icon-arrow-right fa-1x"></i>
+            </label>
+          </div>
+        </div> -->
+        <!-- <div class="buttons-bar float-right">
+          <div class="btn-toolbar" role="toolbar" style="padding: 0.20em 0.25rem !important">
+            <div class="btn-group btn-group-sm">
+              <label class="btn btn-outline-secondary-" (click)="closeEdit()" tooltip="{{ 'APP.TOOLTIP.close_panel' | translate }}" placement="left" container="body" style="padding-top: 0.5em;">
+                <i class="cui-x fa-lg"></i>
+              </label>
+            </div>
+          </div>
+        </div> -->
+        <!-- <div class="buttons-bar float-right">
+          <div class="btn-toolbar" role="toolbar" style="padding: 0.20em 0.25rem !important">
+            <div class="btn-group btn-group-sm">
+              <label class="btn btn-outline-info-" (click)="toggleSidebar($event)" [class.text-info]="sidebarOpened" tooltip="{{ 'APP.TOOLTIP.show_hide_help' | translate }}" placement="left" container="body">
+                <i class="icon-question fa-lg"></i>
+              </label>
+            </div>
+          </div>
+        </div> -->
+        <div class="float-right mr-2" style="padding: 0.5em 0.40rem !important;" *ngIf="!loading">
+          <span class="badge badge-warning rounded-pill" style="font-size: 0.9em;" *ngIf="!wContact?.id">{{ 'APP.MESSAGE.not_saved' | translate }}</span>
+          <span class="badge badge-warning rounded-pill" style="font-size: 0.9em;" *ngIf="wContact?.id && modified">{{ 'APP.MESSAGE.modified' | translate }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="flex-layout-body" [ngStyle]="{ 'overflow': 'auto', 'height': 'calc( 100% - ' + bodyOffset + 'px )' }">
+  <div class="flex-layout-content" appFit>
+    <ngx-loading
+      [show]="loading"
+      [config]="loadingOptions">
+    </ngx-loading>
+    <div class="bg-gray-100-" [ngStyle]="{ 'border-bottom': '1px solid #cfd8dc', 'height': offsetLayout }" *ngIf="wContact">
+      <div class="d-flex flex-row justify-content-center" *ngIf="!loading && !materialTab">
+        <div class="col text-center pl-4 pr-0 border-bottom" *ngIf="!materialTab">
+          <tabset class="tab-orange">
+            <ng-container *ngFor="let panel of panels">
+              <ng-template [appHasPermission]="panel.permission" [action]="'view'" [owner]="true">
+                <tab [heading]="panel.title | translate" (selectTab)="onSelectTab(panel)" [disabled]="isTabDisabled(panel)"></tab>
+              </ng-template>
+            </ng-container>
+          </tabset>
+        </div>
+      </div>
+      <div class="d-flex flex-row justify-content-center px-3" *ngIf="!loading && materialTab">
+        <mat-tab-group mat-align-tabs="left" class="col-12 px-0" (selectedTabChange)="onSelectMatTabChange($event)" *ngIf="materialTab">
+          <ng-container *ngFor="let panel of panels;let idx = index;">
+            <ng-template [appHasPermission]="panel.permission" [action]="'view'" [owner]="true">
+              <mat-tab label="{{ panel.title | translate }}" [disabled]="isTabDisabled(panel)"></mat-tab>
+            </ng-template>
+          </ng-container>
+        </mat-tab-group>
+      </div>
+    </div>
+    <div class="layout-content contact-container custom-scroll" [ngStyle]="{ 'width': 'calc( 100% )', 'height': 'calc( 100% - ' + offsetLayout + ')' }">
+      <div class="d-flex flex-column justify-content-center align-items-center h-100" *ngIf="!wContact">
+        <div class="text-center">
+          <i class="cui-image1 icon-messages-50"></i>
+          <h6 class="no-messages-text mt-3">{{ 'APP.TITLE.new_contact' | translate }}</h6>
+        </div>
+      </div>
+      <div class="tab-content- mx-0" style="width: calc( 100% );" *ngIf="!loading && wContact">
+        <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="general_info" [hidden]="!isTabActive('general_info')">
+          <form #contactForm="ngForm" class="form-horizontal" (change)="onFormChanges($event)" autocomplete="off">
+          <fieldset [disabled]="readOnly">
+            <div class="card card-general-info mx-auto">
+              <div class="card-body pt-2">
+                <div class="form-row align-items-center box-contact-id d-none">
+                  <div class="form-group col-3 mb-0">
+                    <label class="col-form-label col-form-label-sm" for="id">{{ 'APP.FIELD.id' | translate }}</label>
+                    <input type="text" name="id" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.id' | translate }}" [(ngModel)]="wContact.id" readonly>
+                  </div>
+                  <div class="form-group col-9 mb-0">
+                  </div>
+                </div>
+                <div class="form-row align-items-center ragioneSociale">
+                  <div class="form-group col-8 mb-0">
+                    <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('ragioneSociale')" for="ragioneSociale">{{ 'APP.FIELD.companyname' | translate }}</label>
+                    <input type="text" name="ragioneSociale" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.companyname' | translate }}" [(ngModel)]="wContact.ragioneSociale" autocomplete="off">
+                  </div>
+                  <div class="form-group col-4 mb-0">
+                    <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('nickName')" for="nickName">{{ 'APP.FIELD.nickName' | translate }}</label>
+                    <input type="text" name="nickName" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.nickName' | translate }}" [(ngModel)]="wContact.nickName" autocomplete="off">
+                  </div>
+                </div>
+                <div class="" *ngIf="!isUnita()">
+                  <div class="form-row align-items-center box-contact-name mt-2 pt-2 pb-2">
+                    <div class="form-group col-md-4 col-sm-12 mb-0">
+                      <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('nome')" for="firstname">{{ 'APP.FIELD.firstname' | translate }}</label>
+                      <input type="text" name="firstname" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.firstname' | translate }}" [(ngModel)]="wContact.nome" autocomplete="off">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12 mb-0">
+                      <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('cognome')" for="lastname">{{ 'APP.FIELD.lastname' | translate }}</label>
+                      <input type="text" name="lastname" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.lastname' | translate }}" [(ngModel)]="wContact.cognome" autocomplete="off">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12 mb-0">
+                      <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('mansioniContatto')" for="mansioniContatto">{{ 'APP.FIELD.mansioniContatto' | translate }}</label>
+                      <input type="text" name="mansioniContatto" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.mansioniContatto' | translate }}" [(ngModel)]="wContact.mansioniContatto">
+                    </div>
+                  </div>
+                  <div class="form-row align-items-center- box-address mt-2 pt-2 pb-2 border-top">
+                    <div class="form-group col-md-4 col-sm-12 mb-0">
+                      <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('indirizzo')" for="indirizzo">{{ 'APP.FIELD.address' | translate }}</label>
+                      <textarea class="form-control form-control-sm" name="indirizzo" rows="4" [(ngModel)]="wContact.indirizzo" autocomplete="off"></textarea>
+                    </div>
+                    <div class="form-group- col-md-8 col-sm-12 mb-0">
+                      <div class="form-row">
+                        <div class="form-group col-4 mb-0">
+                          <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('cap')" for="cap">{{ 'APP.FIELD.zip' | translate }}</label>
+                          <input type="text" name="cap" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.zip' | translate }}" [(ngModel)]="wContact.cap" autocomplete="off">
+                        </div>
+                        <div class="form-group col-8 mb-0">
+                          <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('comune')" for="comune">{{ 'APP.FIELD.city' | translate }}</label>
+                          <input type="text" name="comune" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.city' | translate }}" [(ngModel)]="wContact.comune">
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-4 mb-0">
+                          <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('provincia')" for="provincia">{{ 'APP.FIELD.province' | translate }}</label>
+                          <input type="text" name="provincia" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.province' | translate }}" [(ngModel)]="wContact.provincia" autocomplete="off">
+                        </div>
+                        <div class="form-group col-8 mb-0">
+                          <label class="col-form-label col-form-label-sm w-100" [class.modified]="isModifiedProperty('anagNazioneId')" for="anagNazioneId" title="{{ wContact.anagNazioneId }}">{{ 'APP.FIELD.nazione' | translate }} <span class="btn btn-sm p-0 float-right" (click)="tableMS.openTableModal('Nazione')" *ngIf="!readOnly"><i class="cui-pencil"></i></span></label>
+                          <ng-select class="form-select-sm" [disabled]="readOnly"
+                            name="anagNazioneId"
+                            [items]="anagraficheCombo['SpComboNazione']"
+                            bindValue="id"
+                            bindLabel="descrizione"
+                            appendTo="body"
+                            [loading]="nationLoading"
+                            [searchFn]="customSearchFn"
+                            [(ngModel)]="wContact.anagNazioneId"
+                            (change)="onChangeNazione($event)">
+                              <ng-template ng-option-tmp let-item="item">
+                                {{item.descrizione}} <br/>
+                                <small>{{item.codice}} - {{item.id}}</small>
+                              </ng-template>
+                          </ng-select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row align-items-center box-legale-rappresentante pt-2 border-top">
+                    <div class="form-group col-12 mb-0">
+                      <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('legaleRappresentante')" for="legaleRappresentante">{{ 'APP.FIELD.legal-representative' | translate }}</label>
+                      <input type="text" name="legaleRappresentante" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.legal-representative' | translate }}" [(ngModel)]="wContact.legaleRappresentante" autocomplete="off">
+                    </div>
+                  </div>
+                  <div class="form-row align-items-center box-piva pt-2 pb-2">
+                    <div class="form-group col-md-6 col-sm-12 mb-0">
+                      <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('pIva')" for="pIva">{{ 'APP.FIELD.vat' | translate }}</label>
+                      <input type="text" name="pIva" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.vat' | translate }}" [(ngModel)]="wContact.pIva" autocomplete="off">
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12 mb-0">
+                      <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('codiceFiscale')" for="codiceFiscale">{{ 'APP.FIELD.codiceFiscale' | translate }}</label>
+                      <input type="text" name="codiceFiscale" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.codiceFiscale' | translate }}" [(ngModel)]="wContact.codiceFiscale" autocomplete="off">
+                    </div>
+                  </div>
+                  <div class="form-row align-items-center box-email mt-2 pt-2 border-top">
+                    <div class="form-group col-md-4 col-sm-12 mb-0">
+                      <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('email')" for="email">{{ 'APP.FIELD.email' | translate }}</label>
+                      <input type="text" name="email" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.email' | translate }}" [(ngModel)]="wContact.email" autocomplete="off">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12 mb-0">
+                      <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('pec')" for="lastname">{{ 'APP.FIELD.pec' | translate }}</label>
+                      <input type="text" name="pec" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.pec' | translate }}" [(ngModel)]="wContact.pec" autocomplete="off">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12 mb-0">
+                      <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('sitoWeb')" for="sitoWeb">{{ 'APP.FIELD.sitoWeb' | translate }}</label>
+                      <input type="text" name="sitoWeb" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.sitoWeb' | translate }}" [(ngModel)]="wContact.sitoWeb" autocomplete="off">
+                    </div>
+                  </div>
+                  <div class="form-row align-items-center box-phone pb-2">
+                    <div class="form-group col-md-4 col-sm-12 mb-0">
+                      <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('nTel')" for="nTel">{{ 'APP.FIELD.nTel' | translate }}</label>
+                      <input type="text" name="nTel" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.phone' | translate }}" [(ngModel)]="wContact.nTel" autocomplete="off">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12 mb-0">
+                      <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('nFax')" for="nFax">{{ 'APP.FIELD.nFax' | translate }}</label>
+                      <input type="text" name="nFax" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.fax' | translate }}" [(ngModel)]="wContact.nFax" autocomplete="off">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12 mb-0">
+                      <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('nCell')" for="nCell">{{ 'APP.FIELD.nCell' | translate }}</label>
+                      <input type="text" name="nCell" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.mobile' | translate }}" [(ngModel)]="wContact.nCell" autocomplete="off">
+                    </div>
+                  </div>
+                  <div class="form-row align-items-center box-rea mt-2 pt-2 pb-2 border-top">
+                    <div class="form-group col-md-6 col-sm-12 mb-0">
+                      <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('numeroIscrizREA')" for="numeroIscrizREA">{{ 'APP.FIELD.numeroIscrizREA' | translate }}</label>
+                      <input type="text" name="numeroIscrizREA" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.numeroIscrizREA' | translate }}" [(ngModel)]="wContact.numeroIscrizREA">
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12 mb-0">
+                      <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('codiceAttivitaISTAT')" for="codiceAttivitaISTAT">{{ 'APP.FIELD.codiceAttivitaISTAT' | translate }}</label>
+                      <input type="text" name="codiceAttivitaISTAT" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.codiceAttivitaISTAT' | translate }}" [(ngModel)]="wContact.codiceAttivitaISTAT">
+                    </div>
+                  </div>
+                  <div class="form-row align-items-center box-valuta-lingua mt-2 pt-2 pb-2 border-top">
+                    <div class="form-group col-md-6 col-sm-12 mb-0">
+                      <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('anagValutaId')" for="anagValutaId">{{ 'APP.FIELD.anagValutaId' | translate }}</label>
+                      <select name="anagValutaId" class="form-control form-control-sm" [(ngModel)]="wContact.anagValutaId">
+                        <option value="0">&nbsp;</option>
+                        <option [value]="currencie.id" *ngFor="let currencie of anagraficheCombo['SpComboValuta'];">{{ currencie.descrizione }}</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12 mb-0">
+                      <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('anagLinguaId')" for="anagLinguaId">{{ 'APP.FIELD.anagLinguaId' | translate }}</label>
+                      <select name="anagLinguaId" class="form-control form-control-sm" [(ngModel)]="wContact.anagLinguaId">
+                        <option value="0">&nbsp;</option>
+                        <option [value]="al.id" *ngFor="let al of anagraficheCombo['SpComboLingua'];">{{ al.descrizione }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-row align-items-center box-valutazione mt-2 pt-2 border-top">
+                    <div class="form-group col-md-6 col-sm-12 mb-0">
+                      <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('anagValutazioneId')" for="anagValutazioneId">{{ 'APP.FIELD.anagValutazioneId' | translate }}</label>
+                      <select name="anagValutazioneId" class="form-control form-control-sm" [(ngModel)]="wContact.anagValutazioneId">
+                        <option value="0">&nbsp;</option>
+                        <option [value]="val.id" *ngFor="let val of anagraficheCombo['SpComboValutazione'];">{{ val.descrizione }}</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12 mb-0">
+                      <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('anagOrigineContattoId')" for="anagOrigineContattoId">{{ 'APP.FIELD.anagOrigineContattoId' | translate }}</label>
+                      <select name="anagOrigineContattoId" class="form-control form-control-sm" [(ngModel)]="wContact.anagOrigineContattoId">
+                        <option value="0">&nbsp;</option>
+                        <option [value]="oc.id" *ngFor="let oc of anagrafiche['AnagOrigineContatto'];">{{ oc.descrizione }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-row align-items-center box-assistenza mt-2 pt-2 border-top">
+                    <div class="form-group col-md-12 col-sm-12 mb-0">
+                      <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('assistenza')" for="assistenza">{{ 'APP.FIELD.assistenza' | translate }}</label>
+                      <textarea class="form-control form-control-sm" name="assistenza" rows="4" [(ngModel)]="wContact.assistenza" autocomplete="off"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body pt-0" *ngIf="isUnita()">
+                <div class="form-row align-items-center proprietario">
+                  <div class="form-group col-12 mb-0">
+                    <label class="col-form-label col-form-label-sm" for="ragioneSociale">{{ 'APP.FIELD.proprietario' | translate }}</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.proprietario' | translate }}" [value]="getNomeProprietario()" autocomplete="off" disabled>
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-12">
+                    <!-- <pre class="pre-code w-100"><code>{{ wContact.datiUnita | json }}</code></pre> -->
+                    <app-unita-edit
+                      [unitaId]="wContact.datiUnita.id"
+                      [name]="'APP.TITLE.unit-data' | translate"
+                      [showDelete]="true"
+                      [titleDelete]="'APP.TITLE.delete'"
+                      [messageDelete]="'APP.MESSAGE.are_you_sure_unit_delete'"
+                      [iconDelete]="'icon-trash'"
+                      (delete)="onDeleteUnita($event)">
+                    </app-unita-edit>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          </form>
+          <div class="row mb-4" *ngIf="showJsonEditor">
+            <div class="col-9 offset-3">
+              <json-editor [options]="editorOptions" [data]="wContact"></json-editor>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="contacts" [hidden]="!isTabActive('contacts')" *ngIf="!isNew">
+          <div class="card card-contacts mx-auto">
+            <div class="card-body pt-2">
+              <div class="row">
+                <div class="col-12">
+                  <div class="d-block mb-1 border-bottom pb-1-">
+                    <!-- <mat-tab-group mat-align-tabs="left" class="px-0" selectedIndex="currentPanelContactIndex" (selectedTabChange)="setCurrentPanelContactTab($event)">
+                      <mat-tab label="{{ cPanel.title | translate }}" *ngFor="let cPanel of contactsPanels"></mat-tab>
+                    </mat-tab-group> -->
+                    <tabset>
+                      <ng-container *ngFor="let panel of contactsPanels;let idx = index;">
+                        <ng-template [appHasPermission]="panel.permission" [action]="'view'" [owner]="true">
+                          <tab [active]="idx == 0" [heading]="panel.title | translate" (selectTab)="setCurrentPanelContact($event, panel)"></tab>
+                        </ng-template>
+                      </ng-container>
+                    </tabset>
+                  </div>
+                  <div class="tab-pane fadeIn pt-1" [hidden]="currentPanelContact?.key != 'emails'">
+                    <div class="mx-auto" *ngIf="!loading && wContact && wContact?.id">
+                      <div class="d-block mb-3 border-bottom">
+                        <tabset #panelsTabs>
+                          <ng-container *ngFor="let item of anagraficheCombo['SpComboAzienda']">
+                            <tab [active]="item.id == user?.aziendaId" (selectTab)="setCurrentAzienda($event, item)">
+                              <ng-template tabHeading>
+                                <img [src]="item.pathlogo" style="width: 28px;" title="{{ item.id }}" *ngIf="item.pathlogo">
+                                <span class="" title="{{ item.id }}" *ngIf="!item.pathlogo">{{ item.descrizione }}</span>
+                              </ng-template>
+                            </tab>
+                          </ng-container>
+                        </tabset>
+                      </div>
+                      <div class="mt-1">
+                        <app-emails-list
+                          [contactId]="wContact.id"
+                          [aziendaId]="currentAziendaId"
+                          [readOnly]="readOnly">
+                        </app-emails-list>
+                        <!-- <hr>
+                        <div class="mx-auto border" style="min-height: 150px;">
+                          <app-emails-grid-list
+                            [showTitle]="true"
+                            [editable]="!readOnly"
+                            [contactId]="wContact.id"
+                            [aziendaId]="currentAziendaId"
+                            [options]="{ height: '150px' }">
+                          </app-emails-grid-list>
+                        </div> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fadeIn pt-3" [hidden]="currentPanelContact?.key != 'references'">
+                    <app-references-list
+                      [contactId]="wContact.id"
+                      [readOnly]="readOnly">
+                    </app-references-list>
+                  </div>
+                  <div class="tab-pane fadeIn pt-3" [hidden]="currentPanelContact?.key != 'local-units'">
+                    <app-local-units-list
+                      [contactId]="wContact.id"
+                      [readOnly]="readOnly">
+                    </app-local-units-list>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="client-data" [hidden]="!isTabActive('client-data')" *ngIf="!isNew">
+          <div class="card card-general-info mx-auto layout-2">
+            <div class="card-body pt-2">
+              <app-client-supplier
+                [contactId]="contactId"
+                [type]="'Cliente'"
+                [readOnly]="readOnly">
+              </app-client-supplier>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="supplier-data" [hidden]="!isTabActive('supplier-data')" *ngIf="!isNew">
+          <div class="card card-general-info mx-auto layout-2">
+            <div class="card-body pt-2">
+              <app-client-supplier
+                [contactId]="contactId"
+                [type]="'Fornitore'"
+                [readOnly]="readOnly">
+              </app-client-supplier>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="carrier" [hidden]="!isTabActive('carrier-data')" *ngIf="!isNew">
+          <div class="card card-general-info mx-auto layout-2">
+            <div class="card-body pt-2">
+              <div class="row">
+                <div class="col-12" *ngIf="!loading">
+                  <app-carrier
+                    [contactId]="contactId"
+                    [readOnly]="readOnly">
+                  </app-carrier>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="unit" [hidden]="!isTabActive('unit')" *ngIf="!isNew">
+          <div class="card card-general-info mx-auto layout-2">
+            <div class="card-body pt-2">
+              <div class="row">
+                <div class="col-12" *ngIf="!loading">
+                  <!-- <pre class="pre-code"><code>{{ contactTypeData['Cliente']?.unitaList | json }}</code></pre> -->
+                  <app-unita-list
+                    [contactId]="contactId"
+                    [contact]="wContact"
+                    [clientId]="getClient()?.id"
+                    [items]="contactTypeData['Cliente']?.unitaList"
+                    [readOnly]="readOnly"
+                    (reload)="reloadData()">
+                  </app-unita-list>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid tab-pane fadeIn pt-3" id="connected-units" *ngIf="isTabActive('connected-units') && !isNew">
+          <div class="card card-general-info mx-auto layout-2">
+            <div class="card-body pt-2">
+              <div class="row">
+                <div class="col-12" *ngIf="!loading">
+                  <div class="card card-contacts">
+                    <div class="card-header">
+                      <span class="text-uppercase">{{ 'APP.TITLE.connected-units' | translate }}</span>
+                      <div class="btn-toolbar float-right">
+                        <div class="btn-group btn-group-sm">
+                          <label class="btn btn-outiline-secondary pt-0 pb-0 mb-0" tooltip="{{ 'APP.TOOLTIP.refresh' | translate }}" placement="top" container="body">
+                            <i class="icon-refresh fa-lg" [class.fa-spin]="loading"></i>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="quotes" [hidden]="!isTabActive('quotes')" *ngIf="!isNew">
+          <div class="card card-general-info mx-auto layout-2" style="min-height: 200px;">
+            <div class="card-body pt-2">
+              <app-contact-quotes [contactId]="contactId"></app-contact-quotes>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="orders" [hidden]="!isTabActive('orders')" *ngIf="!isNew">
+          <div class="card card-general-info mx-auto layout-2" style="min-height: 200px;">
+            <div class="card-body pt-2">
+              <app-contact-orders [contactId]="contactId"></app-contact-orders>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="orders" [hidden]="!isTabActive('orders-suppliers')" *ngIf="!isNew">
+          <div class="card card-general-info mx-auto layout-2" style="min-height: 200px;">
+            <div class="card-body pt-2">
+              <app-contact-orders-suppliers [contactId]="contactId"></app-contact-orders-suppliers>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="orders" [hidden]="!isTabActive('ddt')" *ngIf="!isNew">
+          <div class="card card-general-info mx-auto layout-2" style="min-height: 200px;">
+            <div class="card-body pt-2">
+              <app-contact-ddt
+                [contactId]="contactId">
+              </app-contact-ddt>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="orders" [hidden]="!isTabActive('invoices')" *ngIf="!isNew">
+          <div class="card card-general-info mx-auto layout-2" style="min-height: 200px;">
+            <div class="card-body pt-2">
+              <app-contact-invoices [contactId]="contactId"></app-contact-invoices>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="activities" *ngIf="isTabActive('activities') && !isNew">
+          <div class="card card-general-info mx-auto layout-2" style="min-height: 200px;">
+            <div class="card-body pt-2">
+              <app-contact-activities
+                [contactId]="contactId">
+              </app-contact-activities>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="visits" *ngIf="isTabActive('visits') && !isNew">
+          <div class="card card-general-info mx-auto layout-2">
+            <div class="card-body pt-2">
+              <div class="row">
+                <div class="col-12" *ngIf="!loading">
+                  <div class="card card-contacts">
+                    <div class="card-header">
+                      <span class="text-uppercase">{{ 'APP.TITLE.visits' | translate }}</span>
+                      <div class="btn-toolbar float-right">
+                        <div class="btn-group btn-group-sm">
+                          <label class="btn btn-outiline-secondary pt-0 pb-0 mb-0" tooltip="{{ 'APP.TOOLTIP.refresh' | translate }}" placement="top" container="body">
+                            <i class="icon-refresh fa-lg" [class.fa-spin]="loading"></i>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid tab-pane fadeIn pt-3 px-2 px-sm-3" id="general-news" *ngIf="isTabActive('general-news') && !isNew">
+          <div class="card card-general-info mx-auto layout-2">
+            <div class="card-body pt-2">
+              <div class="row">
+                <div class="col-12" *ngIf="!loading">
+                  <div class="card card-contacts">
+                    <div class="card-header">
+                      <span class="text-uppercase">{{ 'APP.TITLE.general-news' | translate }}</span>
+                      <div class="btn-toolbar float-right">
+                        <div class="btn-group btn-group-sm">
+                          <label class="btn btn-outiline-secondary pt-0 pb-0 mb-0" tooltip="{{ 'APP.TOOLTIP.refresh' | translate }}" placement="top" container="body">
+                            <i class="icon-refresh fa-lg" [class.fa-spin]="loading"></i>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-layout-sidebar sidebar-right inspector-content" [hidden]="!sidebarOpened">
+    <!-- <app-help [chapter]="'contact'" [section]="'section'"></app-help> -->
+  </div>
+</div>
+<div class="flex-layout-footer" *ngIf="showFooter">
+  <div class="bg-gray-100-" style="width: 100%;">
+    <div class="d-flex flex-row justify-content-between">
+      <div class="col-6 pr-0">
+        <button class="btn btn-sm btn-light" (click)="closeEdit($event)" *ngIf="!readOnly"><i class="cui-x"></i> {{ 'APP.BUTTON.close' | translate }}</button>
+        <button class="btn btn-sm btn-primary" (click)="saveEdit($event)" [disabled]="!modified" *ngIf="isTabActive('general_info')"><i class="cui-save"></i> {{ 'APP.BUTTON.save' | translate }}</button>
+      </div>
+      <div class="col-6 pl-0">
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="d-flex flex-column h-100">
+  <div class="header border-bottom">
+    <nav class="navbar navbar-light bg-white">
+      <span class="navbar-brand"><i class="cui-list-filter"></i> {{ 'APP.TITLE.filter' | translate }}</span>
+    </nav>
+  </div>
+  <div class="content flex-grow-1">
+    <div class="details-content filter-content">
+      <form novalidate [formGroup]="form" class="form-horizontal">
+        <div class="card mb-2">
+          <div class="card-body">
+            <div class="form-group mb-0">
+              <label class="col-form-label-sm mb-0" for="firstname">{{ 'APP.FIELD.firstname' | translate }}</label>
+              <input type="text" formControlName="firstname" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.firstname' | translate }}" />
+            </div>
+            <div class="form-group mb-0">
+              <label class="col-form-label-sm mb-0" for="lastname">{{ 'APP.FIELD.lastname' | translate }}</label>
+              <input type="text" formControlName="lastname" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.lastname' | translate }}" />
+            </div>
+            <div class="form-group mb-0">
+              <label class="col-form-label-sm mb-0" for="companyname">{{ 'APP.FIELD.companyname' | translate }}</label>
+              <input type="text" formControlName="companyname" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.companyname' | translate }}" />
+            </div>
+            <div class="form-group mb-0">
+              <label class="col-form-label-sm mb-0" for="vat">{{ 'APP.FIELD.vat' | translate }}</label>
+              <input type="text" formControlName="vat" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.vat' | translate }}" />
+            </div>
+            <div class="form-inline mt-2 mb-0">
+              <div class="form-check mb-0">
+                <input type="checkbox" value="1" formControlName="is_company" class="form-check-input" />
+                <label class="form-check-label" for="is_company">{{ 'APP.FIELD.is_company' | translate }}</label>
+              </div>
+            </div>
+            <div class="form-group mb-0">
+              <label class="col-form-label-sm mb-0" for="qualification">{{ 'APP.FIELD.qualification' | translate }}</label>
+              <!-- <input type="text" formControlName="qualification" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.qualification' | translate }}" /> -->
+              <select class="form-control form-control-sm" formControlName="qualification">
+                <option value="">{{ ''  | translate }}</option>
+                <option *ngFor="let item of qualifications" [value]="item.key">{{ 'APP.TABLE.QUALIFICATION.' + item.key | translate }}</option>
+              </select>
+            </div>
+            <div class="row mt-3" hidden>
+              <div class="col-6">
+                <button class="btn btn-sm btn-primary" (click)="applyFilter(form.value)">{{ 'APP.BUTTON.apply' | translate}}</button>
+              </div>
+              <!-- <div class="col-6">
+                <button class="btn btn-sm btn-outline-secondary pull-right" (click)="clearFilter()">{{ 'APP.BUTTON.clear' | translate}}</button>
+              </div> -->
+            </div>
+            <!-- <div class="row mt-4">
+              <div class="col-12">
+                {{ currentFilters | json}}
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="footer border-top">
+    <nav class="navbar navbar-light bg-white">
+      <button class="btn btn-sm btn-primary" (click)="applyFilter(form.value)">{{ 'APP.BUTTON.apply' | translate}}</button>
+      <button class="btn btn-sm btn-outline-secondary pull-right" (click)="clearFilter()">{{ 'APP.BUTTON.clear' | translate}}</button>
+    </nav>
+  </div>
+</div>

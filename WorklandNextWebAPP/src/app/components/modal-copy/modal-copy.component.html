@@ -1,0 +1,281 @@
+<!-- <div class="modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"> -->
+      <div class="modal-header">
+        <h5 class="modal-title">{{ 'APP.TITLE.copy-' + model | translate }}</h5>
+        <h5 class="modal-title ml-4">"{{ item.id }} - {{ item.titolo }}"</h5>
+        <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body px-0 py-0">
+        <div class="" style="height:100%;">
+          <div class="flex-layout-body w-100" style="overflow: auto;">
+            <ngx-loading
+              [show]="loading"
+              [config]="loadingOptions">
+            </ngx-loading>
+            <div class="container-fluid px-0" style="width: calc( 100% ); height: calc( 100% );" *ngIf="!loading">
+              <div id="content-wrapper" class="px-0 overflow-auto" style="width: calc( 100% ); height: calc( 100% );">
+                <div class="form-group col-12 mb-0 pt-3">
+                  <div class="card card-client-info mx-auto pt-0 mb-2">
+                    <div class="card-body px-2 pt-0 pb-1">
+                      <div class="d-flex flex-row justify-content-center px-0 pb-1">
+                        <mat-tab-group mat-align-tabs="left" class="col-12 px-0 tab-custom-content">
+                          <mat-tab label="{{ 'Intestatario' | translate }}" *ngIf="_showIntestatario">
+                            <div class="block-intestatario px-2">
+                              <div class="form-row align-items-center">
+                                <div class="form-group col-2 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('contattoIntestatarioId')" for="contattoIntestatarioId">{{ 'APP.FIELD.contattoIntestatarioId' | translate }}</label>
+                                  <input type="text" name="contattoIntestatarioId" class="form-control form-control-sm mb-1-" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="data.item.contattoIntestatarioId" readonly>
+                                </div>
+                                <div class="form-group input-group input-group-sm col-10 mb-0">
+                                  <label class="col-form-label col-form-label-sm w-100" [class.modified-]="isModifiedProperty('nominativoIntestatario')" for="nominativoIntestatario">{{ 'APP.FIELD.empty' | translate }}&nbsp; <span class="btn btn-sm p-0 float-right" style="font-size: 0.9em;" (click)="openChoiceModal('intestatario')" *ngIf="data.sostituisciTestata"><i class="icon-magnifier"></i></span></label>
+                                  <input type="text" name="nominativoIntestatario" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="data.item.nominativoIntestatario" readonly>
+                                  <div class="input-group-append cursor-pointer" (click)="showContact(data.item.contattoIntestatarioId, data.item.nominativoIntestatario)" *ngIf="data.item.contattoIntestatarioId"><span class="input-group-text"><i class="icon-eye"></i></span></div>
+                                </div>
+                              </div>
+                              <div class="form-row align-items-center">
+                                <div class="form-group col-12 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('indirizzoIntestatario')" for="indirizzoIntestatario">{{ 'APP.FIELD.indirizzo' | translate }}</label>
+                                  <input type="text" name="indirizzoIntestatario" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.indirizzo' | translate }}" [(ngModel)]="data.item.indirizzoIntestatario" readonly>
+                                </div>
+                              </div>
+                              <div class="form-row align-items-center">
+                                <div class="form-group col-2 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('capIntestatario')" for="capIntestatario">{{ 'APP.FIELD.cap' | translate }}</label>
+                                  <input type="text" name="capIntestatario" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.cap' | translate }}" [(ngModel)]="data.item.capIntestatario" readonly>
+                                </div>
+                                <div class="form-group col-5 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('comuneIntestatario')" for="comuneIntestatario">{{ 'APP.FIELD.comune' | translate }}</label>
+                                  <input type="text" name="comuneIntestatario" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.comune' | translate }}" [(ngModel)]="data.item.comuneIntestatario" readonly>
+                                </div>
+                                <div class="form-group col-2 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('provinciaIntestatario')" for="provinciaIntestatario">{{ 'APP.FIELD.provincia' | translate }}</label>
+                                  <input type="text" name="provinciaIntestatario" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.provincia' | translate }}" [(ngModel)]="data.item.provinciaIntestatario" readonly>
+                                </div>
+                                <div class="form-group col-3 mb-0">
+                                  <label class="col-form-label col-form-label-sm w-100" [class.modified]="isModifiedProperty('nazioneIntestatario')" for="nazioneIntestatario" title="{{ data.item.nazioneIntestatario }}">{{ 'APP.FIELD.nazione' | translate }}</label>
+                                  <input type="text" name="nazioneIntestatario" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.nazione' | translate }}" [(ngModel)]="data.item.nazioneIntestatario" readonly>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-row- mt-4" *ngIf="!_isOrderSupplier">
+                              <div class="form-group form-check col-12 mb-0">
+                                <div class="row">
+                                  <div class="col-1 text-center">
+                                    <label class="switch switch-sm switch-3d switch-primary">
+                                      <input type="checkbox" name="isStessoFatturazione" [checked]="data.item.isStessoFatturazione" class="switch-input" [(ngModel)]="data.item.isStessoFatturazione" [disabled]="!data.sostituisciTestata">
+                                      <span class="switch-slider"></span>
+                                    </label>
+                                  </div>
+                                  <div class="col-10 px-0">
+                                    <label class="form-check-label col-form-label-sm" for="isStessoFatturazione">{{ 'APP.FIELD.isStessoFatturazione' | translate }}</label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </mat-tab>
+                          <mat-tab label="{{ 'Fatturazione' | translate }}" [disabled]="data.item.isStessoFatturazione && _showIntestatario" *ngIf="!_isOrderSupplier">
+                            <div class="block-fatturazione px-2">
+                              <div class="form-row align-items-center">
+                                <div class="form-group col-2 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('clienteFatturazioneId')" for="clienteFatturazioneId">{{ 'APP.FIELD.clienteFatturazioneId' | translate }}</label>
+                                  <input type="text" name="clienteFatturazioneId" class="form-control form-control-sm mb-1" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="data.item.clienteFatturazioneId" readonly>
+                                </div>
+                                <div class="form-group input-group input-group-sm col-10 mb-0">
+                                  <label class="col-form-label col-form-label-sm w-100" [class.modified-]="isModifiedProperty('nominativoFatturazione')" for="nominativoFatturazione">{{ 'APP.FIELD.empty' | translate }}&nbsp; <span class="btn btn-sm p-0 float-right" style="font-size: 0.9em;" (click)="openChoiceModal('fatturazione')" *ngIf="data.sostituisciTestata"><i class="icon-magnifier"></i></span></label>
+                                  <input type="text" name="nominativoFatturazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="data.item.nominativoFatturazione" readonly>
+                                  <div class="input-group-append cursor-pointer" (click)="showContact(data.item.clienteFatturazioneId, data.item.nominativoFatturazione)" *ngIf="data.item.clienteFatturazioneId"><span class="input-group-text"><i class="icon-eye"></i></span></div>
+                                </div>
+                              </div>
+                              <div class="form-row align-items-center">
+                                <div class="form-group col-12 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('indirizzoFatturazione')" for="indirizzoFatturazione">{{ 'APP.FIELD.indirizzo' | translate }}</label>
+                                  <input type="text" name="indirizzoFatturazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.indirizzo' | translate }}" [(ngModel)]="data.item.indirizzoFatturazione" readonly>
+                                </div>
+                              </div>
+                              <div class="form-row align-items-center">
+                                <div class="form-group col-2 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('capFatturazione')" for="capFatturazione">{{ 'APP.FIELD.cap' | translate }}</label>
+                                  <input type="text" name="capFatturazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.cap' | translate }}" [(ngModel)]="data.item.capFatturazione" readonly>
+                                </div>
+                                <div class="form-group col-5 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('comuneFatturazione')" for="comuneFatturazione">{{ 'APP.FIELD.comune' | translate }}</label>
+                                  <input type="text" name="comuneFatturazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.comune' | translate }}" [(ngModel)]="data.item.comuneFatturazione" readonly>
+                                </div>
+                                <div class="form-group col-2 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('provinciaFatturazione')" for="provinciaFatturazione">{{ 'APP.FIELD.provincia' | translate }}</label>
+                                  <input type="text" name="provinciaFatturazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.provincia' | translate }}" [(ngModel)]="data.item.provinciaFatturazione" readonly>
+                                </div>
+                                <div class="form-group col-3 mb-0">
+                                  <label class="col-form-label col-form-label-sm w-100" [class.modified]="isModifiedProperty('nazioneFatturazione')" for="nazioneFatturazione" title="{{ data.item.nazioneFatturazione }}">{{ 'APP.FIELD.nazione' | translate }}</label>
+                                  <input type="text" name="nazioneFatturazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.nazione' | translate }}" [(ngModel)]="data.item.nazioneFatturazione" readonly>
+                                </div>
+                              </div>
+                            </div>
+                          </mat-tab>
+                          <mat-tab label="{{ 'Destinazione' | translate }}">
+                            <div class="block-destinazione px-2">
+                              <div class="form-row align-items-center">
+                                <div class="form-group col-2 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('contattoDestinazioneId')" for="contattoDestinazioneId">{{ 'APP.FIELD.contattoDestinazioneId' | translate }}</label>
+                                  <input type="text" name="contattoDestinazioneId" class="form-control form-control-sm mb-1" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="data.item.contattoDestinazioneId" readonly>
+                                </div>
+                                <div class="form-group input-group input-group-sm col-10 mb-0">
+                                  <label class="col-form-label col-form-label-sm w-100" [class.modified-]="isModifiedProperty('nominativoDestinazione')" for="nominativoDestinazione">{{ 'APP.FIELD.empty' | translate }}&nbsp; <span class="btn btn-sm p-0 float-right" style="font-size: 0.9em;" (click)="openChoiceModal('destinazione')" *ngIf="data.sostituisciTestata"><i class="icon-magnifier"></i></span></label>
+                                  <input type="text" name="nominativoDestinazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="data.item.nominativoDestinazione" [readonly]="!data.sostituisciTestata">
+                                  <div class="input-group-append cursor-pointer" (click)="showContact(data.item.contattoDestinazioneId, data.item.nominativoDestinazione)" *ngIf="data.item.contattoDestinazioneId"><span class="input-group-text"><i class="icon-eye"></i></span></div>
+                                </div>
+                              </div>
+                              <div class="form-row align-items-center">
+                                <div class="form-group col-12 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('indirizzoDestinazione')" for="indirizzoDestinazione">{{ 'APP.FIELD.indirizzo' | translate }}</label>
+                                  <input type="text" name="indirizzoDestinazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.indirizzo' | translate }}" [(ngModel)]="data.item.indirizzoDestinazione" [readonly]="!data.sostituisciTestata">
+                                </div>
+                              </div>
+                              <div class="form-row align-items-center">
+                                <div class="form-group col-2 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('capDestinazione')" for="capDestinazione">{{ 'APP.FIELD.cap' | translate }}</label>
+                                  <input type="text" name="capDestinazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.cap' | translate }}" [(ngModel)]="data.item.capDestinazione" [readonly]="!data.sostituisciTestata">
+                                </div>
+                                <div class="form-group col-5 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('comuneDestinazione')" for="comuneDestinazione">{{ 'APP.FIELD.comune' | translate }}</label>
+                                  <input type="text" name="comuneDestinazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.comune' | translate }}" [(ngModel)]="data.item.comuneDestinazione" [readonly]="!data.sostituisciTestata">
+                                </div>
+                                <div class="form-group col-2 mb-0">
+                                  <label class="col-form-label col-form-label-sm" [class.modified]="isModifiedProperty('provinciaDestinazione')" for="provinciaDestinazione">{{ 'APP.FIELD.provincia' | translate }}</label>
+                                  <input type="text" name="provinciaDestinazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.provincia' | translate }}" [(ngModel)]="data.item.provinciaDestinazione" [readonly]="!data.sostituisciTestata">
+                                </div>
+                                <div class="form-group col-3 mb-0">
+                                  <label class="col-form-label col-form-label-sm w-100" [class.modified]="isModifiedProperty('nazioneDestinazione')" for="nazioneDestinazione" title="{{ data.item.nazioneDestinazione }}">{{ 'APP.FIELD.nazione' | translate }}</label>
+                                  <input type="text" name="nazioneDestinazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.nazione' | translate }}" [(ngModel)]="data.item.nazioneDestinazione" readonly *ngIf="!data.sostituisciTestata">
+                                  <ng-select class="form-select-sm" *ngIf="data.sostituisciTestata"
+                                    name="nazioneDestinazione"
+                                    [items]="anagrafiche['AnagNazione']"
+                                    bindValue="id"
+                                    bindLabel="descrizione"
+                                    appendTo="body"
+                                    [loading]="nationLoading"
+                                    [searchFn]="customSearchFn"
+                                    [(ngModel)]="data.item.nazioneDestinazione"
+                                    (change)="onChangeNazione($event)">
+                                      <ng-template ng-option-tmp let-item="item">
+                                        {{item.descrizione}} <br/>
+                                        <small>{{item.codice}} - {{item.id}}</small>
+                                      </ng-template>
+                                  </ng-select>
+                                </div>
+                              </div>
+                            </div>
+                          </mat-tab>
+                        </mat-tab-group>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row mt-3">
+                    <div class="form-group col-6 mb-0">
+                      <label class="col-form-label col-form-label-sm" for="company">{{ 'APP.FIELD.company' | translate }}</label>
+                      <select name="company" class="form-control form-control-sm" [(ngModel)]="data.selectedAziendaId" (change)="onChangeAzienda();">
+                        <option [value]="company.id" *ngFor="let company of companies;">{{ company.ragioneSociale }}</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-3 mb-0">
+                      <label class="col-form-label col-form-label-sm" for="selectedTipoDocumentoId">{{ 'APP.FIELD.tipoDocumento' | translate }}</label>
+                      <select name="selectedTipoDocumentoId" class="form-control form-control-sm" [(ngModel)]="data.selectedTipoDocumentoId" (change)="onChangeDocument()">
+                        <option [value]="doc.id" *ngFor="let doc of anagraficheCombo['SpComboTipoDocumentoPerCopia'];">{{ doc.descrizione }}</option>
+                      </select>
+                    </div>
+                    <ng-container *ngIf="_showSezionale">
+                      <div class="form-group col-2 mb-0">
+                        <label class="col-form-label col-form-label-sm" for="selectedSezionaleId">{{ 'APP.FIELD.sezionale' | translate }}</label>
+                        <select name="selectedSezionaleId" class="form-control form-control-sm" [(ngModel)]="data.selectedSezionaleId">
+                          <option [value]="sezionale.id" *ngFor="let sezionale of anagraficheCombo['SpComboSezionale'];">{{ sezionale.descrizione }}</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-2 mb-0">
+                        <label class="col-form-label col-form-label-sm" for="numeroDocumento">{{ 'APP.FIELD.numDocumento' | translate }}</label>
+                        <input type="text" name="numeroDocumento" class="form-control form-control-sm"
+                          placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="data.numeroDocumento">
+                      </div>
+                      <div class="form-group col-2 mb-0">
+                        <label class="col-form-label col-form-label-sm" for="dataCreazione">{{ 'APP.FIELD.dataCreazione' | translate }}</label>
+                        <input type="date" name="dataCreazione" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="data.dataCreazione">
+                      </div>
+                    </ng-container>
+                  </div>
+                  <div class="form-row mt-3">
+                    <div class="form-group form-check col-12 mb-0">
+                      <div class="row">
+                        <div class="col-1 text-center">
+                          <label class="switch switch-sm switch-3d switch-primary">
+                            <input type="checkbox" name="sostituisciTestata" [checked]="data.sostituisciTestata" class="switch-input" [(ngModel)]="data.sostituisciTestata">
+                            <span class="switch-slider"></span>
+                          </label>
+                        </div>
+                        <div class="col-10 px-0">
+                          <label class="form-check-label col-form-label-sm" for="sostituisciTestata">{{ 'APP.FIELD.sostituisciTestata' | translate }}</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group form-check col-12 mb-0">
+                      <div class="row">
+                        <div class="col-1 text-center">
+                          <label class="switch switch-sm switch-3d switch-primary">
+                            <input type="checkbox" name="sostituisciPagamento" [checked]="data.sostituisciPagamento" class="switch-input" [(ngModel)]="data.sostituisciPagamento">
+                            <span class="switch-slider"></span>
+                          </label>
+                        </div>
+                        <div class="col-10 px-0">
+                          <label class="form-check-label col-form-label-sm" for="sostituisciPagamento">{{ 'APP.FIELD.sostituisciPagamento' | translate }}</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group form-check col-12 mb-0">
+                      <div class="row">
+                        <div class="col-1 text-center">
+                          <label class="switch switch-sm switch-3d switch-primary">
+                            <input type="checkbox" name="copiaAllegati" [checked]="data.copiaAllegati" class="switch-input" [(ngModel)]="data.copiaAllegati">
+                            <span class="switch-slider"></span>
+                          </label>
+                        </div>
+                        <div class="col-10 px-0">
+                          <label class="form-check-label col-form-label-sm" for="copiaAllegati">{{ 'APP.FIELD.copiaAllegati' | translate }}</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="px-4 py-4">
+            <div>{{ model }}</div>
+            <div><pre>{{ item | json }}</pre></div>
+            <div><pre>{{ data | json }}</pre></div>
+            <div><pre>{{ originalData | json }}</pre></div>
+          </div> -->
+        </div>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <div class="align-self-center w-50">
+          <div class="row d-none">
+            <div class="col-2 text-center">
+              <label class="switch switch-sm switch-3d switch-primary">
+                <input type="checkbox" name="openCreatedDocument" [checked]="openCreatedDocument" class="switch-input" [(ngModel)]="openCreatedDocument">
+                <span class="switch-slider"></span>
+              </label>
+            </div>
+            <div class="col-9 px-0">
+              <label class="form-check-label col-form-label-sm" for="openCreatedDocument">{{ 'APP.FIELD.openCreatedDocument' | translate }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="align-self-center">
+          <button type="button" class="btn btn-light btn-sm" (click)="closeModal()">{{ 'APP.BUTTON.close' | translate }}</button>
+          <button type="button" class="btn btn-primary btn-sm" (click)="applyModal()">{{ 'APP.BUTTON.apply' | translate }}</button>
+        </div>
+      </div>
+    <!-- </div>
+  </div>
+</div> -->

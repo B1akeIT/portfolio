@@ -1,0 +1,206 @@
+<ngx-loading
+  [show]="loading"
+  [config]="loadingOptions">
+</ngx-loading>
+<div class="d-block" *ngIf="!dataCS && !loading && !readOnly">
+  <div class="mt-2">
+    <ng-template [appHasPermission]="isClient() ? 'TABCLIENTE' : 'TABFORNITORE'" [action]="'create'" [owner]="true">
+      <div class="btn btn-sm btn-cyan" (click)="onEdit($event, {})">
+        <span *ngIf="isClient()">{{ 'APP.BUTTON.create_client' | translate }}</span>
+        <span *ngIf="isSupplier()">{{ 'APP.BUTTON.create_supplier' | translate }}</span>
+      </div>
+    </ng-template>
+  </div>
+</div>
+<div class="" *ngIf="dataCS">
+  <div class="client-supplier-data">
+    <h5 class="mb-2">
+      <span title="Cliente [id:{{ dataCS.id }} | cid: {{ contactId }}]" *ngIf="isClient()">{{ 'APP.TITLE.client-data' | translate }}</span>
+      <span title="Fornitore [id:{{ dataCS.id }} | cid: {{ contactId }}]" *ngIf="isSupplier()">{{ 'APP.TITLE.supplier-data' | translate }}</span>
+      <div class="btn btn-sm btn-light ml-1" (click)="onEdit($event, dataCS)" *ngIf="isClient() && !readOnly"><i class="cui-pencil"></i></div>
+      <button class="btn btn-sm btn-danger ml-1" *ngIf="!readOnly"
+      tooltip="{{ 'APP.TOOLTIP.delete_accounting_data' | translate }}"
+      container="body"
+      mwlConfirmationPopover
+      [popoverTitle]="'APP.TITLE.delete' | translate"
+      [popoverMessage]="'APP.MESSAGE.are_you_sure' | translate"
+      [cancelText]="'APP.BUTTON.cancel' | translate"
+      [cancelButtonType]="'outline-secondary btn-sm'"
+      [confirmText]="'APP.BUTTON.confirm' | translate"
+      [confirmButtonType]="'danger btn-sm'"
+      [appendToBody]="true"
+      placement="auto"
+      (confirm)="onDeleteClientSupplier($event)">
+      <i class="icon-trash"></i></button>
+    </h5>
+    <div class="client-data" *ngIf="isClient()">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="row">
+            <label class="col-md-6 col-form-label col-form-label-sm">{{ 'APP.FIELD.tipoCliente' | translate }}</label>
+            <div class="col-md-6 col-form-field-sm">{{ dataCS.anagTipoClienteDescrizione || '---' }}</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <label class="col-md-6 col-form-label col-form-label-sm">{{ 'APP.FIELD.codDestinatarioFattElettr' | translate }}</label>
+            <div class="col-md-6 col-form-field-sm">{{ dataCS.codDestinatarioFattElettr || '---' }}</div>
+          </div>
+        </div>
+        <!-- <div class="col-md-4">
+          <div class="row">
+            <label class="col-md-6 col-form-label col-form-label-sm">{{ 'APP.FIELD.codiceGestionale' | translate }}</label>
+            <div class="col-md-6 col-form-field-sm">{{ dataCS.codiceGestionale || '---' }}</div>
+          </div>
+        </div> -->
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-3">
+          <div class="row px-3">
+            <div class="col-md-12 pl-0">
+              <ion-icon class="align-middle text-blue" name="checkbox" *ngIf="dataCS.isBloccato"></ion-icon>
+              <ion-icon class="align-middle" name="square-outline" *ngIf="!dataCS.isBloccato"></ion-icon>
+              <label class="col-md-11- col-form-label col-form-label-sm pl-2">{{ 'APP.FIELD.isBloccato' | translate }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="row">
+            <label class="col-md-4 col-form-label col-form-label-sm">{{ 'APP.FIELD.aziendaBloccoId' | translate }}</label>
+            <div class="col-md-8 col-form-field-sm">{{ dataCS.aziendaBlocco?.azienda || '---' }}</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <label class="col-md-4 col-form-label col-form-label-sm">{{ 'APP.FIELD.dataBlocco' | translate }}</label>
+            <div class="col-md-8 col-form-field-sm">{{ dataCS.dataBlocco | date: 'dd-MM-yyy' }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-3">
+          <div class="row px-3">
+            <div class="col-md-12 pl-0">
+              <ion-icon class="align-middle text-blue" name="checkbox" *ngIf="dataCS.isNuovaCostruzione"></ion-icon>
+              <ion-icon class="align-middle" name="square-outline" *ngIf="!dataCS.isNuovaCostruzione"></ion-icon>
+              <label class="col-md-11- col-form-label col-form-label-sm pl-2">{{ 'APP.FIELD.isNuovaCostruzione' | translate }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="row">
+            <div class="col-md-12">
+              <ion-icon class="align-middle text-blue" name="checkbox" *ngIf="dataCS.isImportazioneTemporanea"></ion-icon>
+              <ion-icon class="align-middle" name="square-outline" *ngIf="!dataCS.isImportazioneTemporanea"></ion-icon>
+              <label class="col-md-11- col-form-label col-form-label-sm pl-2">{{ 'APP.FIELD.isImportazioneTemporanea' | translate }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="row">
+            <label class="col-md-4 col-form-label col-form-label-sm">{{ 'APP.FIELD.dataInizioImportazioneTemp' | translate }}</label>
+            <div class="col-md-8 col-form-field-sm">{{ dataCS.dataInizioImportazioneTemp | date: 'dd-MM-yyy' }}</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="row">
+            <label class="col-md-4 col-form-label col-form-label-sm">{{ 'APP.FIELD.dataFineImportazioneTemp' | translate }}</label>
+            <div class="col-md-8 col-form-field-sm">{{ dataCS.dataFineImportazioneTemp | date: 'dd-MM-yyy' }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="d-block">
+    <div class="row">
+      <div class="col-2">
+        <h6 class="">{{ 'APP.TITLE.companies' | translate }}</h6>
+      </div>
+      <div class="col">
+        <ng-template [appHasPermission]="isClient() ? 'FUNCLIENTECONTABILITA' : 'FUNFORNITORECONTABILITA'" [action]="'create'" [owner]="true">
+          <div class="btn-group btn-group-sm mb-1" *ngIf="!readOnly">
+            <a class="btn btn-cyan" (click)="onAddAccounting()" tooltip="{{ 'APP.TOOLTIP.add_accounting_data' | translate }}" placement="bottom" container="body" [class.disabled]="(selectedIndex != -1)">
+              <i class="cui-plus"></i></a>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="d-block mb-1 border-bottom">
+    <tabset #panelsTabs>
+      <ng-container *ngFor="let item of aziende">
+        <ng-template [appHasPermission]="isClient() ? 'FUNCLIENTECONTABILITA' : 'FUNFORNITORECONTABILITA'" [action]="'view'" [owner]="item.aziendaId == user?.aziendaId">
+          <tab [active]="item.aziendaId == user?.aziendaId" (selectTab)="setCurrentAzienda($event, item)">
+            <ng-template tabHeading>
+              <img [src]="item.pathLogo" style="width: 28px;" title="{{ item.aziendaId }}">
+            </ng-template>
+          </tab>
+        </ng-template>
+      </ng-container>
+    </tabset>
+    <!-- <mat-tab-group mat-align-tabs="start" class="col-12 px-0" [selectedIndex]="selectedIndex" (selectedTabChange)="onSelectMatTab($event)">
+      <mat-tab label="{{ item.azienda | translate }}" [isActive]="item.aziendaId == user.aziendaId" *ngFor="let item of aziende"></mat-tab>
+    </mat-tab-group> -->
+  </div>
+  <div class="d-flex flex-row mb-3 border" style="min-height: 250px;">
+    <!-- {{ aziende | json }} -->
+    <div class="flex-grow-1 h-100">
+      <div class="h-100" *ngIf="!currentAzienda && !loading">
+        <div class="details-content h-100 mt-5">
+          <div class="d-flex flex-column justify-content-center align-items-center h-75">
+            <!-- loading & messages -->
+            <div class="text-center" *ngIf="aziende?.length">
+              <i class="icon-mouse icon-messages-50 message-small"></i>
+              <h6 class="no-messages-text message-small mt-3">{{ 'APP.MESSAGE.select_company' | translate }}</h6>
+            </div>
+            <div class="text-center" *ngIf="!aziende?.length">
+              <i class="icon-plus icon-messages-50 message-small"></i>
+              <h6 class="no-messages-text message-small mt-3">{{ 'APP.MESSAGE.add_accounting_data' | translate }}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="(dataCS && currentAzienda) || addAccounting" style="height: calc( 100% );">
+        <app-accounting-edit
+          [clientId]="dataCS.id"
+          [aziendaId]="currentAzienda.aziendaId"
+          [aziendaData]="currentAzienda"
+          [type]="type"
+          [edit]="addAccounting"
+          [readOnly]="readOnly"
+          (delete)="onDeleteAccounting($event)"
+          (closeEdit)="onCloseEdit($event)">
+        </app-accounting-edit>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #editClientSupplierModal>
+  <form [formGroup]="dataForm" (ngSubmit)="onSave(dataModel)">
+    <div class="modal-header">
+      <h5 class="modal-title" *ngIf="!dataModel?.id">
+        <span *ngIf="isClient()">{{ 'APP.TITLE.create_client' | translate }}</span>
+        <span *ngIf="isSupplier()">{{ 'APP.TITLE.create_supplier' | translate }}</span>
+      </h5>
+      <h5 class="modal-title" *ngIf="dataModel?.id">
+        <span *ngIf="isClient()">{{ 'APP.TITLE.edit_client' | translate }}</span>
+        <span *ngIf="isSupplier()">{{ 'APP.TITLE.edit_supplier' | translate }}</span>
+      </h5>
+      <button type="button" class="close" (click)="modalRef.hide()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <formly-form [form]="dataForm" [model]="dataModel" [fields]="dataFields">
+      </formly-form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary btn-sm" type="submit" [disabled]="!dataForm?.valid">
+        <span *ngIf="dataModel?.id == 0">{{ 'APP.BUTTON.save' | translate }}</span>
+        <span *ngIf="dataModel?.id != 0">{{ 'APP.BUTTON.modify' | translate }}</span>
+      </button>
+    </div>
+  </form>
+</ng-template>

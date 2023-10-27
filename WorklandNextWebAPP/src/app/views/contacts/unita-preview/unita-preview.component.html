@@ -1,0 +1,20 @@
+<div class="text-center py-3" *ngIf="loading">
+  <div class="h1 text-muted text-center mt-1 mb-1">
+    <i class="fa fa-circle-o-notch fa-spin"></i>
+  </div>
+</div>
+<!-- <pre class="pre-code" *ngIf="!loading && unitData">
+  <code>{{ unitData | json }}</code>
+</pre> -->
+<div *ngIf="!loading && unitData">
+  <app-item-attribute *ngFor="let field of objectKey(unitData)"
+    [attribute]="{key: field, value: unitData[field]}"
+    [excluded]="excluded"
+    [hideEmpty]="true">
+  </app-item-attribute>
+</div>
+<div *ngIf="!loading && !unitData">
+  <div class="text-muted text-center mt-1 mb-3">
+    {{ 'APP.MESSAGE.no_data' | translate }}
+  </div>
+</div>

@@ -1,0 +1,249 @@
+/*
+	<div class="flex-layout">
+		<div class="flex-layout-header">
+			<h5 class="flex-logo">Acme</h5>
+			<div class="flex-nav">
+				<h6 class="flex-navlink">Home</h6>
+				<h6 class="flex-navlink">About</h6>
+				<h6 class="flex-navlink">Contact</h6>
+			</div>
+		</div>
+		<div class="flex-layout-body">
+			<div class="flex-layout-sidebar sidebar-left"></div>
+			<div class="flex-layout-content">
+				<div>
+					<h5>Prototype rockstar</h5>
+					<p>Churn rate non-disclosure agreement buyer focus ecosystem iPad. Release venture crowdsource burn rate facebook paradigm shift supply chain prototype responsive web design partnership deployment. Innovator crowdsource holy grail advisor.</p>
+				</div>
+			</div>
+			<div class="flex-layout-sidebar sidebar-right"></div>
+		</div>
+		<div class="flex-layout-footer">
+			<div class="flex-nav">
+				<h6 class="flex-navlink">Home</h6>
+				<h6 class="flex-navlink">About</h6>
+				<h6 class="flex-navlink">Contact</h6>
+			</div>
+		</div>
+	</div>
+*/
+
+$headerSize: 34px;
+$sidebarDefaultSize: 250px;
+$sidebarPreviewSize: 350px;
+$sidebarPreviewBigSize: 630px;
+$dragSize: 8px;
+
+.flex-layout {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 300px;
+  // padding: 16px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.flex-layout-header {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  // padding: 10px;
+  height: $headerSize;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #fff;
+  border-bottom: 1px solid #cfd8dc;
+
+  label {
+    margin-bottom: 0;
+  }
+}
+
+.flex-layout-body {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  // margin-top: 2px;
+  // margin-bottom: 2px;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0;
+  -ms-flex: 0;
+  flex: 0;
+}
+
+.flex-layout-sidebar {
+  position: relative;
+  overflow: scroll;
+  width: 20%;
+  background-color: #fff;
+  transition-property: width;
+  transition-duration: .25s, .25s;
+
+  &.sidebar-left {
+    width: $sidebarDefaultSize;
+    padding: 10px;
+    border-right: 1px solid #cfd8dc;
+    overflow-x: hidden;
+
+    &.hidden {
+      width: 0 !important;
+    }
+
+    &.preview-content {
+      width: $sidebarPreviewSize;
+    }
+
+    &.preview-content-big {
+      width: $sidebarPreviewBigSize;
+    }
+  }
+
+  &.sidebar-right {
+    width: $sidebarDefaultSize;
+    padding: 0;
+    border-left: 1px solid #cfd8dc;
+    overflow-x: hidden;
+
+    &.hidden {
+      width: 0 !important;
+    }
+
+    &.preview-content {
+      width: $sidebarPreviewSize;
+    }
+
+    &.preview-content-big {
+      width: $sidebarPreviewBigSize;
+    }
+  }
+
+  &.flex-sidebar-close {
+    width: 0;
+  }
+}
+
+.flex-layout-content {
+  position: relative;
+  overflow: hidden;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  background-color: #fff;
+}
+
+.flex-layout-footer {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  // padding: 10px;
+  height: 46px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #fff;
+  border-top: 1px solid #cfd8dc;
+}
+
+.flex-content-center {
+  justify-content: center !important;
+}
+
+.flex-content-space-between {
+  justify-content: space-between !important;
+}
+
+.flex-logo {
+  margin-top: 0;
+  margin-bottom: 0;
+  text-transform: uppercase;
+}
+
+.flex-nav {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.flex-navlink {
+  margin: 0 8px;
+  text-transform: uppercase;
+}
+
+.flex-layout-content {
+  .layout-content {
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+  }
+
+  // Float Panel
+  &.float-panel-open {
+    overflow: hidden;
+
+    .layout-content {
+      opacity: .5;
+      pointer-events: none;
+    }
+  }
+
+  // Group Accordion
+  accordion-group {
+    .panel-title {
+      font-size: 1em;
+      margin-bottom: 0;
+      border-bottom: 1px solid #cfd8dc;
+
+      a {
+        color: inherit;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+
+    .accordion-heding {
+      padding: .90em;
+      display: block !important;
+    }
+
+    .accordion-body {
+      border-bottom: 1px solid #cfd8dc;
+    }
+  }
+}

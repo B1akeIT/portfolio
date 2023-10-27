@@ -1,0 +1,258 @@
+<div class="animated fadeIn bg-white" style="height:100%;" [hidden]="panelIsOpen">
+  <div class="flex-layout-header">
+    <div class="bg-gray-100-" style="width: 100%;">
+      <div class="d-flex flex-row justify-content-between">
+        <div class="col-6 px-1">
+          <div class="float-left mr-2 d-none d-lg-block" style="padding: 0.5em 0.40rem !important">
+            <ion-icon class="" name="document-text-outline"></ion-icon> {{ 'APP.TITLE.ddts' | translate }}
+          </div>
+          <div class="btn-group btn-group-sm float-left" style="padding: 0.2em 0rem !important">
+            <ng-template [appHasPermission]="'MENUDTT'" [action]="'create'" [owner]="true">
+              <!-- <a class="btn btn-warning" (click)="onEdit(true)" tooltip="{{ 'APP.TOOLTIP.new_ddt' | translate }}" placement="bottom" container="body" *ngIf="showBarNew">
+              <i class="cui-plus"></i> {{ 'APP.BUTTON.new' | translate }} <i class="ml-2 icon-arrow-down"></i></a> -->
+              <div class="btn-group btn-group-sm" dropdown [dropup]="dropup">
+                <button dropdownToggle type="button" class="btn btn-warning dropdown-toggle">
+                  <i class="cui-plus"></i><span>{{ 'APP.BUTTON.new' | translate }}</span>
+                  <!-- <i class="ml-2 icon-arrow-down"></i> -->
+                </button>
+                <ul *dropdownMenu class="dropdown-menu dropdown-menu-zindex" [class.dropdown-menu-right]="right" role="menu">
+                  <li class="cursor-pointer" role="menuitem" *ngFor="let type of anagraficheCombo['SpComboTipoDocumentoDiTrasporto']" (click)="onEdit(true, type)">
+                    <span class="dropdown-item">{{ type.descrizione }}</span></li>
+                  <li class="cursor-pointer" role="menuitem" (click)="clearMenu()" *ngIf="showClear">
+                    <span class="dropdown-item">
+                      <i><ion-icon name="close-outline"></ion-icon></i> {{ 'APP.MENU.clear-company' | translate }}</span></li>
+                </ul>
+              </div>
+            </ng-template>
+            <ng-template [appHasPermission]="'MENUDTT'" [action]="'edit'" [owner]="isOwner()">
+              <button class="btn btn-warning" (click)="onEdit()" [class.disabled]="!isSingleSelection()" tooltip="{{ 'APP.TOOLTIP.edit_ddt' | translate }}" placement="bottom" container="body" *ngIf="showBarEdit">
+                <i class="icon-pencil"></i><!-- {{ 'APP.BUTTON.modify' | translate }} --></button>
+            </ng-template>
+            <ng-template [appHasPermission]="'MENUDTT'" [action]="'edit'" [owner]="isOwner()" [behaviour]="'show'">
+              <button class="btn btn-warning disabled" tooltip="{{ 'APP.TOOLTIP.edit_ddt' | translate }}" placement="bottom" container="body">
+                <i class="icon-pencil"></i></button>
+            </ng-template>
+            <ng-template [appHasPermission]="'MENUDTT'" [action]="'delete'" [owner]="isOwner()">
+              <button class="btn btn-warning" [class.disabled]="!selectedRows.length" tooltip="{{ 'APP.TOOLTIP.delete_supplier' | translate }}" *ngIf="showBarDelete"
+                tooltip="{{ 'APP.TOOLTIP.delete_ddt' | translate }}"
+                container="body"
+                mwlConfirmationPopover
+                [popoverTitle]="'APP.TITLE.delete' | translate"
+                [popoverMessage]="'APP.MESSAGE.are_you_sure_s' | translate"
+                [cancelText]="'APP.BUTTON.cancel' | translate"
+                [cancelButtonType]="'outline-secondary btn-sm'"
+                [confirmText]="'APP.BUTTON.confirm' | translate"
+                [confirmButtonType]="'danger btn-sm'"
+                [appendToBody]="true"
+                placement="bottom"
+                (confirm)="onDelete(true)"
+                (cancel)="onDelete(false)">
+                <i class="icon-trash"></i><!-- {{ 'APP.BUTTON.delete' | translate }} --></button>
+            </ng-template>
+            <ng-template [appHasPermission]="'MENUDTT'" [action]="'delete'" [owner]="isOwner()" [behaviour]="'show'">
+              <button class="btn btn-warning disabled" tooltip="{{ 'APP.TOOLTIP.delete_ddt' | translate }}" placement="bottom" container="body">
+                <i class="icon-trash"></i></button>
+            </ng-template>
+          </div>
+          <div class="btn-group btn-group-sm float-left ml-1" style="padding: 0.2em 0rem !important" *ngIf="showBarPrint">
+            <ng-template [appHasPermission]="'MENUORDINECLI'" [action]="'edit'" [owner]="true">
+              <button class="btn btn-outline-secondary" (click)="onCopy()" [class.disabled]="currentId == 0" tooltip="{{ 'APP.TOOLTIP.copy' | translate }}" placement="bottom" container="body">
+                <i class="cui-copy"></i></button>
+            </ng-template>
+            <ng-template [appHasPermission]="'MENUDTT'" [action]="'print'" [owner]="true">
+              <button class="btn btn-outline-secondary" (click)="dummyAction($event);" tooltip="{{ 'APP.TOOLTIP.print' | translate }}" placement="bottom" container="body">
+              <i class="cui-print"></i></button>
+            </ng-template>
+          </div>
+
+          <app-date-range
+            [dateStart]="filterRangeDate.dataInizio"
+            [dateStart]="filterRangeDate.dataFine"
+            [options]="dateOptions"
+            (apply)="applyFilterRange($event)">
+          </app-date-range>
+        </div>
+        <div class="col-3 px-0">
+          <div class="" style="padding: 0.2em 0.40rem !important" *ngIf="showBarSearch">
+            <app-filter-textbox class="w-50" (changed)="onFilterChanged($event)"></app-filter-textbox>
+          </div>
+        </div>
+        <div class="col-3 px-0">
+          <div class="buttons-bar float-left">
+            <div class="btn-toolbar" style="padding: 0.20em 0.25rem !important">
+              <div class="btn-group btn-group-sm mr-1" *ngIf="showBarRefreah">
+                <label class="btn btn-outline-secondary cursor-pointer" title="Aggiorna" (click)="refresh()">
+                  <i class="icon-reload" aria-hidden="true"></i>
+                </label>
+              </div>
+              <div class="btn-group btn-group-sm float-left ml-1">
+                <a class="btn" [ngClass]="{ 'btn-outline-secondary': !gridPinned, 'btn-secondary': gridPinned }" (click)="togglePinned()" tooltip="{{ 'APP.TOOLTIP.pinned' | translate }}" placement="bottom" container="body">
+                  <i class="cui-pin"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="float-left">
+            <app-sorting #sortingComponent
+              [fields]="sortingFields"
+              [showTitle]="false"
+              [showDropDown]="true"
+              [sorting]="{ column: this.sort.column, direction: this.sort.direction }"
+              (groupSorting)="onGroupSorting($event)">
+            </app-sorting>
+          </div>
+          <div class="buttons-bar float-right">
+            <div class="btn-toolbar" role="toolbar" style="padding: 0.20em 0.25rem !important">
+              <div class="btn-group btn-group-sm">
+                <!-- <label class="btn cursor-pointer" tooltip="{{ 'APP.TOOLTIP.clear_filter_sort' | translate }}" placement="bottom" container="body" (click)="clearFilterSort($event)" *ngIf="hasFilter || hasSorting"><i class="cui-x fa-lg text-success"></i></label> -->
+                <!-- <label class="btn" [(ngModel)]="sideBarStatus" btnRadio="sort" uncheckable role="button" tooltip="{{ 'APP.TOOLTIP.show_hide_sort' | translate }}" placement="bottom" container="body" [class.btn-outline-warning]="hasSorting"><i class="cui-sort-ascending fa-lg" [class.text-primary]="sideBarStatus == 'sort' && !hasSorting"></i></label> -->
+                <!-- <label class="btn" [(ngModel)]="sideBarStatus" btnRadio="filter" uncheckable role="button" tooltip="{{ 'APP.TOOLTIP.show_hide_filter' | translate }}" placement="bottom" container="body" [class.btn-outline-warning]="hasFilter"><i class="cui-list-filter fa-lg" [class.text-primary]="sideBarStatus == 'filter' && !hasFilter"></i></label> -->
+                <label class="btn" [(ngModel)]="sideBarStatus" btnRadio="inspector" uncheckable role="button" tooltip="{{ 'APP.TOOLTIP.show_hide_inspector' | translate }}" placement="bottom" container="body"><i class="icon-info fa-lg" [class.text-primary]="sideBarStatus == 'inspector'"></i></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-layout-body" style="overflow: auto;height: calc( 100% - 40px - 40px );">
+		<!-- <div class="flex-layout-sidebar bg-gray-100 sidebar-left"></div> -->
+    <div class="flex-layout-content">
+      <div class="layout-content animated fadeIn">
+        <ngx-loading
+          [show]="loading"
+          [config]="loadingOptions">
+        </ngx-loading>
+        <div class="d-flex flex-column justify-content-center align-items-center h-100" *ngIf="!ddts?.length">
+          <div class="text-center" *ngIf="!ddts?.length && !loading">
+            <ion-icon class="icon-messages-50" name="cart-outline"></ion-icon>
+            <h6 class="no-messages-text mt-3">{{ 'APP.MESSAGE.no_elements' | translate }}</h6>
+          </div>
+          <div class="text-center" *ngIf="error">
+            <h6 class="text-danger mt-3 w-75 mx-auto">{{ errorMessage | translate }}</h6>
+          </div>
+        </div>
+        <div class="container-fluid px-0" style="width: calc( 100% ); height: calc( 100% );" *ngIf="ddts?.length">
+          <div id="grid-wrapper" class="px-0" style="width: calc( 100% ); height: calc( 100% );">
+            <!-- ddts list -->
+            <ag-grid-angular
+              style="width: 100%; height: 100%;"
+              class="ag-theme-balham"
+              [rowData]="ddts"
+              [columnDefs]="agColumnDefs"
+              [defaultColDef]="agDefaultColumnDefs"
+              [gridOptions]="agGridOptions"
+              (gridReady)="onGridReady($event)"
+              (gridSizeChanged)="onGridSizeChanged($event)"
+              (selectionChanged)="onSelectionChanged($event)"
+              (sortChanged)="onSortChanged($event)"
+              (cellDoubleClicked)="onDoubleClicked($event)">
+            </ag-grid-angular>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div #sidebarInspector class="flex-layout-sidebar sidebar-right preview-content inspector-content"
+      mwlResizable
+      [validateResize]="validate"
+      [enableGhostResize]="true"
+      [resizeSnapGrid]="{ left: 1, right: 1 }"
+      (resizeStart)="onResizeStart($event)"
+      (resizing)="onResizing($event)"
+      (resizeEnd)="onResizeEnd($event)"
+      [class.hidden]="!sideBarStatus">
+      <div class="resize-handle-left" mwlResizeHandle [resizeEdges]="{ left: true }"></div>
+      <!-- <app-sorting #sortingComponent
+        [fields]="sortingFields"
+        [showTitle]="true"
+        [showDropDown]="false"
+        (groupSorting)="onGroupSorting($event)"
+        [hidden]="sideBarStatus != 'sort'">
+      </app-sorting> -->
+      <!-- <app-ddt-filter #DdtsFilterComponent
+        (groupFilters)="onGroupFilters($event)"
+        [hidden]="sideBarStatus != 'filter'">
+      </app-ddt-filter> -->
+      <ng-container *ngIf="isMultipleSelection()">
+        <div class="h-75">
+          <div class="details-content h-100">
+            <div class="d-flex flex-column justify-content-center align-items-center h-100">
+              <div class="text-center">
+                <i class="icon-list icon-messages-50"></i>
+                <h6 class="no-messages-text mt-3">{{ 'APP.MESSAGE.multiple_selection' | translate }}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!isMultipleSelection()">
+        <app-ddt-inspector
+          [ddtId]="currentId"
+          [dragging]="dragging"
+          [showAvatar]="true"
+          [hidden]="sideBarStatus != 'inspector'">
+        </app-ddt-inspector>
+      </ng-container>
+    </div>
+  </div>
+  <div class="flex-layout-footer" *ngIf="fxlayoutConfig.footer">
+    <div class="bg-gray-100-" style="width: 100%;text-align: right;">
+      <div class="d-flex flex-row justify-content-between">
+        <div class="col-5 pr-0 text-left">
+          <div class="command-menu btn-group btn-group-sm mr-1" *ngIf="numPages > 1">
+            <select class="form-control form-control-sm col-xs-2" [(ngModel)]="perPage" (change)="perPageChanged()" [disabled]="loading">
+              <option *ngFor="let item of selectPerPage;" [value]="item">{{ item }}</option>
+            </select>
+          </div>
+          <div class="command-menu btn-group btn-group-sm" *ngIf="numPages > 0">
+            <pagination class="pagination-sm mb-0"
+              [pageBtnClass]="'btn-danger'"
+              [boundaryLinks]="true"
+              [maxSize]="maxPages"
+              [itemsPerPage]="perPage"
+              [totalItems]="ddtsMeta?.totalItems"
+              [(ngModel)]="currentPage"
+              (pageChanged)="pageChanged($event)"
+              previousText="&lsaquo;"
+              nextText="&rsaquo;"
+              firstText="&laquo;"
+              lastText="&raquo;">
+            </pagination>
+          </div>
+          <div class="command-menu btn-group btn-group-sm" *ngIf="numPages > 0">
+            <span class="btn btn-outline-secondary" tooltip="{{ 'APP.TOOLTIP.num_pages' | translate }}" placement="top"
+              container="body">
+              <i class="icon-book-open"></i> {{ numPages }}</span>
+          </div>
+        </div>
+        <div class="col pl-0 pr-0 text-center" *ngIf="ddts?.length">
+          <span class="btn btn-sm" *ngIf="!loading">{{ 'count_of_total_elements' | translate:countTranslateParams }}</span>
+        </div>
+        <div class="col pl-0 text-right">
+          <ng-template [appHasPermission]="'MENUDTT'" [action]="'view'" [owner]="false">
+            <app-choose-tenant-company
+              [dropup]="true"
+              [right]="true"
+              [showClear]="false"
+              [tenant]="tenant"
+              [companies]="anagraficheCombo['SpComboAzienda']"
+              [company]="currentCompanyId"
+              [class]="'light btn-sm-'"
+              (changed)="onCompany($event)">
+            </app-choose-tenant-company>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="animated fadeIn bg-white" style="height:100%;" *ngIf="panelIsOpen">
+  <app-ddt-edit-view
+    [ddtId]="currentId"
+    [ddtType]="newDdtType"
+    (save)="onSave($event)"
+    (closed)="onClosePanel($event)"
+    (prev)="onPrevElement($event)"
+    (next)="onNextElement($event)">
+  </app-ddt-edit-view>
+</div>

@@ -1,0 +1,260 @@
+// <nav class="toolbar toolbar-small">
+//   <ul class="bar-full> <!-- bar-start | bar-end -->
+//     <li>
+//       <a href="#" class="active">
+// <div class="badge-wrapper"><span class="toolbar-badge">1</span></div>
+//         <svg class="icon icon-sm"><use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-comment"></use></svg>
+//         <span class="toolbar-label | sr-only">messaggi</span>
+//       </a>
+//     </li>
+//     <li class="toolbar-divider" aria-hidden="true"></li>
+//     <li>
+//       <a href="#" class="">
+//         <svg class="icon icon-sm"><use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-camera"></use></svg>
+//         <span class="toolbar-label | sr-only">immagini</span>
+//       </a>
+//     </li>
+//     <li>
+//       <a href="#">
+//         <svg class="icon icon-sm"><use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-file"></use></svg>
+//         <span class="toolbar-label | sr-only">documenti</span>
+//       </a>
+//     </li>
+//     <li>
+//       <a href="#">
+//         <svg class="icon icon-sm"><use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-locked"></use></svg>
+//         <span class="toolbar-label | sr-only">privacy</span>
+//       </a>
+//     </li>
+//     <li>
+//       <a href="#">
+//         <svg class="icon icon-sm"><use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-star-outline"></use></svg>
+//         <span class="toolbar-label | sr-only">preferiti</span>
+//       </a>
+//     </li>
+//     <li>
+//       <a href="#" class="disabled" disabled="" aria-disabled="true">
+//         <svg class="icon icon-sm"><use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-download"></use></svg>
+//         <span class="toolbar-label | sr-only">downloads</span>
+//       </a>
+//     </li>
+//   </ul>
+// </nav>
+
+.toolbar {
+  width: 100%;
+  height: 96px;
+  position: relative;
+
+  svg {
+    overflow: hidden;
+    vertical-align: middle;
+  }
+
+  .icon {
+    width: 32px;
+    height: 32px;
+    vertical-align: middle;
+
+    &.icon-sm {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 7;
+    background-color: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    height: 64px;
+
+    &.bar-start {
+      justify-content: flex-start !important;
+
+      li {
+        flex: 0;
+      }
+    }
+
+    &.bar-end {
+      justify-content: flex-end !important;
+
+      li {
+        flex: 0;
+      }
+    }
+
+    li {
+      list-style-type: none;
+      margin: 0 8px;
+      text-align: center;
+      flex: 1 100%;
+
+      &.toolbar-divider {
+        margin: 0;
+        width: 1px;
+        min-width: 1px;
+        max-width: 1px;
+        height: calc(100% - 16px);
+        background: #dfe4f2;
+      }
+    }
+
+    &.bar-full {
+      li {
+        position: relative;
+        height: 100%;
+        // margin: 0;
+
+        &.toolbar-divider {
+          height: 100%;
+        }
+
+        a {
+          height: 100%;
+
+          i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+
+      &.hover {
+        li {
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+          }
+        }
+      }
+    }
+  }
+
+  .btn-dropdown {
+    display: block;
+    color: #17324d;
+
+    &.active {
+      color: #06c;
+
+      .icon {
+        fill: #06c;
+      }
+    }
+
+    &.disabled {
+      cursor: not-allowed;
+      color: #d9dadb;
+    }
+  }
+
+  a {
+    display: block;
+    color: #17324d;
+    text-decoration: none;
+
+    &:not([href]) {
+      color: #17324d;
+      text-decoration: none;
+
+      &:focus,
+      &:hover {
+        color: var(--primary);
+        text-decoration: none;
+      }
+    }
+
+    &.active {
+      color: #06c;
+
+      .icon {
+        fill: #06c;
+      }
+    }
+
+    &.disabled {
+      cursor: not-allowed;
+      color: #d9dadb;
+    }
+  }
+
+  .toolbar-label {
+    margin-top: 8px;
+    font-size: .688rem;
+    line-height: 1;
+    display: block;
+    font-weight: 600;
+  }
+
+  .badge-wrapper {
+    position: relative;
+  }
+
+  .toolbar-alert,
+  .toolbar-badge {
+    display: block;
+    position: absolute;
+    background-color: #06c;
+    border: 1px solid #fff;
+  }
+
+  .toolbar-badge {
+    top: 0;
+    right: 6px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    color: #fff;
+    font-size: .563rem;
+    border-radius: 50%;
+    font-style: normal;
+  }
+
+  &.toolbar-medium {
+    height: 48px;
+
+    ul {
+      height: 48px;
+    }
+
+    .toolbar-badge {
+      height: 10px;
+      width: 10px;
+      min-width: 10px;
+      right: 8px;
+      top: 4px;
+      padding: 0;
+    }
+  }
+
+  &.toolbar-small {
+    height: 40px;
+
+    > ul {
+      height: 40px;
+    }
+
+    .toolbar-badge {
+      height: 8px;
+      width: 8px;
+      min-width: 8px;
+      right: 10px;
+      top: 2px;
+      padding: 0;
+    }
+  }
+}

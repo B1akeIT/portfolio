@@ -1,0 +1,75 @@
+<ngx-loading
+  [show]="loading"
+  [config]="loadingOptions">
+</ngx-loading>
+<div class="d-block border-bottom">
+  <div class="d-flex flex-row justify-content-between">
+    <div class="col-4 px-1">
+      <div class="float-left mr-2 d-none d-lg-block" style="padding: 0.5em 0.40rem !important">
+        <ion-icon class="" name="cart-outline"></ion-icon> <span class="" [title]="quoteId">{{ 'APP.TITLE.quote_orders' | translate }}</span>
+      </div>
+      <div class="btn-group btn-group-sm float-left d-none" style="padding: 0.2em 0rem !important">
+        <a class="btn btn-warning" (click)="onShow()" [class.disabled]="currentId == 0" tooltip="{{ 'APP.TOOLTIP.edit_quote' | translate }}" placement="bottom" container="body" *ngIf="showView">
+          <i class="icon-eye"></i></a>
+      </div>
+    </div>
+    <div class="col-8 px-0">
+      <div class="buttons-bar float-right">
+        <div class="float-left">
+          <app-date-range *ngIf="showDateRange"
+            [dateStart]="filterRangeDate.dataInizio"
+            [dateStart]="filterRangeDate.dataFine"
+            [options]="dateOptions"
+            (apply)="applyFilterRange($event)">
+          </app-date-range>
+        </div>
+        <div class="float-left">
+          <app-sorting *ngIf="showSorting"
+            [fields]="sortingFields"
+            [showTitle]="false"
+            [showDropDown]="true"
+            [sorting]="{ column: this.sort.column, direction: this.sort.direction }"
+            (groupSorting)="onGroupSorting($event)">
+          </app-sorting>
+        </div>
+        <div class="float-left" style="padding: 0.2em 0.40rem !important;width: 180px;" *ngIf="showSearch">
+          <app-filter-textbox class="w-50" (changed)="onFilterChanged($event)"></app-filter-textbox>
+        </div>
+        <div class="btn-toolbar float-left" style="padding: 0.20em 0.25rem !important">
+          <div class="btn-group btn-group-sm mr-1">
+            <label class="btn btn-outline-secondary cursor-pointer" title="Aggiorna" (click)="refresh()">
+              <i class="icon-reload" aria-hidden="true"></i>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="d-flex flex-column justify-content-center align-items-center mt-3 h-100" *ngIf="!orders?.length">
+  <div class="text-center" *ngIf="!orders?.length && !loading">
+    <ion-icon class="icon-messages-50" name="cart-outline"></ion-icon>
+    <h6 class="no-messages-text mt-3">{{ 'APP.MESSAGE.no_elements' | translate }}</h6>
+  </div>
+  <div class="text-center" *ngIf="error">
+    <h6 class="text-danger mt-3 w-75 mx-auto">{{ errorMessage | translate }}</h6>
+  </div>
+</div>
+<div class="container-fluid mt-3 px-0" *ngIf="orders?.length">
+  <div id="grid-wrapper" class="px-0 border" style="height: 400px;">
+    <!-- Orders list -->
+    <ag-grid-angular
+      style="width: 100%; height: 100%;"
+      class="ag-theme-balham"
+      [rowData]="orders"
+      [columnDefs]="agColumnDefs"
+      [defaultColDef]="agDefaultColumnDefs"
+      [gridOptions]="agGridOptions"
+      (gridReady)="onGridReady($event)"
+      (gridSizeChanged)="onGridSizeChanged($event)"
+      (selectionChanged)="onSelectionChanged($event)"
+      (sortChanged)="onSortChanged($event)"
+      (cellDoubleClicked)="onDoubleClicked($event)">
+    </ag-grid-angular>
+  </div>
+</div>

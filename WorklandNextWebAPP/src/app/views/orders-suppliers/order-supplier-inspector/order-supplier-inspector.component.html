@@ -1,0 +1,97 @@
+<div class="text-center py-3" *ngIf="loading">
+  <div class="h1 text-muted text-center mt-5 mb-1">
+    <i class="fa fa-circle-o-notch fa-spin"></i>
+  </div>
+</div>
+<div class="h-75" *ngIf="!order && !loading">
+	<div class="details-content h-100">
+    <div class="d-flex flex-column justify-content-center align-items-center h-100">
+      <!-- loading & messages -->
+      <div class="text-center" style="height: 120px;" *ngIf="!dragging">
+        <ng-lottie [options]="options" (animationCreated)="animationCreated($event)"></ng-lottie>
+      </div>
+      <div class="text-center">
+        <i class="icon-mouse icon-messages-50" *ngIf="dragging"></i>
+        <h6 class="no-messages-text mt-3">{{ 'APP.MESSAGE.select_order' | translate }}</h6>
+      </div>
+    </div>
+	</div>
+</div>
+<div class="mt-3" *ngIf="order && !loading">
+  <div class="details-content">
+    <div class="">
+      <div class="order-email"><span class="badge badge-light">{{ order.numero }}</span></div>
+      <!-- <div class="order-name" [title]="order.id">{{ order.titolo || '-' }}</div> -->
+      <div class="order-email"><span class="badge badge-success">{{ order.statoDocumentoDescrizione }}</span></div>
+      <div class="order-email"><span class="badge badge-light">{{ order.categoriaDocumentoDescrizione || order.categoriaDocumentoId }}</span></div>
+      <div class="order-email mb-3"><span class="badge badge-light">{{ (order.dataCreazione | date: 'dd-MM-yyy') || '-' }}</span></div>
+      <!-- <div class="text-center small mb-2">{{ order.id }}</div> -->
+      <div class="card mb-1">
+        <div class="card-body">
+          <address>
+            <strong>{{ 'APP.TITLE.intestatario' | translate }}</strong><br>
+            {{ order.nominativoIntestatario || '-' }}<br>
+            {{ order.indirizzoIntestatario || '-' }}<br>
+            {{ order.capIntestatario || '-' }} {{ order.comuneIntestatario || '-' }} {{ order.provinciaIntestatario || '-' }}<br>
+            {{ order.nazioneIntestatario || '-' }}<br>
+          </address>
+          <dl class="mt-2 mb-0">
+            <dt>{{ 'APP.FIELD.piva' | translate }}</dt>
+            <dd class="pt-2">{{ order.piva || '-' }}</dd>
+            <dt>{{ 'APP.FIELD.codiceFiscale' | translate }}</dt>
+            <dd class="pt-2 mb-0">{{ order.codiceFiscale || '-' }}</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="card mb-1">
+        <div class="card-body">
+          <address>
+            <strong>{{ 'APP.TITLE.destinazione' | translate }}</strong><br>
+            {{ order.nominativoDestinazione || '-' }}<br>
+            {{ order.indirizzoDestinazione || '-' }}<br>
+            {{ order.capDestinazione || '-' }} {{ order.comuneDestinazione || '-' }} {{ order.provinciaDestinazione || '-' }}<br>
+            {{ order.nazioneDestinazione || '-' }}<br>
+          </address>
+        </div>
+      </div>
+      <div class="card mb-1">
+        <div class="card-body">
+          <address>
+            <strong>{{ 'APP.TITLE.fatturazione' | translate }}</strong><br>
+            {{ order.nominativoFatturazione || '-' }}<br>
+            {{ order.indirizzoFatturazione || '-' }}<br>
+            {{ order.capFatturazione || '-' }} {{ order.comuneFatturazione || '-' }} {{ order.provinciaFatturazione || '-' }}<br>
+            {{ order.nazioneFatturazione || '-' }}<br>
+          </address>
+        </div>
+      </div>
+      <div class="card mb-1">
+        <div class="card-body">
+          <dl class="mt-2 mb-0">
+            <dt>{{ 'APP.FIELD.totaleLordoCliente' | translate }}</dt>
+            <dd class="pt-2">{{ (order.totaleLordoCliente | currency:'EUR':'':'1.2-2':'it-IT') || '-' }}</dd>
+            <dt>{{ 'APP.FIELD.totaleLordoAzienda' | translate }}</dt>
+            <dd class="pt-2 mb-1">{{ (order.totaleLordoAzienda | currency:'EUR':'':'1.2-2':'it-IT') || '-' }}</dd>
+            <dt>{{ 'APP.FIELD.totaleIvaCliente' | translate }}</dt>
+            <dd class="pt-2 mb-1">{{ (order.totaleIvaCliente | currency:'EUR':'':'1.2-2':'it-IT') || '-' }}</dd>
+            <dt>{{ 'APP.FIELD.totaleIvaAzienda' | translate }}</dt>
+            <dd class="pt-2 mb-1">{{ (order.totaleIvaAzienda | currency:'EUR':'':'1.2-2':'it-IT') || '-' }}</dd>
+            <dt>{{ 'APP.FIELD.totaleNettoCliente' | translate }}</dt>
+            <dd class="pt-2 mb-1">{{ (order.totaleNettoCliente | currency:'EUR':'':'1.2-2':'it-IT') || '-' }}</dd>
+            <dt>{{ 'APP.FIELD.totaleNettoAzienda' | translate }}</dt>
+            <dd class="pt-2 mb-1">{{ (order.totaleNettoAzienda | currency:'EUR':'':'1.2-2':'it-IT') || '-' }}</dd>
+            <dt>{{ 'APP.FIELD.totaleMerceLorda' | translate }}</dt>
+            <dd class="pt-2 mb-1">{{ (order.totaleMerceLorda | currency:'EUR':'':'1.2-2':'it-IT') || '-' }}</dd>
+            <dt>{{ 'APP.FIELD.totaleMargine' | translate }}</dt>
+            <dd class="pt-2 mb-1">{{ (order.totaleMargine | currency:'EUR':'':'1.2-2':'it-IT') || '-' }}</dd>
+          </dl>
+        </div>
+      </div>
+      <app-item-attribute *ngFor="let field of objectKey(order)"
+        [attribute]="{key: field, value: order[field]}"
+        [excluded]="excluded"
+        [hideEmpty]="true">
+      </app-item-attribute>
+    </div>
+	</div>
+</div>

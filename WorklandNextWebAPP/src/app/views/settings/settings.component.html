@@ -1,0 +1,106 @@
+<div class="animated fadeIn bg-white" style="height:100%;">
+
+  <div class="flex-layout-header back-mesh-">
+    <div class="bg-gray-100-" style="width: 100%;">
+      <div class="d-flex flex-row justify-content-between">
+        <div class="col-6 px-1">
+          <div class="float-left mr-2" style="padding: 0.5em 0.40rem !important">
+            <i class="cui-settings"></i> {{ 'APP.TITLE.settings' | translate }}
+          </div>
+          <div class="btn-group btn-group-sm" style="padding: 0.20em 0.25rem !important" *ngIf="!settings.auto_save">
+            <span class="btn btn-primary" (click)="saveSettings()"><i class="cui-save" [class.text-danger]="modified"></i> {{ 'APP.BUTTON.save' | translate }}</span>
+          </div>
+        </div>
+        <div class="col pl-0 pr-0">
+        </div>
+        <div class="col pl-0">
+          <div class="btn-group btn-group-sm float-right" style="padding: 0.20em 0.25rem !important">
+            <span class="btn" [class.btn-light]="!settings.auto_save" [class.btn-warning]="settings.auto_save" (click)="toggleAutosave($event)"><i class="cui-save" [class.text-danger]="modified"></i> {{ 'APP.BUTTON.auto_save' | translate }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex-layout-body" style="overflow: auto;height: calc( 100% - 35px );">
+    <div class="flex-layout-sidebar sidebar-left">
+      <div class="row px-3 py-3">
+        <!-- <h5 class="mb-1">{{ 'APP.TITLE.settings' | translate }}</h5> -->
+        <div class="col-sm-12 mb-1">
+          <span class="btn d-block" [class.btn-light]="!isShowedOptions" [class.btn-info]="isShowedOptions" (click)="showOptions($event)">{{ 'APP.BUTTON.settings' | translate }}</span>
+        </div>
+        <div class="col-sm-12 mb-1">
+          <span class="btn btn-secondary d-block" [class.btn-light]="!isShowedDevOptions" [class.btn-info]="isShowedDevOptions" (click)="showDevOptions($event)">{{ 'APP.BUTTON.settings_debug' | translate }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="flex-layout-content" appFit>
+
+      <div class="layout-content px-2 py-2">
+
+        <div class="mx-auto d-block" style="max-width: 700px;" *ngIf="isShowedDevOptions">
+          <div class="clearfix mt-1">
+            <span class="btn btn-cyan btn-sm" (click)="checkToken()">Check Token</span>
+            <span class="ml-3">{{ tokenExpiredDate }}</span>
+          </div>
+          <div class="clearfix mt-1">
+            <json-editor [options]="editorOptions" [data]="session"></json-editor>
+          </div>
+          <div class="clearfix mt-1">
+            <json-editor [options]="editorOptions" [data]="settings"></json-editor>
+          </div>
+        </div>
+        <div class="mx-auto d-block" style="max-width: 700px;" *ngIf="isShowedOptions">
+          <h4 class="mt-3 mb-3 b-b-1 pb-2">{{ 'APP.TITLE.general_options' | translate }}</h4>
+          <div class="aside-options">
+            <div class="pl-1">
+              <div class="clearfix mt-1">
+                <span><b>{{ 'APP.LABEL.language' | translate }}</b></span>
+                <div class="pull-right">
+                  <div class="btn-group">
+                    <label class="btn btn-outline-info" [(ngModel)]="settings.language" btnRadio="it" (click)="optionsChange($event)">{{ 'it' | translate }}</label>
+                    <label class="btn btn-outline-info" [(ngModel)]="settings.language" btnRadio="en" (click)="optionsChange($event)">{{ 'en' | translate }}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix mt-1">
+                <span><b>{{ 'APP.LABEL.units_of_measure' | translate }}</b></span>
+                <div class="pull-right">
+                  <div class="btn-group">
+                    <label class="btn btn-outline-info" [(ngModel)]="settings.units" btnRadio="km" (click)="optionsChange($event)">{{ 'km' | translate }}</label>
+                    <label class="btn btn-outline-info" [(ngModel)]="settings.units" btnRadio="miles" (click)="optionsChange($event)">{{ 'miles' | translate }}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="aside-options">
+            <h4 class="mt-3 mb-3 b-b-1 pb-2">{{ 'APP.TITLE.notifications' | translate }}
+              <small>[{{ 'APP.MESSAGE.not_implemented' | translate }}]</small></h4>
+          </div> -->
+
+          <div class="aside-options d-none">
+            <h4 class="mt-3 mb-3 b-b-1 pb-2">{{ 'APP.TITLE.views' | translate }}</h4>
+            <div class="aside-options">
+              <div class="pl-1">
+                <div class="clearfix mt-1">
+                  <span><b>{{ 'contacts_list_show_thumb' | translate }}</b></span>
+                  <label class="switch switch-label switch-pill switch-info pull-right">
+                    <input type="checkbox" class="switch-input" [(ngModel)]="settings.contacts_list_show_thumb" (change)="optionsChange($event)">
+                    <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
+                  </label>
+                </div>
+                <!-- <div>
+                    <span class="text-muted">{{ 'notifications_news_message' | translate }}</span>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

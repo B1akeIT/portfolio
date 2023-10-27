@@ -1,0 +1,77 @@
+<div class="d-block">
+  <div class="row">
+    <div class="col-2">
+      <h6 class="">{{ 'APP.TITLE.unit' | translate }}</h6>
+    </div>
+    <div class="col">
+      <ng-template [appHasPermission]="'TABUNITA'" [action]="'create'" [owner]="true">
+        <div class="btn-group btn-group-sm mb-1" *ngIf="!readOnly && clientId">
+          <a class="btn btn-cyan" (click)="onEdit($event, null)" tooltip="{{ 'APP.TOOLTIP.add_unit' | translate }}" placement="bottom" container="body" [class.disabled]="selectedIndex != -1">
+            <i class="cui-plus"></i></a>
+        </div>
+        <div class="btn-group btn-group-sm mb-1 ml-2" *ngIf="!readOnly && clientId">
+          <a class="btn btn-warning" (click)="openChoiceModal('unit')" [class.disabled]="selectedIndex != -1">
+            <span><i class="icon-link"></i> {{ 'APP.BUTTON.connect_unit' | translate }}</span>
+          </a>
+        </div>
+        <div class="btn-group btn-group-sm mb-1" *ngIf="!readOnly && !clientId">
+          <a class="btn btn-cyan" (click)="onEdit($event, null, true)" [class.disabled]="trasform">
+            {{ 'APP.BUTTON.transform_to_unit' | translate }}</a>
+        </div>
+      </ng-template>
+    </div>
+    <div class="col text-right">
+      <div class="btn-group btn-group-sm mb-1" *ngIf="clientId">
+        <a class="btn btn-light" (click)="onRefresh($event)" tooltip="{{ 'APP.TOOLTIP.refresh' | translate }}" placement="bottom" container="body">
+          <i class="cui-reload"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="d-block mb-1 position-relative">
+  <ngx-loading
+    [show]="loading"
+    [config]="loadingOptions">
+  </ngx-loading>
+  <div class="d-block mb-1 border-bottom">
+    <!-- <pre class="pre-code"><code>items: {{ items | json }}</code></pre> -->
+    <!-- <pre class="pre-code"><code>tabsItems: {{ tabsItems | json }}</code></pre> -->
+    <tabset>
+      <tab *ngFor="let item of tabsItems;let idx = index;" [active]="idx == 0" [heading]="item.name" (selectTab)="setCurrentItem($event, item)"></tab>
+    </tabset>
+  </div>
+  <div class="d-flex flex-row mb-3 border" style="min-height: 250px;">
+    <!-- {{ items | json }} -->
+    <div class="flex-grow-1 h-100">
+      <div class="h-100" *ngIf="!currentItem && !loading">
+        <div class="details-content h-100 mt-5">
+          <div class="d-flex flex-column justify-content-center align-items-center h-75">
+            <!-- loading & messages -->
+            <div class="text-center" *ngIf="items?.length">
+              <i class="icon-mouse icon-messages-50 message-small"></i>
+              <h6 class="no-messages-text message-small mt-3">{{ 'APP.MESSAGE.select_unit' | translate }}</h6>
+            </div>
+            <div class="text-center" *ngIf="!items?.length">
+              <i class="icon-plus icon-messages-50 message-small"></i>
+              <h6 class="no-messages-text message-small mt-3">{{ 'APP.MESSAGE.add_unit' | translate }}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="currentItem || addUnita" style="height: calc( 100% );">
+        <!-- <pre class="pre-code"><code>{{ currentItem | json }}</code></pre> -->
+        <app-unita-edit
+          [clientId]="clientId"
+          [contact]="contact"
+          [trasform]="trasform"
+          [unitaId]="currentItem.unitaId"
+          [name]="currentItem.name"
+          [edit]="addUnita"
+          [readOnly]="readOnly"
+          (delete)="onScollega($event)"
+          (closeEdit)="onCloseEdit($event)">
+        </app-unita-edit>
+      </div>
+    </div>
+  </div>
+</div>

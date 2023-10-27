@@ -1,0 +1,12 @@
+{
+  "version": "0.1",
+  "help_title": "HELP - Contatti",
+  "default_message": "In questa sezione saranno mostrati gli aiuti per una corretta compilazione dei dati.",
+
+  "artwork": {
+    "title": "Opera",
+    "description": "Descrizione dell'opera."
+  },
+
+  "author": "AT@"
+}

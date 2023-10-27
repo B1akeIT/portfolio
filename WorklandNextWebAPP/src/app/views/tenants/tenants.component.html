@@ -1,0 +1,152 @@
+<div class="animated fadeIn bg-white" style="height:100%;" [hidden]="panelIsOpen">
+  <div class="flex-layout-header">
+    <div class="bg-gray-100-" style="width: 100%;">
+      <div class="d-flex flex-row justify-content-between">
+        <div class="col-4 px-1">
+          <div class="float-left mr-2" style="padding: 0.5em 0.40rem !important">
+            <ion-icon name="server-outline"></ion-icon> {{ 'APP.TITLE.tenants' | translate }}
+          </div>
+          <div class="btn-group btn-group-sm float-left" style="padding: 0.2em 0rem !important">
+            <a class="btn btn-warning" (click)="onEdit(0)" tooltip="{{ 'APP.TOOLTIP.new_tenant' | translate }}" placement="bottom" container="body">
+              <i class="cui-plus"></i><!-- {{ 'APP.BUTTON.add' | translate }} --></a>
+            <a class="btn btn-warning" (click)="onEdit()" [class.disabled]="currentId == 0" tooltip="{{ 'APP.TOOLTIP.edit_tenant' | translate }}" placement="bottom" container="body">
+              <i class="icon-pencil"></i><!-- {{ 'APP.BUTTON.modify' | translate }} --></a>
+            <a class="btn btn-warning" [class.disabled]="currentId == 0"
+              tooltip="{{ 'APP.TOOLTIP.delete_tenant' | translate }}"
+              container="body"
+              mwlConfirmationPopover
+              [popoverTitle]="'APP.TITLE.delete' | translate"
+              [popoverMessage]="'APP.MESSAGE.are_you_sure' | translate"
+              [cancelText]="'APP.BUTTON.cancel' | translate"
+              [cancelButtonType]="'outline-secondary btn-sm'"
+              [confirmText]="'APP.BUTTON.confirm' | translate"
+              [confirmButtonType]="'danger btn-sm'"
+              [appendToBody]="true"
+              placement="bottom"
+              (confirm)="onDelete(true)"
+              (cancel)="onDelete(false)">
+              <i class="icon-trash"></i><!-- {{ 'APP.BUTTON.delete' | translate }} --></a>
+          </div>
+          <!-- <div class="btn-group btn-group-sm float-left ml-1" style="padding: 0.2em 0rem !important">
+            <a class="btn btn-outline-secondary" (click)="dummyAction($event);" tooltip="{{ 'APP.TOOLTIP.print' | translate }}" placement="bottom" container="body">
+              <i class="cui-print"></i></a>
+          </div> -->
+        </div>
+        <div class="col-4 px-0">
+          <div class="" style="padding: 0.2em 0.40rem !important">
+            <app-filter-textbox class="" (changed)="onFilterChanged($event)"></app-filter-textbox>
+          </div>
+        </div>
+        <div class="col-4 px-0">
+          <div class="buttons-bar float-left">
+            <div class="btn-toolbar" style="padding: 0.20em 0.25rem !important">
+              <div class="btn-group btn-group-sm mr-1">
+                <label class="btn btn-outline-secondary cursor-pointer" title="Aggiorna" (click)="refresh()">
+                  <i class="icon-reload" aria-hidden="true"></i>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="buttons-bar float-right">
+            <div class="btn-toolbar" role="toolbar" style="padding: 0.20em 0.25rem !important">
+              <div class="btn-group btn-group-sm">
+                <label class="btn" [(ngModel)]="sideBarStatus" btnRadio="inspector" uncheckable role="button" tooltip="{{ 'APP.TOOLTIP.show_hide_inspector' | translate }}" placement="bottom" container="body"><i class="icon-info fa-lg" [class.text-primary]="sideBarStatus == 'inspector'"></i></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-layout-body" style="overflow: auto;height: calc( 100% - 40px - 40px );">
+		<!-- <div class="flex-layout-sidebar bg-gray-100 sidebar-left"></div> -->
+    <div class="flex-layout-content">
+      <div class="layout-content animated fadeIn">
+        <ngx-loading
+          [show]="loading"
+          [config]="loadingOptions">
+        </ngx-loading>
+        <div class="d-flex flex-column justify-content-center align-items-center h-100" *ngIf="!tenants?.length">
+          <div class="text-center" *ngIf="!tenants?.length && !loading">
+            <ion-icon name="server-outline" class="icon-messages-50"></ion-icon>
+            <h6 class="no-messages-text mt-3">{{ 'APP.MESSAGE.no_elements' | translate }}</h6>
+          </div>
+          <div class="text-center" *ngIf="error">
+            <h6 class="text-danger mt-3 w-75 mx-auto">{{ errorMessage | translate }}</h6>
+          </div>
+        </div>
+        <div class="container-fluid px-0" style="width: calc( 100% ); height: calc( 100% );" *ngIf="tenants?.length">
+          <div id="grid-wrapper" class="px-0" style="width: calc( 100% ); height: calc( 100% );">
+            <!-- tenants list -->
+            <ag-grid-angular
+              style="width: 100%; height: 100%;"
+              class="ag-theme-balham"
+              [rowData]="tenants"
+              [columnDefs]="agColumnDefs"
+              [gridOptions]="agGridOptions"
+              (gridReady)="onGridReady($event)"
+              (gridSizeChanged)="onGridSizeChanged($event)"
+              (selectionChanged)="onSelectionChanged($event)"
+              (cellDoubleClicked)="onDoubleClicked($event)">
+            </ag-grid-angular>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div #sidebarInspector class="flex-layout-sidebar sidebar-right preview-content inspector-content"
+      mwlResizable
+      [validateResize]="validate"
+      [enableGhostResize]="true"
+      [resizeSnapGrid]="{ left: 1, right: 1 }"
+      (resizeStart)="onResizeStart($event)"
+      (resizing)="onResizing($event)"
+      (resizeEnd)="onResizeEnd($event)"
+      [class.hidden]="!sideBarStatus">
+      <div class="resize-handle-left" mwlResizeHandle [resizeEdges]="{ left: true }"></div>
+      <div class="details-content" *ngIf="sideBarStatus == 'edit'">
+        <div class="card bg-default">
+          <div class="card-header bg-white px-1 py-1 d-flex justify-content-between align-items-center">
+            <h6 class="font-weight-bold mb-0 pl-2">
+              <ion-icon name="server-outline"></ion-icon>
+              <span>{{ 'APP.TITLE.tenant' | translate }}</span>
+            </h6>
+            <div class="action-bar">
+              <div class="btn btn-light btn-sm" (click)="sideBarStatus = 'inspector'" tooltip="{{ 'APP.TOOLTIP.cancel' | translate }}" placement="bottom" container="body">
+                <span><i class="cui-x"></i> {{ 'APP.BUTTON.cancel' | translate }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="tenantForm" (ngSubmit)="onSave(tenantModel)">
+              <formly-form [form]="tenantForm" [model]="tenantModel" [fields]="tenantFields" [options]="options">
+                <button class="btn btn-primary btn-sm mt-3" type="submit" [disabled]="!tenantForm.valid">
+                  <span *ngIf="tenantModel.id == 0">{{ 'APP.BUTTON.save' | translate }}</span>
+                  <span *ngIf="tenantModel.id != 0">{{ 'APP.BUTTON.modify' | translate }}</span>
+                </button>
+              </formly-form>
+            </form>
+          </div>
+        </div>
+      </div>
+      <app-tenant-inspector
+        [tenantId]="currentId"
+        [tenantName]="currentElement?.nomeConnessione"
+        [dragging]="dragging"
+        [hidden]="sideBarStatus != 'inspector'">
+      </app-tenant-inspector>
+    </div>
+  </div>
+  <div class="flex-layout-footer">
+    <div class="bg-gray-100-" style="width: 100%;text-align: right;">
+      <div class="d-flex flex-row justify-content-between">
+        <div class="col-5 pr-0 text-left">
+        </div>
+        <div class="col pl-0 pr-0 text-center" *ngIf="tenants?.length">
+          <span class="btn btn-sm" *ngIf="!loading">{{ 'count_of_total_elements' | translate:countTranslateParams }}</span>
+        </div>
+        <div class="col pl-0 text-right">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

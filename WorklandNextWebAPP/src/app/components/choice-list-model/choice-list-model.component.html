@@ -1,0 +1,48 @@
+<nav class="navbar navbar-light bg-light sticky-top border-bottom">
+  <form class="w-100">
+    <div class="input-group input-group-sm">
+      <input type="text" name="filter" class="form-control" [(ngModel)]="filter" placeholder="{{ 'APP.PLACEHOLDER.search_choose_' + model | translate }}" (change)="filterChanged($event)"/>
+      <div class="input-group-append">
+        <button class="btn btn-primary" (click)="filterChanged($event)" [disabled]="!filter">
+          <i class="icon-magnifier"></i>
+        </button>
+        <button class="btn btn-yellow" (click)="clearFilter($event)" [hidden]="!filter">
+          <i class="cui-x"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+</nav>
+<div class="h-100">
+  <div class="d-flex flex-column justify-content-center align-items-center h-50" *ngIf="!modelData?.length">
+    <div class="text-center" *ngIf="!loading">
+      <i class="cui-user icon-messages-50"></i>
+      <h6 class="no-messages-text mt-3" style="font-size: 16px;" *ngIf="!searched">{{ 'APP.MESSAGE.search_choose_' + model | translate }}</h6>
+      <h6 class="no-messages-text mt-3" style="font-size: 16px;" *ngIf="searched">{{ 'APP.MESSAGE.no_elements' | translate }}</h6>
+    </div>
+    <div class="text-center" *ngIf="loading">
+      <div class="h3 text-muted text-center">
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+      </div>
+    </div>
+  </div>
+  <ul class="list-group" *ngIf="_model == 'contact'">
+    <li class="list-group-item pl-3 pr-3" *ngFor="let md of modelData">
+      <div class="media">
+        <!-- <img [src]="''" class="img-avatar border mr-2" style="width: 50px;"> -->
+        <div class="media-body">
+          <h6 class="mt-0 mb-1">{{ md.id }} - {{ md.ragioneSociale }}</h6>
+          <!-- <small *ngIf="!md.ownerOrYacht">{{ md.nome }} - {{ md.cognome }}</small> -->
+          <small><span class="font-weight-bold mr-2">{{ 'APP.FIELD.owner' | translate }}:</span> {{ md.ownerOrYacht || '---' }}</small><br>
+          <small><span class="font-weight-bold mr-2">{{ 'APP.FIELD.contatto' | translate }}:</span> {{ md.cognome || '-'}} {{ md.nome || '-' }}</small>
+        </div>
+        <div>
+          <button class="btn btn-light btn-sm" (click)="onSelectedModel(md)">
+            <ion-icon name="checkmark-outline"></ion-icon>
+            <!-- <i class="cui-check"></i> -->
+          </button>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,15 @@
+// Custom ag-grid
+
+.ag-theme-bootstrap {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important;
+}
+
+.ag-theme-balham {
+  .ag-root {
+    border: 0 solid #a4b7c1;
+  }
+
+  .ag-root-wrapper {
+    border: none;
+  }
+}

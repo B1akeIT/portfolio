@@ -1,0 +1,144 @@
+// float-panel
+
+.float-panel {
+  position: absolute !important;
+  bottom: 0;
+  left: 0;
+  height: 0;
+  width: 100%;
+  z-index: 100;
+  // 	display: none;
+  opacity: .95;
+  opacity: 1;
+  filter: alpha(opacity=100);
+  background-color: #efefef;
+  transition-property: height;
+  transition-duration: .25s, .25s;
+
+  .float-sidebar {
+    position: relative;
+
+    .panel-sidebar {
+      position: fixed;
+      height: 100%;
+      width: 200px;
+    }
+
+    .panel-content {
+      padding-left: 220px;
+      padding-right: 1rem;
+      width: 100%;
+    }
+  }
+
+  &.float-panel-open {
+    height: 200px;
+    display: block;
+  }
+
+  .modal {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    z-index: 1;
+    display: block;
+  }
+
+  .modal-dialog {
+    max-width: 100%;
+    margin: 0;
+    left: auto;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .card-title {
+    font-size: 1.2em;
+    font-weight: 500;
+  }
+
+  .card-block {
+    height: 101px;
+    overflow-y: auto;
+  }
+
+  &.panel-no-footer {
+    .card-footer {
+      display: none;
+    }
+
+    .card-block {
+      height: 153px;
+    }
+  }
+}
+
+.filter-panel {
+  &.float-panel-open {
+    height: 300px;
+    // border: 2px solid #333;
+  }
+
+  .card-block {
+    height: 201px;
+  }
+
+  &.panel-no-footer {
+    .card-footer {
+      display: none;
+    }
+
+    .card-block {
+      height: 253px;
+    }
+  }
+}
+
+.evaluable-panel {
+  &.float-panel-open {
+    height: 500px;
+    // border: 2px solid #333;
+  }
+
+  .card-block {
+    height: 449px;
+  }
+
+  &.panel-no-footer {
+    .card-footer {
+      display: none;
+    }
+
+    .card-block {
+      height: 449px;
+    }
+  }
+}
+
+.iframe-panel,
+.image-panel {
+  &.float-panel-open {
+    height: 540px;
+    // border: 2px solid #333;
+  }
+
+  .card-block {
+    height: 441px;
+  }
+
+  &.panel-no-footer {
+    .card-footer {
+      display: none;
+    }
+
+    .card-block {
+      height: 495px;
+    }
+  }
+
+  iframe {
+    border: 1px solid #ddd;
+  }
+}

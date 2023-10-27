@@ -1,0 +1,123 @@
+<div class="d-block">
+  <div class="row">
+    <div class="col-4">
+      <h6 class="">{{ 'APP.TITLE.scadenze' | translate }}</h6>
+    </div>
+    <div class="col text-right">
+      <div class="btn-group btn-group-sm mb-1" *ngIf="!onlyRead">
+        <a class="btn btn-cyan" (click)="onEdit($event, {})" tooltip="{{ 'APP.TOOLTIP.add_scadenza' | translate }}" placement="bottom" container="body" [class.disabled]="!invoiceId">
+          <i class="cui-plus"></i></a>
+        <a class="btn btn-cyan" (click)="onEdit($event, currentItem)" tooltip="{{ 'APP.TOOLTIP.modify_scadenza' | translate }}" placement="bottom" container="body" [class.disabled]="!currentItem || !invoiceId">
+          <i class="cui-pencil"></i></a>
+        <a class="btn btn-cyan" [class.disabled]="!currentItem || !invoiceId"
+        tooltip="{{ 'APP.TOOLTIP.delete_scadenza' | translate }}"
+        container="body"
+        mwlConfirmationPopover
+        [popoverTitle]="'APP.TITLE.delete' | translate"
+        [popoverMessage]="'APP.MESSAGE.are_you_sure' | translate"
+        [cancelText]="'APP.BUTTON.cancel' | translate"
+        [cancelButtonType]="'outline-secondary btn-sm'"
+        [confirmText]="'APP.BUTTON.confirm' | translate"
+        [confirmButtonType]="'danger btn-sm'"
+        [appendToBody]="true"
+        placement="bottom"
+        (confirm)="onDelete(true)">
+          <i class="icon-trash"></i></a>
+      </div>
+      <div class="btn-group btn-group-sm mb-1">
+        <a class="btn btn-light" (click)="refresh()" tooltip="{{ 'APP.TOOLTIP.refresh' | translate }}" placement="bottom" container="body" [class.disabled]="!invoiceId">
+          <i class="cui-reload"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="d-block mb-1 position-relative">
+  <!-- <pre class="pre-code"><code>{{ items | json }}</code></pre> -->
+  <div class="border-left border-right border-bottom overflow-auto table-responsive box-height" [class.box-small]="small">
+    <ngx-loading
+      [show]="loading"
+      [config]="loadingOptions">
+    </ngx-loading>
+    <table class="table table-sm table-hover" [class.small]="small">
+      <thead>
+        <tr>
+          <th scope="col">{{ 'APP.FIELD.anagModalitaPagamentoDescrizione' | translate }}</th>
+          <th class="text-center" scope="col">{{ 'APP.FIELD.importo' | translate }}</th>
+          <th class="text-center" scope="col">{{ 'APP.FIELD.dataPagamento' | translate }}</th>
+          <th class="text-center" scope="col">{{ 'APP.FIELD.isManuale' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items;let idx = index;" [class.table-warning]="item.id == currentItem?.id" (click)="setCurrentItem($event, item, idx)">
+          <td scope="row">{{ item.anagModalitaPagamentoDescrizione }}</td>
+          <td class="text-center">{{ item.importo | currency: 'EUR':'symbol':undefined:'it-IT' }}</td>
+          <td class="text-center">{{ item.dataPagamento }}</td>
+          <td class="text-center">
+            <ion-icon class="align-middle text-blue" name="checkbox" *ngIf="item.isManuale"></ion-icon>
+            <ion-icon class="align-middle" name="square-outline" *ngIf="!item.isManuale"></ion-icon>
+          </td>
+        </tr>
+        <tr class="no-hover" *ngIf="items?.length == 0">
+          <td colspan="5" class="pt-5 pb-0 text-center">
+            <div *ngIf="invoiceId && !error">{{ 'APP.MESSAGE.no_items' | translate }}</div>
+            <div *ngIf="!invoiceId">
+              <span class="p-3 mb-2 bg-warning text-dark">{{ 'APP.MESSAGE.no_contact_id' | translate }}</span>
+            </div>
+            <div *ngIf="error">
+              <span class="bg-danger">{{ errorMessage }}</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="d-flex flex-column mb-3 border" style="min-height: 250px;" *ngIf="false">
+  <div class="flex-grow-1 h-100">
+    <div class="h-100" *ngIf="!currentItem && !loading">
+      <div class="details-content h-100 mt-5">
+        <div class="d-flex flex-column justify-content-center align-items-center h-75">
+          <!-- loading & messages -->
+          <div class="text-center" *ngIf="items?.length">
+            <i class="icon-mouse icon-messages-50 message-small"></i>
+            <h6 class="no-messages-text message-small mt-3">{{ 'APP.MESSAGE.select_email' | translate }}</h6>
+          </div>
+          <div class="text-center" *ngIf="!items?.length">
+            <i class="icon-plus icon-messages-50 message-small"></i>
+            <h6 class="no-messages-text message-small mt-3">{{ 'APP.MESSAGE.add_email' | translate }}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="currentItem" style="height: calc( 100% );">
+      <!-- <pre class="pre-code"><code>{{ currentItem | json }}</code></pre> -->
+      <app-item-attribute *ngFor="let field of currentItem | keyvalue"
+        [attribute]="field"
+        [excluded]="excluded"
+        [hideEmpty]="true">
+      </app-item-attribute>
+    </div>
+  </div>
+</div>
+
+<ng-template #editScadenzaModal>
+  <form [formGroup]="dataForm" (ngSubmit)="onSave(dataModel)">
+    <div class="modal-header">
+      <h5 class="modal-title" *ngIf="!dataModel?.id">{{ 'APP.TITLE.new_scadenza' | translate }}</h5>
+      <h5 class="modal-title" *ngIf="dataModel?.id">{{ 'APP.TITLE.edit_scadenza' | translate }}</h5>
+      <button type="button" class="close" (click)="modalRef.hide()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <formly-form [form]="dataForm" [model]="dataModel" [fields]="dataFields">
+      </formly-form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary btn-sm" type="submit" [disabled]="!dataForm?.valid">
+        <span *ngIf="dataModel?.id == 0">{{ 'APP.BUTTON.save' | translate }}</span>
+        <span *ngIf="dataModel?.id != 0">{{ 'APP.BUTTON.modify' | translate }}</span>
+      </button>
+    </div>
+  </form>
+</ng-template>

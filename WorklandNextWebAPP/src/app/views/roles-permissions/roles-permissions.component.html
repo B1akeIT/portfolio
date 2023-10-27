@@ -1,0 +1,117 @@
+<div class="animated fadeIn bg-white" style="height:100%;">
+
+  <div class="flex-layout-header back-mesh-">
+    <div class="bg-gray-100-" style="width: 100%;">
+      <div class="d-flex flex-row justify-content-between">
+        <div class="col px-1">
+          <div class="float-left mr-2" style="padding: 0.5em 0.40rem !important">
+            <ion-icon name="shield-checkmark-outline"></ion-icon> {{ 'APP.TITLE.roles-permissions' | translate }}
+          </div>
+          <div class="ml-1 float-left">
+            <app-choose-tenant [class]="'warning btn-bar'"
+              [tenants]="tenants"
+              (changed)="onTenant($event)">
+            </app-choose-tenant>
+          </div>
+        </div>
+        <div class="col pl-0">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex-layout-body" style="overflow: auto;height: calc( 100% - 35px );">
+    <div class="flex-layout-sidebar sidebar-left px-0 py-0 d-flex flex-column h-100">
+      <div class="header border-bottom" *ngIf="tenant && !error">
+        <nav class="toolbar toolbar-small" *ngIf="tenant">
+          <ul class="bar-full bar-start">
+            <!-- <li class="toolbar-divider" aria-hidden="true"></li> -->
+            <li>
+              <a class="btn" (click)="onEdit(0)" tooltip="{{ 'APP.TOOLTIP.add' | translate }}" placement="bottom" container="body">
+                <i class="cui-plus"></i>
+              </a>
+            </li>
+            <li class="toolbar-divider" aria-hidden="true"></li>
+            <li>
+              <a class="btn" [class.disabled]="!role"
+                tooltip="{{ 'APP.TOOLTIP.delete' | translate }}"
+                container="body"
+                placement="bottom"
+                mwlConfirmationPopover
+                [popoverTitle]="'APP.TITLE.delete' | translate"
+                [popoverMessage]="'APP.MESSAGE.are_you_sure' | translate"
+                [cancelText]="'APP.BUTTON.cancel' | translate"
+                [cancelButtonType]="'outline-secondary btn-sm'"
+                [confirmText]="'APP.BUTTON.confirm' | translate"
+                [confirmButtonType]="'danger btn-sm'"
+                [appendToBody]="true"
+                [placement]="'bottom'"
+                (confirm)="onDelete(true)"
+                (cancel)="onDelete(false)">
+                <i class="cui-trash"></i></a>
+            </li>
+            <li class="toolbar-divider" aria-hidden="true"></li>
+            <li>
+              <button class="btn" (click)="onDuplicate()" [class.disabled]="!role" tooltip="{{ 'APP.TOOLTIP.duplicate' | translate }}" placement="bottom" container="body">
+                <i class="cui-copy"></i>
+              </button>
+            </li>
+            <li class="toolbar-divider" aria-hidden="true"></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="content flex-grow-1">
+        <div class="d-flex flex-column justify-content-center align-items-center h-100" *ngIf="(!tenant && !loading) || error">
+          <div class="text-center" *ngIf="!error">
+            <ion-icon name="shield-checkmark-outline" class="icon-messages-50"></ion-icon>
+            <h6 class="no-messages-text mt-3">{{ 'APP.MESSAGE.select_tenant' | translate }}</h6>
+          </div>
+        </div>
+        <ngx-loading
+          [show]="loading"
+          [config]="loadingOptions">
+        </ngx-loading>
+        <mat-nav-list class="pt-0" *ngIf="roles.length">
+          <mat-list-item [class.current-item]="item.id == role?.id" *ngFor="let item of roles" (click)="setCurrentRole($event, item)">
+            <h3 matLine>{{ item.descrizione }} </h3>
+            <p matLine class="sub-title">
+              <span>{{ item.descrizione }}</span>
+            </p>
+          </mat-list-item>
+        </mat-nav-list>
+      </div>
+    </div>
+    <div class="flex-layout-content" appFit>
+
+      <div class="layout-content">
+        <!-- <ngx-loading
+          [show]="loading_data"
+          [config]="loadingOptions">
+        </ngx-loading> -->
+        <div class="d-flex flex-column justify-content-center align-items-center h-100" *ngIf="((!role && !loading_data) || error) &&  !isEdit()">
+          <div class="text-center" *ngIf="!error">
+            <ion-icon name="shield-checkmark-outline" class="icon-messages-50"></ion-icon>
+            <h6 class="no-messages-text mt-3" *ngIf="!tenant">{{ 'APP.MESSAGE.select_tenant' | translate }}</h6>
+            <h6 class="no-messages-text mt-3" *ngIf="tenant">{{ 'APP.MESSAGE.select_role' | translate }}</h6>
+          </div>
+          <div class="text-center" *ngIf="error">
+            <h6 class="text-danger mt-3 w-75 mx-auto">{{ errorMessage | translate }}</h6>
+          </div>
+        </div>
+        <div class="px-0" style="width: calc( 100% ); height: calc( 100% );" *ngIf="(role && !error) || isEdit()">
+          <app-role
+            [role]="role"
+            [tenant]="tenant"
+            [status]="status"
+            (save)="onSave($event)">
+          </app-role>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- <div class="flex-layout-sidebar sidebar-right preview-content inspector-content">
+    </div> -->
+  </div>
+
+</div>

@@ -1,0 +1,24 @@
+:host ::ng-deep {
+
+  .header {
+    height: 45px;
+  }
+
+  .content {
+    height: 100%;
+    overflow: auto;
+    // background-color: #ffffff;
+  }
+
+  .footer {
+    height: 45px;
+  }
+
+  .current-item {
+    background-color: var(--yellow) !important;
+  }
+
+  .sub-title {
+    font-size: 0.8em !important;
+  }
+}

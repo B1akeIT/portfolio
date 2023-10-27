@@ -1,0 +1,19 @@
+<div class="btn-group" dropdown>
+  <button dropdownToggle type="button" class="btn btn-{{class}} dropdown-toggle">
+    <span *ngIf="!currentTenant"><i class="icon-layers"></i> Scegli un tenant…</span>
+    <span *ngIf="currentTenant"><i class="icon-layers"></i> {{ currentTenant }}</span>
+    <span class="caret"></span>
+  </button>
+  <ul *dropdownMenu class="dropdown-menu" role="menu">
+    <li role="menuitem cursor-pointer" (click)="menuSelected('tenant-001')">
+      <span class="dropdown-item">
+        <i class="icon-layers"></i> {{ 'Tenant #1' }}</span></li>
+    <li role="menuitem cursor-pointer" (click)="menuSelected('tenant-002')">
+      <span class="dropdown-item">
+        <i class="icon-layers"></i> {{ 'Tenant #2' }}</span></li>
+    <li class="divider dropdown-divider"></li>
+    <li role="menuitem cursor-pointer" (click)="clearMenu()">
+      <span class="dropdown-item">
+        <i class="icon-trash"></i> {{ 'Clear Tenant' }}</span>
+  </ul>
+</div>

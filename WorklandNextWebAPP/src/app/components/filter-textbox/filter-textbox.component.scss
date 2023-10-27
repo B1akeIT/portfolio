@@ -1,0 +1,11 @@
+app-filter-textbox {
+  margin-top: 5px;
+
+  .form-control {
+    &:focus {
+      border-color: #c2cfd6;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+<!-- <div class="modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"> -->
+    <form class="" [formGroup]="modalForm" novalidate (ngSubmit)="save(modalForm)">
+      <div class="modal-header">
+        <h5 class="modal-title" title="{{ itemId }}">{{ title | translate }} {{ 'APP.TITLE.order' | translate }}</h5>
+        <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body px-0 py-0" style="height: 400px;">
+        <app-order-item
+          [itemId]="itemId"
+          [orderId]="orderId"
+          [numeroRiga]="numeroRiga"
+          [fGroup]="modalForm"
+          (modified)="onModified($event)">
+        </app-order-item>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-sm" (click)="closeModal()">{{ 'APP.BUTTON.close' | translate }}</button>
+        <button type="button" class="btn btn-primary btn-sm" type="submit" [disabled]="!modalForm.valid && _isModified">{{ 'APP.BUTTON.save' | translate }}</button>
+      </div>
+    </form>
+    <!-- </div>
+  </div>
+</div> -->

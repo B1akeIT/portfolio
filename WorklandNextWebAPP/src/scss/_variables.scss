@@ -1,0 +1,115 @@
+// Variable overrides
+@import url( 'https://fonts.googleapis.com/css?family=Lato');
+
+// Options
+//
+// Quickly modify global styling by enabling or disabling optional features.
+
+$enable-transitions: true;
+$enable-rounded: false;
+
+// Typography
+//
+// Font, line-height, and color for body text, headings, and more.
+
+// $font-size-base: .875rem;
+
+//
+// Color system
+//
+
+$body-bg: #F7F8FA !default;
+
+$white: #fff;
+$gray-100: #f0f3f5;
+$gray-200: #c2cfd6;
+$gray-300: #a4b7c1;
+$gray-400: #869fac;
+$gray-500: #678898;
+$gray-600: #536c79;
+$gray-700: #3e515b;
+$gray-800: #29363d;
+$gray-900: #151b1e;
+$black: #000 !default;
+
+$primary: #009fe3; // #00bd70; // rgb(247, 200, 105);
+$info: #2c92f8;
+$blue: #0075ff;
+$indigo: #6610f2 !default;
+$purple: #6f42c1 !default;
+$pink: #e83e8c !default;
+$red: #f86c6b;
+$orange: #e07f00;
+$yellow: #ffc107 !default;
+$green: #4dbd74;
+$teal: #20c997 !default;
+$cyan: #63c2de;
+$light-primary: #fff8db; // rgba(247, 200, 105, 0.35);
+$disabled: rgba(210, 210, 210, 0.35);
+$scrollbarColor: rgba(210, 210, 210, 0.35);
+
+$colors: ( "blue": $blue, "indigo": $indigo, "purple": $purple, "pink": $pink, "red": $red, "orange": $orange, "yellow": $yellow, "green": $green, "teal": $teal, "cyan": $cyan, "white": $white, "gray": $gray-600, "gray-dark": $gray-800 );
+
+$theme-colors: ( "primary": $primary, "secondary": $gray-300, "success": $green, "info": $info, "warning": $yellow, "danger": $red, "light": $gray-100, "dark": $gray-800, "white": $white, "blue": $blue, "indigo": $indigo, "purple": $purple, "pink": $pink, "red": $red, "orange": $orange, "yellow": $yellow, "green": $green, "teal": $teal, "cyan": $cyan, "light-primary": $light-primary, "gray-100": $gray-100, "gray-200": $gray-200, "gray-300": $gray-300, "gray-400": $gray-400, "gray-500": $gray-500, "gray-600": $gray-600, "gray-700": $gray-700, "gray-800": $gray-800, "gray-900": $gray-900, 'disabled': $disabled, 'scrollbarColor': $scrollbarColor );
+
+$input-placeholder-color: rgb(215, 215, 215);
+
+$input-disabled-bg: $gray-100 !default;
+$input-disabled-border-color: null !default;
+
+$nav-link-disabled-color: $gray-100 !default;
+
+$btn-disabled-opacity: .55 !default;
+$btn-link-disabled-color: $gray-100 !default;
+
+$form-select-disabled-color: $gray-100 !default;
+$form-select-disabled-bg: $gray-100 !default;
+$form-select-disabled-border-color: $input-disabled-border-color !default;
+
+$form-range-thumb-disabled-bg: $gray-100 !default;
+
+$dropdown-link-disabled-color: $gray-100 !default;
+
+$pagination-disabled-color: $gray-200 !default;
+$pagination-disabled-bg: $white !default;
+$pagination-disabled-border-color: $gray-200 !default;
+
+$border-color: $gray-200;
+
+// Components
+
+// $component-active-color: $white !default;
+// $component-active-bg: theme-color("primary") !default;
+
+// Cards
+
+$card-border-color: $gray-200;
+$card-cap-bg: $gray-100;
+
+// Dropdowns
+
+$dropdown-padding-y: 0;
+$dropdown-border-color: $gray-200;
+$dropdown-divider-bg: $gray-100;
+
+$dropdown-link-active-color: $black !default;
+$dropdown-link-active-bg: $yellow !default;
+
+// Buttons
+
+$btn-secondary-border: $gray-300;
+
+// Progress bars
+
+$progress-bg: $gray-100;
+
+// Tables
+
+$table-bg-accent: $gray-100;
+$table-bg-hover: $gray-100;
+
+// Forms
+
+$input-group-addon-bg: $gray-100;
+$input-border-color: $gray-200;
+$input-group-addon-border-color: $gray-200;

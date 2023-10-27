@@ -1,0 +1,162 @@
+<!-- <div class="modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"> -->
+      <div class="modal-header">
+        <h5 class="modal-title" [title]="document">{{ 'APP.TITLE.create-orders-suppliers' | translate }}</h5>
+        <h5 class="modal-title ml-4" *ngIf="orderList?.length">"{{ 'APP.MESSAGE.selected_elements' | translate:{selected:orderList?.length} }}"</h5>
+        <h5 class="modal-title ml-4" *ngIf="!orderList">"{{ item.id }}"</h5>
+        <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body px-0 py-0">
+        <div>
+          <div class="px-4 py-4" style="height:100%;">
+            <div class="flex-layout-body w-100" style="overflow: auto;">
+              <ngx-loading
+                [show]="loading"
+                [config]="loadingOptions">
+              </ngx-loading>
+              <div class="container-fluid px-0" style="width: calc( 100% ); height: calc( 100% );overflow-x: hidden;" *ngIf="!loading">
+                <div id="content-wrapper" class="px-0 overflow-auto" style="width: calc( 100% ); height: calc( 100% );">
+                  <div class="form-group col-12 mb-0 px-0">
+                    <ng-container *ngIf="isSingle()">
+                      <fieldset class="fieldset-border fieldset-textarea">
+                        <legend class="small">{{ 'Dati Ordine Fornitore' | translate }}</legend>
+                          <div class="row mb-2">
+                            <div class="col-5">
+                              <div class="form-inline mb-1">
+                                <div class="form-group col-12 mb-0 px-0">
+                                  <input type="checkbox" name="isFornitoreDaArticolo" class="form-control-sm"
+                                    [(ngModel)]="data.parametri.isFornitoreDaArticolo" (change)="onChangeIsFornitore()">
+                                  <label class="col-form-label col-form-label-sm ml-3" for="isFornitoreDaArticolo">{{
+                                    'APP.FIELD.isFornitoreDaArticolo' | translate }}</label>
+                                </div>
+                              </div>
+                              <div class="card card-client-info mx-auto pt-0 mb-2">
+                                <div class="card-body px-2 pt-0 pb-1">
+                                  <div class="d-flex flex-row justify-content-center px-0 pb-1">
+                                    <div class="form-group form-check col-12 mb-0 px-0">
+                                      <div class="row">
+                                        <div class="form-group input-group input-group-sm col-12 mb-0">
+                                          <label class="col-form-label col-form-label-sm w-100 pb-0" for="nominativoFornitore">{{ 'APP.FIELD.fornitore' | translate }}&nbsp; <span class="btn btn-sm p-0 float-right" style="font-size: 0.9em;" (click)="openChoiceModal('fornitore')" *ngIf="!data.parametri.isFornitoreDaArticolo"><i class="icon-magnifier"></i></span></label>
+                                          <input type="text" name="nominativoFornitore" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [value]="supplier?.ragioneSociale" readonly>
+                                        </div>
+                                      </div>
+                                      <!-- <div class="row">
+                                        <div class="form-group input-group input-group-sm col-12 mb-0">
+                                          <label class="col-form-label col-form-label-sm w-100 pb-0" for="indirizzo">{{ 'APP.FIELD.indirizzo' | translate }}</label>
+                                          <input type="text" name="indirizzo" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [value]="supplier?.indirizzo" readonly>
+                                        </div>
+                                      </div> -->
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-7">
+                              <div class="form-row">
+                                <div class="form-group form-check col-12 mb-0">
+                                  <div class="row">
+                                    <div class="col-12">
+                                      <div class="form-inline">
+                                        <div class="form-group mb-0">
+                                          <input type="checkbox" name="isEscludiRighePreparate" class="form-control-sm"
+                                            [(ngModel)]="data.parametri.isEscludiRighePreparate">
+                                          <label class="col-form-label col-form-label-sm ml-3" for="isEscludiRighePreparate">{{
+                                            'APP.FIELD.isEscludiRighePreparate' | translate }}</label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-12">
+                                      <div class="form-inline">
+                                        <div class="form-group mb-0">
+                                          <input type="checkbox" name="isEscludiRigheOrdinate" class="form-control-sm"
+                                            [(ngModel)]="data.parametri.isEscludiRigheOrdinate">
+                                          <label class="col-form-label col-form-label-sm ml-3" for="isEscludiRigheOrdinate">{{
+                                            'APP.FIELD.isEscludiRigheOrdinate' | translate }}</label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-12">
+                                      <div class="form-inline">
+                                        <div class="form-group mb-0">
+                                          <input type="checkbox" name="isEscludiRigheComplete" class="form-control-sm"
+                                            [(ngModel)]="data.parametri.isEscludiRigheComplete">
+                                          <label class="col-form-label col-form-label-sm ml-3" for="isEscludiRigheComplete">{{
+                                            'APP.FIELD.isEscludiRigheComplete' | translate }}</label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="col-4">
+                                      <label class="col-form-label col-form-label-sm" for="sezionale">{{ 'APP.FIELD.sezionale' | translate }}</label>
+                                      <select name="sezionaleId" class="form-control form-control-sm" [(ngModel)]="data.parametri.sezionaleId">
+                                        <option [value]="sezionale.id" *ngFor="let sezionale of anagraficheCombo['SpComboSezionale'];">{{ sezionale.descrizione }}</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </fieldset>
+                      <fieldset class="fieldset-border fieldset-textarea mt-3 ">
+                        <legend class="small">{{ 'Dettagli da includere nell\'ordine fornitore' | translate }}</legend>
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="card mx-auto mb-0">
+                              <div class="card-body px-0 py-0">
+                                <app-order-body
+                                  [orderId]="id"
+                                  [sortable]="true"
+                                  [filter]="false"
+                                  [editable]="false"
+                                  [multiSelection]="true"
+                                  [qtaEditable]="false"
+                                  [options]="{ height: '240px' }"
+                                  (selected)="onSelectedRows($event)"
+                                ></app-order-body>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <div class="align-self-center w-50">
+          <!-- <div class="row">
+            <div class="col-2 text-center">
+              <label class="switch switch-sm switch-3d switch-primary">
+                <input type="checkbox" name="openCreatedDocument" [checked]="openCreatedDocument" class="switch-input" [(ngModel)]="openCreatedDocument">
+                <span class="switch-slider"></span>
+              </label>
+            </div>
+            <div class="col-9 px-0">
+              <label class="form-check-label col-form-label-sm" for="openCreatedDocument">{{ 'APP.FIELD.openCreatedDocument' | translate }}</label>
+            </div>
+          </div> -->
+        </div>
+        <div class="align-self-center">
+          <button type="button" class="btn btn-light btn-sm" (click)="closeModal()">{{ 'APP.BUTTON.close' | translate }}</button>
+          <button type="button" class="btn btn-primary btn-sm" [disabled]="data.dettagliList.length == 0" (click)="applyModal()">
+            {{ 'APP.BUTTON.execute' | translate }}
+          </button>
+        </div>
+      </div>
+    <!-- </div>
+  </div>
+</div> -->

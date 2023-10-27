@@ -1,0 +1,76 @@
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card-group">
+            <div class="position-absolute ml-2 small" style="bottom: 2px;z-index: 100;">
+              {{ version }}
+            </div>
+            <div class="card px-4 pt-0 pb-4">
+              <div class="card-body">
+                <form name="form" (ngSubmit)="login(f)" #f="ngForm" novalidate>
+                  <div class="text-center">
+                    <div class="">
+                      <img src="./assets/img/brand/logo-workland-crm.png" style="width: 220px;">
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <h2>{{ 'APP.TITLE.login' | translate }}</h2>
+                    <p class="text-muted">{{ 'APP.MESSAGE.sign_in_message' | translate }}</p>
+                  </div>
+                  <div class="controls- mb-3">
+                    <div class="input-group mb-0">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="icon-user"></i></span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="Username" autocomplete="username" [(ngModel)]="model.username" name="username" #userName="ngModel" required>
+                    </div>
+                    <!-- <p class="help-block mb-0" *ngIf="!userName?.errors">&nbsp;</p> -->
+                    <p *ngIf="userName?.errors?.required && userName.touched" class="help-block text-danger mb-0">{{ 'username_required' | translate }}</p>
+                    <p *ngIf="userName?.errors?.email && userName.touched" class="help-block text-danger">{{ 'valid_email' | translate }}</p>
+                  </div>
+                  <div class="controls- mb-3">
+                    <div class="input-group mb-0">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="icon-lock"></i></span>
+                      </div>
+                      <input type="password" class="form-control" placeholder="Password" autocomplete="current-password" [(ngModel)]="model.password" name="password" #password="ngModel" passwordToggle required>
+                    </div>
+                    <!-- <p class="help-block mb-0" *ngIf="!password?.errors">&nbsp;</p> -->
+                    <p *ngIf="password?.errors?.required && password.touched" class="help-block text-danger mb-0">{{ 'password_required' | translate }}</p>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 text-center">
+                      <button type="submit" class="btn btn-primary px-4 w-100 text-uppercase" [disabled]="loading || f.invalid" (click)="login(f)">{{ 'login' | translate }} <i class="fa fa-circle-o-notch fa-spin" *ngIf="loading"></i></button>
+                    </div>
+                  </div>
+                  <!-- <div class="row">
+                    <div class="col-12 text-right">
+                      <button type="button" class="btn btn-link px-0">Forgot password?</button>
+                    </div>
+                  </div> -->
+                  <div class="row align-items-center">
+                    <div class="col-12">
+                        <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{ 'login_' + errorCode | translate }}</div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="card text-white bg-login px-4 py-5 d-md-down-none" style="width:44%">
+              <div class="card-body text-center">
+                <ng-lottie [options]="options" (animationCreated)="animationCreated($event)" *ngIf="config?.showAnimation && config?.showLoginAnimation"></ng-lottie>
+                <div class="d-none">
+                  <h2>Sign up</h2>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                  <button type="button" class="btn btn-primary active mt-3">Register Now!</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

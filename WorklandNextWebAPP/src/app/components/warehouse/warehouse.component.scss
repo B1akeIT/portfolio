@@ -1,0 +1,12 @@
+:host ::ng-deep {
+  position: relative;
+
+  .btn-bar {
+    margin-top: .25em;
+    padding: .20em .25rem !important;
+  }
+
+  .dropdown-menu-zindex {
+    z-index: 1100 !important;
+  }
+}

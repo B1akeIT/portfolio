@@ -1,0 +1,86 @@
+<p class="text-center" *ngIf="loading"><i class="fa fa-circle-o-notch fa-spin"></i></p>
+
+<mat-accordion #myAccordion class="mt-3" *ngIf="warehouse && !loading && !edit">
+  <mat-expansion-panel [expanded]="expanded">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ warehouse.denominazione }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+      <div class="row mb-3">
+        <div class="" [class.col-12]="isSmallView()" [class.col-6]="!isSmallView()">
+          <div class="position-absolute" style="top: 0px;right: 0px;" *ngIf="!view">
+            <div class="btn-group" dropdown>
+              <button dropdownToggle type="button" class="btn">
+                <i class="cui-options"></i>
+              </button>
+              <ul *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-menu-zindex" role="menu">
+                <li class="cursor-pointer" role="menuitem" (click)="onEdit()">
+                  <span class="dropdown-item">
+                    <i class="icon-pencil"></i> {{ 'APP.BUTTON.edit' | translate }}</span>
+                </li>
+                <li class="cursor-pointer" role="menuitem" (click)="onDelete()">
+                  <span class="dropdown-item">
+                    <i class="icon-trash text-danger"></i> {{ 'APP.BUTTON.delete' | translate }}</span>
+                </li>
+              </ul>
+            </div>
+            <!-- <span class="btn" (click)="onEdit()" ><i class="icon-pencil"></i></span> -->
+          </div>
+          <address>
+            <div><strong>{{ 'APP.FIELD.address' | translate }}</strong></div>
+            <div>{{ warehouse.indirizzo || '-' }}</div>
+            <div>{{ warehouse.cap || '-' }} {{ warehouse.comune || '-' }} {{ warehouse.provincia || '-' }}</div>
+            <div>{{ warehouse.nazione?.nazione || warehouse.anagNazioneID || '-' }}</div>
+            <div class="mt-2">
+              <strong>Tel.</strong>: {{ warehouse.nTel || '-' }} <strong>Fax</strong>: {{ warehouse.nFax || '-' }}</div>
+            <div><strong>Cell.</strong>: {{ warehouse.nCell || '-' }}</div>
+            <div class="mt-2"><strong>Email</strong>: {{ warehouse.email || '-' }}</div>
+          </address>
+        </div>
+        <div class="" [class.col-12]="isSmallView()" [class.mt-2]="isSmallView()" [class.col-6]="!isSmallView()" *ngIf="showMap">
+          <div class="w-100 border bg-gray-100-">
+            <google-map
+              height="150px"
+              width="100%"
+              [zoom]="zoom"
+              [center]="center"
+              [options]="options">
+            </google-map>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<div *ngIf="edit">
+  <div class="card bg-default">
+    <div class="card-header bg-white px-1 py-1- d-flex justify-content-between align-items-center">
+      <h6 class="font-weight-bold mb-0 pl-2">
+        <ion-icon name="cube-outline"></ion-icon>
+        <span class="ml-1">{{ (warehouse?.id ? 'APP.TITLE.edit_warehouse' : 'APP.TITLE.new_warehouse') | translate }}</span>
+      </h6>
+      <div class="action-bar">
+        <div class="btn btn-light btn-sm" (click)="closeEdit()" tooltip="{{ 'APP.TOOLTIP.cancel' | translate }}" placement="bottom" container="body">
+          <span><i class="cui-x"></i> {{ 'APP.BUTTON.cancel' | translate }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <ngx-loading
+        [show]="loading_saving"
+        [config]="loadingOptions">
+      </ngx-loading>
+      <form [formGroup]="dataForm" (ngSubmit)="onSave(dataModel)">
+        <formly-form [form]="dataForm" [model]="dataModel" [fields]="dataFields">
+          <button class="btn btn-primary btn-sm mt-3" type="submit" [disabled]="!dataForm?.valid">
+            <span *ngIf="dataModel?.id == 0">{{ 'APP.BUTTON.save' | translate }}</span>
+            <span *ngIf="dataModel?.id != 0">{{ 'APP.BUTTON.modify' | translate }}</span>
+          </button>
+        </formly-form>
+      </form>
+    </div>
+  </div>
+</div>

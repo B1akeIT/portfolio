@@ -1,0 +1,101 @@
+<!--
+* CoreUI - Free Angular 9 Admin Template
+* @version v2.9.0
+* @link https://coreui.io/angular/
+* Copyright (c) 2017-2020 creativeLabs Łukasz Holeczek
+* Licensed under MIT (https://coreui.io/license)
+*
+* Modified: Alfonso Tatarelli
+* Project: <project-name>
+* Version: 0.0.1
+-->
+<!doctype html>
+<html>
+<head>
+  <base href="./">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Webapp">
+  <meta name="author" content="Alfonso Tatarelli">
+  <meta name="keyword" content="Webapp">
+	<link rel="shortcut icon" href="assets/favicon.png">
+	<title>Workland</title>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    // Shared ID
+    gtag('config', 'UA-XXXXXXXX-X');
+    // Angular ID
+    gtag('config', 'UA-XXXXXXXX-Z');
+  </script> -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places"></script>
+  <script type="module" src="ionicons/ionicons.esm.js"></script>
+  <script nomodule="" src="ionicons/ionicons.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    .loader-container {
+      opacity: 1;
+      position: fixed;
+      height: 100%;
+      width: 100%;
+      /* background-color: #fff; */
+      background-image: url('assets/img/brand/logo-workland-crm.png');
+      background-position: 50% 15vh;
+      background-repeat: no-repeat;
+      background-size: 20%;
+      text-align: center;
+      z-index: 1;
+      transition: opacity .8s ease-out;
+    }
+
+    .loader {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid var(--yellow);
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: anim-spin 2s linear infinite;
+      margin: 0 auto;
+      margin-top: 50vh;
+    }
+
+    .lds-dual-ring {
+      display: inline-block;
+      width: 80px;
+      height: 80px;
+    }
+
+    .lds-dual-ring:after {
+      content: " ";
+      display: block;
+      width: 64px;
+      height: 64px;
+      margin: 0 auto;
+      margin: 8px;
+      border-radius: 50%;
+      border: 6px solid var(--yellow);
+      border-color: var(--yellow) transparent var(--yellow) transparent;
+      animation: anim-spin 1.2s linear infinite;
+    }
+
+    @keyframes anim-spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body class="app app-theme workland-theme">
+  <!-- App Loading... -->
+  <div class="loader-container">
+    <div class="loader"></div>
+  </div>
+</body>
+</html>

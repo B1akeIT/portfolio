@@ -1,0 +1,30 @@
+<div class="btn-group" dropdown>
+  <button dropdownToggle type="button" class="btn btn-{{class}} dropdown-toggle">
+    <span *ngIf="!currentTenant"><ion-icon name="server-outline"></ion-icon> <span class="d-none d-md-inline-block">{{ 'APP.TITLE.choose-tenant' | translate }}…</span></span>
+    <span *ngIf="currentTenant"><ion-icon name="server-outline"></ion-icon> <span class="d-none d-md-inline-block">{{ currentTenant }}</span></span>
+    <span class="caret"></span>
+  </button>
+  <ul *dropdownMenu class="dropdown-menu" role="menu">
+    <li class="cursor-pointer" role="menuitem" *ngFor="let tenant of tenants" (click)="menuSelected(tenant.tenantName)">
+      <span class="dropdown-item">
+        <i><ion-icon name="server-outline"></ion-icon></i> {{ tenant.tenantName }}
+      </span>
+    </li>
+    <!-- <li class="cursor-pointer" role="menuitem" (click)="menuSelected('tenant-001')">
+      <span class="dropdown-item">
+        <i><ion-icon name="server-outline"></ion-icon></i> {{ 'Tenant #1' }}
+      </span>
+    </li>
+    <li class="cursor-pointer" role="menuitem" (click)="menuSelected('tenant-002')">
+      <span class="dropdown-item">
+        <i><ion-icon name="server-outline"></ion-icon></i> {{ 'Tenant #2' }}
+      </span>
+    </li>
+    <li class="divider dropdown-divider"></li> -->
+    <li class="cursor-pointer" role="menuitem" (click)="clearMenu()">
+      <span class="dropdown-item">
+        <i><ion-icon name="close-outline"></ion-icon></i> {{ 'APP.MENU.clear-tenant' | translate }}
+      </span>
+    </li>
+  </ul>
+</div>

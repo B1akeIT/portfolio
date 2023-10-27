@@ -1,0 +1,44 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "firstname": "Firstname #1",
+      "lastname": "Lastname #1",
+      "username": "Username #1",
+      "email": "user-1@email.com",
+      "active": true
+    },
+    {
+      "id": 2,
+      "firstname": "Firstname #2",
+      "lastname": "Lastname #2",
+      "username": "Username #2",
+      "email": "user-2@email.com",
+      "active": true
+    },
+    {
+      "id": 3,
+      "firstname": "Firstname #3",
+      "lastname": "Lastname #3",
+      "username": "Username #3",
+      "email": "user-3@email.com",
+      "active": false
+    },
+    {
+      "id": 4,
+      "firstname": "Firstname #4",
+      "lastname": "Lastname #4",
+      "username": "Username #4",
+      "email": "user-4@email.com",
+      "active": true
+    },
+    {
+      "id": 5,
+      "firstname": "Firstname #5",
+      "lastname": "Lastname #5",
+      "username": "Username #5",
+      "email": "user-5@email.com",
+      "active": true
+    }
+  ]
+}

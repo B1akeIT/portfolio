@@ -1,0 +1,94 @@
+// If you want to override variables do it here
+@import "variables";
+@import "variables-material";
+@import "variables-placeholder";
+
+// Import styles
+@import "~@coreui/coreui/scss/coreui";
+
+// Import styles Material
+// $custom-typography: mat-typography-config( $font-family: 'Lato' );
+// @include mat-core($custom-typography);
+@import './material-themes/app-theme.scss';
+@import './material-themes/default-theme.scss';
+@import './material-themes/light-theme.scss';
+@import './material-themes/black-theme.scss';
+@import './material-themes/nature-theme.scss';
+@import 'styles-reset.scss-theme';
+@mixin custom-components-theme($theme) {
+   @include app-styles-reset-theme($theme);
+  // @include app-app-component-theme($theme);
+  // @include app-about-component-theme($theme);
+  // @include app-big-input-component-theme($theme);
+  // @include app-notifications-component-theme($theme);
+  // @include app-todos-container-component-theme($theme);
+  // @include app-stock-market-container-component-theme($theme);
+  // @include app-parent-component-theme($theme);
+  // @include app-child-component-theme($theme);
+  // @include app-examples-component-theme($theme);
+  // @include app-sottogruppo-menu-component-theme($theme);
+}
+
+.default-theme {
+  @include angular-material-theme($app-app-theme);
+  @include custom-components-theme($app-app-theme);
+}
+
+.light-theme {
+  @include angular-material-theme($app-light-theme);
+  @include custom-components-theme($app-light-theme);
+}
+
+.black-theme {
+  @include angular-material-theme($app-black-theme);
+  @include custom-components-theme($app-black-theme);
+}
+
+.nature-theme {
+  @include angular-material-theme($app-nature-theme);
+  @include custom-components-theme($app-nature-theme);
+}
+
+.app-theme {
+  @include angular-material-theme($app-app-theme);
+  @include custom-components-theme($app-app-theme);
+}
+
+// ag-Grid
+$active: #bbd9ec;
+$selected-color: #dae8f1;
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+// @import "~ag-grid-community/src/styles/ag-grid.scss";
+@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+// @import '~ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham';
+// @import "~ag-grid-community/dist/styles/ag-theme-material.css";
+
+.ag-theme-balham {
+  .ag-row-selected {
+    background-color: rgba(247, 200, 105, 0.4);
+  }
+}
+@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+@import "~angular-calendar/css/angular-calendar.css";
+@import "~jsoneditor/dist/jsoneditor.min.css";
+// @import "~ng-snotify/styles/material";
+@import "~ng-snotify/styles/simple";
+// @import "~ng-snotify/styles/dark";
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+// @import "~@ng-select/ng-select/themes/material.theme.css";
+
+// App Custom
+@import "app-custom/ag-grid";
+@import "app-custom/inspector";
+@import "app-custom/modal-custom";
+@import "app-custom/float-panel";
+@import "app-custom/flex-layout";
+@import "app-custom/resizable";
+@import "app-custom/toolbar";
+@import "app-custom/grid-container";
+@import "app-custom/webkit-scrollbar";
+
+// If you want to add something do it here
+@import "custom";
+@import "orange-theme";

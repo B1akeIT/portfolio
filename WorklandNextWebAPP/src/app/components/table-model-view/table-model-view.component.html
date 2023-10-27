@@ -1,0 +1,47 @@
+<div class="text-center py-3" *ngIf="loading">
+  <div class="h1 text-muted text-center mt-2 mb-2">
+    <i class="fa fa-circle-o-notch fa-spin"></i>
+  </div>
+</div>
+<alert type="danger" dismissOnTimeout="5000" *ngIf="error">{{ errorMessage | translate }}</alert>
+
+<div *ngIf="status == 'view'">
+  <div *ngIf="data && !loading">
+    <app-item-attribute *ngFor="let field of data | keyvalue"
+      [attribute]="field"
+      [excluded]="excluded"
+      [hideEmpty]="false">
+    </app-item-attribute>
+  </div>
+</div>
+
+<div *ngIf="status == 'edit'">
+  <div class="card bg-default">
+    <div class="card-header bg-white px-1 py-1- d-flex justify-content-between align-items-center">
+      <h6 class="font-weight-bold mb-0 pl-2">
+        <ion-icon name="list-outline"></ion-icon>
+        <span class="ml-1">{{ 'APP.TABLES.' + table | translate }}</span>
+      </h6>
+      <div class="action-bar">
+        <div class="btn btn-light btn-sm" (click)="closeEdit()" tooltip="{{ 'APP.TOOLTIP.cancel' | translate }}" placement="bottom" container="body">
+          <span><i class="cui-x"></i> {{ 'APP.BUTTON.cancel' | translate }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <ngx-loading
+        [show]="loading_saving"
+        [config]="loadingOptions">
+      </ngx-loading>
+      <form [formGroup]="dataForm" (ngSubmit)="onSave(dataModel)">
+        <formly-form [form]="dataForm" [model]="dataModel" [fields]="dataFields">
+          <button class="btn btn-primary btn-sm mt-3" type="submit" [disabled]="!dataForm.valid">
+            <span *ngIf="dataModel?.id == 0">{{ 'APP.BUTTON.save' | translate }}</span>
+            <span *ngIf="dataModel?.id != 0">{{ 'APP.BUTTON.modify' | translate }}</span>
+          </button>
+        </formly-form>
+      </form>
+    </div>
+  </div>
+</div>
+

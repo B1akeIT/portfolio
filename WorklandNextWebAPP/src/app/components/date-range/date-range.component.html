@@ -1,0 +1,25 @@
+<div class="btn-group btn-group-sm float-right ml-1" style="padding: 0.2em 0rem !important"
+    [popover]="rangeTemplate"
+    popoverTitle="{{ 'APP.TITLE.choose_range' | translate }}"
+    [adaptivePosition]="true"
+    [outsideClick]="true"
+    container="body"
+    placement="bottom"
+    #popFilter="bs-popover">
+  <label class="btn btn-light border" tooltip="{{ 'APP.TOOLTIP.date_filter' | translate }}" placement="bottom" container="body">
+    <span class="text-small text-center d-none d-lg-inline-block" style="width: 68px;">{{ (dateStart | date:options.format) || '-' }}</span>
+    <span class="text-small px-2 text-center d-inline-block"><i class="icon-calendar"></i></span>
+    <span class="text-small text-center d-none d-lg-inline-block" style="width: 68px;">{{ (dateEnd | date:options.format) || '-' }}</span>
+  </label>
+</div>
+<ng-template #rangeTemplate>
+  <div class="form-group">
+    <label>{{ 'APP.LABEL.date_start' | translate }}</label>
+    <input type="date" [(ngModel)]="dateStartTemp" class="form-control">
+  </div>
+  <div class="form-group">
+    <label>{{ 'APP.LABEL.date_end' | translate }}</label>
+    <input type="date" [(ngModel)]="dateEndTemp" class="form-control">
+  </div>
+  <button class="btn btn-light btn-sm btn-block" (click)="applyData()">{{ 'APP.BUTTON.apply' | translate }}</button>
+</ng-template>

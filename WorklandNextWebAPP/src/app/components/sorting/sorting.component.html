@@ -1,0 +1,104 @@
+<ng-container *ngIf="showDropDown">
+  <div class="btn-group btn-group-sm ml-1" style="padding: 0.2em 0rem !important"
+      [popover]="sortTemplate"
+      popoverTitle="{{ 'APP.TITLE.sorting' | translate }}"
+      [adaptivePosition]="true"
+      [outsideClick]="true"
+      container="body"
+      placement="auto"
+      #popSorting="bs-popover">
+    <label class="btn btn-light border" tooltip="{{ 'APP.TOOLTIP.sorting' | translate }}" placement="auto" container="body">
+      <span class="d-none d-lg-inline-block" [class.text-primary]="sideBarStatus == 'sort'">{{ 'APP.FIELD.' + sorting.column | translate }}</span>
+      <i class="cui-sort-ascending fa-lg" *ngIf="isSortAsc()"></i>
+      <i class="cui-sort-descending fa-lg" *ngIf="!isSortAsc()"></i>
+    </label>
+  </div>
+  <ng-template #sortTemplate>
+    <form novalidate [formGroup]="form" class="form-horizontal">
+      <div class="row">
+        <div class="col-8">
+          <div class="form-group mb-0">
+            <label class="col-form-label-sm mb-0" for="field">{{ 'APP.FIELD.field' | translate }}</label>
+            <select class="form-control form-control-sm" formControlName="column" (change)="applySorting(form.value)">
+              <option value="">{{ ''  | translate }}</option>
+              <option *ngFor="let field of fields" [value]="field">{{ 'APP.FIELD.' + field | translate }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group mb-0">
+            <label class="col-form-label-sm mb-0" for="direction">{{ 'APP.FIELD.direction' | translate }}</label>
+            <div class="btn-group" btnRadioGroup formControlName="direction" ngDefaultControl (click)="applySorting(form.value)">
+              <label class="btn btn-sm btn-outline-secondary mb-0" btnRadio="asc"><i class="cui-sort-ascending"></i></label>
+              <label class="btn btn-sm btn-outline-secondary mb-0" btnRadio="desc"><i class="cui-sort-descending"></i></label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row mt-1"><div class="col-12"><pre class="card card-block card-header">{{ form?.value | json }}</pre></div></div> -->
+    </form>
+  </ng-template>
+</ng-container>
+<ng-container *ngIf="!showDropDown">
+  <div class="d-flex flex-column h-100">
+    <div class="header border-bottom" *ngIf="showTitle">
+      <nav class="navbar navbar-light bg-white">
+        <span class="navbar-brand"><i class="cui-sort-ascending"></i> {{ 'APP.TITLE.sorting' | translate }}</span>
+      </nav>
+    </div>
+    <div class="content flex-grow-1">
+      <div class="details-content sorting-content">
+        <div class="card">
+          <div class="card-body">
+            <form novalidate [formGroup]="form" class="form-horizontal">
+              <div class="row">
+                <div class="col-8">
+                  <div class="form-group mb-0">
+                    <label class="col-form-label-sm mb-0" for="field">{{ 'APP.FIELD.field' | translate }}</label>
+                    <select class="form-control form-control-sm" formControlName="field">
+                      <option value="">{{ ''  | translate }}</option>
+                      <option *ngFor="let field of fields" [value]="field">{{ 'APP.FIELD.' + field | translate }}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group mb-0">
+                    <label class="col-form-label-sm mb-0" for="direction">{{ 'APP.FIELD.direction' | translate }}</label>
+                    <select class="form-control form-control-sm" formControlName="direction">
+                      <option value="">{{ ''  | translate }}</option>
+                      <option value="asc">{{ 'asc'  | translate | uppercase }}</option>
+                      <option value="desc">{{ 'desc'  | translate | uppercase }}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-6">
+                  <button class="btn btn-sm btn-primary" (click)="applySorting(form.value)" [disabled]="!form.valid">{{ 'APP.BUTTON.apply' | translate}}</button>
+                </div>
+                <div class="col-6">
+                  <button class="btn btn-sm btn-outline-secondary pull-right" (click)="clearSorting()">{{ 'APP.BUTTON.clear' | translate}}</button>
+                </div>
+              </div>
+            </form>
+            <div class="row mt-4">
+              <div class="col-12">
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of currentSorting; index as idx">
+                    {{ 'APP.FIELD.' + item.field | translate }}
+                    <span class="badge badge-info badge-pill">
+                      <i class="" [ngClass]="{'cui-sort-ascending': item.direction == 'asc', 'cui-sort-descending': item.direction == 'desc'}"></i> {{ item.direction | uppercase }}</span>
+                    <!-- <span class="btn btn-sm btn-danger">X</span> -->
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center" *ngIf="!currentSorting.length">
+                    {{ 'APP.MESSAGE.no_sorting' | translate }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

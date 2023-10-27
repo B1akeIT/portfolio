@@ -1,0 +1,153 @@
+<div class="d-block">
+  <div class="row">
+    <div class="col-2">
+      <h6 class="">{{ 'APP.TITLE.references' | translate }}</h6>
+    </div>
+    <div class="col">
+      <div class="btn-group btn-group-sm mb-1" *ngIf="!readOnly">
+        <ng-template [appHasPermission]="'TABRIFERIMENTOCONTATTO'" [action]="'create'" [owner]="true">
+          <a class="btn btn-cyan" (click)="onEdit($event, {})" tooltip="{{ 'APP.TOOLTIP.add_reference' | translate }}" placement="bottom" container="body">
+            <i class="cui-plus"></i></a>
+        </ng-template>
+        <ng-template [appHasPermission]="'TABRIFERIMENTOCONTATTO'" [action]="'edit'" [owner]="true">
+          <a class="btn btn-cyan" (click)="onEdit($event, currentItem)" tooltip="{{ 'APP.TOOLTIP.modify_reference' | translate }}" placement="bottom" container="body" [class.disabled]="!currentItem">
+            <i class="cui-pencil"></i></a>
+        </ng-template>
+        <ng-template [appHasPermission]="'TABRIFERIMENTOCONTATTO'" [action]="'delete'" [owner]="true">
+          <a class="btn btn-cyan" [class.disabled]="!currentItem"
+            tooltip="{{ 'APP.TOOLTIP.delete_reference' | translate }}"
+            container="body"
+            mwlConfirmationPopover
+            [popoverTitle]="'APP.TITLE.delete' | translate"
+            [popoverMessage]="'APP.MESSAGE.are_you_sure' | translate"
+            [cancelText]="'APP.BUTTON.cancel' | translate"
+            [cancelButtonType]="'outline-secondary btn-sm'"
+            [confirmText]="'APP.BUTTON.confirm' | translate"
+            [confirmButtonType]="'danger btn-sm'"
+            [appendToBody]="true"
+            placement="bottom"
+            (confirm)="onDelete(true)">
+            <i class="icon-trash"></i></a>
+        </ng-template>
+      </div>
+      <div class="btn-group btn-group-sm mb-1">
+        <a class="btn btn-light" (click)="refresh()" tooltip="{{ 'APP.TOOLTIP.refresh' | translate }}" placement="bottom" container="body">
+          <i class="cui-reload"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="d-block mb-1 position-relative">
+  <!-- <pre class="pre-code"><code>{{ items | json }}</code></pre> -->
+  <div class="border-left border-right border-bottom overflow-auto" style="min-height: 160px;">
+    <ngx-loading
+      [show]="loading"
+      [config]="loadingOptions">
+    </ngx-loading>
+    <table class="table table-sm table-hover">
+      <thead>
+        <tr class="small">
+          <th scope="col">{{ 'APP.FIELD.nome' | translate }}</th>
+          <th scope="col">{{ 'APP.FIELD.cognome' | translate }}</th>
+          <th scope="col">{{ 'APP.FIELD.ragioneSociale' | translate }}</th>
+          <th scope="col">{{ 'APP.FIELD.comune' | translate }}</th>
+          <th scope="col">{{ 'APP.FIELD.provincia' | translate }}</th>
+          <th scope="col">{{ 'APP.FIELD.nTel' | translate }}</th>
+          <th scope="col">{{ 'APP.FIELD.nCell' | translate }}</th>
+          <th scope="col" *ngIf="showListAction">&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="small" *ngFor="let item of items;let idx = index;" [class.table-warning]="item.id == currentItem?.id" (click)="setCurrentItem($event, item, idx)">
+          <td scope="row">{{ item.nome }}</td>
+          <td>{{ item.cognome }}</td>
+          <td>{{ item.ragioneSociale }}</td>
+          <td>{{ item.comune }}</td>
+          <td>{{ item.provincia }}</td>
+          <td>{{ item.nTel }}</td>
+          <td>{{ item.nCell }}</td>
+          <td class="text-right" *ngIf="showListAction">
+            <span class="btn btn-sm py-0"><i class="cui-pencil" (click)="onEdit($event, item)" ></i></span>
+            <!-- <span class="btn btn-sm py-0"><i class="cui-trash text-danger" (click)="onDelete($event, item)" ></i></span> -->
+          </td>
+        </tr>
+        <tr *ngIf="items?.length == 0">
+          <td colspan="8" class="py-4 text-center">{{ 'APP.MESSAGE.no_items' | translate }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="d-flex flex-column mb-3 border" style="min-height: 250px;" *ngIf="false" >
+  <div class="flex-grow-1 h-100">
+    <div class="h-100" *ngIf="!currentItem && !loading">
+      <div class="details-content h-100 mt-5">
+        <div class="d-flex flex-column justify-content-center align-items-center h-75">
+          <!-- loading & messages -->
+          <div class="text-center" *ngIf="items?.length">
+            <i class="icon-mouse icon-messages-50 message-small"></i>
+            <h6 class="no-messages-text message-small mt-3">{{ 'APP.MESSAGE.select_reference' | translate }}</h6>
+          </div>
+          <div class="text-center" *ngIf="!items?.length">
+            <i class="icon-plus icon-messages-50 message-small"></i>
+            <h6 class="no-messages-text message-small mt-3">{{ 'APP.MESSAGE.add_reference' | translate }}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="currentItem" style="height: calc( 100% );">
+      <!-- <pre class="pre-code"><code>{{ currentItem | json }}</code></pre> -->
+      <app-item-attribute *ngFor="let field of currentItem.rifContatto | keyvalue"
+        [attribute]="field"
+        [excluded]="excluded"
+        [hideEmpty]="true">
+      </app-item-attribute>
+    </div>
+  </div>
+</div>
+
+<ng-template #editReferenceModal>
+  <form [formGroup]="dataForm" (ngSubmit)="onSave(dataModel)">
+    <div class="modal-header">
+      <h5 class="modal-title" *ngIf="!dataModel?.id">{{ 'APP.TITLE.new_reference' | translate }}</h5>
+      <h5 class="modal-title" *ngIf="dataModel?.id">{{ 'APP.TITLE.edit_reference' | translate }}</h5>
+      <button type="button" class="close" (click)="modalRef.hide()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="mb-3">
+        <div class="d-block">
+          <div class="btn btn-cyan btn-sm mb-2" (click)="openChoiceModal('contact')">{{ 'APP.BUTTON.choose-contact' | translate }}</div>
+          <div class="float-right">
+            <small>{{ currentContact?.id }}</small>
+          </div>
+        </div>
+        <div class="border p-1" style="min-height: 120px;">
+          <div class="d-flex flex-column justify-content-center align-items-center mt-4" *ngIf="!currentContact">
+            <div class="text-center">
+              <i class="icon-plus icon-messages-50 message-small"></i>
+              <h6 class="no-messages-text message-small mt-3">{{ 'APP.MESSAGE.choose-contact' | translate }}</h6>
+            </div>
+          </div>
+          <div class="p-2 w-100" *ngIf="currentContact">
+            <div class="font-weight-bold d-block" *ngIf="currentContact.ragioneSociale" >{{ currentContact.ragioneSociale }}</div>
+            <div class="font-weight-bold d-block" *ngIf="currentContact.cognome" >{{ currentContact.nome }} {{ currentContact.cognome }}</div>
+            <div class="d-block">{{ currentContact.indirizzo }} {{ currentContact.cap }} {{ currentContact.comune }} {{ currentContact.provincia }} {{ currentContact.anagNazione?.nazione }}</div>
+            <div class="d-block">{{ currentContact.nCell }} - {{ currentContact.tel }} - {{ currentContact.nFax }}</div>
+            <div class="d-block">{{ currentContact.email }} - {{ currentContact.pec }}</div>
+            <!-- {{ currentContact | json }} -->
+          </div>
+        </div>
+      </div>
+      <formly-form [form]="dataForm" [model]="dataModel" [fields]="dataFields">
+      </formly-form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary btn-sm" type="submit" [disabled]="!dataForm?.valid || !currentContact?.id">
+        <span *ngIf="dataModel?.id == 0">{{ 'APP.BUTTON.save' | translate }}</span>
+        <span *ngIf="dataModel?.id != 0">{{ 'APP.BUTTON.modify' | translate }}</span>
+      </button>
+    </div>
+  </form>
+</ng-template>

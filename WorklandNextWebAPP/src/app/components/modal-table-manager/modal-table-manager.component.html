@@ -1,0 +1,82 @@
+<!-- <div class="modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"> -->
+      <div class="modal-header">
+        <div class="d-flex flex-row justify-content-between w-100">
+          <div class="col-6 px-1">
+            <h5 class="modal-title">
+              {{ 'APP.TABLES.' + table?.model | translate }}
+              <div class="btn-group ml-2" dropdown *ngIf="showTableDropdown">
+                <button dropdownToggle type="button" class="btn btn-sm- btn-warning dropdown-toggle- px-1 pt-1 pb-0">
+                  <!-- <span class="caret"></span> -->
+                  <ion-icon name="caret-down-outline"></ion-icon>
+                </button>
+                <ul *dropdownMenu class="dropdown-menu dropdown-menu-zindex" role="menu">
+                  <li class="cursor-pointer" role="menuitem" *ngFor="let item of tables" (click)="setCurrentTable($event, item);">
+                    <span class="dropdown-item">
+                      <i><ion-icon name="list-outline"></ion-icon></i> {{ 'APP.TABLES.' + item.model | translate }}</span></li>
+                </ul>
+              </div>
+            </h5>
+          </div>
+          <div class="col-5 pl-0 pr-0">
+            <div class="" style="padding: 0.2em 0.40rem !important" *ngIf="table">
+              <app-filter-textbox #filterTextboxComponent class="w-50" (changed)="onFilterChanged($event)"></app-filter-textbox>
+            </div>
+          </div>
+          <div class="col-1 pl-0">
+            <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body px-0 py-0" style="height: 400px;">
+        <div class="flex-layout-body" style="overflow: auto;height: calc( 100% );">
+          <div class="flex-layout-content" appFit>
+            <div class="layout-content">
+              <ngx-loading
+                [show]="loading_data"
+                [config]="loadingOptions">
+              </ngx-loading>
+              <div class="d-flex flex-column justify-content-center align-items-center h-100" *ngIf="(!table && !loading_data) || error">
+                <div class="text-center" *ngIf="!error">
+                  <ion-icon name="list-outline" class="icon-messages-50"></ion-icon>
+                  <h6 class="no-messages-text mt-3">{{ 'APP.MESSAGE.select_table' | translate }}</h6>
+                </div>
+                <div class="text-center" *ngIf="error">
+                  <h6 class="text-danger mt-3 w-75 mx-auto">{{ errorMessage | translate }}</h6>
+                </div>
+              </div>
+              <div id="grid-wrapper" class="px-0" style="width: calc( 100% ); height: calc( 100% );" *ngIf="table && !error">
+                <ag-grid-angular
+                  style="width: 100%; height: 100%;"
+                  class="ag-theme-balham"
+                  [rowData]="data"
+                  [columnDefs]="agColumnDefs"
+                  [defaultColDef]="agDefaultColumnDefs"
+                  [gridOptions]="agGridOptions"
+                  [applyColumnDefOrder]="true"
+                  (gridReady)="onGridReady($event)"
+                  (selectionChanged)="onSelectionChanged($event)"
+                  (cellDoubleClicked)="onDoubleClicked($event)">
+                </ag-grid-angular>
+              </div>
+            </div>
+          </div>
+          <div class="flex-layout-sidebar sidebar-right preview-content inspector-content w-50">
+            <app-table-inspector
+              [table]="table"
+              [tableId]="currentId"
+              (status)="onStatus($event)">
+            </app-table-inspector>
+          </div>
+        </div>
+        <!-- <pre class="pre-code"><code>items: {{ data | json }}</code></pre> -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-sm" (click)="closeModal()">{{ 'APP.BUTTON.close' | translate }}</button>
+      </div>
+    <!-- </div>
+  </div>
+</div> -->

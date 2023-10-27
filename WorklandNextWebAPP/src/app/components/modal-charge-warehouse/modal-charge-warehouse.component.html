@@ -1,0 +1,194 @@
+<!-- <div class="modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"> -->
+      <div class="modal-header">
+        <h5 class="modal-title">{{ 'APP.TITLE.charge_warehouse' | translate }}</h5>
+        <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body px-0 py-0">
+        <div class="" style="height:100%;">
+          <div class="flex-layout-body w-100 overflow-auto">
+            <ngx-loading
+              [show]="loading"
+              [config]="loadingOptions">
+            </ngx-loading>
+            <div class="container-fluid px-3 pt-3" style="width: calc( 100% ); height: calc( 100% );" *ngIf="!loading">
+              <div id="content-wrapper" class="px-0 overflow-hidden" style="width: calc( 100% ); height: calc( 100% );">
+                <div class="form-row">
+                  <div class="form-group col-5">
+                    <fieldset class="fieldset-border fieldset-textarea">
+                      <legend class="small">{{ 'Dati del Movimento di Magazzino' | translate }}</legend>
+                      <div class="form-row">
+                        <div class="form-group col-6 mb-1">
+                          <label class="small" for="dataCarico">{{ 'APP.FIELD.dataCarico' | translate }}</label>
+                          <input type="date" class="form-control form-control-sm" name="dataCarico" [(ngModel)]="data.dataCarico">
+                        </div>
+                        <div class="form-group col-6 mb-1">
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-6 mb-1">
+                          <label class="small" for="causaleId">{{ 'APP.FIELD.causaleId' | translate }}</label>
+                          <select class="form-control form-control-sm" name="causaleId" [(ngModel)]="data.causaleId">
+                            <option value="0">&nbsp;</option>
+                            <option [value]="cm.id" *ngFor="let cm of anagrafiche['AnagCausaleMovimento'];">{{ cm.codice }} - {{ cm.descrizione }}</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-6 mb-1">
+                          <label class="small" for="magazzinoId">{{ 'APP.FIELD.magazzino' | translate }}</label>
+                          <select class="form-control form-control-sm" name="magazzinoId" [(ngModel)]="data.magazzinoId">
+                            <option value="0">&nbsp;</option>
+                            <option [value]="mag.id" *ngFor="let mag of anagrafiche['AnagMagazzino'];">{{ mag.denominazione }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class="form-group col-7">
+                    <fieldset class="fieldset-border fieldset-textarea">
+                      <legend class="small">{{ 'Estremi del Documento' | translate }}</legend>
+                      <div class="form-row">
+                        <div class="form-group col-4 mb-1">
+                          <label class="small" for="docData">{{ 'APP.FIELD.docData' | translate }}</label>
+                          <input type="date" class="form-control form-control-sm" name="docData" [(ngModel)]="data.docData">
+                        </div>
+                        <div class="form-group col-4 mb-1">
+                          <label class="small" for="documentoTestataId">{{ 'APP.FIELD.numero' | translate }}</label>
+                          <input type="text" class="form-control form-control-sm" name="documentoTestataId" [(ngModel)]="data.documentoTestataId">
+                        </div>
+                        <div class="form-group col-4 mb-1">
+                          <label class="small" for="tipoDocumentoId">{{ 'APP.FIELD.tipoDocumento' | translate }}</label>
+                          <input type="text" class="form-control form-control-sm" name="tipoDocumentoId" [(ngModel)]="data.tipoDocumentoId">
+                        </div>
+                      </div>
+                    </fieldset>
+                    <div class="form-row">
+                      <div class="form-group col-2 mb-1">
+                        <label class="small" for="docRiferimento">{{ 'APP.FIELD.contattoIntestatarioId' | translate }}</label>
+                        <input type="text" class="form-control form-control-sm" name="contattoId" [(ngModel)]="data.contattoId" readonly>
+                      </div>
+                      <div class="form-group col-10 mb-1">
+                        <label class="small" for="docRiferimento">{{ 'APP.FIELD.empty' | translate }}&nbsp;</label>
+                        <input type="text" class="form-control form-control-sm" name="docRiferimento" [(ngModel)]="data.docRiferimento" readonly>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-12">
+                    <div class="card mx-auto mb-0 border-top-0">
+                      <div class="card-body px-0 py-0">
+                        <app-order-supplier-body #orderItems
+                          [orderId]="orderId"
+                          [showToolbar]="false"
+                          [charge]="true"
+                          [sortable]="false"
+                          [filter]="false"
+                          [editable]="false"
+                          [options]="{ height: '150px' }"
+                          (selectionChanged)="onSelectionChanged($event)">
+                        </app-order-supplier-body>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-3">
+                    <div class="form-row">
+                      <div class="form-group col-12 mb-1">
+                        <div class="form-check">
+                          <input type="checkbox" name="notificareStato" class="form-check-input" [(ngModel)]="data.notificareStato">
+                          <label class="form-check-label small" for="notificareStato">{{ 'APP.FIELD.notificareStato' | translate }}</label>
+                        </div>
+                      </div>
+                      <div class="form-group col-12 mb-1">
+                        <label class="small" for="notificareStatoUser">{{ 'APP.FIELD.utente' | translate }}</label>
+                        <select class="form-control form-control-sm" name="notificareStatoUtente" [(ngModel)]="data.notificareStatoUtente">
+                          <option selected>Scegli utente...</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-3">
+                    <fieldset class="fieldset-border fieldset-textarea">
+                      <legend class="small">{{ 'Modalità Notifiche' | translate }}</legend>
+                      <div class="form-row">
+                        <div class="form-group col-12 mb-1">
+                          <div class="form-check">
+                            <input type="checkbox" name="notificaAttivita" class="form-check-input" [(ngModel)]="data.notificaAttivita">
+                            <label class="form-check-label small" for="notificaAttivita">{{ 'APP.FIELD.notificaAttivita' | translate }}</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-12 mb-1">
+                          <div class="form-check">
+                            <input type="checkbox" name="notificaEmail" class="form-check-input" [(ngModel)]="data.notificaEmail">
+                            <label class="form-check-label small" for="notificaEmail">{{ 'APP.FIELD.notificaEmail' | translate }}</label>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class="form-group col-6">
+                    <div class="form-row">
+                      <div class="form-group col-6 mb-1">
+                        <div class="form-check">
+                          <input type="checkbox" name="stampaDettaglioOperazione" class="form-check-input" [(ngModel)]="data.stampaDettaglioOperazione">
+                          <label class="form-check-label small" for="stampaDettaglioOperazione">{{ 'APP.FIELD.stampaDettaglioOperazione' | translate }}</label>
+                        </div>
+                      </div>
+                      <div class="form-group col-6 mb-1">
+                        <select class="form-control form-control-sm" name="stampaDettaglioOperazioneTemplate" [(ngModel)]="data.stampaDettaglioOperazioneTemplate">
+                          <option selected>Scegli stampa...</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-6 mb-1">
+                        <div class="form-check">
+                          <input type="checkbox" name="stampaEtichettaOperazione" class="form-check-input" [(ngModel)]="data.stampaEtichettaOperazione">
+                          <label class="form-check-label small" for="stampaEtichettaOperazione">{{ 'APP.FIELD.stampaEtichettaOperazione' | translate }}</label>
+                        </div>
+                      </div>
+                      <div class="form-group col-6 mb-1">
+                        <select class="form-control form-control-sm" name="stampaEtichettaOperazioneTemplate" [(ngModel)]="data.stampaEtichettaOperazioneTemplate">
+                          <option selected>Scegli stampa...</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-6 mb-1">
+                        <div class="form-check">
+                          <input type="checkbox" name="stampaEtichettaArticolo" class="form-check-input" [(ngModel)]="data.stampaEtichettaArticolo">
+                          <label class="form-check-label small" for="stampaEtichettaArticolo">{{ 'APP.FIELD.stampaEtichettaArticolo' | translate }}</label>
+                        </div>
+                      </div>
+                      <div class="form-group col-6 mb-1">
+                        <select class="form-control form-control-sm" name="stampaEtichettaArticoloTemplate" [(ngModel)]="data.stampaEtichettaArticoloTemplate">
+                          <option selected>Scegli stampa...</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <div class="align-self-center w-50">
+          <div class="row">
+          </div>
+        </div>
+        <div class="align-self-center">
+          <button type="button" class="btn btn-light btn-sm" (click)="closeModal()">{{ 'APP.BUTTON.close' | translate }}</button>
+          <button type="button" class="btn btn-primary btn-sm" (click)="applyModal()" [disabled]="!isFormReady()">{{ 'APP.BUTTON.execute' | translate }}</button>
+        </div>
+      </div>
+    <!-- </div>
+  </div>
+</div> -->

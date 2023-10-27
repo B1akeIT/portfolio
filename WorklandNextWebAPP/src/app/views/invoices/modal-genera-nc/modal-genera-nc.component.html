@@ -1,0 +1,101 @@
+<!-- <div class="modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"> -->
+      <div class="modal-header">
+        <h5 class="modal-title">{{ 'APP.TITLE.generate-nc' | translate }}</h5>
+        <h5 class="modal-title ml-4" *ngIf="data.dettagliToAdd?.length">"{{ 'APP.MESSAGE.selected_elements' | translate:{selected:data.dettagliToAdd?.length} }}"</h5>
+        <h5 class="modal-title ml-4" *ngIf="!data.dettagliToAdd">"{{ item.id }}"</h5>
+        <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body px-0 py-0">
+        <div class="">
+          <div class="px-4 py-4" style="height:100%;">
+            <div class="flex-layout-body w-100" style="overflow: auto;">
+              <ngx-loading
+                [show]="loading"
+                [config]="loadingOptions">
+              </ngx-loading>
+              <div class="container-fluid px-0" style="width: calc( 100% ); height: calc( 100% );overflow-x: hidden;" *ngIf="!loading">
+                <div id="content-wrapper" class="px-0 overflow-auto" style="width: calc( 100% ); height: calc( 100% );">
+                  <div class="form-group col-12 mb-0 px-0">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-row mt-3">
+                          <div class="form-group form-check col-12 mb-0">
+                            <div class="row">
+                              <div class="col-4 col-xl-3">
+                                <label class="col-form-label col-form-label-sm" for="dataDocumento">{{ 'APP.FIELD.dataDocumento' | translate }}</label>
+                                <input type="date" id="dataDocumento" name="dataDocumento" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="data.parametri.dataDocumento">
+                              </div>
+                              <div class="col-4 col-xl-3">
+                                <label class="col-form-label col-form-label-sm" for="numDocumento">{{ 'APP.FIELD.numDocumento' | translate }}</label>
+                                <input type="text" id="numDocumento" name="numDocumento" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="data.parametri.numDocumento">
+                              </div>
+                              <div class="col-4 col-xl-3">
+                                <label class="col-form-label col-form-label-sm" for="sezionaleId">{{ 'APP.FIELD.sezionale' | translate }}</label>
+                                <select id="sezionaleId" name="sezionaleId" class="form-control form-control-sm" [(ngModel)]="data.parametri.sezionaleId">
+                                  <option [value]="sezionale.id" *ngFor="let sezionale of anagraficheCombo['SpComboSezionale'];">{{ sezionale.descrizione }}</option>
+                                </select>
+                              </div>
+                              <div class="col-4 col-xl-3">
+                                <label class="col-form-label col-form-label-sm" for="magazzinoId">{{ 'APP.FIELD.magazzino' | translate }}</label>
+                                <select id="magazzinoId" name="magazzinoId" class="form-control form-control-sm" [(ngModel)]="data.parametri.magazzinoId">
+                                  <option [value]="mag.id" *ngFor="let mag of anagraficheCombo['SpComboMagazzino'];">{{ mag.descrizione }}</option>
+                                </select>
+                              </div>
+                              <div class="col-4 col-xl-3">
+                                <label class="col-form-label col-form-label-sm" for="valutaId">{{ 'APP.FIELD.valuta' | translate }}</label>
+                                <select id="valutaId" name="valutaId" class="form-control form-control-sm" [(ngModel)]="data.parametri.valutaId">
+                                  <option [value]="val.id" *ngFor="let val of anagraficheCombo['SpComboValuta'];">{{ val.descrizione }}</option>
+                                </select>
+                              </div>
+                              <div class="col-4 col-xl-3">
+                                <label class="col-form-label col-form-label-sm" for="cambio">{{ 'APP.FIELD.cambio' | translate }}</label>
+                                <input type="text" id="cambio" name="cambio" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.empty' | translate }}" [(ngModel)]="data.parametri.cambio">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col-12">
+                        <div class="card mx-auto">
+                          <div class="card-body px-0 py-0">
+                            <app-invoice-body
+                              [invoiceId]="id"
+                              [notaCredito]="true"
+                              [invoice]="item"
+                              [sortable]="true"
+                              [filter]="false"
+                              [editable]="false"
+                              [multiSelection]="true"
+                              [options]="{ height: '545px' }"
+                              (selected)="onSelectedRows($event)"
+                            ></app-invoice-body>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <div class="align-self-center w-50">
+        </div>
+        <div class="align-self-center">
+          <button type="button" class="btn btn-light btn-sm" (click)="closeModal()">{{ 'APP.BUTTON.close' | translate }}</button>
+          <button type="button" class="btn btn-primary btn-sm" [disabled]="data.dettagliToAdd.length == 0" (click)="applyModal()">
+            {{ 'APP.BUTTON.apply' | translate }}
+          </button>
+        </div>
+      </div>
+    <!-- </div>
+  </div>
+</div> -->

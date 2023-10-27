@@ -1,0 +1,203 @@
+<div class="animated fadeIn bg-white" style="height:100%;" [hidden]="panelIsOpen">
+  <div class="flex-layout-header">
+    <div class="bg-gray-100-" style="width: 100%;">
+      <div class="d-flex flex-row justify-content-between">
+        <div class="col-5 px-1">
+          <div class="float-left mr-2" style="padding: 0.5em 0.40rem !important">
+            <ion-icon name="business-outline"></ion-icon> {{ 'APP.TITLE.companies' | translate }}
+          </div>
+          <div class="ml-1 mr-1 float-left">
+            <app-choose-tenant [class]="'warning btn-bar'"
+              [tenants]="tenants"
+              (changed)="onTenant($event)">
+            </app-choose-tenant>
+          </div>
+          <div class="btn-group btn-group-sm float-left" style="padding: 0.2em 0rem !important">
+            <a class="btn btn-cyan" (click)="onEdit(true)" tooltip="{{ 'APP.TOOLTIP.new_company' | translate }}" placement="bottom" container="body" [class.disabled]="!tenant" *ngIf="showBarNew">
+              <i class="cui-plus"></i><!-- {{ 'APP.BUTTON.add' | translate }} --></a>
+            <a class="btn btn-cyan" (click)="onEdit()" [class.disabled]="currentId == 0" tooltip="{{ 'APP.TOOLTIP.edit_company' | translate }}" placement="bottom" container="body" *ngIf="showBarEdit">
+              <i class="icon-pencil"></i><!-- {{ 'APP.BUTTON.modify' | translate }} --></a>
+            <a class="btn btn-cyan" [class.disabled]="currentId == 0" *ngIf="showBarDelete"
+              tooltip="{{ 'APP.TOOLTIP.delete_company' | translate }}"
+              container="body"
+              mwlConfirmationPopover
+              [popoverTitle]="'APP.TITLE.delete' | translate"
+              [popoverMessage]="'APP.MESSAGE.are_you_sure' | translate"
+              [cancelText]="'APP.BUTTON.cancel' | translate"
+              [cancelButtonType]="'outline-secondary btn-sm'"
+              [confirmText]="'APP.BUTTON.confirm' | translate"
+              [confirmButtonType]="'danger btn-sm'"
+              [appendToBody]="true"
+              placement="bottom"
+              (confirm)="onDelete(true)"
+              (cancel)="onDelete(false)">
+              <i class="icon-trash"></i><!-- {{ 'APP.BUTTON.delete' | translate }} --></a>
+          </div>
+          <div class="btn-group btn-group-sm float-left ml-1" style="padding: 0.2em 0rem !important" *ngIf="showBarPrint">
+            <a class="btn btn-outline-secondary" (click)="dummyAction($event);" [class.disabled]="!tenant" tooltip="{{ 'APP.TOOLTIP.print' | translate }}" placement="bottom" container="body">
+              <i class="cui-print"></i></a>
+          </div>
+
+          <div class="btn-group btn-group-sm float-right ml-1" style="padding: 0.2em 0rem !important" *ngIf="showBarPrint">
+            <a class="btn btn-outline-secondary" [(ngModel)]="filterType.headquarter" (click)="setFilterType($event);" [class.disabled]="!tenant" tooltip="{{ 'APP.TOOLTIP.headquarter' | translate }}" placement="bottom" container="body" btnCheckbox>
+              <ion-icon name="business-outline"></ion-icon></a>
+            <a class="btn btn-outline-secondary" [(ngModel)]="filterType.subsidiary" (click)="setFilterType($event);" [class.disabled]="!tenant" tooltip="{{ 'APP.TOOLTIP.subsidiary' | translate }}" placement="bottom" container="body" btnCheckbox>
+              <i class="cui-minus"></i></a>
+          </div>
+        </div>
+        <div class="col-3 px-0">
+          <div class="" style="padding: 0.2em 0.40rem !important" *ngIf="showBarSearch">
+            <app-filter-textbox class="w-50" (changed)="onFilterChanged($event)"></app-filter-textbox>
+          </div>
+        </div>
+        <div class="col-4 px-0">
+          <div class="buttons-bar float-left">
+            <div class="btn-toolbar" style="padding: 0.20em 0.25rem !important">
+              <div class="btn-group btn-group-sm mr-1" *ngIf="showBarRefreah">
+                <label class="btn btn-outline-secondary cursor-pointer" title="Aggiorna" (click)="refresh()">
+                  <i class="icon-reload" aria-hidden="true"></i>
+                </label>
+              </div>
+              <div class="btn-group btn-group-sm float-left ml-1">
+                <a class="btn" [ngClass]="{ 'btn-outline-secondary': !gridPinned, 'btn-secondary': gridPinned }" (click)="togglePinned()" tooltip="{{ 'APP.TOOLTIP.pinned' | translate }}" placement="bottom" container="body">
+                  <i class="cui-pin"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="buttons-bar float-right">
+            <div class="btn-toolbar" role="toolbar" style="padding: 0.20em 0.25rem !important">
+              <div class="btn-group btn-group-sm">
+                <!-- <label class="btn cursor-pointer" tooltip="{{ 'APP.TOOLTIP.clear_filter_sort' | translate }}" placement="bottom" container="body" (click)="clearFilterSort($event)" *ngIf="hasFilter || hasSorting"><i class="cui-x fa-lg text-success"></i></label> -->
+                <!-- <label class="btn" [(ngModel)]="sideBarStatus" btnRadio="sort" uncheckable role="button" tooltip="{{ 'APP.TOOLTIP.show_hide_sort' | translate }}" placement="bottom" container="body" [class.btn-outline-warning]="hasSorting"><i class="cui-sort-ascending fa-lg" [class.text-primary]="sideBarStatus == 'sort' && !hasSorting"></i></label> -->
+                <!-- <label class="btn" [(ngModel)]="sideBarStatus" btnRadio="filter" uncheckable role="button" tooltip="{{ 'APP.TOOLTIP.show_hide_filter' | translate }}" placement="bottom" container="body" [class.btn-outline-warning]="hasFilter"><i class="cui-list-filter fa-lg" [class.text-primary]="sideBarStatus == 'filter' && !hasFilter"></i></label> -->
+                <label class="btn" [(ngModel)]="sideBarStatus" btnRadio="inspector" uncheckable role="button" tooltip="{{ 'APP.TOOLTIP.show_hide_inspector' | translate }}" placement="bottom" container="body"><i class="icon-info fa-lg" [class.text-primary]="sideBarStatus == 'inspector'"></i></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-layout-body" style="overflow: auto;height: calc( 100% - 40px - 40px );">
+		<!-- <div class="flex-layout-sidebar bg-gray-100 sidebar-left"></div> -->
+    <div class="flex-layout-content">
+      <div class="layout-content animated fadeIn">
+        <ngx-loading
+          [show]="loading"
+          [config]="loadingOptions">
+        </ngx-loading>
+        <div class="text-center" style="position: absolute;" [ngStyle]="{ 'width': '325px' }" *ngIf="!tenant && !loading">
+          <div class="mx-auto" style="width: 65px;"><ng-lottie [options]="lottieArrowOptions"></ng-lottie></div>
+        </div>
+        <div class="d-flex flex-column justify-content-center align-items-center h-100" *ngIf="!companies?.length">
+          <div class="text-center" *ngIf="!tenant && !loading">
+            <ion-icon name="business-outline" class="icon-messages-50"></ion-icon>
+            <h6 class="no-messages-text mt-3">{{ 'APP.MESSAGE.select_tenant' | translate }}</h6>
+          </div>
+          <div class="text-center" *ngIf="tenant && !companies?.length && !loading">
+            <ion-icon name="business-outline" class="icon-messages-50"></ion-icon>
+            <h6 class="no-messages-text mt-3">{{ 'APP.MESSAGE.no_elements' | translate }}</h6>
+          </div>
+          <div class="text-center" *ngIf="tenant && error">
+            <h6 class="text-danger mt-3 w-75 mx-auto">{{ errorMessage | translate }}</h6>
+          </div>
+        </div>
+        <div class="container-fluid px-0" style="width: calc( 100% ); height: calc( 100% );" *ngIf="companies?.length">
+          <div id="grid-wrapper" class="px-0" style="width: calc( 100% ); height: calc( 100% );">
+            <!-- Companies list -->
+            <ag-grid-angular
+              style="width: 100%; height: 100%;"
+              class="ag-theme-balham"
+              [rowData]="companiesFiltered"
+              [columnDefs]="agColumnDefs"
+              [defaultColDef]="agDefaultColumnDefs"
+              [gridOptions]="agGridOptions"
+              (gridReady)="onGridReady($event)"
+              (gridSizeChanged)="onGridSizeChanged($event)"
+              (selectionChanged)="onSelectionChanged($event)"
+              (cellDoubleClicked)="onDoubleClicked($event)">
+            </ag-grid-angular>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div #sidebarInspector class="flex-layout-sidebar sidebar-right preview-content inspector-content"
+      mwlResizable
+      [validateResize]="validate"
+      [enableGhostResize]="true"
+      [resizeSnapGrid]="{ left: 1, right: 1 }"
+      (resizeStart)="onResizeStart($event)"
+      (resizing)="onResizing($event)"
+      (resizeEnd)="onResizeEnd($event)"
+      [class.hidden]="!sideBarStatus">
+      <div class="resize-handle-left" mwlResizeHandle [resizeEdges]="{ left: true }"></div>
+      <app-companies-sorting #companiesSortingComponent
+        (groupSorting)="onGroupSorting($event)"
+        [hidden]="sideBarStatus != 'sort'">
+      </app-companies-sorting>
+      <app-companies-filter #companiesFilterComponent
+        (groupFilters)="onGroupFilters($event)"
+        [hidden]="sideBarStatus != 'filter'">
+      </app-companies-filter>
+      <app-company-inspector
+        [tenant]="tenant"
+        [companyId]="currentId"
+        [dragging]="dragging"
+        [showAvatar]="true"
+        [hidden]="sideBarStatus != 'inspector'">
+      </app-company-inspector>
+    </div>
+  </div>
+  <div class="flex-layout-footer" *ngIf="fxlayoutConfig.footer">
+    <div class="bg-gray-100-" style="width: 100%;text-align: right;">
+      <div class="d-flex flex-row justify-content-between">
+        <div class="col-5 pr-0 text-left">
+          <div class="command-menu btn-group btn-group-sm mr-1" *ngIf="numPages > 1">
+            <select class="form-control form-control-sm col-xs-2" [(ngModel)]="perPage" (change)="perPageChanged()" [disabled]="loading">
+              <option *ngFor="let item of selectPerPage;" [value]="item">{{ item }}</option>
+            </select>
+          </div>
+          <div class="command-menu btn-group btn-group-sm" *ngIf="numPages > 0">
+            <pagination class="pagination-sm mb-0"
+              [pageBtnClass]="'btn-danger'"
+              [boundaryLinks]="true"
+              [maxSize]="maxPages"
+              [itemsPerPage]="perPage"
+              [totalItems]="companiesMeta?.pagination?.total"
+              [(ngModel)]="currentPage"
+              (numPages)="numPages = $event"
+              (pageChanged)="pageChanged($event)"
+              previousText="&lsaquo;"
+              nextText="&rsaquo;"
+              firstText="&laquo;"
+              lastText="&raquo;">
+            </pagination>
+          </div>
+          <div class="command-menu btn-group btn-group-sm" *ngIf="numPages > 0">
+            <span class="btn btn-secondary" tooltip="{{ 'APP.TOOLTIP.num_pages' | translate }}" placement="top"
+              container="body">
+              <i class="icon-book-open"></i> {{ numPages }}</span>
+          </div>
+        </div>
+        <div class="col pl-0 pr-0 text-center" *ngIf="companies?.length">
+          <span class="btn btn-sm" *ngIf="!loading">{{ 'count_of_total_elements' | translate:countTranslateParams }}</span>
+        </div>
+        <div class="col pl-0 text-right">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="animated fadeIn bg-white" style="height:100%;" *ngIf="panelIsOpen">
+  <app-company-edit-view
+    [tenant]="tenant"
+    [company]="currentCompany"
+    (save)="onSave($event)"
+    (closed)="onClosePanel($event)"
+    (prev)="onPrevElement($event)"
+    (next)="onNextElement($event)">
+  </app-company-edit-view>
+</div>
+
+<simple-notifications [options]="notificationDefaultOptions"></simple-notifications>

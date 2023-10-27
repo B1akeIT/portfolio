@@ -1,0 +1,35 @@
+// Variable overrides
+
+// Material
+$mat-theme-ignore-duplication-warnings: true;
+
+@import '~@angular/material/theming';
+
+$custom-typography: mat-typography-config( $font-family: 'Lato' );
+@include mat-core($custom-typography);
+
+$font-family-sans-serif: 'Lato', sans-serif !default;
+
+$toolbar-breakpoint: 600px;
+
+// $fa-font-path: '../../../node_modules/@fortawesome/fontawesome-free-webfonts/webfonts';
+
+$link-hover-decoration: none;
+
+$grid-breakpoints: ( xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px );
+
+$success-colors: mat-palette($mat-green, 400);
+$warning-colors: mat-palette($mat-amber, 400);
+
+// Placeholder loading
+
+$ph-bg: #fff !default;
+$ph-color: #f1f1f1 !default;
+$ph-border-radius: 2px !default;
+
+$ph-gutter: 30px !default;
+$ph-spacer: 15px !default;
+
+$ph-avatar-border-radius: 50% !default;
+
+$ph-animation-duration: .8s !default;

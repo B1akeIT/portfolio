@@ -1,0 +1,19 @@
+.grid-container {
+  display: grid;
+  grid-template-rows: 40px;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 0;
+  // border: 1px solid var(--gray-200);
+
+  .grid-item {
+    text-align: center;
+    vertical-align: middle;
+    border-top: 1px solid var(--gray-200);
+    padding: 10px;
+
+    &.grid-item-header {
+      text-align: left;
+      // border-top: none;
+    }
+  }
+}

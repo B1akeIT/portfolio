@@ -1,0 +1,47 @@
+<div class="role-details px-3 py-3">
+  <ngx-loading
+    [show]="loading"
+    [config]="loadingOptions">
+  </ngx-loading>
+  <div class="d-flex flex-column justify-content-center align-items-center h-100" *ngIf="((!roleData && !loading) || error) && !isNew()">
+    <div class="text-center" *ngIf="!error">
+      <ion-icon name="shield-checkmark-outline" class="icon-messages-50"></ion-icon>
+      <h6 class="no-messages-text mt-3">{{ 'APP.MESSAGE.select_role' | translate }}</h6>
+    </div>
+    <div class="text-center" *ngIf="error">
+      <h6 class="text-danger mt-3 w-75 mx-auto">{{ errorMessage | translate }}</h6>
+    </div>
+  </div>
+  <div class="px-0" *ngIf="(roleData && !error) || isNew()">
+    <form novalidate [formGroup]="roleForm" (ngSubmit)="onSave()">
+      <h5 class="" *ngIf="!isNew()">{{ 'APP.TITLE.edit_role' | translate }}</h5>
+      <h5 class="" *ngIf="isNew()">{{ 'APP.TITLE.new_role' | translate }} <span class="btn btn-sm btn-light ml-3" (click)="onCancel()" ><i class="cui-x"></i> {{ 'APP.BUTTON.cancel' | translate }}</span></h5>
+      <hr>
+      <!-- <div class="row justify-content-center">
+        <div class="col-6">
+          <mat-form-field class="w-100">
+            <input type="text" matInput placeholder="{{ 'APP.FIELD.id' | translate }}" formControlName="id" (change)="onChange($event, 'ID')" readonly>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+        </div>
+      </div> -->
+      <div class="row justify-content-center">
+        <div class="col-6">
+          <mat-form-field class="w-100">
+            <input type="text" matInput placeholder="{{ 'APP.FIELD.descrizione' | translate }}" formControlName="descrizione" (change)="onChange($event, 'DESCRIZIONE')" autocomplete="off" required>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <button class="btn btn-primary btn-sm mt-3" type="submit" [disabled]="!roleForm.valid">
+            <span *ngIf="roleForm.value.id == 0">{{ 'APP.BUTTON.save' | translate }}</span>
+            <span *ngIf="roleForm.value.id != 0">{{ 'APP.BUTTON.modify' | translate }}</span>
+          </button>
+        </div>
+      </div>
+    </form>
+    <div *ngIf="!isNew()">
+      <app-permissions [roleId]="role.id" [tenant]="tenant"></app-permissions>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+:host ::ng-deep {
+  .list-group-item {
+    &.active {
+      color: #000;
+      background-color: var(--light-primary); // rgba(0, 0, 0, 0.05);
+      border-color: var(--primary); // rgba(0, 0, 0, 0.05);
+      border-left-color: var(--primary);
+      border-bottom-width: 2px;
+    }
+  }
+
+  .card {
+    .list-group-flush {
+      &:last-child {
+        .list-group-item {
+          &:last-child {
+            &.active {
+              color: #000;
+              background-color: var(--light-primary); // rgba(0, 0, 0, 0.05);
+              border-color: var(--primary); // rgba(0, 0, 0, 0.05);
+              border-left-color: var(--primary);
+              border-bottom-width: 2px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

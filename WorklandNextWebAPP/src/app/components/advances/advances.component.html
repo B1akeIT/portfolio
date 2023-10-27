@@ -1,0 +1,108 @@
+<div class="border-bottom" style="width: 100%;">
+  <div class="d-flex flex-row justify-content-between">
+    <!-- <div class="col-4 px-1 align-self-center">
+      <div class="float-left mr-2">
+        <ion-icon class="mr-2" name="list-outline"></ion-icon> {{ model }} - {{ documentId }} - {{ items.length }}
+      </div>
+    </div> -->
+    <div class="col-12 px-1 d-flex justify-content-left" *ngIf="quickAdd">
+      <div class="buttons-bar my-1 mr-1">
+        <div class="btn-toolbar">
+          <div class="btn-group btn-group-sm">
+            <label class="btn btn-danger cursor-pointer mb-0" title="Chiudi" (click)="onCloseQuickAdd()">
+              <i class="cui-x" aria-hidden="true"></i>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <form novalidate [formGroup]="quickForm" class="form-horizontal-">
+          <label class="col-form-label col-form-label-sm mb-0 mx-1 mt-1" for="importo">{{ 'APP.FIELD.importo' | translate }}</label>
+          <div class="d-inline-block mb-0">
+            <input type="text" formControlName="importo" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.importo' | translate }}">
+          </div>
+          <label class="col-form-label col-form-label-sm mb-0 mx-1 mt-1" for="dataPagamento">{{ 'APP.FIELD.dataPagamento' | translate }}</label>
+          <div class="d-inline-block mb-0 mt-1">
+            <input type="date" formControlName="dataPagamento" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.dataPagamento' | translate }}">
+          </div>
+          <label class="col-form-label col-form-label-sm mb-0 mx-1 mt-1" for="note">{{ 'APP.FIELD.note' | translate }}</label>
+          <div class="d-inline-block mb-0 mt-1">
+            <input type="text" formControlName="note" class="form-control form-control-sm" placeholder="{{ 'APP.PLACEHOLDER.note' | translate }}">
+          </div>
+          <div class="d-inline-block mb-0 ml-1 mt-1">
+            <button class="btn btn-cyan btn-sm" [disabled]="!quickForm?.valid" (click)="onQuickSave(quickForm.value)" >
+              <span *ngIf="!currentItem">{{ 'APP.BUTTON.add' | translate }}</span>
+              <span *ngIf="currentItem?.id">{{ 'APP.BUTTON.modify' | translate }}</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-6- px-1 d-flex justify-content-left" *ngIf="!quickAdd">
+      <div class="buttons-bar">
+        <div class="btn-toolbar">
+          <h6 class="ml-2 mr-3 mt-2" title="CC [ccid: {{ clienteContabilitaId }}]" *ngIf="showTitle">{{ 'APP.TITLE.advances' | translate }}</h6>
+          <div class="btn-group btn-group-sm mr-1" *ngIf="editable">
+            <label class="btn btn-cyan cursor-pointer my-1" title="Aggiungi" (click)="onQuickAdd()">
+              <i class="cui-plus" aria-hidden="true"></i>
+            </label>
+            <label class="btn btn-cyan cursor-pointer my-1" title="Modifica" (click)="onQuickModify()" [class.disabled]="!currentItem">
+              <i class="cui-pencil" aria-hidden="true"></i>
+            </label>
+            <a class="btn btn-cyan my-1" [class.disabled]="!currentItem"
+              tooltip="{{ 'APP.TOOLTIP.delete' | translate }}"
+              container="body"
+              mwlConfirmationPopover
+              [popoverTitle]="'APP.TITLE.delete' | translate"
+              [popoverMessage]="'APP.MESSAGE.are_you_sure' | translate"
+              [cancelText]="'APP.BUTTON.cancel' | translate"
+              [cancelButtonType]="'outline-secondary btn-sm'"
+              [confirmText]="'APP.BUTTON.confirm' | translate"
+              [confirmButtonType]="'danger btn-sm'"
+              [appendToBody]="true"
+              placement="bottom"
+              (confirm)="onDelete()">
+              <i class="icon-trash"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6- px-0 align-self-center" *ngIf="!quickAdd">
+      <!-- <span class="small">{{ 'APP.MESSAGE.total_elements' | translate:{total: items?.length} }}</span> -->
+    </div>
+    <div class="col-6- px-0 align-self-center" *ngIf="!quickAdd">
+      <div class="buttons-bar float-right">
+        <div class="btn-toolbar my-2" *ngIf="multiSelection">&nbsp;</div>
+        <div class="btn-toolbar" *ngIf="!multiSelection">
+          <div class="btn-group btn-group-sm mr-1">
+            <label class="btn btn-outline-secondary cursor-pointer my-1" title="Aggiorna" (click)="refresh()">
+              <i class="cui-reload" aria-hidden="true"></i>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="px-0" [style.height]="options.height">
+  <ngx-loading
+    [show]="loading"
+    [config]="loadingOptions">
+  </ngx-loading>
+  <div class="px-0" style="width: calc( 100% ); height: calc( 100% );" *ngIf="gridInitialized">
+    <!-- items list -->
+    <ag-grid-angular
+      style="width: 100%; height: 100%;"
+      class="ag-theme-balham"
+      [rowData]="items"
+      [columnDefs]="agColumnDefs"
+      [defaultColDef]="agDefaultColumnDefs"
+      [gridOptions]="agGridOptions"
+      (gridReady)="onGridReady($event)"
+      (gridSizeChanged)="onGridSizeChanged($event)"
+      (selectionChanged)="onSelectionChanged($event)"
+      (sortChanged)="onSortChanged($event)"
+      (cellDoubleClicked)="onDoubleClicked($event)">
+    </ag-grid-angular>
+  </div>
+</div>

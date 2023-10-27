@@ -1,0 +1,189 @@
+<div class="text-center py-3" *ngIf="loading">
+  <div class="h1 text-muted text-center mt-5 mb-1">
+    <i class="fa fa-circle-o-notch fa-spin"></i>
+  </div>
+</div>
+<div class="h-75" *ngIf="!user && !loading">
+	<div class="details-content h-100">
+    <div class="d-flex flex-column justify-content-center align-items-center h-100">
+      <!-- loading & messages -->
+      <div class="text-center" style="height: 120px;" *ngIf="!dragging">
+        <ng-lottie [options]="options" (animationCreated)="animationCreated($event)"></ng-lottie>
+      </div>
+      <div class="text-center">
+        <i class="icon-mouse icon-messages-50" *ngIf="dragging"></i>
+        <h6 class="no-messages-text mt-3">{{ 'APP.MESSAGE.select_user' | translate }}</h6>
+      </div>
+    </div>
+	</div>
+</div>
+<div class="mt-3" *ngIf="user && !loading">
+  <div class="details-content">
+    <div class="d-flex flex-column justify-content-center align-items-center mx-auto img-avatar bg-white border" [class.item-deactive]="!user.isActive" [ngStyle]="{ 'background-image': 'url(assets/img/asset-avatar.gif)', 'background-repeat': 'no-repeat', 'background-size': 'cover', 'background-position': 'center center', 'margin-bottom': '0rem', 'width': '100px', 'height': '100px' }" *ngIf="showAvatar"></div>
+    <!-- <div class="row mt-4 mb-4" *ngIf="showEdit">
+      <div class="col-9 mx-auto">
+        <div class="btn btn-light btn-sm d-block">{{ 'APP.BUTTON.change_avatar' | translate }}</div>
+      </div>
+    </div> -->
+    <div class="fab-button fab-top fab-right">
+      <label class="switch switch-label switch-pill switch-success mr-1" tooltip="{{ 'APP.TOOLTIP.enable_disable_user' | translate }}" placement="bottom" container="body">
+        <input type="checkbox" [(ngModel)]="user.isActive" class="switch-input" checked (change)="setStateUser()">
+        <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
+      </label>
+    </div>
+    <div class="">
+      <div class="text-center mt-4 mb-2" *ngIf="!showAvatar">
+        <ion-icon name="person-outline" class="icon-messages-50"></ion-icon>
+      </div>
+      <div class="user-name">{{ user.userName }}</div>
+      <div class="user-email">
+        <span class="btn btn-light cursor-pointer" [class.btn-light]="!showChangeEmail" [class.btn-secondary]="showChangeEmail" (click)="toggleChangeEmail()">
+          {{ user.email }} <i class="ml-2" [class.cui-pencil]="!showChangeEmail" [class.cui-x]="showChangeEmail"></i>
+        </span>
+      </div>
+      <div class="change-email" *ngIf="showChangeEmail">
+        <div class="card card-accent-warning mt-2">
+          <div class="card-content preview-content px-3 py-2">
+            <form [formGroup]="emailForm" (ngSubmit)="onChangeEmail(emailModel)">
+              <formly-form [form]="emailForm" [model]="emailModel" [fields]="emailFields" [options]="options">
+                <button class="btn btn-light btn-sm mt-1 mr-1" (click)="toggleChangeEmail()">
+                  <span>{{ 'APP.BUTTON.cancel' | translate }}</span>
+                </button>
+                <button class="btn btn-primary btn-sm mt-1" type="submit" [disabled]="!emailForm.valid">
+                  <span>{{ 'APP.BUTTON.save' | translate }}</span>
+                </button>
+              </formly-form>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="buttons-bar d-flex flex-column justify-content-center align-items-center mx-auto">
+        <div class="btn-toolbar" style="padding: 0.20em 0.25rem !important">
+          <div class="btn-group btn-group-sm">
+            <label class="btn cursor-pointer" [class.btn-light]="!showChangePassowrd" [class.btn-secondary]="showChangePassowrd" (click)="toggleChangePassword()">
+              <i class="icon-lock" aria-hidden="true"></i> {{ 'APP.TITLE.change-password' | translate }}
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="change-password" *ngIf="showChangePassowrd">
+        <app-user-password
+          [principalId]="user.id"
+          (changed)="onChangePassword($event)"
+          (closed)="toggleChangePassword()">
+        </app-user-password>
+      </div>
+      <div class="text-center small">{{ user.id }}</div>
+    </div>
+	</div>
+
+  <div class="other-content">
+    <div class="block-tenants d-flex justify-content-between align-items-center">
+      <h6 class="mb-1"><ion-icon name="server-outline"></ion-icon> {{ 'APP.TITLE.tenants' | translate }} [{{ user.tenants.length || 0 }}]</h6>
+      <button class="btn btn-light btn-sm" [attr.disabled]="!hasNew() ? true : null" (click)="toggleAddTenant()" *ngIf="!isAddNew">
+        <i class="cui-plus"></i> {{ 'APP.BUTTON.add' | translate }}
+      </button>
+      <button class="btn btn-light btn-sm" (click)="toggleAddTenant()" *ngIf="isAddNew">
+        <i class="cui-x"></i> {{ 'APP.BUTTON.cancel' | translate }}
+      </button>
+    </div>
+    <div class="block-add-tenant px-3 py-3 bg-white border" *ngIf="isAddNew">
+      <div class="d-flex justify-content-between align-items-center">
+        <h6 class="font-weight-bold mb-0">{{ 'APP.TITLE.add_tenant' | translate }}</h6>
+      </div>
+      <div class="mt-2">
+        <mat-form-field class="w-100">
+          <mat-label>{{ 'APP.TITLE.choose-tenant' | translate }}</mat-label>
+          <mat-select [(ngModel)]="newTenant" name="tenant">
+            <mat-option [value]="tenant" *ngFor="let tenant of tenants" [disabled]="hasTenant(tenant)">{{ tenant.nomeConnessione }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <app-user-tenant *ngIf="newTenant"
+          [principalId]="user.id"
+          [tenant]="newTenant.nomeConnessione"
+          [user]="null"
+          [editing]="true"
+          (saved)="onSaveNewUserTenant($event)">
+        </app-user-tenant>
+      </div>
+    </div>
+    <mat-accordion class="block-list-tenants" *ngIf="!isAddNew">
+      <mat-expansion-panel hideToggle disabled *ngIf="(user.tenants.length == 0) && !isAddNew">
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{ 'APP.MESSAGE.no_elements' | translate }}</mat-panel-title>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+      <mat-expansion-panel *ngFor="let tenant of user.tenants">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="media">
+              <ion-icon name="server-outline" class="mr-3"></ion-icon>
+              <div class="media-body">
+                <h6 class="mt-0 mb-0">{{tenant.tenantName}}</h6>
+                <span class="small mb-1">{{ tenant.tenantUser?.userName || 'APP.MESSAGE.no_user' | translate }}</span>
+              </div>
+            </div>
+          </mat-panel-title>
+          <mat-panel-description>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <app-user-tenant
+            [principalId]="user.id"
+            [tenant]="tenant.tenantName"
+            [user]="tenant.tenantUser"
+            [showIcon]="true"
+            [showLabel]="false"
+            [showEmpty]="true"
+            (saved)="onSaveUserTenant($event)">
+          </app-user-tenant>
+        </ng-template>
+      </mat-expansion-panel>
+    </mat-accordion>
+<!--
+    <div class="block-roles d-flex justify-content-between align-items-center mt-3">
+      <h6 class="mb-1">
+        <ion-icon name="shield-checkmark-outline"></ion-icon> {{ 'APP.TITLE.role' | translate }}
+      </h6>
+      <button class="btn btn-light btn-sm" [class.btn-secondary]="showChangeRole" (click)="toggleChangeRole()">
+        <span *ngIf="!showChangeRole"><i class="cui-pencil"></i> {{ 'APP.BUTTON.modify' | translate }}</span>
+        <span *ngIf="showChangeRole"><i class="cui-x"></i> {{ 'APP.BUTTON.cancel' | translate }}</span>
+      </button>
+    </div>
+    <div class="change-role" *ngIf="showChangeRole">
+      <div class="card card-accent-warning">
+        <div class="card-content preview-content px-3 py-2">
+          <form [formGroup]="roleForm" (ngSubmit)="onChangeRole(roleModel)">
+            <formly-form [form]="roleForm" [model]="roleModel" [fields]="roleFields" [options]="options">
+              <button class="btn btn-light btn-sm mt-1 mr-1" (click)="toggleChangeRole()">
+                <span>{{ 'APP.BUTTON.cancel' | translate }}</span>
+              </button>
+              <button class="btn btn-primary btn-sm mt-1" type="submit" [disabled]="!roleForm.valid">
+                <span>{{ 'APP.BUTTON.save' | translate }}</span>
+              </button>
+            </formly-form>
+          </form>
+        </div>
+      </div>
+    </div>
+    <mat-accordion class="block-list-roles" *ngIf="!showChangeRole">
+      <mat-expansion-panel hideToggle disabled *ngIf="(user.roles.length == 0)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{ 'APP.MESSAGE.no_roles' | translate }}</mat-panel-title>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+      <mat-expansion-panel hideToggle *ngFor="let role of user.roles">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ role }}
+          </mat-panel-title>
+          <mat-panel-description>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="mt-2 panel-content"></div>
+      </mat-expansion-panel>
+    </mat-accordion>
+-->
+  </div>
+
+</div>

@@ -1,0 +1,171 @@
+<div class="permission-details">
+  <ngx-loading
+    [show]="loading"
+    [config]="loadingOptions">
+  </ngx-loading>
+  <div class="d-flex flex-column justify-content-center align-items-center h-100" *ngIf="((!permissionData && !loading) || error) && !isNew()">
+    <div class="text-center" *ngIf="!error">
+      <ion-icon name="shield-checkmark-outline" class="icon-messages-50"></ion-icon>
+      <h6 class="no-messages-text mt-3">{{ 'APP.MESSAGE.select_permission' | translate }}</h6>
+    </div>
+    <div class="text-center" *ngIf="error">
+      <h6 class="text-danger mt-3 w-75 mx-auto">{{ errorMessage | translate }}</h6>
+    </div>
+  </div>
+  <div class="px-0" *ngIf="!loading && (permissionData && !error)">
+    <ngx-loading
+      [show]="loading_saving"
+      [config]="loadingOptions">
+    </ngx-loading>
+    <form novalidate [formGroup]="permissionForm" (ngSubmit)="onSave()">
+      <div *ngIf="grid">
+        <div class="grid-container" *ngIf="owner">
+          <div class="grid-item grid-item-header">
+            {{ permissionData.funzione | translate }}
+          </div>
+          <div class="grid-item">
+            <label class="switch switch-sm switch-3d switch-warning">
+              <input type="checkbox" formControlName="grant_view_owner" class="switch-input" (change)="onSave()">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+          <div class="grid-item">
+            <label class="switch switch-sm switch-3d switch-warning">
+              <input type="checkbox" formControlName="grant_create_owner" class="switch-input" (change)="onSave()">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+          <div class="grid-item">
+            <label class="switch switch-sm switch-3d switch-warning">
+              <input type="checkbox" formControlName="grant_edit_owner" class="switch-input" (change)="onSave()">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+          <div class="grid-item">
+            <label class="switch switch-sm switch-3d switch-warning">
+              <input type="checkbox" formControlName="grant_delete_owner" class="switch-input" (change)="onSave()">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+          <div class="grid-item">
+            <label class="switch switch-sm switch-3d switch-warning">
+              <input type="checkbox" formControlName="grant_print_owner" class="switch-input" (change)="onSave()">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+        </div>
+        <div class="grid-container" *ngIf="!owner">
+          <div class="grid-item grid-item-header">
+            {{ permissionData.funzione | translate }}
+          </div>
+          <div class="grid-item">
+            <label class="switch switch-sm switch-3d switch-warning">
+              <input type="checkbox" formControlName="grant_view_other" class="switch-input" (change)="onSave()">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+          <div class="grid-item">
+            <label class="switch switch-sm switch-3d switch-warning">
+              <input type="checkbox" formControlName="grant_create_other" class="switch-input" (change)="onSave()">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+          <div class="grid-item">
+            <label class="switch switch-sm switch-3d switch-warning">
+              <input type="checkbox" formControlName="grant_edit_other" class="switch-input" (change)="onSave()">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+          <div class="grid-item">
+            <label class="switch switch-sm switch-3d switch-warning">
+              <input type="checkbox" formControlName="grant_delete_other" class="switch-input" (change)="onSave()">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+          <div class="grid-item">
+            <label class="switch switch-sm switch-3d switch-warning">
+              <input type="checkbox" formControlName="grant_print_other" class="switch-input" (change)="onSave()">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!grid">
+        <table class="owner table table-sm table-align-middle mb-0 d-none" *ngIf="owner">
+          <tbody>
+            <tr class="row">
+              <td class="col-3">{{ permissionData.descrizioneFunzione }} [owner]</td>
+              <td class="col text-center">
+                <label class="switch switch-sm switch-pill switch-outline-warning-alt">
+                  <input type="checkbox" formControlName="grant_view_owner" class="switch-input" (change)="onSave()">
+                  <span class="switch-slider"></span>
+                </label>
+              </td>
+              <td class="col text-center">
+                <label class="switch switch-sm switch-pill switch-outline-warning-alt">
+                  <input type="checkbox" formControlName="grant_create_owner" class="switch-input" (change)="onSave()">
+                  <span class="switch-slider"></span>
+                </label>
+              </td>
+              <td class="col text-center">
+                <label class="switch switch-sm switch-pill switch-outline-warning-alt">
+                  <input type="checkbox" formControlName="grant_edit_owner" class="switch-input" (change)="onSave()">
+                  <span class="switch-slider"></span>
+                </label>
+              </td>
+              <td class="col text-center">
+                <label class="switch switch-sm switch-pill switch-outline-warning-alt">
+                  <input type="checkbox" formControlName="grant_delete_owner" class="switch-input" (change)="onSave()">
+                  <span class="switch-slider"></span>
+                </label>
+              </td>
+              <td class="col text-center">
+                <label class="switch switch-sm switch-pill switch-outline-warning-alt">
+                  <input type="checkbox" formControlName="grant_print_owner" class="switch-input" (change)="onSave()">
+                  <span class="switch-slider"></span>
+                </label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="other table table-sm table-align-middle mb-0" *ngIf="!owner">
+          <tbody>
+            <tr class="row">
+              <td class="col-3">{{ permissionData.descrizioneFunzione }} [other]</td>
+              <td class="col text-center">
+                <label class="switch switch-sm switch-pill switch-outline-warning-alt">
+                  <input type="checkbox" formControlName="grant_view_other" class="switch-input" (change)="onSave()">
+                  <span class="switch-slider"></span>
+                </label>
+              </td>
+              <td class="col text-center">
+                <label class="switch switch-sm switch-pill switch-outline-warning-alt">
+                  <input type="checkbox" formControlName="grant_edit_other" class="switch-input" (change)="onSave()">
+                  <span class="switch-slider"></span>
+                </label>
+              </td>
+              <td class="col text-center">
+                <label class="switch switch-sm switch-pill switch-outline-warning-alt">
+                  <input type="checkbox" formControlName="grant_create_other" class="switch-input" (change)="onSave()">
+                  <span class="switch-slider"></span>
+                </label>
+              </td>
+              <td class="col text-center">
+                <label class="switch switch-sm switch-pill switch-outline-warning-alt">
+                  <input type="checkbox" formControlName="grant_delete_other" class="switch-input" (change)="onSave()">
+                  <span class="switch-slider"></span>
+                </label>
+              </td>
+              <td class="col text-center">
+                <label class="switch switch-sm switch-pill switch-outline-warning-alt">
+                  <input type="checkbox" formControlName="grant_print_other" class="switch-input" (change)="onSave()">
+                  <span class="switch-slider"></span>
+                </label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+</div>

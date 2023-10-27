@@ -1,0 +1,20 @@
+{
+  "version": "0.1",
+
+  "apiUrl": "http://webservicenext.worklandcrm.it/api/v1",
+  "assetUrl": "http://webservicenext.worklandcrm.it/assets",
+  "apiUrlTest": "http://webservice.worklandcrm.it/api/v1",
+  "assetUrlTest": "http://webservice.worklandcrm.it/assets",
+
+  "useApiTest": false,
+
+  "useSpinner": true,
+
+  "showAnimation": true,
+  "showLoginAnimation": true,
+
+  "logoCopyright": "assets/img/brand/logo-workland-crm-mini.png",
+  "copyright": "© 2023 NKey Srl",
+
+  "author": "AT@"
+}
