@@ -1275,7 +1275,8 @@ footer .footer-contenuto {
     justify-content: space-between;
   }
 }
-.pagina-contatti h1, .pagina-progetto-singolo h1, .pagina-login h1, .pagina-backend h1 {
+.pagina-contatti h1, .pagina-progetto-singolo h1, .pagina-login h1, .pagina-backend h1,
+.pagina-gestione-progetto h1, .pagina-gestione-utente h1, .pagina-gestione-categoria h1 {
   padding: 10px 0;
   font-weight: 600;
   color: var(--light-grey);
@@ -1283,7 +1284,8 @@ footer .footer-contenuto {
   line-height: 1.1;
   font-size: clamp(26px, 5vw, 32px);
 }
-.pagina-contatti h2, .pagina-progetto-singolo h2, .pagina-login h2, .pagina-backend h2 {
+.pagina-contatti h2, .pagina-progetto-singolo h2, .pagina-login h2, .pagina-backend h2,
+.pagina-gestione-progetto h2, .pagina-gestione-utente h2, .pagina-gestione-categoria h2 {
   color: var(--green);
   margin: 0;
   font-size: 16px;
@@ -1291,7 +1293,8 @@ footer .footer-contenuto {
   font-weight: 400;
   line-height: 1.5;
 }
-.pagina-contatti main p, .pagina-progetto-singolo main p, .pagina-login main p, .pagina-backend main p {
+.pagina-contatti main p, .pagina-progetto-singolo main p, .pagina-login main p, .pagina-backend main p,
+.pagina-gestione-progetto main p, .pagina-gestione-utente main p, .pagina-gestione-categoria main p {
   font-size: 21px;
 }
 
@@ -1302,7 +1305,7 @@ footer .footer-contenuto {
   font-weight: 500;
   margin-bottom: 5px;
 }
-.container-form .button-invia-email {
+.container-form .button-invia-email, .container-form .button-login {
   color: var(--green);
   background-color: transparent;
   border: 1px solid var(--green);
@@ -1315,7 +1318,7 @@ footer .footer-contenuto {
   transition: 0.25s;
   margin-top: 15px;
 }
-.container-form .button-invia-email:is(:hover, :focus, :focus-visible) {
+.container-form .button-invia-email:is(:hover, :focus, :focus-visible), .container-form .button-login:is(:hover, :focus, :focus-visible) {
   outline: none;
   box-shadow: 4px 4px 0 0 var(--green);
   transform: translate(-5px, -5px);
@@ -1358,7 +1361,7 @@ footer .footer-contenuto {
   padding: 0.775rem 12px 0.625rem;
   resize: vertical;
 }
-.container-form .alert-errore {
+.container-form .alert-errore, .container-form .alert-required {
   margin-top: 20px;
   display: none;
 }
@@ -1370,6 +1373,12 @@ footer .footer-contenuto {
   outline: red solid 1px;
 }
 .container-form.inviato-errore .alert-errore {
+  display: block;
+}
+.container-form.inviato-required input, .container-form.inviato-required textarea {
+  outline: red solid 1px;
+}
+.container-form.inviato-required .alert-required {
   display: block;
 }
 .container-form.inviato-successo .alert-successo {
@@ -1394,6 +1403,16 @@ footer .footer-contenuto {
 /********** Stile pagina login **********/
 .pagina-backend h1 {
   font-size: clamp(40px, 6.5vw, 50px);
+}
+.pagina-backend .crea {
+  width: 30px;
+  height: 30px;
+  fill: var(--light-grey);
+  margin: 15px 0 40px;
+  transition: 0.25s;
+}
+.pagina-backend .crea:hover {
+  fill: var(--green);
 }
 .pagina-backend article#introduzione {
   min-height: calc(40vh - 100px);
@@ -1542,6 +1561,44 @@ footer .footer-contenuto {
 .pagina-backend table td.operazioni a:hover:is(.elimina) {
   color: var(--red);
   fill: var(--red);
+}
+
+/********** Stile pagine gestione dati **********/
+.pagina-gestione-progetto .header,
+.pagina-gestione-utente .header,
+.pagina-gestione-categoria .header {
+  margin-bottom: 50px;
+}
+.pagina-gestione-progetto .header .nome,
+.pagina-gestione-utente .header .nome,
+.pagina-gestione-categoria .header .nome {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  gap: 15px;
+}
+.pagina-gestione-progetto section > *,
+.pagina-gestione-utente section > *,
+.pagina-gestione-categoria section > * {
+  margin: 25px 0;
+  font-size: 19px;
+}
+.pagina-gestione-progetto span, .pagina-gestione-progetto label, .pagina-gestione-progetto select, .pagina-gestione-progetto input,
+.pagina-gestione-utente span,
+.pagina-gestione-utente label,
+.pagina-gestione-utente select,
+.pagina-gestione-utente input,
+.pagina-gestione-categoria span,
+.pagina-gestione-categoria label,
+.pagina-gestione-categoria select,
+.pagina-gestione-categoria input {
+  padding: 8px 10px;
+  text-align: left;
+  font-family: var(--font-calibre);
+  color: var(--dark-grey);
+  font-size: 20px;
+  font-weight: 600;
+  align-self: center;
 }
 
 /*# sourceMappingURL=stile.css.map */

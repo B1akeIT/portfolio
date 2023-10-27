@@ -3,7 +3,7 @@ require_once('gestore-connessione.php');
 
 class GestoreQuery
 {
-    private GestoreConnessione $gestoreConnessione;
+    public GestoreConnessione $gestoreConnessione;
 
     public function __construct()
     {
@@ -70,7 +70,7 @@ class GestoreQuery
     public function getLinksProgetto($id): array
     {
         $links = [];
-        $result = $this->gestoreConnessione->getMysqli()->query("SELECT * FROM link_progetto WHERE id_progetto=" . $id . ";");
+        $result = $this->gestoreConnessione->getMysqli()->query("SELECT * FROM link_progetto WHERE id_progetto=$id;");
         if ($result->num_rows > 0) {
             foreach ($result->fetch_all(MYSQLI_ASSOC) as $row) {
                 $new_link = [];
@@ -84,7 +84,7 @@ class GestoreQuery
 
     public function getContenutiProgetto($id): array
     {
-        $result = $this->gestoreConnessione->getMysqli()->query("SELECT * FROM contenuto_progetto WHERE id_progetto=" . $id . " ORDER BY ordine;");
+        $result = $this->gestoreConnessione->getMysqli()->query("SELECT * FROM contenuto_progetto WHERE id_progetto=$id ORDER BY ordine;");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
@@ -99,13 +99,58 @@ class GestoreQuery
 
     public function getCategorieUtenti(): array
     {
-        $result = $this->gestoreConnessione->getMysqli()->query("SELECT id, nome, gestione_progetti, gestione_utenti, gestione_categorie FROM utente_categoria ORDER BY id ASC");
+        $result = $this->gestoreConnessione->getMysqli()->query("SELECT id, nome, gestione_progetti, gestione_utenti, gestione_categorie, modificabile FROM utente_categoria ORDER BY id ASC");
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getCategoriaUtenti($id): array
+    {
+        $result = $this->gestoreConnessione->getMysqli()->query("SELECT id, nome, gestione_progetti, gestione_utenti, gestione_categorie FROM utente_categoria WHERE id=" . (int)$id  . " ORDER BY id ASC");
+        return $result->fetch_assoc();
     }
 
     public function getUtenti()
     {
         $result = $this->gestoreConnessione->getMysqli()->query("SELECT * FROM getutenti;");
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    /*
+        public function login($username, $password)
+        {
+            $hashedPassword = hash("sha512", $password);
+            $result = $this->gestoreConnessione->getMysqli()->query("SELECT utente.id, utente.nome_utente, utente_categoria.nome AS categoria, utente_categoria.gestione_progetti, utente_categoria.gestione_utenti, utente_categoria.gestione_categorie FROM utente LEFT JOIN utente_categoria ON utente.id_categoria = utente_categoria.id  WHERE utente.nome_utente =$username AND utente.password = $hashedPassword LIMIT 1;");
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }*/
+
+    /**
+     * @param $username
+     * @param $password
+     * @return array|false Array associativo coi dati necessari, o false se non trova utenti
+     */
+    public function login($username, $password)
+    {
+        $result = [];
+        $hashedPassword = hash("sha512", $password);
+        $sql = "SELECT utente.id, utente.nome_utente, utente_categoria.nome AS categoria, utente_categoria.gestione_progetti, utente_categoria.gestione_utenti, utente_categoria.gestione_categorie FROM utente LEFT JOIN utente_categoria ON utente.id_categoria = utente_categoria.id WHERE utente.nome_utente =? AND utente.password = ? LIMIT 1;";
+        $query = $this->gestoreConnessione->getMysqli()->prepare($sql);
+        $query->bind_param("ss", $username, $hashedPassword);
+        $query->bind_result($id, $nome_utente, $categoria, $gestione_progetti, $gestione_utenti, $gestione_categorie);
+        $query->execute();
+        $query->fetch();
+        if ($query->num_rows) {
+            $result["id"] = $id;
+            $result["nome_utente"] = $nome_utente;
+            $result["categoria"] = $categoria;
+            $result["gestione_progetti"] = $gestione_progetti;
+            $result["gestione_utenti"] = $gestione_utenti;
+            $result["gestione_categorie"] = $gestione_categorie;
+        } else {
+            $result = false;
+        }
+
+        // $result = $this->gestoreConnessione->getMysqli()->query();
+        // $rows = $result->fetch_all(MYSQLI_ASSOC);
+        return $result;
     }
 }

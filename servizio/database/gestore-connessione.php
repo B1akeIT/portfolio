@@ -9,6 +9,7 @@ class GestoreConnessione
      */
 
     private mysqli $mysqli;                    // connessione col database
+    private PDO $pdo;                          // connessione col database
     private string $indirizzo = "localhost";   // indirizzo ip del database
     private string $db = "portfolio";          // nome del database
     private string $utente = "root";           // username dell'utente
@@ -18,6 +19,7 @@ class GestoreConnessione
     public function __construct()
     {
         $this->connessioneConMysqli();
+        $this->connessioneConPdo();
     }
 
     /**
@@ -44,7 +46,7 @@ class GestoreConnessione
     {
 
         try {
-            $pdo = new PDO(
+            $this->pdo = new PDO(
                 "mysql:host=$this->indirizzo;dbname=$this->db",
                 $this->utente,
                 $this->password
@@ -74,5 +76,13 @@ class GestoreConnessione
     public function getMysqli(): mysqli
     {
         return $this->mysqli;
+    }
+
+    /**
+     * @return PDO
+     */
+    public function getPdo(): PDO
+    {
+        return $this->pdo;
     }
 }

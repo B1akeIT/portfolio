@@ -51,12 +51,12 @@ class Servizio
      * Questa funzione controlla che la stringa che riceve non sia vuota
      * (include un filtro trim).
      *
-     * @param string $stringa Stringa da controllare
+     * @param string|null $stringa Stringa da controllare
      * @return bool
      */
-    public function validazioneStringa(string $stringa): bool
+    public function validazioneStringa($stringa): bool
     {
-        return strlen(trim($stringa)) > 0;
+        return gettype($stringa) == 'string' && strlen(trim($stringa)) > 0;
     }
 
     public function inviaDatiContatto($nomeFile, $nome = '', $email = '', $messaggio = '')
