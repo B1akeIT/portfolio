@@ -1,6 +1,8 @@
 function controllaLogin() {
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value.trim();
+    const form = document.getElementById('login-form');
+
     var errori = 0;
     if (username.length === 0 || password.length === 0) {
         errori++;
@@ -9,7 +11,8 @@ function controllaLogin() {
     }
     if (errori === 0) {
 
-        jQuery.ajax({
+        form.submit();
+/*        jQuery.ajax({
             url: 'servizio/database/login.php',
             type: 'post',
             data: { username: username, password: password},
@@ -17,7 +20,7 @@ function controllaLogin() {
         }).done(function (data) {
             console.log('data');
             console.log(data);
-        });
+        });*/
 
         /*jQuery.ajax({
             url: "Login.php",
