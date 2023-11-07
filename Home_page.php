@@ -1,10 +1,6 @@
 <?php
 require_once('servizio/Servizio.php');
 require_once('servizio/componenti/gestore-progetti.php');
-session_name('dati-sessione');
-ini_set('session.save_path', realpath($_SERVER["DOCUMENT_ROOT"] . '/portfolio/sessione/'));
-session_create_id();
-session_id('sessione');
 session_start();
 $servizio = new Servizio();
 $gestoreQuery = new GestoreQuery();
