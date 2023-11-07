@@ -18,8 +18,8 @@ class GestoreConnessione
 
     public function __construct()
     {
-        $this->connessioneConMysqli();
-        $this->connessioneConPdo();
+        // $this->connessioneConMysqli();
+        // $this->connessioneConPdo();
     }
 
     /**

@@ -1,5 +1,4 @@
 <?php
-ini_set('session.save_path', '../sessione');
 session_start();
 require_once('../servizio/Servizio.php');
 require_once('../servizio/componenti/gestore-progetti.php');
