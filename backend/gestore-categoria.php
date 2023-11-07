@@ -12,10 +12,10 @@ if ($idCategoria !== null) {
 } else {
     $categoria = [
         "id" => '0',
-        "nome" => '',
-        "gestione_progetti" => '0',
+        "nome" => 'Categoria default',
+        "gestione_progetti" => '1',
         "gestione_utenti" => '0',
-        "gestione_categorie" => '0',
+        "gestione_categorie" => '1',
     ];
 }
 echo $idCategoria;
@@ -38,10 +38,9 @@ function sottotitolo($id, $modifica): string
     }
 }
 
-function modificaPermesso($categoria, $settore, $concesso)
+function modificaPermesso($categoria, $settore, $concesso): void
 {
     $categoria[$settore] = $concesso;
-    return $categoria;
 }
 
 ?>
@@ -109,10 +108,10 @@ function modificaPermesso($categoria, $settore, $concesso)
                             Nome
                         </label>
                         <?php if ($modalitaModifica === null && $idCategoria !== null) { ?>
-                        <span style="color: var(--light-grey)"><?php echo $categoria["nome"] ?></span>
+                            <span style="color: var(--light-grey)"><?php echo $categoria["nome"] ?></span>
                         <?php } else { ?>
-                        <input name="categoria_nome" id="categoria_nome" type="text"
-                               value="<?php echo $categoria["nome"] ?>" <?php if ($modalitaModifica !== null) echo 'readonly'; ?>>
+                            <input name="categoria_nome" id="categoria_nome" type="text"
+                                   value="<?php echo $categoria["nome"] ?>" <?php if ($modalitaModifica !== null) echo 'readonly'; ?>>
                         <?php } ?>
                     </div>
                     <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between;">
@@ -122,16 +121,30 @@ function modificaPermesso($categoria, $settore, $concesso)
                         <?php if ($modalitaModifica === null && $idCategoria !== null) { ?>
                             <span class="permesso"><?php echo $categoria["gestione_progetti"] == '1' ? 'Si' : 'No'; ?></span>
                         <?php } else { ?>
-                            <select name="permesso_progetti" id="permesso_progetti">
-                                <option value="0" label="No" <?php if ($modalitaModifica !== null && $idCategoria !== null && $categoria["gestione_progetti"] === '0') { echo 'selected';}?>
-                                        onselect="<?php $categoria = modificaPermesso($categoria, 'gestione_progetti', '0') ?>">
+                            <!--<select name="permesso_progetti" id="permesso_progetti">
+                                <option value="0"
+                                        label="No" <?php /*if ($modalitaModifica !== null && $idCategoria !== null && $categoria["gestione_progetti"] === '0') {
+                                    echo 'selected';
+                                } */?>
+                                        onselect="<?php /*$categoria = modificaPermesso($categoria, 'gestione_progetti', '0') */?>">
                                     No
                                 </option>
-                                <option value="1" label="Si" <?php if ($modalitaModifica !== null && $idCategoria !== null && $categoria["gestione_progetti"] === '1') { echo 'selected';}?>
-                                        onselect="<?php $categoria = modificaPermesso($categoria, 'gestione_progetti', '1') ?>">
+                                <option value="1"
+                                        label="Si" <?php /*if ($modalitaModifica !== null && $idCategoria !== null && $categoria["gestione_progetti"] === '1') {
+                                    echo 'selected';
+                                } */?>
+                                        onselect="<?php /*$categoria = modificaPermesso($categoria, 'gestione_progetti', '1') */?>">
                                     Si
                                 </option>
-                            </select>
+                            </select>-->
+                            <div style="padding: 8px 10px">
+                                <label for="permessoProgettiSi">Si</label>
+                                <input type="radio" id="permessoProgettiSi" name="permessoProgetti" value="1" <?php if ($categoria['gestione_progetti'] == '1') {
+                                    echo 'checked';} ?> onclick=" <?php modificaPermesso($categoria, 'gestione_progetti','1') ?> ">
+                                <label for="permessoProgettiNo">No</label>
+                                <input type="radio" id="permessoProgettiNo" name="permessoProgetti" value="0" <?php if ($categoria['gestione_progetti'] == '0') {
+                                    echo 'checked';} ?> onclick=" <?php modificaPermesso($categoria, 'gestione_progetti','0') ?> ">
+                            </div>
                         <?php } ?>
                     </div>
                     <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between;">
@@ -141,16 +154,30 @@ function modificaPermesso($categoria, $settore, $concesso)
                         <?php if ($modalitaModifica === null && $idCategoria !== null) { ?>
                             <span class="permesso"><?php echo $categoria["gestione_utenti"] == '1' ? 'Si' : 'No'; ?></span>
                         <?php } else { ?>
-                            <select name="permesso_utenti" id="permesso_utenti">
-                                <option value="0" label="No" <?php if ($modalitaModifica !== null && $idCategoria !== null && $categoria["gestione_utenti"] === '0') { echo 'selected';}?>
-                                        onselect="<?php $categoria = modificaPermesso($categoria, 'gestione_utenti', '0') ?>">
+                            <!--<select name="permesso_utenti" id="permesso_utenti">
+                                <option value="0"
+                                        label="No" <?php /*if ($modalitaModifica !== null && $idCategoria !== null && $categoria["gestione_utenti"] === '0') {
+                                    echo 'selected';
+                                } */?>
+                                        onselect="<?php /*$categoria = modificaPermesso($categoria, 'gestione_utenti', '0') */?>">
                                     No
                                 </option>
-                                <option value="1" label="Si" <?php if ($modalitaModifica !== null && $idCategoria !== null && $categoria["gestione_utenti"] === '1') { echo 'selected';}?>
-                                        onselect="<?php $categoria = modificaPermesso($categoria, 'gestione_utenti', '1') ?>">
+                                <option value="1"
+                                        label="Si" <?php /*if ($modalitaModifica !== null && $idCategoria !== null && $categoria["gestione_utenti"] === '1') {
+                                    echo 'selected';
+                                } */?>
+                                        onselect="<?php /*$categoria = modificaPermesso($categoria, 'gestione_utenti', '1') */?>">
                                     Si
                                 </option>
-                            </select>
+                            </select>-->
+                            <div style="padding: 8px 10px">
+                                <label for="permessoUtentiSi">Si</label>
+                                <input type="radio" id="permessoUtentiSi" name="permessoUtenti" value="1" <?php if ($categoria['gestione_utenti'] == '1') {
+                                    echo 'checked';} ?> onclick=" <?php modificaPermesso($categoria, 'gestione_utenti','1') ?> ">
+                                <label for="permessoUtentiNo">No</label>
+                                <input type="radio" id="permessoUtentiNo" name="permessoUtenti" value="0" <?php if ($categoria['gestione_utenti'] == '0') {
+                                    echo 'checked';} ?> onclick=" <?php modificaPermesso($categoria, 'gestione_utenti','0') ?> ">
+                            </div>
                         <?php } ?>
                     </div>
                     <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between;">
@@ -160,16 +187,28 @@ function modificaPermesso($categoria, $settore, $concesso)
                         <?php if ($modalitaModifica === null && $idCategoria !== null) { ?>
                             <span class="permesso"><?php echo $categoria["gestione_categorie"] == '1' ? 'Si' : 'No'; ?></span>
                         <?php } else { ?>
-                            <select name="permesso_categorie" id="permesso_categorie">
-                                <option value="0" label="No" <?php if ($modalitaModifica !== null && $idCategoria !== null && $categoria["gestione_categorie"] === '0') { echo 'selected';}?>
-                                        onselect="<?php $categoria = modificaPermesso($categoria, 'gestione_categorie', '0') ?>">
+                            <!--<select name="permesso_categorie" id="permesso_categorie">
+                                <option value="0"
+                                        label="No" <?php /*if ($modalitaModifica !== null && $idCategoria !== null && $categoria["gestione_categorie"] === '0') {
+                                    echo 'selected';
+                                } */?>
+                                        onselect="<?php /*$categoria = modificaPermesso($categoria, 'gestione_categorie', '0') */?>">
                                     No
                                 </option>
-                                <option value="1" label="Si" <?php if ($modalitaModifica !== null && $idCategoria !== null && $categoria["gestione_categorie"] === '1') echo 'selected';?>
-                                        onclick="<?php $categoria = modificaPermesso($categoria, 'gestione_categorie', '1');?>">
+                                <option value="1"
+                                        label="Si" <?php /*if ($modalitaModifica !== null && $idCategoria !== null && $categoria["gestione_categorie"] === '1') echo 'selected'; */?>
+                                        onclick="<?php /*$categoria = modificaPermesso($categoria, 'gestione_categorie', '1'); */?>">
                                     Si
                                 </option>
-                            </select>
+                            </select>-->
+                            <div style="padding: 8px 10px">
+                                <label for="permessoCategorieSi">Si</label>
+                                <input type="radio" id="permessoCategorieSi" name="permessoCategorie" value="1" <?php if ($categoria['gestione_categorie'] == '1') {
+                                    echo 'checked';} ?> onclick=" <?php modificaPermesso($categoria, 'gestione_categorie','1') ?> ">
+                                <label for="permessoCategorieNo">No</label>
+                                <input type="radio" id="permessoCategorieNo" name="permessoCategorie" value="0" <?php if ($categoria['gestione_categorie'] == '0') {
+                                    echo 'checked';} ?> onclick=" <?php modificaPermesso($categoria, 'gestione_categorie','0') ?> ">
+                            </div>
                         <?php } ?>
                     </div>
                 </div>
