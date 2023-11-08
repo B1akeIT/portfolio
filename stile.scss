@@ -237,11 +237,12 @@ nav {
   background-color: var(--background-color-header);
   backdrop-filter: blur(10px);
   justify-content: space-between;
+  transition: 0.5s;
 }
 
 @media (max-width: 768px) {
   nav:has(#nav-check:checked) {
-    height: 255px;
+    height: 290px;
   }
 }
 
@@ -382,7 +383,7 @@ nav {
   }
 
   nav > #nav-check:checked ~ .mobile-button-list {
-    height: 140px;
+    height: 175px;
     transition: 0.5s;
   }
 }
