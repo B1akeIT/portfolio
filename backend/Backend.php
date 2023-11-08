@@ -68,7 +68,16 @@ $gestoreProgetti = new GestoreProgetti($listaProgetti);
         <!-- Sezione progetti -->
         <article>
             <section id="progetti">
+                <div style="display: flex; justify-content: space-between; flex-direction: row">
                 <h3 class="titolo-contenuto">Progetti</h3>
+                    <?php if (isset($_SESSION["gestioneProgetti"]) && $_SESSION["gestioneProgetti"] == '1') { ?>
+                        <a href='gestore-progetto.php' title='Crea nuovo progetto' class='crea'>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                <path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160Zm40 200q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/>
+                            </svg>
+                        </a>
+                    <?php } ?>
+                </div>
                 <table class="tabella-progetti">
                     <thead>
                     <tr>
@@ -115,7 +124,16 @@ $gestoreProgetti = new GestoreProgetti($listaProgetti);
             </section>
 
             <section id="utenti">
+                <div style="display: flex; justify-content: space-between; flex-direction: row">
                 <h3 class="titolo-contenuto">Utenti</h3>
+                    <?php if (isset($_SESSION["gestioneUtenti"]) && $_SESSION["gestioneUtenti"] == '1') { ?>
+                        <a href='gestore-utente.php' title='Crea nuovo utente' class='crea'>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                <path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160Zm40 200q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/>
+                            </svg>
+                        </a>
+                    <?php } ?>
+                </div>
                 <table class="tabella-categorie">
                     <thead>
                     <tr>
@@ -159,7 +177,13 @@ $gestoreProgetti = new GestoreProgetti($listaProgetti);
             <section id="categorie">
                 <div style="display: flex; justify-content: space-between; flex-direction: row">
                     <h3 class="titolo-contenuto">Categorie di utenti</h3>
-                    <a href='gestore-categoria.php' title='Crea nuova categoria' class='crea'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160Zm40 200q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg></a>
+                    <?php if (isset($_SESSION["gestioneCategorie"]) && $_SESSION["gestioneCategorie"] == '1') { ?>
+                        <a href='gestore-categoria.php' title='Crea nuova categoria' class='crea'>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                <path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160Zm40 200q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/>
+                            </svg>
+                        </a>
+                    <?php } ?>
                 </div>
                 <table class="tabella-categorie">
                     <thead>

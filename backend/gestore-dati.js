@@ -10,27 +10,19 @@ function controllaLogin() {
         formElement.classList.add('inviato-required');
     }
     if (errori === 0) {
-
         form.submit();
-/*        jQuery.ajax({
-            url: 'servizio/database/login.php',
-            type: 'post',
-            data: { username: username, password: password},
-            success: function(response) { alert(response); console.log('response'); console.log(response) }
-        }).done(function (data) {
-            console.log('data');
-            console.log(data);
-        });*/
+    }
+}
 
-        /*jQuery.ajax({
-            url: "Login.php",
-            data: {
-                functionName: 'tentaLogin',
-                arguments: [username, password]
-            },
-            success: function (obj, status) {
-                console.log(status);
-            }
-        })*/
+function modificaCategoria() {
+    const nomeCategoria = document.getElementById('categoria_nome').value.trim();
+    const form = document.getElementById('categoria-form');
+    var errori = 0;
+    if (nomeCategoria.length === 0) {
+        errori++;
+    }
+
+    if (errori === 0) {
+        form.submit();
     }
 }
