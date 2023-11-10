@@ -18,11 +18,12 @@ if ($idCategoria !== null) {
         "gestione_categorie" => '0',
     ];
 }
-print_r($categoria);
 
 $_POST['categoria'] = $categoria;
 
-print_r($_POST);
+print_r($idCategoria == null);
+print_r($modalitaModifica == null);
+
 
 function sottotitolo($id, $modifica): string
 {
@@ -111,7 +112,7 @@ function modificaPermesso($categoria, $settore, $concesso): void
                             <span style="color: var(--light-grey)"><?php echo $categoria["nome"] ?></span>
                         <?php } else { ?>
                             <input name="categoria_nome" id="categoria_nome" type="text"
-                                   value="<?php echo $categoria["nome"] ?>" <?php if ($modalitaModifica == null) echo 'readonly'; ?>>
+                                   value="<?php echo $categoria["nome"] ?>">
                         <?php } ?>
                     </div>
                         <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between;">
@@ -121,22 +122,6 @@ function modificaPermesso($categoria, $settore, $concesso): void
                             <?php if ($modalitaModifica === null && $idCategoria !== null) { ?>
                                 <span class="permesso"><?php echo $categoria["gestione_progetti"] == '1' ? 'Si' : 'No'; ?></span>
                             <?php } else { ?>
-                                <!--<select name="permesso_progetti" id="permesso_progetti">
-                                <option value="0"
-                                        label="No" <?php /*if ($modalitaModifica !== null && $idCategoria !== null && $categoria["gestione_progetti"] === '0') {
-                                    echo 'selected';
-                                } */ ?>
-                                        onselect="<?php /*$categoria = modificaPermesso($categoria, 'gestione_progetti', '0') */ ?>">
-                                    No
-                                </option>
-                                <option value="1"
-                                        label="Si" <?php /*if ($modalitaModifica !== null && $idCategoria !== null && $categoria["gestione_progetti"] === '1') {
-                                    echo 'selected';
-                                } */ ?>
-                                        onselect="<?php /*$categoria = modificaPermesso($categoria, 'gestione_progetti', '1') */ ?>">
-                                    Si
-                                </option>
-                            </select>-->
                                 <div style="padding: 8px 10px">
                                     <label for="permessoProgettiSi">Si</label>
                                     <input type="radio" id="permessoProgettiSi" name="permessoProgetti"
@@ -158,22 +143,6 @@ function modificaPermesso($categoria, $settore, $concesso): void
                             <?php if ($modalitaModifica === null && $idCategoria !== null) { ?>
                                 <span class="permesso"><?php echo $categoria["gestione_utenti"] == '1' ? 'Si' : 'No'; ?></span>
                             <?php } else { ?>
-                                <!--<select name="permesso_utenti" id="permesso_utenti">
-                                <option value="0"
-                                        label="No" <?php /*if ($modalitaModifica !== null && $idCategoria !== null && $categoria["gestione_utenti"] === '0') {
-                                    echo 'selected';
-                                } */ ?>
-                                        onselect="<?php /*$categoria = modificaPermesso($categoria, 'gestione_utenti', '0') */ ?>">
-                                    No
-                                </option>
-                                <option value="1"
-                                        label="Si" <?php /*if ($modalitaModifica !== null && $idCategoria !== null && $categoria["gestione_utenti"] === '1') {
-                                    echo 'selected';
-                                } */ ?>
-                                        onselect="<?php /*$categoria = modificaPermesso($categoria, 'gestione_utenti', '1') */ ?>">
-                                    Si
-                                </option>
-                            </select>-->
                                 <div style="padding: 8px 10px">
                                     <label for="permessoUtentiSi">Si</label>
                                     <input type="radio" id="permessoUtentiSi" name="permessoUtenti"
@@ -195,20 +164,6 @@ function modificaPermesso($categoria, $settore, $concesso): void
                             <?php if ($modalitaModifica === null && $idCategoria !== null) { ?>
                                 <span class="permesso"><?php echo $categoria["gestione_categorie"] == '1' ? 'Si' : 'No'; ?></span>
                             <?php } else { ?>
-                                <!--<select name="permesso_categorie" id="permesso_categorie">
-                                <option value="0"
-                                        label="No" <?php /*if ($modalitaModifica !== null && $idCategoria !== null && $categoria["gestione_categorie"] === '0') {
-                                    echo 'selected';
-                                } */ ?>
-                                        onselect="<?php /*$categoria = modificaPermesso($categoria, 'gestione_categorie', '0') */ ?>">
-                                    No
-                                </option>
-                                <option value="1"
-                                        label="Si" <?php /*if ($modalitaModifica !== null && $idCategoria !== null && $categoria["gestione_categorie"] === '1') echo 'selected'; */ ?>
-                                        onclick="<?php /*$categoria = modificaPermesso($categoria, 'gestione_categorie', '1'); */ ?>">
-                                    Si
-                                </option>
-                            </select>-->
                                 <div style="padding: 8px 10px">
                                     <label for="permessoCategorieSi">Si</label>
                                     <input type="radio" id="permessoCategorieSi" name="permessoCategorie"
@@ -223,7 +178,7 @@ function modificaPermesso($categoria, $settore, $concesso): void
                                 </div>
                             <?php } ?>
                         </div>
-                        <input type="hidden" name="categoriaId" value="<?php echo $idCategoria ?>">
+                        <input type="hidden" name="categoriaId" id="categoriaId" value="<?php echo $idCategoria ?? 0 ?>">
                         <button type="button" class="button-login" id="button-login" onclick="modificaCategoria()">
                             Login
                         </button>

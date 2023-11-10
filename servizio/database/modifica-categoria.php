@@ -14,7 +14,13 @@ if (isset($_POST['categoriaId']) && isset($_POST['categoria_nome']) && isset($_P
 
     // controllare i dati inseriti con delle regex: escludere caratteri virgole, virgolette, ecc per evitare sql injection
 
-    $sql = 'UPDATE utente_categoria SET nome= "' . $categoria_nome . '", gestione_progetti=' . (int)$categoria_progetti . ', gestione_utenti=' . (int)$categoria_utenti . ', gestione_categorie= ' . (int)$categoria_categorie . ' WHERE id=' . (int)$categoria_id . ';';
+    $sql = '';
+    if ($categoria_id !== '0') {
+        $sql = 'UPDATE utente_categoria SET nome= "' . $categoria_nome . '", gestione_progetti=' . (int)$categoria_progetti . ', gestione_utenti=' . (int)$categoria_utenti . ', gestione_categorie= ' . (int)$categoria_categorie . ' WHERE id=' . (int)$categoria_id . ';';
+    } else {
+        $sql = 'INSERT INTO utente_categoria (nome, gestione_progetti, gestione_utenti, gestione_categorie) VALUES ("' . $categoria_nome . '", ' . (int)$categoria_progetti . ', ' . (int)$categoria_utenti . ', ' . (int)$categoria_categorie . ');';
+    }
+    print_r($sql);
     $result = $gestoreQuery->gestoreConnessione->getMysqli()->query($sql);
 
     // Per gli aggiornamenti, $result è un booleano 1/0
