@@ -26,3 +26,7 @@ function modificaCategoria() {
         form.submit();
     }
 }
+
+function eliminaCategoria(id) {
+
+}
