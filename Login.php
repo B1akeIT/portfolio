@@ -116,9 +116,15 @@ if ($inviato) {
                         </div>
 
                         <input type="hidden" name="inviato" value="1">
-                        <button type="button" class="button-login" id="button-login" onclick="controllaLogin()">
-                            Login
-                        </button>
+                        <div class="accesso" style="display: flex; flex-direction: row; justify-content: start; gap: 20px">
+                            <button type="button" class="button-login" id="button-login" onclick="controllaLogin()">
+                                Login
+                            </button>
+                            oppure
+                            <p class="link-progetti-secondari" style="align-self: center; margin: 0">
+                                <a>accedi come utente</a>
+                            </p>
+                        </div>
                     </form>
                 </div>
 

@@ -1317,7 +1317,6 @@ footer .footer-contenuto {
   line-height: 1;
   text-decoration: none;
   transition: 0.25s;
-  margin-top: 15px;
 }
 .container-form .button-invia-email:is(:hover, :focus, :focus-visible), .container-form .button-login:is(:hover, :focus, :focus-visible) {
   outline: none;
