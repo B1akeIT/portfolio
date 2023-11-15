@@ -88,9 +88,8 @@ function modificaPermesso($categoria, $settore, $concesso): void
     <!-- Contenuto principale -->
     <main class="page-wrapper">
 
-        <!-- Progetto -->
+        <!-- Categoria -->
         <article id="gestione-categoria">
-
             <section>
                 <div class="header">
                     <h2>

@@ -105,7 +105,7 @@ class GestoreQuery
 
     public function getCategoriaUtenti($id): array
     {
-        $result = $this->gestoreConnessione->getMysqli()->query("SELECT id, nome, gestione_progetti, gestione_utenti, gestione_categorie FROM utente_categoria WHERE id=" . (int)$id  . " ORDER BY id ASC");
+        $result = $this->gestoreConnessione->getMysqli()->query("SELECT id, nome, gestione_progetti, gestione_utenti, gestione_categorie FROM utente_categoria WHERE id=" . (int)$id . " ORDER BY id ASC");
         return $result->fetch_assoc();
     }
 
@@ -113,6 +113,12 @@ class GestoreQuery
     {
         $result = $this->gestoreConnessione->getMysqli()->query("SELECT * FROM getutenti;");
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getUtente($idUtente)
+    {
+        $result = $this->gestoreConnessione->getMysqli()->query("SELECT * FROM getutenti WHERE id=" . (int)$idUtente);
+        return $result->fetch_assoc();
     }
 
     /*

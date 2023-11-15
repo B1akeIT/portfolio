@@ -1,14 +1,26 @@
 <?php
 require_once('../servizio/Servizio.php');
-require_once('servizio/componenti/gestore-progetti.php');
 $servizio = new Servizio();
 $gestoreQuery = new GestoreQuery();
-$gestoreProgetti = new GestoreProgetti();
 
-$idProgetto = $servizio->getParametro('id');
+$idUtente = $servizio->getParametro('id');
+$modalitaModifica = $servizio->getParametro('modifica');
 
-$progetto = $gestoreQuery->getProgetto($idProgetto);
-$contenuti = $gestoreQuery->getContenutiProgetto($idProgetto);
+$utente = $gestoreQuery->getUtente($idUtente);
+$listaCategorie = $gestoreQuery->getCategorieUtenti();
+
+print_r($utente);
+
+function sottotitolo($id, $modifica): string
+{
+    if ($id == null) {
+        return "Crea utente";
+    } elseif ($modifica && $modifica == '1') {
+        return "Modifica utente";
+    } else {
+        return "Visualizza utente";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +37,7 @@ $contenuti = $gestoreQuery->getContenutiProgetto($idProgetto);
     <link href="https://fonts.cdnfonts.com/css/calibre" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/sf-mono" rel="stylesheet">
     <link href="../stile.css" type="text/css" rel="stylesheet"/>
-    <title> <?php echo $progetto->nome ?> - Davide Giuntoli </title>
+    <title> <?php echo $utente["nome_utente"] ?> - Davide Giuntoli </title>
 
     <link rel="icon" href="../img/logocode_small.svg">
 </head>
@@ -34,7 +46,7 @@ $contenuti = $gestoreQuery->getContenutiProgetto($idProgetto);
 
     <!-- Header con logo e pulsanti per la navigazione -->
     <?php
-    $servizio->customHeader->showHeader();
+    $servizio->customHeader->showHeader(1);
     ?>
 
     <!-- Contenuto laterale social -->
@@ -50,35 +62,35 @@ $contenuti = $gestoreQuery->getContenutiProgetto($idProgetto);
     <!-- Contenuto principale -->
     <main class="page-wrapper">
 
-        <!-- Progetto -->
+        <!-- Utente -->
         <article id="progetto-singolo">
-
             <section>
-
                 <div class="header">
-                    <h2><samp><?php echo $progetto->tipo ?></samp></h2>
-                    <div class="header-info">
-                        <h1><?php echo $progetto->nome ?></h1>
-
-                        <div class="lista-link">
-                            <?php echo $gestoreProgetti->costruisciLinks($progetto->links) ?>
-                        </div>
+                    <h2>
+                        <samp><?php echo sottotitolo($idUtente, $modalitaModifica) ?></samp>
+                    </h2>
+                    <div class="nome">
+                        <h1><?php echo $utente["nome_utente"] ?></h1>
                     </div>
-                    <p>
-                        <?php echo $progetto->testo_intro ?>
-                    </p>
                 </div>
-                <?php
-                foreach ($contenuti as $contenuto) {
-                    if ($contenuto["tipo"] == 'testo') {
-                        echo '<p>' . $contenuto["testo"] . '</p>';
-                    } elseif ($contenuto["tipo"] == 'immagine') {
-                        echo '<div class="immagine-progetto-singolo">
-                    <img src="' . $contenuto["immagine"] . '" title="' . $contenuto["nome"] . '" alt="' . $contenuto["nome"] . '"/>
-                </div>';
-                    }
-                }
-                ?>
+            </section>
+            <section>
+                <div style="width: 50%; display: flex; flex-direction: column">
+
+                    <form action="../servizio/database/modifica-categoria.php" method="post" name="utente-form" id="utente-form">
+                        <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 30px">
+                            <label for="utente_nome" class="label">
+                                Nome
+                            </label>
+                            <?php if ($modalitaModifica === null && $idUtente !== null) { ?>
+                                <span style="color: var(--light-grey)"><?php echo $utente["nome_utente"] ?></span>
+                            <?php } else { ?>
+                                <input name="utente_nome" id="utente_nome" type="text"
+                                       value="<?php echo $utente["nome_utente"] ?>">
+                            <?php } ?>
+                        </div>
+                    </form>
+                </div>
             </section>
         </article>
     </main>
