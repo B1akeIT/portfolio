@@ -1435,7 +1435,7 @@ footer {
 }
 
 .pagina-contatti, .pagina-progetto-singolo, .pagina-login, .pagina-backend,
-.pagina-gestione-progetto, .pagina-gestione-utente, .pagina-gestione-categoria{
+.pagina-gestione-progetto, .pagina-gestione-utente, .pagina-gestione-categoria {
   h1 {
     padding: 10px 0;
     font-weight: 600;
@@ -1587,6 +1587,20 @@ footer {
 
   .form-password {
     margin-block: 30px;
+  }
+
+  .accesso {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 20px;
+
+    .accesso-alternativo {
+      line-height: 0.9;
+      align-self: center;
+      font-size: 18px;
+      margin: 5px 0 0;
+    }
   }
 }
 

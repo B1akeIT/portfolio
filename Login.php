@@ -1,10 +1,15 @@
 <?php
 require_once(realpath($_SERVER["DOCUMENT_ROOT"] . '/portfolio/servizio/Servizio.php'));
+session_start();
 $servizio = new Servizio();
 $gestoreQuery = new GestoreQuery();
+
+$_SESSION['gestioneProgetti'] = 0;
+$_SESSION['gestioneUtenti'] = 0;
+$_SESSION['gestioneCategorie'] = 0;
+
 $nome = '';
 $password = '';
-
 $nomeValido = null;
 $passwordValida = null;
 $classeForm = '';
@@ -116,13 +121,13 @@ if ($inviato) {
                         </div>
 
                         <input type="hidden" name="inviato" value="1">
-                        <div class="accesso" style="display: flex; flex-direction: row; justify-content: start; gap: 20px">
+                        <div class="accesso">
                             <button type="button" class="button-login" id="button-login" onclick="controllaLogin()">
                                 Login
                             </button>
+                            <p class="accesso-alternativo">
                             oppure
-                            <p class="link-progetti-secondari" style="align-self: center; margin: 0">
-                                <a>accedi come utente</a>
+                                <a href="backend/Backend.php">accedi come ospite</a>
                             </p>
                         </div>
                     </form>

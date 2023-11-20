@@ -1399,6 +1399,18 @@ footer .footer-contenuto {
 .pagina-login .form-password {
   margin-block: 30px;
 }
+.pagina-login .accesso {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 20px;
+}
+.pagina-login .accesso .accesso-alternativo {
+  line-height: 0.9;
+  align-self: center;
+  font-size: 18px;
+  margin: 5px 0 0;
+}
 
 /********** Stile pagina login **********/
 .pagina-backend h1 {
