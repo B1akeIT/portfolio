@@ -4,9 +4,16 @@ session_start();
 $servizio = new Servizio();
 $gestoreQuery = new GestoreQuery();
 
-$_SESSION['gestioneProgetti'] = 0;
-$_SESSION['gestioneUtenti'] = 0;
-$_SESSION['gestioneCategorie'] = 0;
+if (!isset($_SESSION['gestioneProgetti'])) {
+    $_SESSION['gestioneProgetti'] = 0;
+}
+if (!isset($_SESSION['gestioneUtenti'])) {
+    $_SESSION['gestioneUtenti'] = 0;
+}
+if (!isset($_SESSION['gestioneCategorie'])) {
+    $_SESSION['gestioneCategorie'] = 0;
+}
+
 
 $nome = '';
 $password = '';
@@ -125,10 +132,8 @@ if ($inviato) {
                             <button type="button" class="button-login" id="button-login" onclick="controllaLogin()">
                                 Login
                             </button>
-                            <p class="accesso-alternativo">
-                            oppure
-                                <a href="backend/Backend.php">accedi come ospite</a>
-                            </p>
+                            <p>oppure</p>
+                            <p><a href="backend/Backend.php">accedi come ospite</a></p>
                         </div>
                     </form>
                 </div>

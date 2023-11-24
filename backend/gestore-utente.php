@@ -92,15 +92,27 @@ function sottotitolo($id, $modifica): string
                     </form>
                 </div>
                 <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between;">
-                    <label for="permesso_categorie" class="label">
+                    <label for="utente-categoria" class="label">
                         Categoria
                     </label>
                     <?php if ($modalitaModifica === null && $idUtente !== null) { ?>
-                        <span class="permesso"><?php echo $utente["categoria"]; ?></span>
+                        <span class="permesso" style="color: var(--light-grey)"><?php echo $utente["categoria"]; ?></span>
                     <?php } else { ?>
                         <div style="padding: 8px 10px">
-                            <label for="permessoCategorieSi">Si</label>
                             <!-- TODO Select con le categorie -->
+                            <select name="utente-categoria">
+                                <?php
+                                    foreach ($listaCategorie as $categoria) {
+                                        $option = "";
+                                        $option .= "<option value='". $categoria["id"] ."'";
+                                        if ($utente["id_categoria"] == $categoria["id"]) {
+                                            $option .= " selected ";
+                                        }
+                                        $option .= " >" . $categoria["nome"] . "</option>";
+                                        echo $option;
+                                    }
+                                ?>
+                            </select>
                         </div>
                     <?php } ?>
                 </div>
