@@ -7,23 +7,18 @@ $gestoreQuery = new GestoreQuery();
 $idCategoria = $servizio->getParametro('id');
 $modalitaModifica = $servizio->getParametro('modifica');
 
+$categoria = null;
 if ($idCategoria !== null) {
     $categoria = $gestoreQuery->getCategoriaUtenti($idCategoria);
 } else {
     $categoria = [
-        "id" => '0',
+        "id" => 0,
         "nome" => 'Nuova categoria',
-        "gestione_progetti" => '0',
-        "gestione_utenti" => '0',
-        "gestione_categorie" => '0',
+        "gestione_progetti" => 0,
+        "gestione_utenti" => 0,
+        "gestione_categorie" => 0,
     ];
 }
-
-$_POST['categoria'] = $categoria;
-
-print_r($idCategoria == null);
-print_r($modalitaModifica == null);
-
 
 function sottotitolo($id, $modifica): string
 {
@@ -179,7 +174,7 @@ function modificaPermesso($categoria, $settore, $concesso): void
                         </div>
                         <input type="hidden" name="categoriaId" id="categoriaId" value="<?php echo $idCategoria ?? 0 ?>">
                         <button type="button" class="button-login" id="button-login" onclick="modificaCategoria()">
-                            Login
+                            Conferma
                         </button>
                     </form>
                 </div>

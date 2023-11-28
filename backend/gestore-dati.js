@@ -27,6 +27,15 @@ function modificaCategoria() {
     }
 }
 
-function eliminaCategoria(id) {
+function modificaUtente() {
+    const nomeUtente = document.getElementById('utente_nome').value.trim();
+    const form = document.getElementById('utente-form');
+    var errori = 0;
+    if (nomeUtente.length === 0) {
+        errori++;
+    }
 
+    if (errori === 0) {
+        form.submit();
+    }
 }

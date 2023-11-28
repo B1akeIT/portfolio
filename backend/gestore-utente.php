@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('../servizio/Servizio.php');
 $servizio = new Servizio();
 $gestoreQuery = new GestoreQuery();
@@ -6,10 +7,20 @@ $gestoreQuery = new GestoreQuery();
 $idUtente = $servizio->getParametro('id');
 $modalitaModifica = $servizio->getParametro('modifica');
 
-$utente = $gestoreQuery->getUtente($idUtente);
 $listaCategorie = $gestoreQuery->getCategorieUtenti();
 
-print_r($utente);
+$utente = null;
+if ($idUtente !== null) {
+    $utente = $gestoreQuery->getUtente($idUtente);
+    print_r($utente);
+} else {
+    $utente = [
+        "id" => 0,
+        "nome_utente" => 'Utente',
+        "id_categoria" => 0,
+        "categoria" => 0
+    ];
+}
 
 function sottotitolo($id, $modifica): string
 {
@@ -77,7 +88,7 @@ function sottotitolo($id, $modifica): string
             <section>
                 <div style="width: 50%; display: flex; flex-direction: column">
 
-                    <form action="../servizio/database/modifica-categoria.php" method="post" name="utente-form" id="utente-form">
+                    <form action="../servizio/database/modifica-utente.php" method="post" name="utente-form" id="utente-form">
                         <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 30px">
                             <label for="utente_nome" class="label">
                                 Nome
@@ -99,8 +110,7 @@ function sottotitolo($id, $modifica): string
                         <span class="permesso" style="color: var(--light-grey)"><?php echo $utente["categoria"]; ?></span>
                     <?php } else { ?>
                         <div style="padding: 8px 10px">
-                            <!-- TODO Select con le categorie -->
-                            <select name="utente-categoria">
+                            <select name="utente-categoria" id="utente-categoria">
                                 <?php
                                     foreach ($listaCategorie as $categoria) {
                                         $option = "";
@@ -116,6 +126,10 @@ function sottotitolo($id, $modifica): string
                         </div>
                     <?php } ?>
                 </div>
+                <input type="hidden" name="utenteId" id="utenteId" value="<?php echo $idUtente ?? 0 ?>">
+                <button type="button" class="button-login" id="button-login" onclick="modificaUtente()">
+                    Conferma
+                </button>
             </section>
         </article>
     </main>

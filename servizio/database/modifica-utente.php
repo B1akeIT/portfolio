@@ -7,8 +7,8 @@ $gestoreQuery = new GestoreQuery();
 $sql = '';
 $result = [];
 print_r($_POST);
-$eliminaCategoria = $servizio->getParametro('elimina');
-if ($eliminaCategoria === null) {
+$eliminaUtente = $servizio->getParametro('elimina');
+if ($eliminaUtente === null) {
     if (isset($_POST['categoriaId']) && isset($_POST['categoria_nome']) && isset($_POST['permessoProgetti']) && isset($_POST['permessoUtenti']) && isset($_POST['permessoCategorie'])) {
         $categoria_id = $_POST['categoriaId'];
         $categoria_nome = $_POST['categoria_nome'];
@@ -21,6 +21,7 @@ if ($eliminaCategoria === null) {
         if ($categoria_id !== '0') {
             $sql = 'UPDATE utente_categoria SET nome= "' . $categoria_nome . '", gestione_progetti=' . (int)$categoria_progetti . ', gestione_utenti=' . (int)$categoria_utenti . ', gestione_categorie= ' . (int)$categoria_categorie . ' WHERE id=' . (int)$categoria_id . ';';
         } else {
+            // INSERT INTO `portfolio`.`utente` (`nome_utente`, `password`, `id_categoria`) VALUES ('Test creazione', '645896ce509577cbbc556b0745e0b92ee82fffa411330a48645b1b77596553cf4fbadde1baa56f888d450ae828133a9ad3e7777007171fc6984f46eb50406452', 5);
             $sql = 'INSERT INTO utente_categoria (nome, gestione_progetti, gestione_utenti, gestione_categorie) VALUES ("' . $categoria_nome . '", ' . (int)$categoria_progetti . ', ' . (int)$categoria_utenti . ', ' . (int)$categoria_categorie . ');';
         }
         print_r($sql);
@@ -37,12 +38,10 @@ if ($eliminaCategoria === null) {
         echo 'Errore nei dati inseriti!';
     }
 } else {
-    $categoria_id = $servizio->getParametro('id');
-    if ($categoria_id) {
-        $sql = 'CALL deleteCategoria(' . (int)$categoria_id . ')';
-        print_r($sql);
-        $result = $gestoreQuery->gestoreConnessione->getMysqli()->query($sql);
-        print_r($result);
+    if (isset($_POST['utenteId'])) {
+        $idUtente = $_POST['utenteId'];
+        $sql = 'CALL eliminaUtente(' . (int)$idUtente . ')';
+
         // Per gli aggiornamenti, $result è un booleano 1/0
         if ($result) {
             header("Location: ../../backend/Backend.php");
