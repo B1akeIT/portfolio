@@ -28,9 +28,6 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         header("Location: ../../backend/Backend.php");
     } else {
         echo 'Errore! Utente non trovato!';
-        print_r($username);
-        print_r($password);
-        print_r($hashedPassword);
         print_r($sql);
     }
 } else {

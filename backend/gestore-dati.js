@@ -1,7 +1,7 @@
 function controllaLogin() {
+    const form = document.getElementById('login-form');
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value.trim();
-    const form = document.getElementById('login-form');
 
     var errori = 0;
     if (username.length === 0 || password.length === 0) {
@@ -15,8 +15,8 @@ function controllaLogin() {
 }
 
 function modificaCategoria() {
-    const nomeCategoria = document.getElementById('categoria_nome').value.trim();
     const form = document.getElementById('categoria-form');
+    const nomeCategoria = document.getElementById('categoria_nome').value.trim();
     var errori = 0;
     if (nomeCategoria.length === 0) {
         errori++;
@@ -28,8 +28,8 @@ function modificaCategoria() {
 }
 
 function modificaUtente() {
-    const nomeUtente = document.getElementById('utente_nome').value.trim();
     const form = document.getElementById('utente-form');
+    const nomeUtente = document.getElementById('utente-nome').value.trim();
     var errori = 0;
     if (nomeUtente.length === 0) {
         errori++;

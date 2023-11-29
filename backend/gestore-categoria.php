@@ -97,18 +97,19 @@ function modificaPermesso($categoria, $settore, $concesso): void
             </section>
             <section>
                 <div class="permessi" style="width: 50%; display: flex; flex-direction: column">
-                    <form action="../servizio/database/modifica-categoria.php" method="post" name="categoria-form" id="categoria-form">
-                    <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 30px">
-                        <label for="categoria_nome" class="label">
-                            Nome
-                        </label>
-                        <?php if ($modalitaModifica === null && $idCategoria !== null) { ?>
-                            <span style="color: var(--light-grey)"><?php echo $categoria["nome"] ?></span>
-                        <?php } else { ?>
-                            <input name="categoria_nome" id="categoria_nome" type="text"
-                                   value="<?php echo $categoria["nome"] ?>">
-                        <?php } ?>
-                    </div>
+                    <form action="../servizio/database/modifica-categoria.php" method="post" name="categoria-form"
+                          id="categoria-form">
+                        <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 30px">
+                            <label for="categoria_nome" class="label">
+                                Nome
+                            </label>
+                            <?php if ($modalitaModifica === null && $idCategoria !== null) { ?>
+                                <span style="color: var(--light-grey)"><?php echo $categoria["nome"] ?></span>
+                            <?php } else { ?>
+                                <input name="categoria_nome" id="categoria_nome" type="text"
+                                       value="<?php echo $categoria["nome"] ?>">
+                            <?php } ?>
+                        </div>
                         <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between;">
                             <label for="permesso_progetti" class="label">
                                 Può modificare i progetti?
@@ -172,7 +173,8 @@ function modificaPermesso($categoria, $settore, $concesso): void
                                 </div>
                             <?php } ?>
                         </div>
-                        <input type="hidden" name="categoriaId" id="categoriaId" value="<?php echo $idCategoria ?? 0 ?>">
+                        <input type="hidden" name="categoriaId" id="categoriaId"
+                               value="<?php echo $idCategoria ?? 0 ?>">
                         <button type="button" class="button-login" id="button-login" onclick="modificaCategoria()">
                             Conferma
                         </button>

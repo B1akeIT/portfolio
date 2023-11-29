@@ -17,6 +17,7 @@ if ($idUtente !== null) {
     $utente = [
         "id" => 0,
         "nome_utente" => 'Utente',
+        "password" => '',
         "id_categoria" => 0,
         "categoria" => 0
     ];
@@ -32,6 +33,7 @@ function sottotitolo($id, $modifica): string
         return "Visualizza utente";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -53,6 +55,7 @@ function sottotitolo($id, $modifica): string
     <link rel="icon" href="../img/logocode_small.svg">
 </head>
 <body>
+<script src="gestore-dati.js"></script>
 <div class="background pagina-progetto-singolo">
 
     <!-- Header con logo e pulsanti per la navigazione -->
@@ -88,48 +91,49 @@ function sottotitolo($id, $modifica): string
             <section>
                 <div style="width: 50%; display: flex; flex-direction: column">
 
-                    <form action="../servizio/database/modifica-utente.php" method="post" name="utente-form" id="utente-form">
+                    <form action="../servizio/database/modifica-utente.php" method="post" name="utente-form"
+                          id="utente-form">
                         <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 30px">
-                            <label for="utente_nome" class="label">
+                            <label for="utente-nome" class="label">
                                 Nome
                             </label>
                             <?php if ($modalitaModifica === null && $idUtente !== null) { ?>
                                 <span style="color: var(--light-grey)"><?php echo $utente["nome_utente"] ?></span>
                             <?php } else { ?>
-                                <input name="utente_nome" id="utente_nome" type="text"
+                                <input name="utente-nome" id="utente-nome" type="text"
                                        value="<?php echo $utente["nome_utente"] ?>">
                             <?php } ?>
                         </div>
-                    </form>
-                </div>
-                <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between;">
-                    <label for="utente-categoria" class="label">
-                        Categoria
-                    </label>
-                    <?php if ($modalitaModifica === null && $idUtente !== null) { ?>
-                        <span class="permesso" style="color: var(--light-grey)"><?php echo $utente["categoria"]; ?></span>
-                    <?php } else { ?>
-                        <div style="padding: 8px 10px">
-                            <select name="utente-categoria" id="utente-categoria">
-                                <?php
+                        <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between;">
+                            <label for="utente-categoria" class="label">
+                                Categoria
+                            </label>
+                            <?php if ($modalitaModifica === null && $idUtente !== null) { ?>
+                                <span class="permesso"
+                                      style="color: var(--light-grey)"><?php echo $utente["categoria"]; ?></span>
+                            <?php } else { ?>
+                            <div style="padding: 8px 10px">
+                                <select name="utente-categoria" id="utente-categoria">
+                                    <?php
                                     foreach ($listaCategorie as $categoria) {
                                         $option = "";
-                                        $option .= "<option value='". $categoria["id"] ."'";
+                                        $option .= "<option value='" . $categoria["id"] . "'";
                                         if ($utente["id_categoria"] == $categoria["id"]) {
                                             $option .= " selected ";
                                         }
                                         $option .= " >" . $categoria["nome"] . "</option>";
                                         echo $option;
                                     }
-                                ?>
-                            </select>
+                                    ?>
+                                </select>
+                                <?php } ?>
+                            </div>
                         </div>
-                    <?php } ?>
-                </div>
-                <input type="hidden" name="utenteId" id="utenteId" value="<?php echo $idUtente ?? 0 ?>">
-                <button type="button" class="button-login" id="button-login" onclick="modificaUtente()">
-                    Conferma
-                </button>
+                        <input type="hidden" name="utente-id" id="utente-id" value="<?php echo $idUtente ?? 0 ?>">
+                        <button type="button" class="button-login" id="button-login" onclick="modificaUtente()">
+                            Conferma
+                        </button>
+                    </form>
             </section>
         </article>
     </main>
