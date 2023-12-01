@@ -42,13 +42,10 @@ class GestoreQuery
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getProgetti($associativo = false)
+    public function getProgetti()
     {
         $progetti = [];
         $result = $this->gestoreConnessione->getMysqli()->query("SELECT * FROM getProgetti;");
-        {
-            if ($associativo === true) return $result->fetch_all(MYSQLI_ASSOC);
-        }
         if ($result->num_rows > 0) {
             foreach ($result->fetch_all(MYSQLI_ASSOC) as $row) {
                 $progetto = new Progetto($row["id"], $row["nome"], $row["href"], $row["tipo"], $row["testo_intro"], $row["tecnologie"] ?? [], $row["banner_src"], $row["banner_alt"], $this->getLinksProgetto($row["id"]));
