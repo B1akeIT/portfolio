@@ -1,6 +1,6 @@
 <?php
 require_once('../servizio/Servizio.php');
-require_once('servizio/componenti/gestore-progetti.php');
+require_once('../servizio/componenti/gestore-progetti.php');
 $servizio = new Servizio();
 $gestoreQuery = new GestoreQuery();
 $gestoreProgetti = new GestoreProgetti();
@@ -24,17 +24,17 @@ $contenuti = $gestoreQuery->getContenutiProgetto($idProgetto);
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/calibre" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/sf-mono" rel="stylesheet">
-    <link href="stile.css" type="text/css" rel="stylesheet"/>
+    <link href="../stile.css" type="text/css" rel="stylesheet"/>
     <title> <?php echo $progetto->nome ?> - Davide Giuntoli </title>
 
-    <link rel="icon" href="img/logocode_small.svg">
+    <link rel="icon" href="../img/logocode_small.svg">
 </head>
 <body>
 <div class="background pagina-progetto-singolo">
 
     <!-- Header con logo e pulsanti per la navigazione -->
     <?php
-    $servizio->customHeader->showHeader();
+    $servizio->customHeader->showHeader(1);
     ?>
 
     <!-- Contenuto laterale social -->
@@ -61,7 +61,7 @@ $contenuti = $gestoreQuery->getContenutiProgetto($idProgetto);
                         <h1><?php echo $progetto->nome ?></h1>
 
                         <div class="lista-link">
-                            <?php echo $gestoreProgetti->costruisciLinks($progetto->links) ?>
+                            <?php echo $gestoreProgetti->costruisciLinks($progetto->links, 1) ?>
                         </div>
                     </div>
                     <p>
@@ -74,7 +74,7 @@ $contenuti = $gestoreQuery->getContenutiProgetto($idProgetto);
                         echo '<p>' . $contenuto["testo"] . '</p>';
                     } elseif ($contenuto["tipo"] == 'immagine') {
                         echo '<div class="immagine-progetto-singolo">
-                    <img src="' . $contenuto["immagine"] . '" title="' . $contenuto["nome"] . '" alt="' . $contenuto["nome"] . '"/>
+                    <img src="../' . $contenuto["immagine"] . '" title="' . $contenuto["nome"] . '" alt="' . $contenuto["nome"] . '"/>
                 </div>';
                     }
                 }

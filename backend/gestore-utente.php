@@ -16,7 +16,7 @@ if ($idUtente !== null) {
 } else {
     $utente = [
         "id" => 0,
-        "nome_utente" => 'Utente',
+        "nome_utente" => 'Nuovo utente',
         "password" => '',
         "id_categoria" => 0,
         "categoria" => 0
@@ -90,7 +90,6 @@ function sottotitolo($id, $modifica): string
             </section>
             <section>
                 <div style="width: 50%; display: flex; flex-direction: column">
-
                     <form action="../servizio/database/modifica-utente.php" method="post" name="utente-form"
                           id="utente-form">
                         <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 30px">
@@ -104,6 +103,20 @@ function sottotitolo($id, $modifica): string
                                        value="<?php echo $utente["nome_utente"] ?>">
                             <?php } ?>
                         </div>
+                        <?php if ($utente["id"] == 0) { ?>
+                            <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 30px">
+                                <label for="utente-password" class="label">
+                                    Password
+                                </label>
+                                <input name="utente-password" id="utente-password" type="text">
+                            </div>
+                            <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 30px">
+                                <label for="utente-ripeti-password" class="label">
+                                    Ripeti password
+                                </label>
+                                <input name="utente-ripeti-password" id="utente-ripeti-password" type="text">
+                            </div>
+                        <?php } ?>
                         <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between;">
                             <label for="utente-categoria" class="label">
                                 Categoria
@@ -129,7 +142,7 @@ function sottotitolo($id, $modifica): string
                                 <?php } ?>
                             </div>
                         </div>
-                        <input type="hidden" name="utente-id" id="utente-id" value="<?php echo $idUtente ?? 0 ?>">
+                        <input type="hidden" name="id" id="id" value="<?php echo $utente["id"] ?>">
                         <button type="button" class="button-login" id="button-login" onclick="modificaUtente()">
                             Conferma
                         </button>

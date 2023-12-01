@@ -42,10 +42,13 @@ class GestoreQuery
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getProgetti()
+    public function getProgetti($associativo = false)
     {
         $progetti = [];
         $result = $this->gestoreConnessione->getMysqli()->query("SELECT * FROM getProgetti;");
+        {
+            if ($associativo === true) return $result->fetch_all(MYSQLI_ASSOC);
+        }
         if ($result->num_rows > 0) {
             foreach ($result->fetch_all(MYSQLI_ASSOC) as $row) {
                 $progetto = new Progetto($row["id"], $row["nome"], $row["href"], $row["tipo"], $row["testo_intro"], $row["tecnologie"] ?? [], $row["banner_src"], $row["banner_alt"], $this->getLinksProgetto($row["id"]));
@@ -99,7 +102,7 @@ class GestoreQuery
 
     public function getCategorieUtenti(): array
     {
-        $result = $this->gestoreConnessione->getMysqli()->query("SELECT id, nome, gestione_progetti, gestione_utenti, gestione_categorie, modificabile FROM utente_categoria ORDER BY id ASC");
+        $result = $this->gestoreConnessione->getMysqli()->query("SELECT id, nome, gestione_progetti, gestione_utenti, gestione_categorie, modificabile FROM utente_categoria WHERE modificabile = 1 ORDER BY id ASC");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 

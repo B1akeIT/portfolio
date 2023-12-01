@@ -30,11 +30,22 @@ function modificaCategoria() {
 function modificaUtente() {
     const form = document.getElementById('utente-form');
     const nomeUtente = document.getElementById('utente-nome').value.trim();
+    const password = document.getElementById('utente-password').value.trim();
+    const ripetiPassword = document.getElementById('utente-ripeti-password').value.trim();
     var errori = 0;
+    form.className = '';
+
     if (nomeUtente.length === 0) {
         errori++;
+        form.className += " errore-nome-utente"
     }
 
+    if (password !== ripetiPassword) {
+        errori++;
+        form.className += " errore-password-diverse"
+    }
+
+    form.className = form.className.trim();
     if (errori === 0) {
         form.submit();
     }
