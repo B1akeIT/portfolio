@@ -50,3 +50,16 @@ function modificaUtente() {
         form.submit();
     }
 }
+
+function modificaProgetto() {
+    const form = document.getElementById('playground-form');
+    const image = document.getElementById('playground-immagine');
+    console.log(image);
+    console.log(image.value);
+    console.log(typeof image.value);
+    console.log(image.value === '');
+
+    if (image.value !== '') {
+        form.submit();
+    }
+}

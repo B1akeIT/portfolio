@@ -88,6 +88,13 @@ class GestoreQuery
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getImmagini(): array
+    {
+
+        $result = $this->gestoreConnessione->getMysqli()->query("SELECT * FROM immagine ORDER BY id DESC;");
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function createUtente($username, $password, $categoria): void
     {
         $hashedPassword = hash("sha512", $password);
@@ -120,14 +127,6 @@ class GestoreQuery
         $result = $this->gestoreConnessione->getMysqli()->query("SELECT * FROM getutenti WHERE id=" . (int)$idUtente);
         return $result->fetch_assoc();
     }
-
-    /*
-        public function login($username, $password)
-        {
-            $hashedPassword = hash("sha512", $password);
-            $result = $this->gestoreConnessione->getMysqli()->query("SELECT utente.id, utente.nome_utente, utente_categoria.nome AS categoria, utente_categoria.gestione_progetti, utente_categoria.gestione_utenti, utente_categoria.gestione_categorie FROM utente LEFT JOIN utente_categoria ON utente.id_categoria = utente_categoria.id  WHERE utente.nome_utente =$username AND utente.password = $hashedPassword LIMIT 1;");
-            return $result->fetch_all(MYSQLI_ASSOC);
-        }*/
 
     /**
      * @param $username

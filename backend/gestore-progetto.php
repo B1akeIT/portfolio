@@ -9,6 +9,7 @@ $idProgetto = $servizio->getParametro('id');
 
 $progetto = $gestoreQuery->getProgetto($idProgetto);
 $contenuti = $gestoreQuery->getContenutiProgetto($idProgetto);
+$immagini = $gestoreQuery->getImmagini();
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +31,7 @@ $contenuti = $gestoreQuery->getContenutiProgetto($idProgetto);
     <link rel="icon" href="../img/logocode_small.svg">
 </head>
 <body>
+<script src="gestore-dati.js"></script>
 <div class="background pagina-progetto-singolo">
 
     <!-- Header con logo e pulsanti per la navigazione -->
@@ -79,6 +81,25 @@ $contenuti = $gestoreQuery->getContenutiProgetto($idProgetto);
                     }
                 }
                 ?>
+            </section>
+            <section>
+                <form action="../servizio/database/image-upload.php" name="file" id="playground-form" method="post" enctype="multipart/form-data">
+                    <input type="file" id="playground-immagine" name="playground-immagine" value="" />
+                    <button type="button" class="button-login" id="playground-button" onclick="modificaProgetto()">
+                        Conferma
+                    </button>
+                </form>
+
+                <!-- Display images with BLOB data from database -->
+                <?php if(count($immagini) > 0){ ?>
+                    <div class="gallery">
+                        <?php foreach ($immagini as $immagine ) { ?>
+                            <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($immagine['image']); ?>"  alt=""/>
+                        <?php } ?>
+                    </div>
+                <?php }else{ ?>
+                    <p class="status error">Image(s) not found...</p>
+                <?php } ?>
             </section>
         </article>
     </main>
